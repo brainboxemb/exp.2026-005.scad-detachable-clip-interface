@@ -2,6 +2,8 @@
 //
 // Integration example: embed the reduced receiver into a 50 x 10 x 4 rail.
 
+include <BOSL2/std.scad>
+
 $fn = 120;
 
 use <../../lib/at01_inverted_core_snap.scad>
