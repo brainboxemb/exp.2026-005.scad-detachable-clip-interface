@@ -17,37 +17,24 @@ Qualified by PR run:
 
 ## Generated evidence
 
-Comparison PNG:
+The generated filenames are user-facing and no longer depend on knowing the
+internal OG/AT testcase codes.
 
-- `og-02-full-lite-assembled.png`
-- `og-02-full-lite-exploded.png`
-- `og-02-full-lite-section.png`
+Primary complete Lite reference parts:
 
-Individual profile PNG:
+- `01-reference-lite-receiver.png/.stl`;
+- `02-reference-lite-snap.png/.stl`.
 
-- `og-02-profile-full-receiver.png`
-- `og-02-profile-full-snap.png`
-- `og-02-profile-lite-receiver.png`
-- `og-02-profile-lite-snap.png`
+Lite reference sections/profiles are grouped in the `40-...` range. Full
+baseline/reference evidence is grouped in the `50-...` range, and Full-versus-
+Lite comparison evidence in the `60-...` range.
 
-Complete Lite STL:
+The profile STL files remain true 1.0 mm-thick slices. All generated reference
+targets report `Status: NoError`; all STL exports report a manifold top-level
+3D object.
 
-- `og-02-lite-receiver.stl`
-- `og-02-lite-snap.stl`
-
-Individual profile-slice STL:
-
-- `og-02-profile-full-receiver.stl`
-- `og-02-profile-full-snap.stl`
-- `og-02-profile-lite-receiver.stl`
-- `og-02-profile-lite-snap.stl`
-
-The profile STL files are true 1.0 mm-thick central Y slices. All generated
-OG-02 targets report `Status: NoError`; all STL exports report a manifold
-top-level 3D object.
-
-OG-01's complete Full receiver and Full snap STLs remain the Full printable
-baseline rather than being duplicated under OG-02 names.
+The numeric prefix is an output-navigation aid only. OG-01 and OG-02 remain the
+experiment/testcase identifiers in the design record.
 
 ## Dimension relationship
 
