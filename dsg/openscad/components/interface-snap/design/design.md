@@ -34,12 +34,12 @@ earlier problem where the top and lower body had visibly different outer angles.
 The outer envelope uses one reduced chamfer value:
 
 ```openscad
-AT01_SNAP_CORE_ROUNDING = min(
-    AT01_SOURCE_CORE_ROUNDING * AT01_PLAN_SCALE,
-    AT01_SNAP_WALL / 2
+CLIP_SNAP_CORNER_CHAMFER = min(
+    OPENGRID_SNAP_CORE_CHAMFER * CLIP_TANGENTIAL_SCALE,
+    CLIP_SNAP_WALL_THICKNESS / 2
 );
 
-AT01_SNAP_TOP_ROUNDING = AT01_SNAP_CORE_ROUNDING;
+CLIP_SNAP_TOP_THICKNESS_ROUNDING = CLIP_SNAP_CORNER_CHAMFER;
 ```
 
 Because the wall is 2.0 mm thick, the chamfer is capped at 1.0 mm. The end
@@ -90,11 +90,11 @@ continuous from bottom to top.
 ```openscad
 cuboid(
     [
-        AT01_SNAP_OUTER_WIDTH,
-        AT01_SNAP_LENGTH,
-        AT01_SNAP_TOP
+        CLIP_SNAP_OUTER_WIDTH,
+        CLIP_SNAP_LENGTH,
+        CLIP_SNAP_TOP_THICKNESS
     ],
-    rounding = AT01_SNAP_TOP_ROUNDING,
+    rounding = CLIP_SNAP_TOP_THICKNESS_ROUNDING,
     edges = "Z",
     $fn = 2
 );
@@ -128,17 +128,17 @@ The key slot placement is:
 
 ```openscad
 translate([
-    inner + AT01_CLICK_SLOT_X_FROM_INNER,
+    inner + CLIP_SNAP_CLICK_SLOT_OFFSET_FROM_INNER,
     0,
-    AT01_CLICK_SLOT_HEIGHT / 2
+    CLIP_SNAP_CLICK_SLOT_HEIGHT / 2
 ])
     cuboid(
         [
-            AT01_CLICK_SLOT_RADIAL,
-            AT01_CLICK_SLOT_LENGTH_Y,
-            AT01_CLICK_SLOT_HEIGHT
+            CLIP_SNAP_CLICK_SLOT_WIDTH,
+            CLIP_SNAP_CLICK_SLOT_LENGTH,
+            CLIP_SNAP_CLICK_SLOT_HEIGHT
         ],
-        rounding = AT01_CLICK_SLOT_ROUNDING,
+        rounding = CLIP_SNAP_CLICK_SLOT_CORNER_RADIUS,
         edges = "Z"
     );
 ```
