@@ -90,9 +90,19 @@ Exit: generated evidence makes the Full/Lite difference explicit and the
 findings select the better starting principle for AT-01 without introducing
 HUB75 geometry.
 
+## Reference correction — minimize upstream overrides
+
+**Status:** active in PR #3.
+
+Before AT-01, revalidate OG-01/OG-02 using the smallest safe upstream call
+surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.md).
+
+The correction removes experiment-owned parameter overrides and the derived Lite
+assembly Z offset until the regenerated evidence supports an assembly relation.
+
 ## AT-01 — neutral fixed/removable coupon
 
-**Status:** next after PR #2 merges.
+**Status:** blocked on PR #3 reference revalidation.
 
 Start from the Lite relationship as the primary reduction reference. Keep Full
 as a control when the purpose of a removed feature is uncertain.

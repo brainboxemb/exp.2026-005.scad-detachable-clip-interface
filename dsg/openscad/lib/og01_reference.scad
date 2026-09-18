@@ -1,40 +1,28 @@
 // File: og01_reference.scad
 // Upstream OpenGrid receiver + removable snap reference fixture.
 //
-// This file deliberately poses upstream QuackWorks geometry without
-// reimplementing or modifying its mating features.
+// Keep upstream defaults intact wherever possible. The board dimensions are the
+// only required receiver inputs. openGridSnap() unfortunately requires BOSL2
+// placement arguments without defaults, so those are supplied explicitly.
 
 include <BOSL2/std.scad>
 use <../ext/quackworks/openGrid/openGrid.scad>
 use <../ext/quackworks/openGrid/opengrid-snap.scad>
 
-OG01_TILE_SIZE = 28;
-OG01_TILE_THICKNESS = 6.8;
-OG01_SNAP_SIZE = 24.8;
 OG01_EXPLODED_Z = 14;
 
 module og01_fixed_receiver() {
     openGrid(
         Board_Width = 1,
-        Board_Height = 1,
-        tileSize = OG01_TILE_SIZE,
-        Tile_Thickness = OG01_TILE_THICKNESS,
-        Screw_Mounting = "None",
-        Chamfers = "None",
-        Connector_Holes = false,
-        anchor = BOT,
-        spin = 0,
-        orient = UP
+        Board_Height = 1
     );
 }
 
-module og01_removable_snap(directional = false) {
+module og01_removable_snap() {
     openGridSnap(
-        lite = false,
-        directional = directional,
-        anchor = BOT,
-        spin = 0,
-        orient = UP
+        orient = UP,
+        anchor = CENTER,
+        spin = 0
     );
 }
 
@@ -56,8 +44,8 @@ module og01_reference_exploded() {
 }
 
 module _og01_section_volume() {
-    translate([-40, -40, -1])
-        cube([80, 40, 30]);
+    translate([-40, -40, -20])
+        cube([80, 40, 40]);
 }
 
 module og01_reference_section() {
