@@ -5,15 +5,18 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
+use <../../design_support.scad>
 use <reference_lite_snap.scad>
 
 module reference_lite_snap_design(view = "final") {
-    if (view == "solid-profile")
-        reference_lite_snap_profile(false);
-    else if (view == "flex-profile")
-        reference_lite_snap_profile(true);
-    else
-        reference_lite_snap_build();
+    design_bosl2_context() {
+        if (view == "solid-profile")
+            reference_lite_snap_profile(false);
+        else if (view == "flex-profile")
+            reference_lite_snap_profile(true);
+        else
+            reference_lite_snap_build();
+    }
 }
 
 reference_lite_snap_design();
