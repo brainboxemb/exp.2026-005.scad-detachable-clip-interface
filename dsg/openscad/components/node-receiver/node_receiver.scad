@@ -50,25 +50,31 @@ module node_receiver_design_lower_cutters() {
     }
 }
 
-module node_receiver_design_top_main_cutters() {
+module node_receiver_design_top_guide_cutters() {
     union() {
-        _node_positive_x_top_cut_active();
+        _node_positive_x_top_guide_cut();
         mirror([1, 0, 0])
-            _node_positive_x_top_cut_active();
+            _node_positive_x_top_guide_cut();
     }
 }
 
-module node_receiver_design_top_end_cutters() {
-    union() {
-        _node_positive_y_top_cut_transition();
-        mirror([0, 1, 0])
-            _node_positive_y_top_cut_transition();
+module node_receiver_design_top_main_cutters() {
+    // Analysis-only view of the central 10 mm portion of the REAL production
+    // cutter. This explains the intended constant X/Z lead-in without creating
+    // a second geometry implementation.
+    intersection() {
+        node_receiver_design_top_guide_cutters();
 
-        mirror([1, 0, 0]) {
-            _node_positive_y_top_cut_transition();
-            mirror([0, 1, 0])
-                _node_positive_y_top_cut_transition();
-        }
+        translate([
+            -node_receiver_width(),
+            -node_receiver_functional_length() / 2,
+            -1
+        ])
+            cube([
+                2 * node_receiver_width(),
+                node_receiver_functional_length(),
+                node_receiver_height() + 2
+            ]);
     }
 }
 
@@ -79,32 +85,25 @@ module node_receiver_design_after_lower() {
     }
 }
 
-module node_receiver_design_after_top_main() {
+module node_receiver_design_top_removed_material() {
+    // Only show the part of the single production cutter that intersects the
+    // current receiver. Every red fragment in the design render must therefore
+    // disappear in the next state.
+    intersection() {
+        node_receiver_design_after_lower();
+        node_receiver_design_top_guide_cutters();
+    }
+}
+
+module node_receiver_design_after_top_guide() {
     difference() {
         node_receiver_design_after_lower();
-        node_receiver_design_top_main_cutters();
-    }
-}
-
-module node_receiver_design_top_end_removed_material() {
-    // Show only cutter volume that actually intersects the current part.
-    // This is more useful in the design record than displaying the complete
-    // mathematical cutter, most of which intentionally lies outside the part.
-    intersection() {
-        node_receiver_design_after_top_main();
-        node_receiver_design_top_end_cutters();
-    }
-}
-
-module node_receiver_design_after_top_end() {
-    difference() {
-        node_receiver_design_after_top_main();
-        node_receiver_design_top_end_cutters();
+        node_receiver_design_top_guide_cutters();
     }
 }
 
 module node_receiver_design_plain() {
-    node_receiver_design_after_top_end();
+    node_receiver_design_after_top_guide();
 }
 
 module node_receiver_design_pattern_cutters() {

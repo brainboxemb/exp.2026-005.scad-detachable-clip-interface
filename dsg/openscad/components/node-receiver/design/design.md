@@ -103,14 +103,14 @@ view: after-lower
 This step is the retention/capture body. It should not be reshaped merely to
 make the top look nicer.
 
-## Step 3 — add the 10 mm main top lead-in
+## Step 3 — define the 10 mm main X/Z lead-in
 
-Insertion guidance is a separate problem from lower retention. The snap is
-open at both Y ends and flexes/retains only on +/-X, so the receiver top guide
-is deliberately **two-sided** rather than a four-sided funnel. The complete
-main X-side guide spans the full functional receiver length from Y=-5 to Y=+5.
+Insertion guidance is separate from lower retention. The node snap is open at
+both Y ends and flexes/retains only on +/-X, so the receiver top guide is
+deliberately two-sided.
 
-The material removed by this step is highlighted in red:
+The red volume below is an **analysis slice of the real production cutter** over
+the central 10 mm functional length:
 
 <!-- scad-render
 view: top-main-cutters
@@ -123,136 +123,138 @@ Z = 3.6 mm     outer width 10.0 mm
 Z = 4.0 mm     top width    9.2 mm
 ```
 
-So each X side has a 0.4 × 0.4 mm lead-in. The corresponding production cutter
-is a triangular extrusion:
+So each X side has a 0.4 × 0.4 mm lead-in. This triangular section must remain
+unchanged from `Y=-5` through `Y=+5`.
+
+The design helper does not redraw that triangle. It intersects the real
+production top-guide cutter with the central 10 mm:
 
 ```openscad
-linear_extrude(
-    height = NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH, // 10 mm
-    center = true
-)
-    polygon(points = [
-        [NODE_RECEIVER_TOP_WIDTH / 2, NODE_RECEIVER_HEIGHT],
-        [NODE_RECEIVER_WIDTH / 2,         NODE_RECEIVER_HEIGHT],
-        [NODE_RECEIVER_WIDTH / 2,         NODE_RECEIVER_CAPTURE_TOP_Z]
-    ]);
-```
+intersection() {
+    node_receiver_design_top_guide_cutters();
 
-After the main lead-in:
-
-<!-- scad-render
-view: after-top-main
--->
-
-The important point is that this 10 mm face is complete. There is no separate
-+/-Y capture chamfer competing with it. End guidance is added outside the
-functional zone rather than shortening the main face.
-
-## Step 4 — taper the main guide into the 14 mm block
-
-This step used to be documented badly: the design image showed the **complete
-mathematical cutter** in red. Most of that cutter lives outside the receiver,
-so it looked like a red wedge floating in a strange place and did not make the
-subtraction obvious.
-
-The design record now shows three separate states.
-
-### 4a — geometry before the end taper
-
-The 10 mm main guide is already complete:
-
-<!-- scad-render
-view: top-end-before
--->
-
-At this point the main guide ends at Y=±5.
-
-### 4b — show only material that will really be removed
-
-Grey is the current receiver. Red is **only the intersection between the
-receiver and the end-guide cutter**:
-
-<!-- scad-render
-view: top-end-removed
--->
-
-The design helper is intentionally an intersection:
-
-```openscad
-module node_receiver_design_top_end_removed_material() {
-    intersection() {
-        node_receiver_design_after_top_main();
-        node_receiver_design_top_end_cutters();
-    }
+    translate([
+        -node_receiver_width(),
+        -node_receiver_functional_length() / 2,
+        -1
+    ])
+        cube([
+            2 * node_receiver_width(),
+            node_receiver_functional_length(),
+            node_receiver_height() + 2
+        ]);
 }
 ```
 
-So every red fragment in this image is material that must disappear in the next
-state. Cutter volume outside the part is no longer displayed.
+## Step 4 — make the complete top guide one continuous cutter
 
-The production end cutter itself remains the tetrahedral transition. For one
-positive-X / positive-Y corner:
+The top guide is **not** implemented as a 10 mm prism plus two touching end
+wedges. That construction can leave a vertical seam at `Y=±5` in the exported
+mesh.
+
+Instead, each X side uses one polyhedron:
 
 ```text
-A = (X=4.6, Y≈5.0, Z=4.0)
-B = (X=5.0, Y≈5.0, Z=4.0)
-C = (X=5.0, Y≈5.0, Z=3.6)
-D = (X=5.0, Y=7.0, Z=4.0)
+Y=-7       Y=-5                  Y=+5       Y=+7
+ point  -> full triangle =================> point
+             10 mm main guide
+          <---- 2 mm ----> at each end
 ```
 
-The start is moved 0.05 mm into the main cutter only as a CSG overlap. That is
-not a functional design dimension; it prevents two subtractive solids from
-merely touching on a coplanar Y=5 face.
+There are deliberately **no faces at Y=±5**. Those are only changes in the
+surface slope inside one continuous solid.
+
+The production construction is:
 
 ```openscad
-ya =
-    NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2
-    - NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP;
-
-yb = NODE_RECEIVER_TOP_GUIDE_LENGTH / 2;
-
 polyhedron(
     points = [
-        [xi, ya, z1],
-        [xo, ya, z1],
-        [xo, ya, z0],
-        [xo, yb, z1]
+        [xi, -ya, z1],
+        [xo, -ya, z1],
+        [xo, -ya, z0],
+
+        [xi,  ya, z1],
+        [xo,  ya, z1],
+        [xo,  ya, z0],
+
+        [xo, -yb, z1],
+        [xo,  yb, z1]
     ],
     faces = [
-        [0, 2, 1],
-        [0, 1, 3],
-        [1, 2, 3],
-        [2, 0, 3]
+        [0, 1, 4, 3],
+        [1, 2, 5, 4],
+        [2, 0, 3, 5],
+
+        [6, 1, 0],
+        [6, 2, 1],
+        [6, 0, 2],
+
+        [3, 4, 7],
+        [4, 5, 7],
+        [5, 3, 7]
     ]
 );
 ```
 
-### 4c — result after subtraction
+The opposite X side is generated by `mirror([1,0,0])`; it is not separately
+dimensioned.
+
+### 4a — before the top-guide subtraction
+
+Only the lower source-derived receiver profile has been cut:
 
 <!-- scad-render
-view: top-end-after
+view: top-guide-before
 -->
 
-The actual production operation is simply:
+### 4b — material that will actually be removed
+
+Grey is the current receiver. Red is **only the intersection of the real
+continuous top-guide cutter with that receiver**:
+
+<!-- scad-render
+view: top-guide-removed
+-->
+
+The design helper is:
 
 ```openscad
-difference() {
-    node_receiver_design_after_top_main();
-    node_receiver_design_top_end_cutters();
+intersection() {
+    node_receiver_design_after_lower();
+    node_receiver_design_top_guide_cutters();
 }
 ```
 
-For direct comparison, before is shown on the left and after on the right:
+So every red fragment must disappear in the next image. Cutter volume outside
+the part is intentionally hidden.
+
+### 4c — result after one subtraction
 
 <!-- scad-render
-view: top-end-before-after
+view: top-guide-after
 -->
 
-The acceptance condition is now easy to verify from the design record:
+The production operation is one boolean subtraction:
 
-- the 10 mm main X-side guide remains intact;
-- the end transition removes material only outside that functional span;
-- the main guide does not finish on a vertical Y wall;
+```openscad
+difference() {
+    node_receiver_design_after_lower();
+    node_receiver_design_top_guide_cutters();
+}
+```
+
+For direct comparison:
+
+<!-- scad-render
+view: top-guide-before-after
+-->
+
+The acceptance conditions are:
+
+- the main X/Z guide remains fully 10 mm long;
+- each end gets a 2 mm three-dimensional taper;
+- there is no vertical Y face at `Y=±5`;
+- no separate +/-Y capture chamfer is introduced;
 - the receiver remains open-ended in Y.
 
 ## Step 5 — inspect the functional receiver without scale marks
