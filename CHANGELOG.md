@@ -13,6 +13,9 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 
 ### Added
 
+- Record AT-01 digital qualification from run `35344807800`: exact rail/plate/snap
+  STL envelopes, manifold exports, shared interface provenance and seated
+  clearance/interference analysis.
 - Add AT-01 as an inside-out OpenGrid-Lite-derived interface with two fixed-side
   carriers: a 50 × 10 × 4 mm receiver rail and the same 50 mm receiver profile
   on a 50 × 20 × 6 mm plate; both use one open-ended 10 mm two-sided snap.
