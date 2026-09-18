@@ -19,8 +19,8 @@ carrier length              50 mm
 carrier width               10 mm
 carrier height               4 mm
 receiver footprint          10 × 10 mm
-receiver active length       6 mm
-transition to carrier        2 mm each end
+receiver active length       8 mm
+transition to carrier        1 mm each end
 ```
 
 Outside that 10 mm receiver footprint the rail remains an ordinary rectangular
@@ -86,18 +86,37 @@ The local receiver must not end as a hard vertical profile change.
 Across the 10 mm footprint, both carrier concepts therefore use:
 
 ```text
-Y = -5 .. -3 mm    sloped transition into receiver
-Y = -3 .. +3 mm    full source-derived receiver profile
-Y = +3 .. +5 mm    sloped transition back to carrier
+Y = -5 .. -4 mm    explicit transition into receiver
+Y = -4 .. +4 mm    full source-derived receiver profile
+Y = +4 .. +5 mm    explicit transition back to straight 10 × 4 section
 ```
 
-The transition is a linear loft between corresponding carrier and receiver
-cross-sections. Extending the lead-in/lead-out from 1 mm to 2 mm makes the
-profile visibly gradual, similar to the way the OpenGrid geometry blends a local
-functional cell into its surrounding material.
+The transition is an explicit ruled polyhedron between corresponding points
+of the straight and receiver cross-sections. No `hull()` is used. The lead-in/lead-out is deliberately short: it only needs to return the
+source-derived X/Z widths to the ordinary straight 10 × 4 mm section. It does
+not taper the receiver height to zero.
 
 For the rail the slope returns to the normal 10 × 4 mm rail section. For the
 plate the receiver ridge slopes back into the plate top.
+
+### Plate support around the receiver
+
+The plate concept keeps extra straight material outside the 10 mm functional
+receiver zone:
+
+```text
+2 mm straight support
+10 mm functional receiver
+2 mm straight support
+--------------------------
+14 mm support boss total
+```
+
+The support boss is 10 × 14 × 4 mm on top of the 50 × 20 × 6 mm plate. Only its
+middle 10 mm is replaced by the receiver profile. The outer 2 mm at each end
+remains an ordinary straight 10 × 4 mm section.
+
+The snap still engages only the central 10 mm receiver.
 
 ## Snap clearance and retention
 
@@ -219,7 +238,7 @@ Before accepting AT-01:
 
 - rail carrier envelope is exactly 50 × 10 × 4 mm;
 - only the middle 10 mm of the rail contains receiver profiling;
-- the local receiver has a 6 mm active region plus two 2 mm sloped transitions;
+- the local receiver has an 8 mm active region plus two 1 mm sloped transitions;
 - plate base is exactly 50 × 20 × 6 mm;
 - only one local 10 × 10 mm receiver exists on the plate;
 - plate variant uses the same local receiver profile as the rail variant;
