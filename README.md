@@ -10,6 +10,24 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
+**AT-01 — inverted 10 mm fixed-core snap**
+
+The first experiment-owned attachment geometry inverts the OpenGrid relationship:
+
+```text
+fixed 10 × 10 × 4 mm core
+        ↓
+removable shell falls around the outside
+```
+
+The Lite 4.0 / 3.4 mm Z relationship is retained as a design baseline, but the
+geometry is not a scaled copy of QuackWorks. The fixed side is rigid; flexure and
+two-sided retention live in the removable shell.
+
+See [AT-01 design record](docs/05-at-01-inverted-core-snap.md).
+
+## Previous reference phase
+
 **OG-02 — Full versus Lite upstream comparison**
 
 OG-01 established the Full reference pair. OG-02 compares that pair against the
@@ -87,7 +105,9 @@ selector exposes the stable Full/Lite experiment views directly:
 - individual receivers and snaps;
 - individual receiver/snap cross-sections;
 - selectable center/flex-slot versus solid/off-slot profile plane;
-- Full-versus-Lite assembled, exploded and section comparisons.
+- Full-versus-Lite assembled, exploded and section comparisons;
+- AT-01 assembled/exploded, retention-section, locating-section and individual
+  fixed/removable views.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same

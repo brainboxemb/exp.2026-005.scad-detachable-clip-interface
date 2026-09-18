@@ -4,12 +4,13 @@
 // views. Geometry lives in the experiment libraries.
 
 /* [View] */
-design_view = 10; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section]
+design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:AT-01 assembled, 14:AT-01 exploded, 15:AT-01 retention section, 16:AT-01 locating section, 17:AT-01 fixed core, 18:AT-01 removable shell]
 
 /* [Profile] */
 profile_plane = 0; // [0:Center / flex slot, 1:Solid / beside flex slot]
 
 include <lib/og02_full_lite_reference.scad>
+include <lib/at01_inverted_core_snap.scad>
 
 function _main_profile_view(view) =
     view == 3 || view == 4 || view == 8 || view == 9;
@@ -18,26 +19,42 @@ function _main_comparison_view(view) =
     view == 10 || view == 11 || view == 12;
 
 function _main_exploded_view(view) =
-    view == 11;
+    view == 11 || view == 14;
+
+function _main_at01_view(view) =
+    view >= 13 && view <= 18;
+
+function _main_at01_section_view(view) =
+    view == 15 || view == 16;
 
 $vpt =
-    _main_comparison_view(design_view)
-        ? [0, 0, _main_exploded_view(design_view) ? 9 : 3.4]
-        : [0, 0, 2.5];
+    _main_at01_view(design_view)
+        ? [0, 0, design_view == 14 ? 6 : 2.6]
+        : _main_comparison_view(design_view)
+            ? [0, 0, _main_exploded_view(design_view) ? 9 : 3.4]
+            : [0, 0, 2.5];
 
 $vpr =
-    _main_profile_view(design_view)
+    design_view == 15
         ? [90, 0, 0]
-        : _main_comparison_view(design_view)
-            ? [68, 0, 28]
-            : [65, 0, 35];
+        : design_view == 16
+            ? [90, 0, 90]
+            : _main_at01_view(design_view)
+                ? [68, 0, 35]
+                : _main_profile_view(design_view)
+                    ? [90, 0, 0]
+                    : _main_comparison_view(design_view)
+                        ? [68, 0, 28]
+                        : [65, 0, 35];
 
 $vpd =
-    _main_profile_view(design_view)
-        ? 70
-        : _main_comparison_view(design_view)
-            ? (_main_exploded_view(design_view) ? 142 : 122)
-            : 82;
+    _main_at01_view(design_view)
+        ? (design_view == 14 ? 68 : _main_at01_section_view(design_view) ? 44 : 52)
+        : _main_profile_view(design_view)
+            ? 70
+            : _main_comparison_view(design_view)
+                ? (_main_exploded_view(design_view) ? 142 : 122)
+                : 82;
 
 module _main_selected_view(view) {
     if (view == 0)
@@ -86,6 +103,20 @@ module _main_selected_view(view) {
         og02_comparison_exploded();
     else if (view == 12)
         og02_comparison_section();
+    else if (view == 13)
+        at01_assembled();
+    else if (view == 14)
+        at01_exploded();
+    else if (view == 15)
+        at01_retention_section();
+    else if (view == 16)
+        at01_locating_section();
+    else if (view == 17)
+        color([0.68, 0.70, 0.74])
+            at01_fixed_core();
+    else if (view == 18)
+        color([0.92, 0.30, 0.12])
+            at01_removable_shell();
     else
         assert(false, str("Unsupported design_view: ", view));
 }

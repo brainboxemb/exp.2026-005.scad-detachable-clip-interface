@@ -92,7 +92,7 @@ HUB75 geometry.
 
 ## Reference correction — minimize upstream overrides
 
-**Status:** active in PR #3.
+**Status:** complete in PR #3.
 
 Before AT-01, revalidate OG-01/OG-02 using the smallest safe upstream call
 surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.md).
@@ -100,21 +100,34 @@ surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.
 The correction removes experiment-owned parameter overrides and the derived Lite
 assembly Z offset until the regenerated evidence supports an assembly relation.
 
-## AT-01 — neutral fixed/removable coupon
+## AT-01 — inverted 10 mm fixed-core snap
 
-**Status:** blocked on PR #3 reference revalidation.
+**Status:** active in PR #4.
 
-Start from the Lite relationship as the primary reduction reference. Keep Full
-as a control when the purpose of a removed feature is uncertain.
+**Design record:** [AT-01 inverted fixed-core snap](05-at-01-inverted-core-snap.md)
 
-Goal: isolate the minimum useful attachment relationship from the complete
-OpenGrid tile context without adding HUB75 geometry.
+Goal: test an experiment-owned inversion of the OpenGrid relationship without
+copying QuackWorks geometry.
 
-Generate the same assembled/exploded/section PNG evidence plus separate fixed
-and removable STL coupons.
+Baseline:
 
-Exit: the reduced coupon preserves the mechanism being tested and makes the
-fixed-side footprint/load path explicit.
+```text
+fixed core                 10.0 × 10.0 × 4.0 mm
+shell engagement height     3.4 mm
+exposed/root shoulder       0.6 mm
+side clearance              0.20 mm per side
+shell wall                  1.20 mm
+```
+
+The fixed core stays compact and stiff. The removable part falls around the
+outside. Four sides locate; two opposite walls provide retention and flexure.
+
+Evidence includes assembled/exploded views, orthogonal retention/locating
+sections, separate complete STLs and 1.0 mm profile-slice STLs.
+
+Exit: digital evidence proves the intended geometry decomposition and dimensions
+without unexpected overlap/clipping. Physical retention force remains a later
+coupon-print question.
 
 ## AT-02 — retention/flex section
 
