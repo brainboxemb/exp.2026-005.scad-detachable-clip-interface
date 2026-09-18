@@ -55,7 +55,7 @@ module node_snap_design(view = "final") {
             color(existing)
                 node_snap_design_walls_and_nubs();
             color(current)
-                _node_snap_top();
+                node_snap_design_top();
 
         } else if (view == "main-click-slot-cutters") {
             color(existing)

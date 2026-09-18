@@ -64,12 +64,12 @@ module opengrid_lite_snap_design(view = "final") {
             color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_click_slot_cutters();
         } else if (view == "click-slot-section-removed") {
-            color(existing)
+            color([0.56, 0.56, 0.56, 0.42])
                 opengrid_lite_snap_design_click_slot_section_before();
-            color(current)
+            color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_click_slot_section_removed();
         } else if (view == "click-slot-section-before-after") {
-            color(current)
+            color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_click_slot_section_before_after();
         } else if (view == "after-click-slots")
             opengrid_lite_snap_design_after_click_slots();
