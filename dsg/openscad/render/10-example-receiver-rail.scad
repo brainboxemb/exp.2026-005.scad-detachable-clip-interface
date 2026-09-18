@@ -1,3 +1,5 @@
+include <BOSL2/std.scad>
+
 $fn = 120;
 use <../examples/receiver-rail/receiver_rail_example.scad>
 
