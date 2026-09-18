@@ -145,8 +145,8 @@ CLIP_SNAP_CORNER_CHAMFER = min(
     CLIP_SNAP_WALL_THICKNESS / 2
 );
 
-// Keep one coherent outer plan contour: top and core use the same chamfer.
-CLIP_SNAP_TOP_THICKNESS_ROUNDING = CLIP_SNAP_CORNER_CHAMFER;
+// Top and core deliberately use this same chamfer so the outside contour
+// remains continuous from the engagement body into the top.
 
 // OpenGrid click-hole proportions retained on +/-X only.
 // Radial width and rounding are source values. Tangential length is shortened
@@ -186,7 +186,6 @@ assert(abs(CLIP_SNAP_FLEX_TONGUE_THICKNESS - 0.7) < 0.0001);
 assert(abs(CLIP_SNAP_CLICK_SLOT_WIDTH - 0.6) < 0.0001);
 assert(abs(CLIP_SNAP_CLICK_SLOT_CORNER_RADIUS - 0.3) < 0.0001);
 assert(abs(CLIP_SNAP_WALL_THICKNESS - 2.0) < 0.0001);
-assert(abs(CLIP_SNAP_CORNER_CHAMFER - CLIP_SNAP_TOP_THICKNESS_ROUNDING) < 0.0001);
 assert(abs(CLIP_SNAP_CORNER_CHAMFER - CLIP_SNAP_WALL_THICKNESS / 2) < 0.0001);
 assert(CLIP_SNAP_CORNER_CHAMFER < CLIP_SNAP_LENGTH / 2);
 assert(abs(CLIP_RECEIVER_FUNCTIONAL_LENGTH - 10.0) < 0.0001);
@@ -567,7 +566,7 @@ module _clip_snap_top() {
                 CLIP_SNAP_LENGTH,
                 CLIP_SNAP_TOP_THICKNESS
             ],
-            rounding = CLIP_SNAP_TOP_THICKNESS_ROUNDING,
+            rounding = CLIP_SNAP_CORNER_CHAMFER,
             edges = "Z",
             $fn = 2,
             anchor = CENTER
