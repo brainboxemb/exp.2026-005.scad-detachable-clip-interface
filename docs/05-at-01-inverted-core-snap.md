@@ -115,20 +115,51 @@ Reasons:
 The +/-X walls retain the OpenGrid-derived nub and click-slot relationships.
 Along Y the snap remains open.
 
-## Experiment-owned dimensions
+## Snap wall and flex slot
 
-Not every dimension is inherited from OpenGrid.
-
-These provide printable surrounding material without changing the mating
-profile:
+The previous `2.0 mm` wall value hid several different functions. The wall is
+now described as a radial stack:
 
 ```text
-snap length along rail    10.0 mm
-snap side-wall thickness   2.0 mm
-snap top thickness         1.2 mm
+inside / nub side
+
+0.7 mm  flex tongue       source-derived
+0.6 mm  click slot        source-derived
+0.7 mm  outer support     experiment-owned
+----------------------
+2.0 mm  total wall
+
+outside
 ```
 
-The source-derived mating dimensions remain separate constants in the model.
+The first two values come directly from the normal OpenGrid snap geometry. Its
+24.8 mm body has an outer face at 12.4 mm from centre. The 0.6 mm click slot is
+centred 1.0 mm inward at 11.4 mm, leaving:
+
+```text
+12.4 - (11.4 + 0.6 / 2) = 0.7 mm
+```
+
+for the nub-bearing flex tongue.
+
+The main click slot also keeps the upstream **0.3 mm rounding**. This is not an
+AT-01 substitute radius. The upper 1.4 × 12 × 0.4 mm wall slot is rectangular
+in QuackWorks and remains rectangular here.
+
+The outer 0.7 mm support is not source-derived. It is the first printable coupon
+choice and should be varied separately later rather than being confused with
+the flex-tongue thickness.
+
+## Other experiment-owned dimensions
+
+```text
+snap length along receiver  10.0 mm
+outer support                 0.7 mm
+snap top thickness            1.2 mm
+```
+
+The source-derived mating/flex dimensions remain separate constants in the
+model.
 
 ## Evidence
 
