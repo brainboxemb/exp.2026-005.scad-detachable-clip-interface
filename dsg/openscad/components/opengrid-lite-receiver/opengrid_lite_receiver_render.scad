@@ -13,9 +13,9 @@ module opengrid_lite_receiver_design(view = "final") {
         if (view == "profile-zones")
             opengrid_lite_receiver_design_profile_zones();
         else if (view == "solid-profile")
-            opengrid_lite_receiver_profile(false);
+            opengrid_lite_receiver_profile_view(false);
         else if (view == "flex-profile")
-            opengrid_lite_receiver_profile(true);
+            opengrid_lite_receiver_profile_view(true);
         else
             opengrid_lite_receiver_build();
     }
