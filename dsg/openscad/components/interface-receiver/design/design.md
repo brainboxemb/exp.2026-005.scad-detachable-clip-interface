@@ -105,8 +105,10 @@ make the top look nicer.
 
 ## Step 3 — add the 10 mm main top lead-in
 
-Insertion guidance is a separate problem from lower retention. The complete
-main top guide spans the full functional receiver length from Y=-5 to Y=+5.
+Insertion guidance is a separate problem from lower retention. The snap is
+open at both Y ends and flexes/retains only on +/-X, so the receiver top guide
+is deliberately **two-sided** rather than a four-sided funnel. The complete
+main X-side guide spans the full functional receiver length from Y=-5 to Y=+5.
 
 The material removed by this step is highlighted in red:
 
@@ -142,16 +144,18 @@ After the main lead-in:
 view: after-top-main
 -->
 
-The important point is that this 10 mm face is complete. End guidance must be
-added outside it rather than shortening it.
+The important point is that this 10 mm face is complete. There is no separate
++/-Y capture chamfer competing with it. End guidance is added outside the
+functional zone rather than shortening the main face.
 
 ## Step 4 — taper the lead-in into the 14 mm block
 
 This is the part currently under the closest visual review.
 
 At Y=±5 the complete triangular X/Z lead-in exists. Between Y=±5 and Y=±7 it
-must return to the untouched outer/top corner of the block. The extra end-guide
-cutters are shown in red:
+returns to the untouched outer/top corner of the block. Because no separate
+Y-side top cut overlaps this transition anymore, the end guide is one clean
+three-dimensional taper. The extra end-guide cutters are shown in red:
 
 <!-- scad-render
 view: top-end-cutters
@@ -188,9 +192,10 @@ polyhedron(
 The design acceptance criterion is visible rather than merely numerical:
 
 > the 10 mm main lead-in may not end against a vertical wall; both Y ends must
-> visibly continue through a sloped guide surface into the ordinary block.
+> visibly continue through one sloped guide surface into the ordinary block.
 
-That exact corner transition is still being refined in PR #4.
+This also preserves the intended open-ended behaviour of the snap: the receiver
+guides laterally in X without introducing an unnecessary Y capture wall.
 
 ## Step 5 — inspect the functional receiver without scale marks
 
