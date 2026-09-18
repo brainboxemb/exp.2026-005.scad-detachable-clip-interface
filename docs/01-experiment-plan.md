@@ -100,34 +100,55 @@ surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.
 The correction removes experiment-owned parameter overrides and the derived Lite
 assembly Z offset until the regenerated evidence supports an assembly relation.
 
-## AT-01 — inverted 10 mm fixed-core snap
+## AT-01 — inside-out Lite receiver, two carrier concepts
 
 **Status:** active in PR #4.
 
-**Design record:** [AT-01 inverted fixed-core snap](05-at-01-inverted-core-snap.md)
+**Design record:** [AT-01 receiver concepts](05-at-01-inverted-core-snap.md)
 
-Goal: test an experiment-owned inversion of the OpenGrid relationship without
-copying QuackWorks geometry.
+Goal: preserve a recognisable OpenGrid-Lite-derived mating profile while
+inverting the roles and comparing two ways to carry the fixed receiver.
 
-Baseline:
+Shared local interface:
+
+- radial mirror of the Lite receiver side profile;
+- maximum fixed receiver width 10.0 mm;
+- Lite snap body/nub clearance/interference relationship mirrored around that
+  profile;
+- retention/flex on the two long +/-X sides only;
+- snap open at both Y ends so it clips locally from above;
+- one 10 mm-long removable snap works on both carriers.
+
+Carrier A — **rail**:
 
 ```text
-fixed core                 10.0 × 10.0 × 4.0 mm
-shell engagement height     3.4 mm
-exposed/root shoulder       0.6 mm
-side clearance              0.20 mm per side
-shell wall                  1.20 mm
+receiver length    50 mm
+max width          10 mm
+height              4 mm
 ```
 
-The fixed core stays compact and stiff. The removable part falls around the
-outside. Four sides locate; two opposite walls provide retention and flexure.
+The receiver profile itself is the 50 mm rail.
 
-Evidence includes assembled/exploded views, orthogonal retention/locating
-sections, separate complete STLs and 1.0 mm profile-slice STLs.
+Carrier B — **plate**:
 
-Exit: digital evidence proves the intended geometry decomposition and dimensions
-without unexpected overlap/clipping. Physical retention force remains a later
-coupon-print question.
+```text
+base plate         50 × 20 × 6 mm
+receiver ridge     same 50 mm Lite-derived profile on top
+```
+
+The exact same removable snap must fit both.
+
+Evidence:
+
+- rail assembled/exploded/section;
+- plate assembled/exploded/section;
+- side-by-side concept render;
+- separate receiver-rail, receiver-plate and removable-snap STLs;
+- shared retention profile slices.
+
+Exit: both carriers expose the same local snap interface and the generated
+evidence shows no static overlap in the seated state. Physical insertion and
+pull-out force remain later print-test questions.
 
 ## AT-02 — retention/flex section
 

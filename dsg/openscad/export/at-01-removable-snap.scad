@@ -1,2 +1,2 @@
 include <../lib/at01_inverted_core_snap.scad>
-at01_fixed_locating_profile();
+at01_removable_snap();

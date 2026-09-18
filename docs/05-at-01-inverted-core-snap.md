@@ -1,177 +1,177 @@
-# AT-01 — inverted 10 mm fixed-core snap
+# AT-01 — inside-out Lite receiver concepts
 
 Status: **active in PR #4**
 
 ## Purpose
 
-AT-01 is the first experiment-owned detachable interface.
+AT-01 no longer treats the fixed part as a small isolated "core". The fixed
+part is a **receiver** that must make sense as something a real coupler can own.
 
-It deliberately inverts the relationship studied in OpenGrid:
+We test two carrier directions while keeping one local snap interface unchanged.
 
-```text
-OpenGrid reference            AT-01
+## Carrier A — receiver rail
 
-fixed receiver outside        fixed compact core inside
-removable snap inside         removable shell outside
-```
-
-No QuackWorks snap geometry is copied or scaled.
-
-## Baseline dimensions
+The receiver itself forms a 50 mm rail:
 
 ```text
-fixed core envelope       10.00 × 10.00 × 4.00 mm
-root shoulder                         0.60 mm
-shell engagement                      3.40 mm
-side clearance              0.20 mm per side
-shell inside               10.40 × 10.40 mm
-shell wall                           1.20 mm
-shell outside              12.80 × 12.80 mm
-shell top                            1.20 mm
-fixed groove depth                    0.40 mm
-shell nub protrusion                  0.35 mm
-temporary flex interference           0.15 mm
+length          50 mm
+max width       10 mm
+height           4 mm
 ```
 
-The 0.6 + 3.4 = 4.0 relationship is now an explicit AT-01 design choice. It is
-not claimed as an authoritative QuackWorks assembled offset.
+The removable snap is only 10 mm long and is open at both Y ends. It therefore
+clips locally over the rail from above and can be positioned anywhere along the
+50 mm length.
 
-## Mechanical decomposition
+## Carrier B — receiver on plate
 
-### Fixed side
-
-The fixed feature is a rigid 10 × 10 × 4 mm square core.
-
-Two shallow retention grooves are cut inward into the opposite X faces. The
-entire fixed feature therefore remains inside an exact 10 × 10 × 4 mm envelope.
-
-The fixed side contains no protruding snap geometry and no intended flexure.
-
-### Removable side
-
-The removable part is a square shell.
-
-Its nominal 10.40 mm internal opening gives 0.20 mm locating clearance per side
-around the 10 mm core.
-
-Two opposite X walls contain a central compliant tongue. Relief slots from the
-open bottom isolate each tongue so it can flex outward.
-
-Each tongue carries a nub that protrudes **inward** into the shell cavity. During
-insertion that nub rides over the fixed core; when seated it falls into the
-matching inward groove in the fixed core.
-
-The Y walls carry no retention feature and primarily locate the shell.
-
-### Assembly direction
-
-The shell approaches from +Z and falls around the fixed core.
-
-When seated:
-
-- shell skirt bottom is at Z=0.6 mm;
-- engagement runs from Z=0.6 to Z=4.0 mm;
-- shell top plate underside meets the fixed-core top at Z=4.0 mm;
-- the lower 0.6 mm of fixed core remains exposed as a root/attachment shoulder.
-
-## Retention concept
-
-The retention geometry now follows the intended inverted architecture:
+The exact same 50 mm receiver profile is placed on a wider base:
 
 ```text
-fixed core:       groove inward
-removable shell:  nub inward
+plate length    50 mm
+plate width     20 mm
+plate height     6 mm
+receiver        same 50 mm profile on top
 ```
 
-The shell inner face has 0.20 mm nominal clearance from the fixed core. The
-retention nub protrudes 0.35 mm inward from that inner face, so while it passes
-the unrecessed core face the compliant tongue needs approximately:
+This represents the alternative where the eventual coupler or mounting piece has
+enough area for a broader fixed base.
+
+The removable snap is identical between A and B.
+
+## OpenGrid Lite derivation
+
+Source:
 
 ```text
-0.35 - 0.20 = 0.15 mm
+AndyLevesque/QuackWorks
+e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
 ```
 
-outward deflection.
-
-The nub's lower surface is a lead-in ramp for downward insertion. Its upper
-return is steeper so upward removal sees a stronger retention edge.
-
-The fixed groove is 0.40 mm deep, which is deeper than the 0.15 mm interference.
-At the final seated position the nub aligns with that groove and the tongue can
-relax.
-
-The groove/nub seated Z interval is 1.35..2.15 mm in fixed-core coordinates.
-
-This is a CAD hypothesis only. Actual insertion/pull-out force requires printed
-coupons.
-
-## Why two-sided retention first
-
-Four-sided retention would make a 10 mm shell unnecessarily stiff and would mix
-locating and flexure on every wall.
-
-AT-01 instead separates functions:
+For the Lite receiver, QuackWorks takes the upper 4.0 mm of the Full 6.8 mm
+receiver. The relevant opening width over that Lite height is:
 
 ```text
-X walls   locate + flex + retain
-Y walls   locate
-top plate axial stop
-fixed core rigid load path
+local Lite Z     opening width
+0.0 .. 1.6       26.4 mm
+1.6 .. 2.6       26.4 -> 25.0 mm
+2.6 .. 3.6       25.0 mm
+3.6 .. 4.0       25.0 -> 25.8 mm
 ```
 
-A later experiment can add more retention sides only if two-sided retention
-proves insufficient.
+AT-01 radially mirrors that opening around a constant chosen so the narrow
+25.0 mm capture becomes a maximum 10.0 mm fixed receiver:
 
-## Digital acceptance checks
+```text
+AT-01 Z          fixed receiver width
+0.0 .. 1.6        8.6 mm
+1.6 .. 2.6        8.6 -> 10.0 mm
+2.6 .. 3.6       10.0 mm
+3.6 .. 4.0       10.0 -> 9.2 mm
+```
 
-AT-01 must verify:
+This is the fixed receiver's X/Z profile for both carriers.
 
-- complete fixed-core envelope = exactly 10 × 10 × 4 mm including grooves;
-- no fixed retention feature protrudes outside that envelope;
-- shell inner opening = 10.40 × 10.40 mm;
-- shell outer footprint = 12.80 × 12.80 mm;
-- shell local height = 4.60 mm;
-- assembled shell base = Z 0.60 mm;
-- assembled shell underside/top stop = Z 4.00 mm;
-- seated shell nubs align with the inward fixed-core grooves without static
-  solid overlap;
-- required nominal tongue deflection while passing the solid core face is
-  0.15 mm;
-- complete and profile STLs are manifold;
-- rendered sections actually pass through the intended retention and locating
-  planes.
+## Snap clearance and retention
 
-## Evidence targets
+The same radial mirror is applied to the normal Lite snap widths:
+
+```text
+OpenGrid snap body    24.8 mm
+OpenGrid snap+nub     25.6 mm
+
+AT-01 snap opening    10.2 mm
+AT-01 nub opening      9.4 mm
+AT-01 inward nub       0.4 mm per side
+```
+
+That preserves the original relationship:
+
+- nominal body clearance: 0.1 mm per side at the 10.0 mm capture width;
+- temporary nub interference: up to 0.3 mm per side while clicking over the
+  capture band;
+- seated nub/profile geometry relaxes into the lower mirrored receiver slope.
+
+The original Lite snap is 3.4 mm high. Existing OpenGrid snap-mount usage places
+a functional base on the snap top, supporting the top-flush relationship where
+the 3.4 mm snap starts 0.6 mm above the 4.0 mm receiver bottom.
+
+AT-01 therefore seats the removable snap at Z=0.6 relative to the local receiver
+base.
+
+## Two-sided retention
+
+OpenGrid's normal snap retains on four sides. AT-01 intentionally keeps only the
+two long +/-X receiver sides.
+
+Reasons:
+
+- a 10 mm-wide clip would become unnecessarily stiff with four active walls;
+- the receiver is a continuous rail along Y, so Y-end retention is not needed;
+- an open-ended snap can be installed anywhere along the rail from above;
+- it isolates the question we care about: can two source-derived flex/retention
+  walls hold a compact removable attachment?
+
+The +/-X walls retain the OpenGrid-derived nub and click-slot relationships.
+Along Y the snap remains open.
+
+## Experiment-owned dimensions
+
+Not every dimension is inherited from OpenGrid.
+
+These provide printable surrounding material without changing the mating
+profile:
+
+```text
+snap length along rail    10.0 mm
+snap side-wall thickness   2.0 mm
+snap top thickness         1.2 mm
+```
+
+The source-derived mating dimensions remain separate constants in the model.
+
+## Evidence
 
 PNG:
 
-- AT-01 assembled;
-- exploded;
-- retention-side X-Z section;
-- locating-side Y-Z section;
-- fixed core;
-- removable shell.
+- rail assembled;
+- rail exploded;
+- rail retention section;
+- plate assembled;
+- plate exploded;
+- plate retention section;
+- rail-versus-plate comparison;
+- receiver rail alone;
+- receiver plate alone;
+- removable snap alone.
 
 STL:
 
-- fixed core;
-- removable shell;
-- fixed retention profile;
-- shell retention profile;
-- fixed locating profile;
-- shell locating profile.
+- receiver rail;
+- receiver plate;
+- removable snap;
+- receiver rail profile slice;
+- receiver plate profile slice;
+- snap retention profile slice.
+
+## Digital checks
+
+Before accepting AT-01:
+
+- rail receiver length is exactly 50 mm;
+- rail receiver envelope is at most 10 mm wide and exactly 4 mm high;
+- plate base is exactly 50 × 20 × 6 mm;
+- plate variant uses the same receiver profile as the rail variant;
+- one identical snap is used in both assemblies;
+- seated snap bottom is 0.6 mm above each local receiver base;
+- snap top-stop underside coincides with receiver Z=4.0 mm;
+- no static solid overlap exists in the seated section;
+- complete and profile STLs are manifold;
+- renders are inspected rather than accepted from CI status alone.
 
 ## Physical boundary
 
-Digital evidence can establish geometry and intended flex direction. It cannot
-accept:
-
-- insertion force;
-- pull-out force;
-- fatigue;
-- best material;
-- best clearance;
-- best rib protrusion.
-
-Those become physical/tolerance questions after the basic AT-01 geometry is
-digitally coherent.
+CAD can establish the intended profile and assembled relation. It cannot yet
+accept insertion force, removal force, fatigue, best material or final wall
+thickness. Those require printed coupons after the geometry is digitally
+coherent.

@@ -13,9 +13,9 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 
 ### Added
 
-- Add AT-01 experiment-owned inverted snap geometry with a 10 × 10 × 4 mm fixed
-  core, 3.4 mm outside-shell engagement, 0.6 mm root shoulder, two-sided
-  retention and orthogonal section evidence.
+- Add AT-01 as an inside-out OpenGrid-Lite-derived interface with two fixed-side
+  carriers: a 50 × 10 × 4 mm receiver rail and the same 50 mm receiver profile
+  on a 50 × 20 × 6 mm plate; both use one open-ended 10 mm two-sided snap.
 - Bootstrap the OpenSCAD-only direct-build experiment repository.
 - Pin the QuackWorks fork at exact source
   `e0c1cb7ec78dd9e9a8476ed739bd3402074354f3`.

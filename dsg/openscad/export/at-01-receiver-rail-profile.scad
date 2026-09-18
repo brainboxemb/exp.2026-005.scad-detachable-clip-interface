@@ -1,2 +1,2 @@
 include <../lib/at01_inverted_core_snap.scad>
-at01_shell_retention_profile();
+at01_receiver_retention_profile(0);

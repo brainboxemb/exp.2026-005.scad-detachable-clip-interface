@@ -54,3 +54,29 @@ For this PoP:
 - direct production reuse requires a deliberate licensing/provenance decision.
 
 This is an engineering provenance record, not legal advice.
+
+
+## AT-01 derived geometry
+
+AT-01 intentionally derives its local mating profile from the pinned QuackWorks
+OpenGrid Lite receiver and normal snap at:
+
+```text
+AndyLevesque/QuackWorks
+e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+```
+
+The engineering transformation is documented rather than disguised:
+
+- the Lite receiver inner-wall X/Z profile is radially mirrored into a compact
+  fixed receiver outer profile;
+- the normal snap's outward 0.4 mm nubs become inward nubs on the removable
+  snap;
+- only two opposite retention sides are kept for the 10 mm-wide rail concept;
+- outer wall/top thickness and carrier geometry are experiment-owned.
+
+The QuackWorks repository declares CC BY-NC-SA 4.0 and the snap source separately
+credits the OpenGrid Snap design by David D and OpenSCAD implementation by
+metasyntactic. This experiment keeps that attribution and treats AT-01 as
+derived geometry. Any later production integration must carry the applicable
+upstream attribution/licence notice alongside the derived interface geometry.

@@ -10,21 +10,24 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
-**AT-01 — inverted 10 mm fixed-core snap**
+**AT-01 — inside-out OpenGrid Lite receiver with two fixed-side carriers**
 
-The first experiment-owned attachment geometry inverts the OpenGrid relationship:
+One source-derived local mating interface is tested in two mounting contexts:
 
 ```text
-fixed 10 × 10 × 4 mm core
-        ↓
-removable shell falls around the outside
+A  50 × 10 × 4 mm receiver rail
+
+B  50 × 20 × 6 mm base plate
+   + the same 50 mm receiver profile on top
 ```
 
-The Lite 4.0 / 3.4 mm Z relationship is retained as a design baseline, but the
-geometry is not a scaled copy of QuackWorks. The fixed side is rigid; flexure and
-two-sided retention live in the removable shell.
+The removable snap is 10 mm long, open at both rail ends and uses retention/flex
+only on the two long sides. It clips on from above; it does not need to slide
+from the end of the 50 mm receiver.
 
-See [AT-01 design record](docs/05-at-01-inverted-core-snap.md).
+The local X/Z receiver profile and inward snap nubs are intentionally derived
+from the QuackWorks OpenGrid Lite receiver + normal snap relationship. See
+[AT-01 design record](docs/05-at-01-inverted-core-snap.md).
 
 ## Previous reference phase
 
@@ -106,8 +109,8 @@ selector exposes the stable Full/Lite experiment views directly:
 - individual receiver/snap cross-sections;
 - selectable center/flex-slot versus solid/off-slot profile plane;
 - Full-versus-Lite assembled, exploded and section comparisons;
-- AT-01 assembled/exploded, retention-section, locating-section and individual
-  fixed/removable views.
+- AT-01 rail/plate assembled and exploded views, retention sections, individual
+  receiver/snap views and a rail-vs-plate comparison.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same
