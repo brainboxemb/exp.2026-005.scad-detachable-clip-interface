@@ -111,5 +111,5 @@ The run above qualified the first rail/plate geometry, but that revision
 incorrectly extended the receiver profile over the full 50 mm carrier length.
 
 PR #4 now corrects both concepts to one local 10 × 10 mm receiver position with
-an 8 mm active region and 1 mm transition at each end. New digital findings must
+a 6 mm active region and 2 mm sloped transition at each end. New digital findings must
 be recorded from the regenerated output before AT-01 is accepted.
