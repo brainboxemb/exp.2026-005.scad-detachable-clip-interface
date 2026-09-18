@@ -10,21 +10,40 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
-**OG-01 — upstream OpenGrid reference assembly**
+**OG-02 — Full versus Lite upstream comparison**
 
-The first step reproduces the selected upstream fixed receiver + removable snap
-without redesigning either part. It generates both visual and printable evidence:
+OG-01 established the Full reference pair. OG-02 compares that pair against the
+upstream Lite receiver/snap before the mechanism is reduced to a neutral coupon.
 
-PNG:
+Full:
 
-- `og-01-reference-assembled.png`
-- `og-01-reference-exploded.png`
-- `og-01-reference-section.png`
+- receiver height: 6.8 mm;
+- snap height: 6.8 mm.
 
-STL:
+Lite:
 
-- `og-01-fixed-receiver.stl`
-- `og-01-removable-snap.stl`
+- receiver height: 4.0 mm;
+- snap height: 3.4 mm;
+- top-flush assembled snap bottom offset: 0.6 mm.
+
+Comparison PNG:
+
+- `og-02-full-lite-assembled.png`
+- `og-02-full-lite-exploded.png`
+- `og-02-full-lite-section.png`
+
+Individual profile PNG + 1.0 mm profile-slice STL:
+
+- Full receiver;
+- Full snap;
+- Lite receiver;
+- Lite snap.
+
+Printable complete parts:
+
+- existing OG-01 Full receiver/snap STL exports remain the Full baseline;
+- `og-02-lite-receiver.stl`;
+- `og-02-lite-snap.stl`.
 
 After merge, normal production output is published under:
 
@@ -49,11 +68,12 @@ See [source provenance](docs/00-source-provenance.md).
 
 ## Experiment sequence
 
-1. **OG-01** — reproduce and understand the upstream receiver + snap.
-2. **AT-01** — reduce the relationship to a neutral fixed/removable coupon.
-3. **AT-02** — expose retention/flex geometry and critical dimensions.
-4. **AT-03** — compare only the critical tolerance variants.
-5. **TC-01** — add the real horizontal tube-clamping function after the
+1. **OG-01** — reproduce and understand the upstream Full receiver + snap.
+2. **OG-02** — compare upstream Full and Lite receiver/snap variants.
+3. **AT-01** — reduce the relationship to a neutral fixed/removable coupon.
+4. **AT-02** — expose retention/flex geometry and critical dimensions.
+5. **AT-03** — compare only the critical tolerance variants.
+6. **TC-01** — add the real horizontal tube-clamping function after the
    attachment principle is understood.
 
 See [experiment plan](docs/01-experiment-plan.md).

@@ -1,0 +1,178 @@
+# OG-02 findings — Full versus Lite OpenGrid reference
+
+Status: **accepted as the Full/Lite comparison baseline**
+
+Source under test:
+
+```text
+brainboxemb/fork.andylevesque.quackworks
+e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+```
+
+Qualified by PR run:
+
+```text
+35338032630
+```
+
+## Generated evidence
+
+Comparison PNG:
+
+- `og-02-full-lite-assembled.png`
+- `og-02-full-lite-exploded.png`
+- `og-02-full-lite-section.png`
+
+Individual profile PNG:
+
+- `og-02-profile-full-receiver.png`
+- `og-02-profile-full-snap.png`
+- `og-02-profile-lite-receiver.png`
+- `og-02-profile-lite-snap.png`
+
+Complete Lite STL:
+
+- `og-02-lite-receiver.stl`
+- `og-02-lite-snap.stl`
+
+Individual profile-slice STL:
+
+- `og-02-profile-full-receiver.stl`
+- `og-02-profile-full-snap.stl`
+- `og-02-profile-lite-receiver.stl`
+- `og-02-profile-lite-snap.stl`
+
+The profile STL files are true 1.0 mm-thick central Y slices. All generated
+OG-02 targets report `Status: NoError`; all STL exports report a manifold
+top-level 3D object.
+
+OG-01's complete Full receiver and Full snap STLs remain the Full printable
+baseline rather than being duplicated under OG-02 names.
+
+## Dimension relationship
+
+The pinned source defines:
+
+```text
+                         Full       Lite
+receiver height          6.8 mm     4.0 mm
+snap height              6.8 mm     3.4 mm
+snap footprint          24.8 mm    24.8 mm
+```
+
+### Receiver
+
+`openGridLite()` is not a separately invented cell profile. It derives the
+Lite receiver from the Full 6.8 mm OpenGrid geometry using the upper portion of
+the Full tile.
+
+The retained receiver height is 4.0 mm, so the lower 2.8 mm of the Full
+receiver envelope is absent in Lite.
+
+### Snap
+
+`openGridSnap(lite=true)` keeps the same nominal 24.8 mm square footprint but
+reduces the height from 6.8 mm to 3.4 mm.
+
+The Lite branch changes the snap's vertical construction:
+
+- the lower Full-height stage is omitted;
+- the main core changes from 6.4 mm to 3.0 mm;
+- the top layer remains 0.4 mm;
+- the normal retention nubs move from the Full snap's 3.4 mm level to the Lite
+  snap's lower edge;
+- the compliant click-hole geometry becomes correspondingly shorter.
+
+The Lite snap is therefore not merely a slicer-scaled Full snap. It is an
+explicit upstream low-profile variant preserving the same basic footprint and
+retention concept.
+
+## Seated Z relationship
+
+Full receiver and Full snap are both 6.8 mm high, so their bottom and top
+surfaces align in the reference assembly.
+
+Lite differs:
+
+```text
+receiver = 4.0 mm
+snap     = 3.4 mm
+difference = 0.6 mm
+```
+
+To preserve the same top-flush functional relationship, OG-02 poses the Lite
+snap with:
+
+```text
+snap bottom = receiver bottom + 0.6 mm
+snap top    = receiver top
+```
+
+This 0.6 mm offset is a derived assembly relationship, not an arbitrary visual
+offset.
+
+## What remains common
+
+Full and Lite retain the important high-level architecture:
+
+- same 28 mm cell pitch;
+- same approximately 24.8 mm snap footprint;
+- fixed receiver surrounding a removable insert;
+- local perimeter retention;
+- compliant regions beside retention features;
+- a top functional surface that can remain flush in the assembled state.
+
+The difference is primarily how much vertical structure is required to realise
+that relationship.
+
+## Directional mode
+
+Directional retention exists independently of the Full/Lite selection.
+
+OG-02 intentionally uses:
+
+```text
+directional = false
+```
+
+for both variants. Mixing directional behaviour into this comparison would add
+a second variable before the basic Full/Lite height/profile question is settled.
+
+## AT-01 consequence
+
+**Lite is the preferred first reference for AT-01.**
+
+That does not mean AT-01 should copy the 24.8 mm Lite snap. It means Lite is the
+better reduction starting point because upstream already demonstrates that:
+
+- the Full 6.8 mm vertical envelope is not essential to the attachment concept;
+- the 24.8 mm locating footprint can coexist with a much shallower removable
+  part;
+- retention/compliance can live near the functional interface instead of
+  requiring the complete Full depth.
+
+AT-01 should therefore begin from the Lite relationship and ask what can be
+reduced further:
+
+1. how much of the four-sided receiver is actually needed;
+2. which opposing locating surfaces carry useful load;
+3. how many retention nubs are necessary;
+4. how much compliant length the removable part needs;
+5. whether the fixed-side footprint can shrink significantly below 28 mm without
+   making insertion/removal or printing worse.
+
+Full remains the control/reference if reducing the Lite principle exposes a
+feature whose purpose is unclear.
+
+## Not established
+
+OG-02 still does not establish:
+
+- physical insertion or removal force;
+- fatigue;
+- printer/material tolerance robustness;
+- retention under HUB75 tube loads;
+- the final fixed-side dimensions;
+- whether directional retention will be useful.
+
+Those remain later PoP questions.

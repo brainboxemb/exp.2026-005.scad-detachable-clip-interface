@@ -43,9 +43,59 @@ Questions:
 Exit: the exact upstream pair builds reproducibly and the generated evidence is
 clear enough to describe the mechanism without guessing.
 
+## OG-02 — Full versus Lite upstream comparison
+
+**Status:** complete in PR #2.
+
+**Findings:** [OG-02 Full/Lite findings](03-og-02-findings.md)
+
+Goal: understand the upstream Lite interface before reducing OpenGrid to a
+project-owned neutral coupon.
+
+Upstream dimensions at the pinned QuackWorks revision:
+
+```text
+                    receiver     snap
+Full                  6.8 mm     6.8 mm
+Lite                  4.0 mm     3.4 mm
+footprint                         ~24.8 x 24.8 mm
+```
+
+The Lite receiver is derived from the upper portion of the Full receiver. The
+Lite snap likewise removes the lower half of the Full snap. For a top-flush
+assembled comparison, the Lite snap is therefore posed 0.6 mm above the Lite
+receiver bottom.
+
+Evidence:
+
+- Full/Lite assembled, exploded and section comparison PNGs;
+- individual central X-Z profile PNGs for Full receiver, Full snap, Lite
+  receiver and Lite snap;
+- matching 1.0 mm-thick profile-slice STL exports for those four solids;
+- complete Lite receiver and Lite snap STL exports;
+- reuse OG-01's complete Full receiver/snap STLs rather than duplicate them.
+
+Questions:
+
+- what material/height disappears in Lite;
+- which locating and retention geometry remains;
+- whether the footprint stays unchanged;
+- whether Full and Lite preserve the same top functional surface;
+- whether Lite is a better starting point for AT-01's compact fixed-side
+  interface.
+
+Directional retention is deliberately deferred.
+
+Exit: generated evidence makes the Full/Lite difference explicit and the
+findings select the better starting principle for AT-01 without introducing
+HUB75 geometry.
+
 ## AT-01 — neutral fixed/removable coupon
 
-**Status:** next after PR #1 merges.
+**Status:** next after PR #2 merges.
+
+Start from the Lite relationship as the primary reduction reference. Keep Full
+as a control when the purpose of a removed feature is uncertain.
 
 Goal: isolate the minimum useful attachment relationship from the complete
 OpenGrid tile context without adding HUB75 geometry.
