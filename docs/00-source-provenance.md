@@ -80,3 +80,7 @@ credits the OpenGrid Snap design by David D and OpenSCAD implementation by
 metasyntactic. This experiment keeps that attribution and treats AT-01 as
 derived geometry. Any later production integration must carry the applicable
 upstream attribution/licence notice alongside the derived interface geometry.
+
+
+A verbatim copy of the QuackWorks repository-level CC BY-NC-SA 4.0 licence is
+retained at `LICENSES/CC-BY-NC-SA-4.0.txt` for the AT-01 derived geometry.
