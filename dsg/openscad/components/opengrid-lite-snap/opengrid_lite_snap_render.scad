@@ -10,7 +10,52 @@ use <opengrid_lite_snap.scad>
 
 module opengrid_lite_snap_design(view = "final") {
     design_bosl2_context() {
-        if (view == "source-layers")
+        if (view == "core")
+            opengrid_lite_snap_design_core();
+        else if (view == "core-plus-top") {
+            color([0.56, 0.56, 0.56, 0.42])
+                opengrid_lite_snap_design_core();
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_top();
+        } else if (view == "top-nub") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_top_nub();
+        } else if (view == "bottom-nubs") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_bottom_nubs();
+        } else if (view == "body-before-slots")
+            opengrid_lite_snap_design_body_before_slots();
+        else if (view == "click-slot-cutters") {
+            color([0.56, 0.56, 0.56, 0.42])
+                opengrid_lite_snap_design_body_before_slots();
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_click_slot_cutters();
+        } else if (view == "after-click-slots")
+            opengrid_lite_snap_design_after_click_slots();
+        else if (view == "wall-slot-cutters") {
+            color([0.56, 0.56, 0.56, 0.42])
+                opengrid_lite_snap_design_after_click_slots();
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_wall_slot_cutters();
+        } else if (view == "reconstructed")
+            opengrid_lite_snap_design_reconstructed();
+        else if (view == "reconstruction-compare") {
+            translate([-16, 0, 0])
+                color([0.88, 0.08, 0.06])
+                    opengrid_lite_snap_design_reconstructed();
+            translate([16, 0, 0])
+                color([0.56, 0.56, 0.56])
+                    opengrid_lite_snap_build();
+        } else if (view == "source-layers")
             opengrid_lite_snap_design_source_layers();
         else if (view == "solid-profile")
             opengrid_lite_snap_profile_view(false);
