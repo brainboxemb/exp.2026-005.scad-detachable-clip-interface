@@ -13,3 +13,5 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 - Add separate OG-01 fixed-receiver and removable-snap STL entrypoints.
 - Qualify OG-01 on run `35336131546`: all three PNG and two STL targets build
   without geometry errors, and both exported parts are manifold.
+- Add OG-02 Full/Lite comparison, individual receiver/snap profile PNGs and
+  1.0 mm profile-slice STLs, plus complete Lite receiver/snap STL exports.
