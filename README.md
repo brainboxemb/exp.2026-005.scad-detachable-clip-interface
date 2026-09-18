@@ -10,6 +10,32 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
+**Reduced detachable receiver + snap**
+
+The actual design objects are now separated from their carrier examples:
+
+```text
+opengrid-lite-receiver    pinned upstream fixed-side source
+opengrid-lite-snap        pinned upstream removable-side source
+
+node-receiver             experiment-owned fixed-side node
+node-snap                 experiment-owned removable node
+
+examples/
+  receiver-rail           carrier integration example
+  receiver-plate          carrier integration example
+```
+
+The standalone reduced receiver is a 10 × 14 × 4 mm object: a central 10 mm
+functional receiver plus 2 mm top-guide/support transition at each end. The
+removable snap is 10 mm long and retains/flexes only on two opposite sides.
+
+The local X/Z receiver profile and inward snap nubs are intentionally derived
+from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
+See the [reduced receiver + snap experiment record](docs/05-reduced-receiver-snap.md).
+
+## Previous reference phase
+
 **OG-02 — Full versus Lite upstream comparison**
 
 OG-01 established the Full reference pair. OG-02 compares that pair against the
@@ -23,33 +49,66 @@ Full:
 Lite:
 
 - receiver height: 4.0 mm;
-- snap height: 3.4 mm;
-- top-flush assembled snap bottom offset: 0.6 mm.
+- basic/QuackWorks Lite snap height: 3.4 mm;
+- arithmetic envelope difference: 0.6 mm.
 
-Comparison PNG:
+The reference does **not** impose a derived 0.6 mm Z offset. Receiver and snap
+are posed using the upstream CENTER anchoring. The 3.4 mm Lite snap is therefore
+shown as the actual pinned/basic reference rather than visually stretched to
+fill the 4.0 mm receiver envelope.
 
-- `og-02-full-lite-assembled.png`
-- `og-02-full-lite-exploded.png`
-- `og-02-full-lite-section.png`
+Generated output names are intentionally user-facing rather than experiment-code
+names. Numeric prefixes keep the most useful geometry at the top of the
+auto-generated gallery.
 
-Individual profile PNG + 1.0 mm profile-slice STL:
+The first outputs are:
 
-- Full receiver;
-- Full snap;
-- Lite receiver;
-- Lite snap.
+- `01-opengrid-lite-receiver.png/.stl`;
+- `02-opengrid-lite-snap.png/.stl`;
+- `03-node-receiver.png/.stl`;
+- `04-node-snap.png/.stl`;
+- `10-example-receiver-rail.png/.stl`;
+- `11-example-receiver-plate.png/.stl`;
+- `12-example-rail-assembled.png`;
+- `13-example-plate-assembled.png`.
 
-Printable complete parts:
+The primary reference/design objects therefore appear before carrier examples.
+Exploded/comparison views follow in the `20-...` range, node
+sections/profiles in the `30-...` range, and reference/detail evidence
+afterwards.
 
-- existing OG-01 Full receiver/snap STL exports remain the Full baseline;
-- `og-02-lite-receiver.stl`;
-- `og-02-lite-snap.stl`.
+Historical OpenGrid reference labels such as OG-01 and OG-02 remain in their
+reference findings, but the active experiment phases use descriptive names.
 
 After merge, normal production output is published under:
 
 - [Build](../../tree/prod/bld)
 - [PNG gallery](../../blob/prod/bld/png/README.md)
 - [STL output](../../tree/prod/bld/stl)
+
+
+## License
+
+This experiment repository is licensed under the
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**
+license (**CC BY-NC-SA 4.0**). See [LICENSE](LICENSE).
+
+The detachable interface geometry in this repository is derived from the pinned
+QuackWorks/OpenGrid reference and therefore keeps the upstream attribution and
+ShareAlike boundary explicit.
+
+Upstream reference:
+
+```text
+OpenGrid design: David D
+QuackWorks/OpenSCAD implementation: AndyLevesque/QuackWorks
+Pinned commit: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+Upstream repository licence: CC BY-NC-SA 4.0
+```
+
+The pinned third-party source remains in its own submodule/fork boundary and
+retains its original copyright and licence notices.
+
 
 ## External source
 
@@ -70,13 +129,26 @@ See [source provenance](docs/00-source-provenance.md).
 
 1. **OG-01** — reproduce and understand the upstream Full receiver + snap.
 2. **OG-02** — compare upstream Full and Lite receiver/snap variants.
-3. **AT-01** — reduce the relationship to a neutral fixed/removable coupon.
-4. **AT-02** — expose retention/flex geometry and critical dimensions.
-5. **AT-03** — compare only the critical tolerance variants.
-6. **TC-01** — add the real horizontal tube-clamping function after the
+3. **Reduced receiver + snap** — reduce the relationship to a neutral fixed/removable coupon.
+4. **Retention and flex geometry** — expose retention/flex geometry and critical dimensions.
+5. **Tolerance qualification** — compare only the critical tolerance variants.
+6. **Tube-clip carrier** — add the real horizontal tube-clamping function after the
    attachment principle is understood.
 
 See [experiment plan](docs/01-experiment-plan.md).
+
+## Component design documentation
+
+The component-local design documents are the geometry authority for their
+respective objects:
+
+- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/design/design.md)
+- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/design/design.md)
+- [Node receiver](dsg/openscad/components/node-receiver/design/design.md)
+- [Node snap](dsg/openscad/components/node-snap/design/design.md)
+
+Carrier usage lives separately under `dsg/openscad/examples/`. The rail and
+plate examples are consumers of the node design, not definitions of it.
 
 ## Interactive OpenSCAD view
 
@@ -86,8 +158,13 @@ selector exposes the stable Full/Lite experiment views directly:
 - complete Full and Lite assemblies;
 - individual receivers and snaps;
 - individual receiver/snap cross-sections;
-- selectable center/flex-slot versus solid/off-slot profile plane;
-- Full-versus-Lite assembled, exploded and section comparisons.
+- selectable center/flex-slot versus solid/off-slot profile plane, with the
+  solid/off-slot plane as the default because it gives the clearest first
+  impression of the complete mating body;
+- Full-versus-Lite assembled, exploded and section comparisons;
+- node rail/plate assembled and exploded views, retention sections, individual
+  receiver/snap views, a rail-vs-plate comparison and a generated top-view
+  comparison for the centring lead-in / 1 mm reference grooves.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same

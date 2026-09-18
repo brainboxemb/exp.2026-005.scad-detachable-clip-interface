@@ -13,6 +13,12 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 
 ### Added
 
+- Record the reduced receiver + snap phase digital qualification from run `35344807800`: exact rail/plate/snap
+  STL envelopes, manifold exports, shared interface provenance and seated
+  clearance/interference analysis.
+- Add the reduced receiver + snap phase as an inside-out OpenGrid-Lite-derived interface with two fixed-side
+  carriers: a 50 × 10 × 4 mm receiver rail and the same 50 mm receiver profile
+  on a 50 × 20 × 6 mm plate; both use one open-ended 10 mm two-sided snap.
 - Bootstrap the OpenSCAD-only direct-build experiment repository.
 - Pin the QuackWorks fork at exact source
   `e0c1cb7ec78dd9e9a8476ed739bd3402074354f3`.
@@ -24,4 +30,4 @@ Functional evolution of the detachable SCAD clip-interface PoP.
   1.0 mm profile-slice STLs, plus complete Lite receiver/snap STL exports.
 - Qualify OG-02 on run `35338032630`: all comparison/profile PNG and STL
   targets build without geometry errors and all exported STL solids are
-  manifold; select Lite as the primary reduction reference for AT-01.
+  manifold; select Lite as the primary reduction reference for the reduced receiver + snap phase.

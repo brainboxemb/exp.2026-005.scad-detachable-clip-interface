@@ -81,59 +81,98 @@ Questions:
 - which locating and retention geometry remains;
 - whether the footprint stays unchanged;
 - whether Full and Lite preserve the same top functional surface;
-- whether Lite is a better starting point for AT-01's compact fixed-side
+- whether Lite is a better starting point for the compact fixed-side
   interface.
 
 Directional retention is deliberately deferred.
 
 Exit: generated evidence makes the Full/Lite difference explicit and the
-findings select the better starting principle for AT-01 without introducing
+findings select the better starting principle for the reduced interface without introducing
 HUB75 geometry.
 
 ## Reference correction — minimize upstream overrides
 
-**Status:** active in PR #3.
+**Status:** complete in PR #3.
 
-Before AT-01, revalidate OG-01/OG-02 using the smallest safe upstream call
+Before reducing the interface, revalidate OG-01/OG-02 using the smallest safe upstream call
 surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.md).
 
 The correction removes experiment-owned parameter overrides and the derived Lite
 assembly Z offset until the regenerated evidence supports an assembly relation.
 
-## AT-01 — neutral fixed/removable coupon
+## Reduced receiver + snap — two carrier concepts
 
-**Status:** blocked on PR #3 reference revalidation.
+**Status:** active in PR #4 — digital rail/plate baseline green; physical fit pending.
 
-Start from the Lite relationship as the primary reduction reference. Keep Full
-as a control when the purpose of a removed feature is uncertain.
+**Design record:** [Reduced receiver + snap](05-reduced-receiver-snap.md)
 
-Goal: isolate the minimum useful attachment relationship from the complete
-OpenGrid tile context without adding HUB75 geometry.
+Goal: preserve a recognisable OpenGrid-Lite-derived mating profile while
+inverting the roles and comparing two ways to carry the fixed receiver.
 
-Generate the same assembled/exploded/section PNG evidence plus separate fixed
-and removable STL coupons.
+Shared local interface:
 
-Exit: the reduced coupon preserves the mechanism being tested and makes the
-fixed-side footprint/load path explicit.
+- radial mirror of the Lite receiver side profile;
+- maximum fixed receiver width 10.0 mm;
+- Lite snap body/nub clearance/interference relationship mirrored around that
+  profile;
+- retention/flex on the two long +/-X sides only;
+- snap open at both Y ends so it clips locally from above;
+- one 10 mm-long removable snap works on both carriers.
 
-## AT-02 — retention/flex section
+Carrier A — **rail**:
+
+```text
+carrier            50 × 10 × 4 mm
+receiver zone      one local 10 × 10 mm position
+active profile     8 mm
+transition         1 mm at each Y end
+```
+
+The remainder of the 50 mm carrier stays rectangular.
+
+Carrier B — **plate**:
+
+```text
+base plate          50 × 20 × 6 mm
+support boss        10 × 14 × 4 mm
+receiver zone       central 10 mm of that boss
+active profile       8 mm
+transition           1 mm at each Y end
+straight support     2 mm beyond receiver at each end
+```
+
+The exact same removable snap must fit both.
+
+Evidence:
+
+- rail assembled/exploded/retention/transition sections;
+- plate assembled/exploded/retention/transition sections;
+- side-by-side concept render;
+- separate receiver-rail, receiver-plate and removable-snap STLs;
+- shared retention profile slices.
+
+Exit: both carriers expose the same local snap interface and the generated
+evidence shows no static overlap in the seated state. Physical insertion and
+pull-out force remain later print-test questions.
+
+## Retention and flex geometry
 
 **Status:** provisional.
 
 Make the retention nubs, compliant regions, lead-ins and load-carrying contact
 surfaces measurable and easy to inspect.
 
-## AT-03 — tolerance variants
+## Tolerance qualification
 
 **Status:** provisional.
 
-Vary only the dimensions shown by AT-02 to control insertion/retention. Do not
+Vary only the dimensions identified by the retention/flex analysis to control insertion/retention. Do not
 create a broad matrix of arbitrary variants.
 
 Physical coupon prints become useful here because snap/flex behaviour cannot be
 accepted from CAD alone.
 
-## TC-01 — tube-clip carrier
+## Tube-clip carrier
 
 **Status:** provisional.
 

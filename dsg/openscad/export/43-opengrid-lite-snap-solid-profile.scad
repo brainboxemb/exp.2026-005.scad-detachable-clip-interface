@@ -1,0 +1,2 @@
+include <../lib/opengrid_reference.scad>
+opengrid_lite_snap_solid_profile();
