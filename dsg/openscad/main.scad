@@ -11,7 +11,7 @@ at01_receiver_variant = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
 at01_show_mm_pattern = true;
 
 /* [Profile] */
-profile_plane = 0; // [0:Center / flex slot, 1:Solid / beside flex slot]
+profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 
 include <lib/og02_full_lite_reference.scad>
 include <lib/at01_inverted_core_snap.scad>
