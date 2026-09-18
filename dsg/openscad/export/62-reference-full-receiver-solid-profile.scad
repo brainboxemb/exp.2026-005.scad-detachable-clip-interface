@@ -1,2 +1,2 @@
-include <../lib/og02_full_lite_reference.scad>
-og02_full_receiver_solid_profile();
+include <../lib/opengrid_reference.scad>
+opengrid_full_receiver_solid_profile();
