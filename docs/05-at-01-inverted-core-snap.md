@@ -91,10 +91,16 @@ Y = -4 .. +4 mm    full source-derived receiver profile
 Y = +4 .. +5 mm    explicit transition back to straight 10 × 4 section
 ```
 
-The transition is an explicit ruled polyhedron between corresponding points
-of the straight and receiver cross-sections. No `hull()` is used. The lead-in/lead-out is deliberately short: it only needs to return the
+The lower transition is an explicit ruled polyhedron between corresponding
+points of the straight and receiver cross-sections. No `hull()` is used. The
+lead-in/lead-out is deliberately short: it only needs to return the
 source-derived X/Z widths to the ordinary straight 10 × 4 mm section. It does
 not taper the receiver height to zero.
+
+At the top of the receiver the final 0.4 mm also narrows in plan from the
+10.0 mm capture width/length to a 9.2 × 9.2 mm top footprint. That inward slope
+is intentional: a removable part pressed down from above is guided toward the
+receiver centre instead of being encouraged outward.
 
 For the rail the slope returns to the normal 10 × 4 mm rail section. For the
 plate the receiver ridge slopes back into the plate top.
@@ -219,6 +225,8 @@ PNG:
 - plate exploded;
 - plate retention section;
 - rail-versus-plate comparison;
+- receiver top-view comparison, showing the centring lead-in and optional
+  millimetre reference grooves;
 - receiver rail alone;
 - receiver plate alone;
 - removable snap alone.
@@ -239,6 +247,8 @@ Before accepting AT-01:
 - rail carrier envelope is exactly 50 × 10 × 4 mm;
 - only the middle 10 mm of the rail contains receiver profiling;
 - the local receiver has an 8 mm active region plus two 1 mm sloped transitions;
+- the receiver top narrows inward to 9.2 × 9.2 mm over the final 0.4 mm so
+  insertion geometry centres rather than spreads the removable part;
 - plate base is exactly 50 × 20 × 6 mm;
 - only one local 10 × 10 mm receiver exists on the plate;
 - plate variant uses the same local receiver profile as the rail variant;
@@ -264,14 +274,18 @@ local receiver/support top.
 
 ```text
 pitch                 1.00 mm
-minor groove width    0.20 mm
-major groove width    0.30 mm every 5 mm
-groove depth          0.20 mm
-pattern area          local 10 × 14 mm receiver/support area
+cross length          7.00 mm
+cross line width      0.12 mm
+tick length           0.55 mm
+tick width            0.10 mm
+groove depth          0.12 mm
+pattern area          compact centred cross on the receiver top
 ```
 
 These are real subtractive grooves, not a render overlay, so the scale reference
-is visible in both OpenSCAD and the generated full receiver STL files.
+is visible in both OpenSCAD and the generated full receiver STL files. The
+pattern is deliberately compact and stops well before the functional edges so it
+cannot be mistaken for mating geometry.
 
 `dsg/openscad/main.scad` exposes `at01_show_mm_pattern` to switch them on or
 off interactively.
