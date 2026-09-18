@@ -3,8 +3,8 @@
 // Right: reduced detachable clip snap, positive-X wall only.
 // Both are rendered at true physical scale.
 
-include <../lib/og02_full_lite_reference.scad>
-include <../lib/detachable_clip_interface.scad>
+include <../lib/opengrid_reference.scad>
+include <../lib/node_interface.scad>
 
 COMPARE_GAP = 7;
 PROFILE_Y = 1.0;
@@ -21,13 +21,13 @@ module _positive_x_crop(x_min, x_max, z_min=-2, z_max=8) {
 module opengrid_lite_wall_profile() {
     // Upstream Lite snap body is ~24.8 mm wide; isolate the +X wall/nub.
     _positive_x_crop(9.5, 13.5)
-        og02_lite_snap_profile();
+        opengrid_lite_snap_profile();
 }
 
-module detachable_clip_wall_profile() {
+module node_wall_profile() {
     // Reduced clip +X wall/nub; outer edge is 7.1 mm from centre.
     _positive_x_crop(4.2, 7.4)
-        detachable_clip_snap_retention_profile();
+        node_snap_retention_profile();
 }
 
 // Rebase each positive-X wall so its inner region is visually comparable.
@@ -39,7 +39,7 @@ translate([-6.5, 0, 0])
 translate([6.5, 0, 0])
     color([0.92, 0.30, 0.12])
         translate([-4.2, 0, 0])
-            detachable_clip_wall_profile();
+            node_wall_profile();
 
 $vpt=[0,0,1.8];
 $vpr=[90,0,0];
