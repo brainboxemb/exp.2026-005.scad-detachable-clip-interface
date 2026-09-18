@@ -122,26 +122,29 @@ Shared local interface:
 Carrier A — **rail**:
 
 ```text
-receiver length    50 mm
-max width          10 mm
-height              4 mm
+carrier            50 × 10 × 4 mm
+receiver zone      one local 10 × 10 mm position
+active profile     8 mm
+transition         1 mm at each Y end
 ```
 
-The receiver profile itself is the 50 mm rail.
+The remainder of the 50 mm carrier stays rectangular.
 
 Carrier B — **plate**:
 
 ```text
 base plate         50 × 20 × 6 mm
-receiver ridge     same 50 mm Lite-derived profile on top
+receiver zone      one local 10 × 10 mm position on top
+active profile      8 mm
+transition          1 mm at each Y end
 ```
 
 The exact same removable snap must fit both.
 
 Evidence:
 
-- rail assembled/exploded/section;
-- plate assembled/exploded/section;
+- rail assembled/exploded/retention/transition sections;
+- plate assembled/exploded/retention/transition sections;
 - side-by-side concept render;
 - separate receiver-rail, receiver-plate and removable-snap STLs;
 - shared retention profile slices.
