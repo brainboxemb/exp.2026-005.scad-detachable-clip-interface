@@ -132,7 +132,7 @@ module _main_selected_view(view) {
             );
     else if (view == 17)
         color([0.92, 0.30, 0.12])
-            at01_removable_snap();
+            at01_removable_snap(at01_show_mm_pattern);
     else if (view == 18)
         at01_concepts_comparison(at01_show_mm_pattern);
     else if (view == 19)
