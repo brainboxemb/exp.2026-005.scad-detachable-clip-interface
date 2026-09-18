@@ -86,6 +86,7 @@ selector exposes the stable Full/Lite experiment views directly:
 - complete Full and Lite assemblies;
 - individual receivers and snaps;
 - individual receiver/snap cross-sections;
+- selectable center/flex-slot versus solid/off-slot profile plane;
 - Full-versus-Lite assembled, exploded and section comparisons.
 
 The individual build entrypoints remain authoritative for generated PNG/STL

@@ -6,6 +6,9 @@
 /* [View] */
 design_view = 10; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section]
 
+/* [Profile] */
+profile_plane = 0; // [0:Center / flex slot, 1:Solid / beside flex slot]
+
 include <lib/og02_full_lite_reference.scad>
 
 function _main_profile_view(view) =
@@ -47,10 +50,16 @@ module _main_selected_view(view) {
             og02_full_snap();
     else if (view == 3)
         color([0.70, 0.72, 0.76])
-            og02_full_receiver_profile();
+            if (profile_plane == 0)
+                og02_full_receiver_profile();
+            else
+                og02_full_receiver_solid_profile();
     else if (view == 4)
         color([0.90, 0.28, 0.14])
-            og02_full_snap_profile();
+            if (profile_plane == 0)
+                og02_full_snap_profile();
+            else
+                og02_full_snap_solid_profile();
     else if (view == 5)
         og02_lite_assembled();
     else if (view == 6)
@@ -61,10 +70,16 @@ module _main_selected_view(view) {
             og02_lite_snap();
     else if (view == 8)
         color([0.70, 0.72, 0.76])
-            og02_lite_receiver_profile();
+            if (profile_plane == 0)
+                og02_lite_receiver_profile();
+            else
+                og02_lite_receiver_solid_profile();
     else if (view == 9)
         color([0.90, 0.28, 0.14])
-            og02_lite_snap_profile();
+            if (profile_plane == 0)
+                og02_lite_snap_profile();
+            else
+                og02_lite_snap_solid_profile();
     else if (view == 10)
         og02_comparison_assembled();
     else if (view == 11)

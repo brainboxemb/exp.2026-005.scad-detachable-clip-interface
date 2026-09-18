@@ -2,11 +2,12 @@
 // Full versus Lite QuackWorks OpenGrid reference comparison.
 //
 // Keep upstream defaults intact wherever possible. The only variant selector
-// supplied to the Lite snap is lite=true. openGridSnap() still needs its three
-// BOSL2 placement arguments because upstream provides no defaults for them.
+// supplied to the Lite snap is lite=true. The upstream file itself invokes
+// openGridSnap() without orient/anchor/spin, so this reference does the same.
 //
-// Individual "profile" modules are true 1.0 mm-thick central Y slices, so they
-// remain valid 3D solids for STL export while exposing the X-Z cross-section.
+// "center" profiles pass through the retention/flex slots. "solid" profiles use
+// an offset Y plane beside those slots to expose the continuous body. All profile
+// modules are true 1.0 mm-thick slices and remain valid 3D solids for STL export.
 
 include <BOSL2/std.scad>
 use <../ext/quackworks/openGrid/openGrid.scad>
@@ -15,6 +16,7 @@ use <../ext/quackworks/openGrid/opengrid-snap.scad>
 OG02_COMPARE_X = 19;
 OG02_EXPLODED_Z = 14;
 OG02_PROFILE_SLICE_Y = 1.0;
+OG02_PROFILE_SOLID_Y = 7.0;
 
 module og02_full_receiver() {
     openGrid(
@@ -31,31 +33,24 @@ module og02_lite_receiver() {
 }
 
 module og02_full_snap() {
-    openGridSnap(
-        orient = UP,
-        anchor = CENTER,
-        spin = 0
-    );
+    openGridSnap();
 }
 
 module og02_lite_snap() {
     openGridSnap(
-        lite = true,
-        orient = UP,
-        anchor = CENTER,
-        spin = 0
+        lite = true
     );
 }
 
-module _og02_profile_slice_volume() {
-    translate([-40, -OG02_PROFILE_SLICE_Y / 2, -20])
+module _og02_profile_slice_volume(y = 0) {
+    translate([-40, y - OG02_PROFILE_SLICE_Y / 2, -20])
         cube([80, OG02_PROFILE_SLICE_Y, 40]);
 }
 
-module _og02_profile_slice() {
+module _og02_profile_slice(y = 0) {
     intersection() {
         children();
-        _og02_profile_slice_volume();
+        _og02_profile_slice_volume(y);
     }
 }
 
@@ -76,6 +71,26 @@ module og02_lite_receiver_profile() {
 
 module og02_lite_snap_profile() {
     _og02_profile_slice()
+        og02_lite_snap();
+}
+
+module og02_full_receiver_solid_profile() {
+    _og02_profile_slice(OG02_PROFILE_SOLID_Y)
+        og02_full_receiver();
+}
+
+module og02_full_snap_solid_profile() {
+    _og02_profile_slice(OG02_PROFILE_SOLID_Y)
+        og02_full_snap();
+}
+
+module og02_lite_receiver_solid_profile() {
+    _og02_profile_slice(OG02_PROFILE_SOLID_Y)
+        og02_lite_receiver();
+}
+
+module og02_lite_snap_solid_profile() {
+    _og02_profile_slice(OG02_PROFILE_SOLID_Y)
         og02_lite_snap();
 }
 

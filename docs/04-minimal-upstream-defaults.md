@@ -37,32 +37,23 @@ openGridLite(
 );
 ```
 
-The snap source is slightly different: `orient`, `anchor` and `spin` have
-no defaults in the module signature, so those three placement arguments are
-still technically required.
+The snap signature lists `orient`, `anchor` and `spin` without explicit
+defaults, but QuackWorks itself calls `openGridSnap()` with those arguments
+omitted. The reference therefore follows that upstream usage directly.
 
 Full:
 
 ```scad
-openGridSnap(
-    orient=UP,
-    anchor=CENTER,
-    spin=0
-);
+openGridSnap();
 ```
 
 Lite:
 
 ```scad
-openGridSnap(
-    lite=true,
-    orient=UP,
-    anchor=CENTER,
-    spin=0
-);
+openGridSnap(lite=true);
 ```
 
-`directional` is intentionally left at its upstream default.
+No other snap parameter is overridden.
 
 ## Assembly correction
 
@@ -85,3 +76,19 @@ half the profile.
 Compare the regenerated PR #3 PNG/STL output against the production OG-01/OG-02
 baseline and document every meaningful geometry/blob difference before replacing
 the accepted reference findings.
+
+
+## Cross-section interpretation
+
+A central X-Z slice through the snap crosses the long side click-hole/flex slot.
+That view is mechanically useful but can make the Full snap look as if its lower
+body stops at the retention area.
+
+PR #3 therefore keeps two corresponding profile planes for every receiver/snap:
+
+- `center / flex slot` at Y=0;
+- `solid / beside flex slot` at Y=7 mm.
+
+The solid plane is outside the 12.4 mm-long central side click-hole and shows the
+continuous snap body. Both planes use the same 1.0 mm slice thickness and are
+available from the main Customizer.
