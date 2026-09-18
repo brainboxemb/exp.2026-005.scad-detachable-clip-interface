@@ -1,4 +1,13 @@
-// File: og01_reference.scad
+// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+//
+// Experiment wrapper around the pinned QuackWorks/OpenGrid reference.
+// Original OpenGrid design: David D.
+// QuackWorks/OpenSCAD reference: AndyLevesque/QuackWorks,
+// pinned at e0c1cb7ec78dd9e9a8476ed739bd3402074354f3.
+// Third-party source retains its own notices; see LICENSE and
+// docs/00-source-provenance.md.
+//
+// // File: og01_reference.scad
 // Upstream OpenGrid receiver + removable snap reference fixture.
 //
 // Keep upstream defaults intact wherever possible. The board dimensions are the
