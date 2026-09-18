@@ -1,0 +1,24 @@
+Publication context : production
+Publication kind    : build
+Publication branch  : prod/bld
+
+Source
+------
+Repository          : brainboxemb/exp.2026-005.scad-detachable-clip-interface
+Ref type            : branch
+Ref                 : main
+Commit              : a17bff73e5f317acfa341cda985dfcb468617dc8
+Triggered by        : brainboxemb
+Workflow run        : https://github.com/brainboxemb/exp.2026-005.scad-detachable-clip-interface/actions/runs/35384144519
+
+Tooling
+-------
+SCAD toolchain image: ghcr.io/brainboxemb/scad-toolchain-openscad:v0.5.0
+SCAD toolchain ver. : v0.5.0
+tool.scad-project   : v0.14.10
+
+Git submodules
+--------------
+dsg/openscad/ext/quackworks : e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+tools/tool.scad-project : 3ad040b2d9c26b8c482853157baeb99a8d9b36db

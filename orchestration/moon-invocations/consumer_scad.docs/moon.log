@@ -1,0 +1,550 @@
+[ WARN 2026-09-18 19:08:00.145] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 19:08:00.145] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.docs (0751f388)
+▮▮▮▮ consumer:scad.docs (running for 30s)
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.01-base-block.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0001.scad
+Geometries in cache: 4
+Geometry cache size in bytes: 3424
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.143
+Top level object is a 3D object (PolySet):
+   Convex:       yes
+   Facets:         6
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.01-base-block.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/01-base-block.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.02-lower-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0002.scad
+Geometries in cache: 9
+Geometry cache size in bytes: 6752
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 46000
+Total rendering time: 0:00:00.073
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       64
+   Facets:        116
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.02-lower-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/02-lower-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.03-after-lower.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0003.scad
+Geometries in cache: 8
+Geometry cache size in bytes: 5896
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 44000
+Total rendering time: 0:00:00.074
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:       52
+   Facets:         88
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.03-after-lower.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/03-after-lower.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.04-top-main-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0004.scad
+Geometries in cache: 13
+Geometry cache size in bytes: 10224
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 74000
+Total rendering time: 0:00:00.076
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -5
+   Vertices:       80
+   Facets:        136
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.04-top-main-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/04-top-main-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.05-top-guide-before.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0005.scad
+Geometries in cache: 8
+Geometry cache size in bytes: 5896
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 44000
+Total rendering time: 0:00:00.075
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:       52
+   Facets:         88
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.05-top-guide-before.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/05-top-guide-before.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.06-top-guide-removed.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0006.scad
+Geometries in cache: 10
+Geometry cache size in bytes: 7656
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 66000
+Total rendering time: 0:00:00.074
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:       52
+   Facets:         88
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.06-top-guide-removed.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/06-top-guide-removed.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.07-top-guide-after.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0007.scad
+Geometries in cache: 10
+Geometry cache size in bytes: 7656
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 69000
+Total rendering time: 0:00:00.075
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -5
+   Vertices:       68
+   Facets:        112
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.07-top-guide-after.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/07-top-guide-after.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.08-top-guide-before-after.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0008.scad
+Geometries in cache: 10
+Geometry cache size in bytes: 7656
+CGAL Polyhedrons in cache: 10
+CGAL cache size in bytes: 142000
+Total rendering time: 0:00:00.076
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -9
+   Vertices:      120
+   Facets:        200
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.08-top-guide-before-after.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/08-top-guide-before-after.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.09-plain.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0009.scad
+Geometries in cache: 10
+Geometry cache size in bytes: 7656
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 69000
+Total rendering time: 0:00:00.073
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -5
+   Vertices:       68
+   Facets:        112
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.09-plain.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/09-plain.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.10-pattern-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0010.scad
+Geometries in cache: 44
+Geometry cache size in bytes: 36760
+CGAL Polyhedrons in cache: 11
+CGAL cache size in bytes: 521500
+Total rendering time: 0:00:00.087
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      604
+   Facets:       1196
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.10-pattern-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/10-pattern-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,28.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.11-final.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0011.scad
+Geometries in cache: 43
+Geometry cache size in bytes: 35880
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 359250
+Total rendering time: 0:00:00.083
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      546
+   Facets:       1080
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/.11-final.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-receiver/design/img/11-final.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.01-core-envelope.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0012.scad
+Geometries in cache: 11
+Geometry cache size in bytes: 9920
+CGAL Polyhedrons in cache: 23
+CGAL cache size in bytes: 52000
+Total rendering time: 0:00:00.074
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       16
+   Facets:         28
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.01-core-envelope.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/01-core-envelope.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.02-positive-wall.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0013.scad
+Geometries in cache: 14
+Geometry cache size in bytes: 12488
+CGAL Polyhedrons in cache: 26
+CGAL cache size in bytes: 63750
+Total rendering time: 0:00:00.076
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       23
+   Facets:         42
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.02-positive-wall.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/02-positive-wall.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.03-side-walls.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0014.scad
+Geometries in cache: 15
+Geometry cache size in bytes: 13344
+CGAL Polyhedrons in cache: 26
+CGAL cache size in bytes: 66000
+Total rendering time: 0:00:00.077
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       24
+   Facets:         40
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.03-side-walls.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/03-side-walls.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.04-nub-box.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0015.scad
+Geometries in cache: 23
+Geometry cache size in bytes: 20192
+CGAL Polyhedrons in cache: 27
+CGAL cache size in bytes: 74000
+Total rendering time: 0:00:00.077
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       32
+   Facets:         56
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.04-nub-box.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/04-nub-box.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.05-nub-wedge-shaped.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0016.scad
+Geometries in cache: 26
+Geometry cache size in bytes: 21752
+CGAL Polyhedrons in cache: 32
+CGAL cache size in bytes: 96000
+Total rendering time: 0:00:00.077
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       40
+   Facets:         72
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.05-nub-wedge-shaped.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/05-nub-wedge-shaped.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.06-nub-final-one-side.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0017.scad
+Geometries in cache: 32
+Geometry cache size in bytes: 204296
+CGAL Polyhedrons in cache: 33
+CGAL cache size in bytes: 160000
+Total rendering time: 0:00:00.080
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       80
+   Facets:        152
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.06-nub-final-one-side.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/06-nub-final-one-side.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.07-nubs.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0018.scad
+Geometries in cache: 32
+Geometry cache size in bytes: 204296
+CGAL Polyhedrons in cache: 35
+CGAL cache size in bytes: 230000
+Total rendering time: 0:00:00.081
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:      136
+   Facets:        264
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.07-nubs.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/07-nubs.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.08-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0019.scad
+WARNING: Ignoring unknown module '_node_snap_top' in file ../../../work/dsg/openscad/components/node-snap/node_snap_render.scad, line 58
+Geometries in cache: 33
+Geometry cache size in bytes: 204296
+CGAL Polyhedrons in cache: 35
+CGAL cache size in bytes: 264000
+Total rendering time: 0:00:00.081
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:      136
+   Facets:        264
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.08-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/08-top.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.09-main-click-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0020.scad
+Geometries in cache: 43
+Geometry cache size in bytes: 311656
+CGAL Polyhedrons in cache: 73
+CGAL cache size in bytes: 1204000
+Total rendering time: 0:00:00.100
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      144
+   Facets:        284
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.09-main-click-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/09-main-click-slot-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.10-after-main-click-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0021.scad
+Geometries in cache: 43
+Geometry cache size in bytes: 311656
+CGAL Polyhedrons in cache: 72
+CGAL cache size in bytes: 1334500
+Total rendering time: 0:00:00.101
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      666
+   Facets:       1328
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.10-after-main-click-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/10-after-main-click-slots.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.11-top-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0022.scad
+Geometries in cache: 47
+Geometry cache size in bytes: 315080
+CGAL Polyhedrons in cache: 75
+CGAL cache size in bytes: 1513000
+Total rendering time: 0:00:00.105
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      682
+   Facets:       1360
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.11-top-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/11-top-slot-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.12-plain.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0023.scad
+Geometries in cache: 47
+Geometry cache size in bytes: 315080
+CGAL Polyhedrons in cache: 74
+CGAL cache size in bytes: 1481000
+Total rendering time: 0:00:00.103
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      682
+   Facets:       1360
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.12-plain.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/12-plain.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.13-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0024.scad
+Geometries in cache: 49
+Geometry cache size in bytes: 316792
+CGAL Polyhedrons in cache: 68
+CGAL cache size in bytes: 996500
+Total rendering time: 0:00:00.100
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       84
+   Facets:        164
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.13-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/13-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.14-pattern-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0025.scad
+Geometries in cache: 81
+Geometry cache size in bytes: 344184
+CGAL Polyhedrons in cache: 79
+CGAL cache size in bytes: 2085250
+Total rendering time: 0:00:00.116
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1157
+   Facets:       2310
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.14-pattern-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/14-pattern-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,68.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.15-final.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0026.scad
+Geometries in cache: 80
+Geometry cache size in bytes: 343328
+CGAL Polyhedrons in cache: 70
+CGAL cache size in bytes: 1274250
+Total rendering time: 0:00:00.112
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1151
+   Facets:       2298
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/.15-final.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/node-snap/design/img/15-final.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.01-full-source.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0027.scad
+Geometries in cache: 34
+Geometry cache size in bytes: 40472
+CGAL Polyhedrons in cache: 25
+CGAL cache size in bytes: 562500
+Total rendering time: 0:00:00.078
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:      146
+   Facets:        292
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.01-full-source.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/01-full-source.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.02-retained-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0028.scad
+Geometries in cache: 37
+Geometry cache size in bytes: 43040
+CGAL Polyhedrons in cache: 29
+CGAL cache size in bytes: 682750
+Total rendering time: 0:00:00.088
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:      151
+   Facets:        302
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.02-retained-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/02-retained-top.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.03-lite-result.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0029.scad
+Geometries in cache: 39
+Geometry cache size in bytes: 44232
+CGAL Polyhedrons in cache: 33
+CGAL cache size in bytes: 760000
+Total rendering time: 0:00:00.079
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:       92
+   Facets:        184
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.03-lite-result.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/03-lite-result.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.04-solid-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0030.scad
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 769000
+Total rendering time: 0:00:00.079
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       36
+   Facets:         64
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.04-solid-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/04-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.05-profile-zones.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0031.scad
+Geometries in cache: 52
+Geometry cache size in bytes: 55360
+CGAL Polyhedrons in cache: 43
+CGAL cache size in bytes: 828250
+Total rendering time: 0:00:00.089
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       61
+   Facets:        114
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.05-profile-zones.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/05-profile-zones.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.06-flex-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0032.scad
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 767000
+Total rendering time: 0:00:00.079
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       28
+   Facets:         48
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/.06-flex-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-receiver/design/img/06-flex-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.01-core.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0033.scad
+Geometries in cache: 11
+Geometry cache size in bytes: 9920
+CGAL Polyhedrons in cache: 23
+CGAL cache size in bytes: 72000
+Total rendering time: 0:00:00.073
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       16
+   Facets:         28
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.01-core.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/01-core.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.02-core-plus-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0034.scad
+Geometries in cache: 22
+Geometry cache size in bytes: 19840
+CGAL Polyhedrons in cache: 50
+CGAL cache size in bytes: 144000
+Total rendering time: 0:00:00.078
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       32
+   Facets:         60
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.02-core-plus-top.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/02-core-plus-top.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.03-top-nub.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0035.scad
+Geometries in cache: 39
+Geometry cache size in bytes: 31232
+CGAL Polyhedrons in cache: 64
+CGAL cache size in bytes: 214500
+Total rendering time: 0:00:00.081
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       82
+   Facets:        160
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.03-top-nub.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/03-top-nub.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.04-bottom-nubs.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0036.scad
+Geometries in cache: 56
+Geometry cache size in bytes: 222184
+CGAL Polyhedrons in cache: 80
+CGAL cache size in bytes: 620500
+Total rendering time: 0:00:00.090
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      289
+   Facets:        574
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.04-bottom-nubs.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/04-bottom-nubs.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.05-body-before-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0037.scad
+Geometries in cache: 56
+Geometry cache size in bytes: 222184
+CGAL Polyhedrons in cache: 78
+CGAL cache size in bytes: 551500
+Total rendering time: 0:00:00.094
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      302
+   Facets:        600
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.05-body-before-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/05-body-before-slots.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.06-click-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0038.scad
+Geometries in cache: 67
+Geometry cache size in bytes: 312744
+CGAL Polyhedrons in cache: 117
+CGAL cache size in bytes: 2459500
+Total rendering time: 0:00:00.111
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      514
+   Facets:       1024
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.06-click-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/06-click-slot-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.07-after-click-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0039.scad
+Geometries in cache: 67
+Geometry cache size in bytes: 312744
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 2331000
+Total rendering time: 0:00:00.114
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1166
+   Facets:       2328
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.07-after-click-slots.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/07-after-click-slots.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.08-wall-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0040.scad
+Geometries in cache: 82
+Geometry cache size in bytes: 325584
+CGAL Polyhedrons in cache: 120
+CGAL cache size in bytes: 2946000
+Total rendering time: 0:00:00.119
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1198
+   Facets:       2392
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.08-wall-slot-cutters.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/08-wall-slot-cutters.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.09-reconstructed.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0041.scad
+Geometries in cache: 82
+Geometry cache size in bytes: 325584
+CGAL Polyhedrons in cache: 117
+CGAL cache size in bytes: 2355000
+Total rendering time: 0:00:00.114
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1198
+   Facets:       2392
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.09-reconstructed.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/09-reconstructed.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.10-reconstruction-compare.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0042.scad
+Geometries in cache: 91
+Geometry cache size in bytes: 933624
+CGAL Polyhedrons in cache: 142
+CGAL cache size in bytes: 6110000
+Total rendering time: 0:00:00.155
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     2620
+   Facets:       5232
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.10-reconstruction-compare.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/10-reconstruction-compare.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,65.0,0.0,35.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.11-source-layers.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0043.scad
+Geometries in cache: 89
+Geometry cache size in bytes: 754792
+CGAL Polyhedrons in cache: 119
+CGAL cache size in bytes: 4302000
+Total rendering time: 0:00:00.145
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1416
+   Facets:       2828
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.11-source-layers.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/11-source-layers.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.12-solid-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0044.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3236250
+Total rendering time: 0:00:00.120
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       17
+   Facets:         30
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.12-solid-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/12-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --camera=0.0,0.0,0.0,90.0,0.0,0.0,0.0 --autocenter --viewall --imgsize=640,480 -o /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.13-flex-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/entrypoints/render-0045.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3252500
+Total rendering time: 0:00:00.121
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       82
+   Facets:        160
++ scad-image-watermark /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/.13-flex-profile.unwatermarked.png /tmp/scad-project-design-build-atkltzn6/design/project/openscad/components/opengrid-lite-snap/design/img/13-flex-profile.png --text © 2026 brainboxemb
+Generated design documentation: bld/design
+design build: OK
+▮▮▮▮ consumer:scad.docs (40s 821ms, 0751f388)
+
+Tasks: 1 completed
+ Time: 40s 910ms
+

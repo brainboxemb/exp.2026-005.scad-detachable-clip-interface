@@ -1,0 +1,19 @@
+{
+  "action": "design-build",
+  "capability": "scad.docs",
+  "domain_evidence": [],
+  "exit_code": 0,
+  "log": "execution.log",
+  "owner": "brainboxemb/tool.scad-project",
+  "owner_revision": "3ad040b2d9c26b8c482853157baeb99a8d9b36db",
+  "producer_execution": {
+    "duration_ms": 40788,
+    "finished_at": "2026-09-18T19:08:41Z",
+    "started_at": "2026-09-18T19:08:01Z"
+  },
+  "schema": "brainboxemb.execution-evidence",
+  "schema_version": 1,
+  "source_revision": "a17bff73e5f317acfa341cda985dfcb468617dc8",
+  "status": "success",
+  "tool_scad_project_version": "0.14.10"
+}

@@ -1,0 +1,722 @@
+[ WARN 2026-09-18 19:08:42.034] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 19:08:42.034] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.build (115e90ab)
+▮▮▮▮ consumer:scad.build (running for 30s)
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.01-opengrid-lite-receiver.unwatermarked.png /work/dsg/openscad/render/01-opengrid-lite-receiver.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 39
+Geometry cache size in bytes: 44232
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 783000
+Total rendering time: 0:00:00.144
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:       92
+   Facets:        184
++ scad-image-watermark /work/bld/png/.01-opengrid-lite-receiver.unwatermarked.png /work/bld/png/01-opengrid-lite-receiver.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.02-opengrid-lite-snap.unwatermarked.png /work/dsg/openscad/render/02-opengrid-lite-snap.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 83
+Geometry cache size in bytes: 749656
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3587500
+Total rendering time: 0:00:00.186
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1422
+   Facets:       2840
++ scad-image-watermark /work/bld/png/.02-opengrid-lite-snap.unwatermarked.png /work/bld/png/02-opengrid-lite-snap.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.03-node-receiver.unwatermarked.png /work/dsg/openscad/render/03-node-receiver.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 43
+Geometry cache size in bytes: 35880
+CGAL Polyhedrons in cache: 9
+CGAL cache size in bytes: 495750
+Total rendering time: 0:00:00.144
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      546
+   Facets:       1080
++ scad-image-watermark /work/bld/png/.03-node-receiver.unwatermarked.png /work/bld/png/03-node-receiver.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.04-node-snap.unwatermarked.png /work/dsg/openscad/render/04-node-snap.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 80
+Geometry cache size in bytes: 343328
+CGAL Polyhedrons in cache: 71
+CGAL cache size in bytes: 1562000
+Total rendering time: 0:00:00.172
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1151
+   Facets:       2298
++ scad-image-watermark /work/bld/png/.04-node-snap.unwatermarked.png /work/bld/png/04-node-snap.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.10-example-receiver-rail.unwatermarked.png /work/dsg/openscad/render/10-example-receiver-rail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 79
+Geometry cache size in bytes: 66696
+CGAL Polyhedrons in cache: 9
+CGAL cache size in bytes: 1105750
+Total rendering time: 0:00:00.155
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     1227
+   Facets:       2446
++ scad-image-watermark /work/bld/png/.10-example-receiver-rail.unwatermarked.png /work/bld/png/10-example-receiver-rail.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.11-example-receiver-plate.unwatermarked.png /work/dsg/openscad/render/11-example-receiver-plate.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 46
+Geometry cache size in bytes: 38448
+CGAL Polyhedrons in cache: 11
+CGAL cache size in bytes: 530250
+Total rendering time: 0:00:00.142
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:      549
+   Facets:       1090
++ scad-image-watermark /work/bld/png/.11-example-receiver-plate.unwatermarked.png /work/bld/png/11-example-receiver-plate.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.12-example-rail-assembled.unwatermarked.png /work/dsg/openscad/render/12-example-rail-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 155
+Geometry cache size in bytes: 406600
+CGAL Polyhedrons in cache: 82
+CGAL cache size in bytes: 3554750
+Total rendering time: 0:00:00.205
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      3
+   Vertices:     2397
+   Facets:       4802
++ scad-image-watermark /work/bld/png/.12-example-rail-assembled.unwatermarked.png /work/bld/png/12-example-rail-assembled.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.13-example-plate-assembled.unwatermarked.png /work/dsg/openscad/render/13-example-plate-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 122
+Geometry cache size in bytes: 378352
+CGAL Polyhedrons in cache: 84
+CGAL cache size in bytes: 2809750
+Total rendering time: 0:00:00.190
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      3
+   Vertices:     1719
+   Facets:       3446
++ scad-image-watermark /work/bld/png/.13-example-plate-assembled.unwatermarked.png /work/bld/png/13-example-plate-assembled.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.20-node-rail-exploded.unwatermarked.png /work/dsg/openscad/render/20-node-rail-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 155
+Geometry cache size in bytes: 312520
+CGAL Polyhedrons in cache: 82
+CGAL cache size in bytes: 2549750
+Total rendering time: 0:00:00.185
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:     1897
+   Facets:       3782
++ scad-image-watermark /work/bld/png/.20-node-rail-exploded.unwatermarked.png /work/bld/png/20-node-rail-exploded.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.21-node-plate-exploded.unwatermarked.png /work/dsg/openscad/render/21-node-plate-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 122
+Geometry cache size in bytes: 284272
+CGAL Polyhedrons in cache: 84
+CGAL cache size in bytes: 1804750
+Total rendering time: 0:00:00.175
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:     1219
+   Facets:       2422
++ scad-image-watermark /work/bld/png/.21-node-plate-exploded.unwatermarked.png /work/bld/png/21-node-plate-exploded.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.22-node-snap-vs-reference.unwatermarked.png /work/dsg/openscad/render/22-node-snap-vs-reference.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 131
+Geometry cache size in bytes: 972928
+CGAL Polyhedrons in cache: 192
+CGAL cache size in bytes: 3722750
+Total rendering time: 0:00:00.196
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       91
+   Facets:        174
++ scad-image-watermark /work/bld/png/.22-node-snap-vs-reference.unwatermarked.png /work/bld/png/22-node-snap-vs-reference.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.23-node-receiver-top-comparison.unwatermarked.png /work/dsg/openscad/render/23-node-receiver-top-comparison.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 113
+Geometry cache size in bytes: 95800
+CGAL Polyhedrons in cache: 20
+CGAL cache size in bytes: 2491500
+Total rendering time: 0:00:00.167
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -4
+   Vertices:     1774
+   Facets:       3528
++ scad-image-watermark /work/bld/png/.23-node-receiver-top-comparison.unwatermarked.png /work/bld/png/23-node-receiver-top-comparison.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.24-node-rail-vs-plate.unwatermarked.png /work/dsg/openscad/render/24-node-rail-vs-plate.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 189
+Geometry cache size in bytes: 341624
+CGAL Polyhedrons in cache: 95
+CGAL cache size in bytes: 5107500
+Total rendering time: 0:00:00.228
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      5
+   Vertices:     3152
+   Facets:       6320
++ scad-image-watermark /work/bld/png/.24-node-rail-vs-plate.unwatermarked.png /work/bld/png/24-node-rail-vs-plate.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.30-node-rail-retention-section.unwatermarked.png /work/dsg/openscad/render/30-node-rail-retention-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 58
+Geometry cache size in bytes: 229488
+CGAL Polyhedrons in cache: 78
+CGAL cache size in bytes: 504750
+Total rendering time: 0:00:00.147
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      115
+   Facets:        226
++ scad-image-watermark /work/bld/png/.30-node-rail-retention-section.unwatermarked.png /work/bld/png/30-node-rail-retention-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.31-node-plate-retention-section.unwatermarked.png /work/dsg/openscad/render/31-node-plate-retention-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 61
+Geometry cache size in bytes: 232056
+CGAL Polyhedrons in cache: 80
+CGAL cache size in bytes: 545000
+Total rendering time: 0:00:00.150
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      122
+   Facets:        240
++ scad-image-watermark /work/bld/png/.31-node-plate-retention-section.unwatermarked.png /work/bld/png/31-node-plate-retention-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.32-node-rail-transition-section.unwatermarked.png /work/dsg/openscad/render/32-node-rail-transition-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 12
+Geometry cache size in bytes: 9344
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 89000
+Total rendering time: 0:00:00.128
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       52
+   Facets:         92
++ scad-image-watermark /work/bld/png/.32-node-rail-transition-section.unwatermarked.png /work/bld/png/32-node-rail-transition-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.33-node-plate-transition-section.unwatermarked.png /work/dsg/openscad/render/33-node-plate-transition-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 15
+Geometry cache size in bytes: 11912
+CGAL Polyhedrons in cache: 9
+CGAL cache size in bytes: 122000
+Total rendering time: 0:00:00.130
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:       48
+   Facets:         80
++ scad-image-watermark /work/bld/png/.33-node-plate-transition-section.unwatermarked.png /work/bld/png/33-node-plate-transition-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.34-node-snap-retention-profile.unwatermarked.png /work/dsg/openscad/render/34-node-snap-retention-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 49
+Geometry cache size in bytes: 222712
+CGAL Polyhedrons in cache: 69
+CGAL cache size in bytes: 377500
+Total rendering time: 0:00:00.145
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       84
+   Facets:        164
++ scad-image-watermark /work/bld/png/.34-node-snap-retention-profile.unwatermarked.png /work/bld/png/34-node-snap-retention-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.40-opengrid-lite-section.unwatermarked.png /work/dsg/openscad/render/40-opengrid-lite-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 124
+Geometry cache size in bytes: 796456
+CGAL Polyhedrons in cache: 152
+CGAL cache size in bytes: 4031750
+Total rendering time: 0:00:00.183
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       53
+   Facets:         94
++ scad-image-watermark /work/bld/png/.40-opengrid-lite-section.unwatermarked.png /work/bld/png/40-opengrid-lite-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.41-opengrid-lite-flex-section.unwatermarked.png /work/dsg/openscad/render/41-opengrid-lite-flex-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 124
+Geometry cache size in bytes: 796456
+CGAL Polyhedrons in cache: 152
+CGAL cache size in bytes: 4074500
+Total rendering time: 0:00:00.184
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      110
+   Facets:        208
++ scad-image-watermark /work/bld/png/.41-opengrid-lite-flex-section.unwatermarked.png /work/bld/png/41-opengrid-lite-flex-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.42-opengrid-lite-receiver-flex-profile.unwatermarked.png /work/dsg/openscad/render/42-opengrid-lite-receiver-flex-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 35
+CGAL cache size in bytes: 774000
+Total rendering time: 0:00:00.134
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       28
+   Facets:         48
++ scad-image-watermark /work/bld/png/.42-opengrid-lite-receiver-flex-profile.unwatermarked.png /work/bld/png/42-opengrid-lite-receiver-flex-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.43-opengrid-lite-snap-flex-profile.unwatermarked.png /work/dsg/openscad/render/43-opengrid-lite-snap-flex-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 116
+CGAL cache size in bytes: 3273000
+Total rendering time: 0:00:00.176
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       82
+   Facets:        160
++ scad-image-watermark /work/bld/png/.43-opengrid-lite-snap-flex-profile.unwatermarked.png /work/bld/png/43-opengrid-lite-snap-flex-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.44-opengrid-lite-receiver-solid-profile.unwatermarked.png /work/dsg/openscad/render/44-opengrid-lite-receiver-solid-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 35
+CGAL cache size in bytes: 778000
+Total rendering time: 0:00:00.133
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       36
+   Facets:         64
++ scad-image-watermark /work/bld/png/.44-opengrid-lite-receiver-solid-profile.unwatermarked.png /work/bld/png/44-opengrid-lite-receiver-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.45-opengrid-lite-snap-solid-profile.unwatermarked.png /work/dsg/openscad/render/45-opengrid-lite-snap-solid-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 116
+CGAL cache size in bytes: 3240500
+Total rendering time: 0:00:00.173
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       17
+   Facets:         30
++ scad-image-watermark /work/bld/png/.45-opengrid-lite-snap-solid-profile.unwatermarked.png /work/bld/png/45-opengrid-lite-snap-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.50-reference-full-baseline-assembled.unwatermarked.png /work/dsg/openscad/render/50-reference-full-baseline-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 116
+Geometry cache size in bytes: 790128
+CGAL Polyhedrons in cache: 142
+CGAL cache size in bytes: 4673500
+Total rendering time: 0:00:00.207
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      4
+   Vertices:     1608
+   Facets:       3228
++ scad-image-watermark /work/bld/png/.50-reference-full-baseline-assembled.unwatermarked.png /work/bld/png/50-reference-full-baseline-assembled.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.51-reference-full-baseline-exploded.unwatermarked.png /work/dsg/openscad/render/51-reference-full-baseline-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 116
+Geometry cache size in bytes: 790128
+CGAL Polyhedrons in cache: 143
+CGAL cache size in bytes: 5039000
+Total rendering time: 0:00:00.198
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1608
+   Facets:       3212
++ scad-image-watermark /work/bld/png/.51-reference-full-baseline-exploded.unwatermarked.png /work/bld/png/51-reference-full-baseline-exploded.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.52-reference-full-baseline-section.unwatermarked.png /work/dsg/openscad/render/52-reference-full-baseline-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 119
+Geometry cache size in bytes: 792696
+CGAL Polyhedrons in cache: 144
+CGAL cache size in bytes: 4517500
+Total rendering time: 0:00:00.191
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:      864
+   Facets:       1728
++ scad-image-watermark /work/bld/png/.52-reference-full-baseline-section.unwatermarked.png /work/bld/png/52-reference-full-baseline-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.53-reference-full-section.unwatermarked.png /work/dsg/openscad/render/53-reference-full-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 119
+Geometry cache size in bytes: 792696
+CGAL Polyhedrons in cache: 144
+CGAL cache size in bytes: 3921250
+Total rendering time: 0:00:00.184
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       69
+   Facets:        126
++ scad-image-watermark /work/bld/png/.53-reference-full-section.unwatermarked.png /work/bld/png/53-reference-full-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.54-reference-full-flex-section.unwatermarked.png /work/dsg/openscad/render/54-reference-full-flex-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 119
+Geometry cache size in bytes: 792696
+CGAL Polyhedrons in cache: 144
+CGAL cache size in bytes: 3961750
+Total rendering time: 0:00:00.185
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      123
+   Facets:        234
++ scad-image-watermark /work/bld/png/.54-reference-full-flex-section.unwatermarked.png /work/bld/png/54-reference-full-flex-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.55-reference-full-receiver-flex-profile.unwatermarked.png /work/dsg/openscad/render/55-reference-full-receiver-flex-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 37
+Geometry cache size in bytes: 43040
+CGAL Polyhedrons in cache: 27
+CGAL cache size in bytes: 582500
+Total rendering time: 0:00:00.135
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       40
+   Facets:         72
++ scad-image-watermark /work/bld/png/.55-reference-full-receiver-flex-profile.unwatermarked.png /work/bld/png/55-reference-full-receiver-flex-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.56-reference-full-snap-flex-profile.unwatermarked.png /work/dsg/openscad/render/56-reference-full-snap-flex-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 116
+CGAL cache size in bytes: 3348500
+Total rendering time: 0:00:00.176
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       83
+   Facets:        162
++ scad-image-watermark /work/bld/png/.56-reference-full-snap-flex-profile.unwatermarked.png /work/bld/png/56-reference-full-snap-flex-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.57-reference-full-receiver-solid-profile.unwatermarked.png /work/dsg/openscad/render/57-reference-full-receiver-solid-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 37
+Geometry cache size in bytes: 43040
+CGAL Polyhedrons in cache: 27
+CGAL cache size in bytes: 588500
+Total rendering time: 0:00:00.133
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       52
+   Facets:         96
++ scad-image-watermark /work/bld/png/.57-reference-full-receiver-solid-profile.unwatermarked.png /work/bld/png/57-reference-full-receiver-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.58-reference-full-snap-solid-profile.unwatermarked.png /work/dsg/openscad/render/58-reference-full-snap-solid-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 116
+CGAL cache size in bytes: 3315500
+Total rendering time: 0:00:00.174
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       17
+   Facets:         30
++ scad-image-watermark /work/bld/png/.58-reference-full-snap-solid-profile.unwatermarked.png /work/bld/png/58-reference-full-snap-solid-profile.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.60-reference-full-vs-lite-assembled.unwatermarked.png /work/dsg/openscad/render/60-reference-full-vs-lite-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 145
+Geometry cache size in bytes: 812704
+CGAL Polyhedrons in cache: 200
+CGAL cache size in bytes: 9683500
+Total rendering time: 0:00:00.250
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      7
+   Vertices:     3114
+   Facets:       6252
++ scad-image-watermark /work/bld/png/.60-reference-full-vs-lite-assembled.unwatermarked.png /work/bld/png/60-reference-full-vs-lite-assembled.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.61-reference-full-vs-lite-exploded.unwatermarked.png /work/dsg/openscad/render/61-reference-full-vs-lite-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 145
+Geometry cache size in bytes: 812704
+CGAL Polyhedrons in cache: 202
+CGAL cache size in bytes: 10410500
+Total rendering time: 0:00:00.243
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     3122
+   Facets:       6236
++ scad-image-watermark /work/bld/png/.61-reference-full-vs-lite-exploded.unwatermarked.png /work/bld/png/61-reference-full-vs-lite-exploded.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.62-reference-full-vs-lite-section.unwatermarked.png /work/dsg/openscad/render/62-reference-full-vs-lite-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 148
+Geometry cache size in bytes: 815272
+CGAL Polyhedrons in cache: 204
+CGAL cache size in bytes: 6720000
+Total rendering time: 0:00:00.217
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -5
+   Vertices:      122
+   Facets:        220
++ scad-image-watermark /work/bld/png/.62-reference-full-vs-lite-section.unwatermarked.png /work/bld/png/62-reference-full-vs-lite-section.png --text © 2026 brainboxemb
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.63-reference-full-vs-lite-flex-section.unwatermarked.png /work/dsg/openscad/render/63-reference-full-vs-lite-flex-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 148
+Geometry cache size in bytes: 815272
+CGAL Polyhedrons in cache: 204
+CGAL cache size in bytes: 6858750
+Total rendering time: 0:00:00.221
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -5
+   Vertices:      233
+   Facets:        442
++ scad-image-watermark /work/bld/png/.63-reference-full-vs-lite-flex-section.unwatermarked.png /work/bld/png/63-reference-full-vs-lite-flex-section.png --text © 2026 brainboxemb
++ openscad -o /work/bld/stl/01-opengrid-lite-receiver.stl /work/dsg/openscad/export/01-opengrid-lite-receiver.scad
+Geometries in cache: 39
+Geometry cache size in bytes: 44232
+CGAL Polyhedrons in cache: 33
+CGAL cache size in bytes: 760000
+Total rendering time: 0:00:00.010
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:       92
+   Facets:        184
++ openscad -o /work/bld/stl/02-opengrid-lite-snap.stl /work/dsg/openscad/export/02-opengrid-lite-snap.scad
+Geometries in cache: 83
+Geometry cache size in bytes: 749656
+CGAL Polyhedrons in cache: 114
+CGAL cache size in bytes: 3232000
+Total rendering time: 0:00:00.051
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1422
+   Facets:       2840
++ openscad -o /work/bld/stl/03-node-receiver.stl /work/dsg/openscad/export/03-node-receiver.scad
+Geometries in cache: 43
+Geometry cache size in bytes: 35880
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 359250
+Total rendering time: 0:00:00.014
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:      546
+   Facets:       1080
++ openscad -o /work/bld/stl/04-node-snap.stl /work/dsg/openscad/export/04-node-snap.scad
+Geometries in cache: 80
+Geometry cache size in bytes: 343328
+CGAL Polyhedrons in cache: 70
+CGAL cache size in bytes: 1274250
+Total rendering time: 0:00:00.041
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1151
+   Facets:       2298
++ openscad -o /work/bld/stl/10-example-receiver-rail.stl /work/dsg/openscad/export/10-example-receiver-rail.scad
+Geometries in cache: 79
+Geometry cache size in bytes: 66696
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 799000
+Total rendering time: 0:00:00.027
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     1227
+   Facets:       2446
++ openscad -o /work/bld/stl/11-example-receiver-plate.stl /work/dsg/openscad/export/11-example-receiver-plate.scad
+Geometries in cache: 46
+Geometry cache size in bytes: 38448
+CGAL Polyhedrons in cache: 10
+CGAL cache size in bytes: 393000
+Total rendering time: 0:00:00.015
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:      549
+   Facets:       1090
++ openscad -o /work/bld/stl/30-node-rail-retention-profile.stl /work/dsg/openscad/export/30-node-rail-retention-profile.scad
+Geometries in cache: 12
+Geometry cache size in bytes: 9344
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 70250
+Total rendering time: 0:00:00.004
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       29
+   Facets:         46
++ openscad -o /work/bld/stl/31-node-plate-retention-profile.stl /work/dsg/openscad/export/31-node-plate-retention-profile.scad
+Geometries in cache: 15
+Geometry cache size in bytes: 11912
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 107000
+Total rendering time: 0:00:00.005
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       36
+   Facets:         60
++ openscad -o /work/bld/stl/32-node-rail-transition-profile.stl /work/dsg/openscad/export/32-node-rail-transition-profile.scad
+Geometries in cache: 12
+Geometry cache size in bytes: 9344
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 76000
+Total rendering time: 0:00:00.005
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -2
+   Vertices:       52
+   Facets:         92
++ openscad -o /work/bld/stl/33-node-plate-transition-profile.stl /work/dsg/openscad/export/33-node-plate-transition-profile.scad
+Geometries in cache: 15
+Geometry cache size in bytes: 11912
+CGAL Polyhedrons in cache: 8
+CGAL cache size in bytes: 110000
+Total rendering time: 0:00:00.005
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -3
+   Vertices:       48
+   Facets:         80
++ openscad -o /work/bld/stl/34-node-snap-retention-profile.stl /work/dsg/openscad/export/34-node-snap-retention-profile.scad
+Geometries in cache: 49
+Geometry cache size in bytes: 222712
+CGAL Polyhedrons in cache: 68
+CGAL cache size in bytes: 356500
+Total rendering time: 0:00:00.022
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       84
+   Facets:        164
++ openscad -o /work/bld/stl/40-opengrid-lite-receiver-flex-profile.stl /work/dsg/openscad/export/40-opengrid-lite-receiver-flex-profile.scad
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 767000
+Total rendering time: 0:00:00.011
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       28
+   Facets:         48
++ openscad -o /work/bld/stl/41-opengrid-lite-snap-flex-profile.stl /work/dsg/openscad/export/41-opengrid-lite-snap-flex-profile.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3252500
+Total rendering time: 0:00:00.052
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       82
+   Facets:        160
++ openscad -o /work/bld/stl/42-opengrid-lite-receiver-solid-profile.stl /work/dsg/openscad/export/42-opengrid-lite-receiver-solid-profile.scad
+Geometries in cache: 42
+Geometry cache size in bytes: 46800
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 769000
+Total rendering time: 0:00:00.011
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       36
+   Facets:         64
++ openscad -o /work/bld/stl/43-opengrid-lite-snap-solid-profile.stl /work/dsg/openscad/export/43-opengrid-lite-snap-solid-profile.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3236250
+Total rendering time: 0:00:00.051
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       17
+   Facets:         30
++ openscad -o /work/bld/stl/50-reference-full-receiver.stl /work/dsg/openscad/export/50-reference-full-receiver.scad
+Geometries in cache: 34
+Geometry cache size in bytes: 40472
+CGAL Polyhedrons in cache: 25
+CGAL cache size in bytes: 562500
+Total rendering time: 0:00:00.010
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      1
+   Vertices:      146
+   Facets:        292
++ openscad -o /work/bld/stl/51-reference-full-snap.stl /work/dsg/openscad/export/51-reference-full-snap.scad
+Geometries in cache: 83
+Geometry cache size in bytes: 749656
+CGAL Polyhedrons in cache: 114
+CGAL cache size in bytes: 3307000
+Total rendering time: 0:00:00.052
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1462
+   Facets:       2920
++ openscad -o /work/bld/stl/60-reference-full-receiver-flex-profile.stl /work/dsg/openscad/export/60-reference-full-receiver-flex-profile.scad
+Geometries in cache: 37
+Geometry cache size in bytes: 43040
+CGAL Polyhedrons in cache: 26
+CGAL cache size in bytes: 572500
+Total rendering time: 0:00:00.010
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       40
+   Facets:         72
++ openscad -o /work/bld/stl/61-reference-full-snap-flex-profile.stl /work/dsg/openscad/export/61-reference-full-snap-flex-profile.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3327750
+Total rendering time: 0:00:00.052
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       83
+   Facets:        162
++ openscad -o /work/bld/stl/62-reference-full-receiver-solid-profile.stl /work/dsg/openscad/export/62-reference-full-receiver-solid-profile.scad
+Geometries in cache: 37
+Geometry cache size in bytes: 43040
+CGAL Polyhedrons in cache: 26
+CGAL cache size in bytes: 575500
+Total rendering time: 0:00:00.010
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       52
+   Facets:         96
++ openscad -o /work/bld/stl/63-reference-full-snap-solid-profile.stl /work/dsg/openscad/export/63-reference-full-snap-solid-profile.scad
+Geometries in cache: 86
+Geometry cache size in bytes: 752224
+CGAL Polyhedrons in cache: 115
+CGAL cache size in bytes: 3311250
+Total rendering time: 0:00:00.052
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       17
+   Facets:         30
+build: OK
+▮▮▮▮ consumer:scad.build (50s 435ms, 115e90ab)
+
+Tasks: 1 completed
+ Time: 50s 552ms
+
