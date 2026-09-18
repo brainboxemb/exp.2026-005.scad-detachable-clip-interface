@@ -1,9 +1,9 @@
-// OG-01 assembled upstream reference.
+// OpenGrid Full assembled upstream reference.
 
-include <../lib/og01_reference.scad>
+include <../lib/opengrid_reference.scad>
 
 $vpt = [0, 0, 4];
 $vpr = [65, 0, 35];
 $vpd = 90;
 
-og01_reference_assembled();
+opengrid_full_assembled();
