@@ -110,17 +110,17 @@ AT01_SNAP_TOP = 1.2;
 AT01_SNAP_OUTER_WIDTH = AT01_SNAP_INNER_WIDTH + 2 * AT01_SNAP_WALL;
 AT01_SNAP_TOTAL_HEIGHT = AT01_SNAP_ENGAGEMENT_HEIGHT + AT01_SNAP_TOP;
 
-// OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
-// plain rectangular slab. Scale the source 3.262743 mm plan rounding with the
-// same 25 -> 10 mm reduction used for tangential dimensions.
-AT01_SOURCE_TOP_ROUNDING = 3.262743;
-AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
-
 // Normal OpenGrid snap nub dimensions, radially mirrored.
 // Z/radial dimensions stay at upstream values; tangential length scales with
 // the 25 -> 10 mm receiver width reduction.
 AT01_PLAN_SCALE =
     AT01_RECEIVER_MAX_WIDTH / AT01_SOURCE_RECEIVER_NARROW; // 0.4
+
+// OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
+// plain rectangular slab. Scale the source 3.262743 mm plan rounding with the
+// same 25 -> 10 mm reduction used for tangential dimensions.
+AT01_SOURCE_TOP_ROUNDING = 3.262743;
+AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
 
 AT01_NUB_LENGTH_Y = 11.0 * AT01_PLAN_SCALE;               // 4.4
 AT01_NUB_Z_BOTTOM = 0.2;
