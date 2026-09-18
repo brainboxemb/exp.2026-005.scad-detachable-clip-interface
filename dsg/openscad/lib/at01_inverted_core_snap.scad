@@ -142,8 +142,9 @@ AT01_TRANSITION_PLAN_Z = 0.8;
 
 // Optional physical millimetre reference grooves.
 // These are real subtractive features so they appear in STL as well as render.
-// They are restricted to the local 10 x 14 mm receiver/support area and do not
-// change the X/Z mating profile itself.
+// The reference is deliberately compact: one centred 10 x 10 mm "centimetre"
+// patch, rather than a grid spread over the complete receiver/support area.
+AT01_MM_PATTERN_SIZE = 10.0;
 AT01_MM_PATTERN_PITCH = 1.0;
 AT01_MM_PATTERN_DEPTH = 0.20;
 AT01_MM_PATTERN_MINOR_WIDTH = 0.20;
@@ -309,20 +310,21 @@ module _at01_mm_reference_cuts(base_z = 0) {
     z_center =
         base_z + AT01_RECEIVER_HEIGHT - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
 
-    // X grid lines across the 14 mm local support length.
-    for (x = [-4 : AT01_MM_PATTERN_PITCH : 4])
+    half = AT01_MM_PATTERN_SIZE / 2;
+
+    // One centred 10 x 10 mm reference patch.
+    for (x = [-half + 1 : AT01_MM_PATTERN_PITCH : half - 1])
         translate([x, 0, z_center])
             cube([
                 _at01_mm_line_width(x),
-                AT01_PLATE_SUPPORT_LENGTH - 0.4,
+                AT01_MM_PATTERN_SIZE,
                 AT01_MM_PATTERN_DEPTH + 0.02
             ], center = true);
 
-    // Y grid lines across the 10 mm receiver/support width.
-    for (y = [-6 : AT01_MM_PATTERN_PITCH : 6])
+    for (y = [-half + 1 : AT01_MM_PATTERN_PITCH : half - 1])
         translate([0, y, z_center])
             cube([
-                AT01_RAIL_WIDTH - 0.4,
+                AT01_MM_PATTERN_SIZE,
                 _at01_mm_line_width(y),
                 AT01_MM_PATTERN_DEPTH + 0.02
             ], center = true);
