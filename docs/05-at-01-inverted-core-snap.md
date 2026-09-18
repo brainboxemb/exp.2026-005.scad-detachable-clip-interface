@@ -19,8 +19,8 @@ The component-local design documents are authoritative for geometry:
 | --- | --- | --- |
 | Reference Lite receiver | pinned upstream fixed-side reference | `dsg/openscad/components/reference-lite-receiver/design/design.md` |
 | Reference Lite snap | pinned upstream removable-side reference | `dsg/openscad/components/reference-lite-snap/design/design.md` |
-| Reduced receiver | experiment-owned fixed-side design | `dsg/openscad/components/interface-receiver/design/design.md` |
-| Reduced snap | experiment-owned removable-side design | `dsg/openscad/components/interface-snap/design/design.md` |
+| Reduced receiver | experiment-owned fixed-side design | `dsg/openscad/components/node-receiver/design/design.md` |
+| Reduced snap | experiment-owned removable-side design | `dsg/openscad/components/node-snap/design/design.md` |
 
 This file records the **experiment relationship and acceptance boundary**. It
 must not duplicate every component dimension; those details belong in the
@@ -123,8 +123,8 @@ Primary geometry appears first:
 ```text
 01-reference-lite-receiver
 02-reference-lite-snap
-03-interface-receiver
-04-interface-snap
+03-node-receiver
+04-node-snap
 ```
 
 Carrier examples follow:
