@@ -18,8 +18,8 @@ The actual design objects are now separated from their carrier examples:
 reference-lite-receiver   pinned upstream fixed-side reference
 reference-lite-snap       pinned upstream removable-side reference
 
-interface-receiver        experiment-owned reduced fixed-side object
-interface-snap            experiment-owned reduced removable-side object
+node-receiver             experiment-owned fixed-side node
+node-snap                 experiment-owned removable node
 
 examples/
   receiver-rail           carrier integration example
@@ -65,8 +65,8 @@ The first outputs are:
 
 - `01-reference-lite-receiver.png/.stl`;
 - `02-reference-lite-snap.png/.stl`;
-- `03-interface-receiver.png/.stl`;
-- `04-interface-snap.png/.stl`;
+- `03-node-receiver.png/.stl`;
+- `04-node-snap.png/.stl`;
 - `10-example-receiver-rail.png/.stl`;
 - `11-example-receiver-plate.png/.stl`;
 - `12-example-rail-assembled.png`;
@@ -145,11 +145,11 @@ respective objects:
 
 - [Reference Lite receiver](dsg/openscad/components/reference-lite-receiver/design/design.md)
 - [Reference Lite snap](dsg/openscad/components/reference-lite-snap/design/design.md)
-- [Reduced interface receiver](dsg/openscad/components/interface-receiver/design/design.md)
-- [Reduced interface snap](dsg/openscad/components/interface-snap/design/design.md)
+- [Node receiver](dsg/openscad/components/node-receiver/design/design.md)
+- [Node snap](dsg/openscad/components/node-snap/design/design.md)
 
 Carrier usage lives separately under `dsg/openscad/examples/`. The rail and
-plate examples are consumers of the interface design, not definitions of it.
+plate examples are consumers of the node design, not definitions of it.
 
 ## Interactive OpenSCAD view
 
@@ -163,7 +163,7 @@ selector exposes the stable Full/Lite experiment views directly:
   solid/off-slot plane as the default because it gives the clearest first
   impression of the complete mating body;
 - Full-versus-Lite assembled, exploded and section comparisons;
-- AT-01 rail/plate assembled and exploded views, retention sections, individual
+- node rail/plate assembled and exploded views, retention sections, individual
   receiver/snap views, a rail-vs-plate comparison and a generated top-view
   comparison for the centring lead-in / 1 mm reference grooves.
 
