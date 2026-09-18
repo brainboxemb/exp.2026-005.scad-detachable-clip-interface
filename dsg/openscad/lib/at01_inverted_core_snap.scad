@@ -261,14 +261,17 @@ module _at01_positive_y_top_cut_transition() {
 
     // Start with the same triangular X/Z lead-in section as the active
     // centre. Over the 2 mm Y transition, collapse that complete triangle to
-    // the outer/bottom point. This makes the end of the guide slope in X, Y
-    // AND Z instead of leaving a vertical end face.
+    // the ORIGINAL outer/top rail corner. That is the zero-cut condition.
+    //
+    // The exposed chamfer face therefore continues as a genuine 3D guide
+    // surface into the ordinary rail instead of appearing to terminate
+    // against a straight end wall.
     polyhedron(
         points = [
             [xi, ya, z1],
             [xo, ya, z1],
             [xo, ya, z0],
-            [xo, yb, z0]
+            [xo, yb, z1]
         ],
         faces = [
             [0, 2, 1],
