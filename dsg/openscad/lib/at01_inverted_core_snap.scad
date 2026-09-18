@@ -122,12 +122,6 @@ AT01_PLAN_SCALE =
 AT01_SOURCE_TOP_ROUNDING = 3.262743;
 AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
 
-AT01_NUB_LENGTH_Y = 11.0 * AT01_PLAN_SCALE;               // 4.4
-AT01_NUB_Z_BOTTOM = 0.2;
-AT01_NUB_Z_INWARD_START = 0.8;
-AT01_NUB_Z_INWARD_END = 1.4;
-AT01_NUB_Z_TOP = 2.0;
-
 // OpenGrid click-hole proportions retained on +/-X only.
 // Radial width and rounding are source values. Tangential length is shortened
 // for this 10 mm coupon while preserving the 11/12.4 nub/slot relationship.
