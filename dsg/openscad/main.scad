@@ -4,7 +4,7 @@
 // views. Geometry lives in the experiment libraries.
 
 /* [View] */
-design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:AT-01 assembled, 14:AT-01 exploded, 15:AT-01 retention section, 16:AT-01 receiver, 17:AT-01 removable snap, 18:AT-01 rail vs plate]
+design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:AT-01 assembled, 14:AT-01 exploded, 15:AT-01 retention section, 16:AT-01 receiver, 17:AT-01 removable snap, 18:AT-01 rail vs plate, 19:AT-01 receiver transition section]
 
 /* [AT-01] */
 at01_receiver_variant = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
@@ -25,10 +25,10 @@ function _main_exploded_view(view) =
     view == 11 || view == 14;
 
 function _main_at01_view(view) =
-    view >= 13 && view <= 18;
+    view >= 13 && view <= 19;
 
 function _main_at01_section_view(view) =
-    view == 15;
+    view == 15 || view == 19;
 
 $vpt =
     _main_at01_view(design_view)
@@ -42,8 +42,10 @@ $vpt =
 $vpr =
     design_view == 15
         ? [90, 0, 0]
-        : _main_at01_view(design_view)
-            ? [68, 0, 28]
+        : design_view == 19
+            ? [90, 0, 90]
+            : _main_at01_view(design_view)
+                ? [68, 0, 28]
                 : _main_profile_view(design_view)
                     ? [90, 0, 0]
                     : _main_comparison_view(design_view)
@@ -123,6 +125,8 @@ module _main_selected_view(view) {
             at01_removable_snap();
     else if (view == 18)
         at01_concepts_comparison();
+    else if (view == 19)
+        at01_transition_section(at01_receiver_variant);
     else
         assert(false, str("Unsupported design_view: ", view));
 }
