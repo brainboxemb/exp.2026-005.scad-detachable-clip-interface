@@ -137,7 +137,7 @@ AT01_TOP_SLOT_Z = 2.2;
 // Evidence helpers.
 AT01_EXPLODED_Z = 8.0;
 AT01_PROFILE_SLICE = 1.0;
-AT01_TRANSITION_SLICE_X = 4.7;
+AT01_TRANSITION_PLAN_Z = 0.8;
 
 // Invariants.
 assert(abs(AT01_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
@@ -516,13 +516,18 @@ module _at01_y_slice() {
         cube([60, AT01_PROFILE_SLICE, 20]);
 }
 
-module _at01_x_transition_slice() {
+module _at01_transition_plan_slice(variant = 0) {
+    base_z = at01_receiver_base_z(variant);
+
+    // A horizontal 1 mm slice entirely inside the receiver's lower constant-
+    // width band (0 .. 1.6 mm local Z). This exposes the Y lead-in/lead-out
+    // directly in plan view without the misleading near-edge X/Z cut.
     translate([
-        AT01_TRANSITION_SLICE_X - AT01_PROFILE_SLICE / 2,
         -30,
-        -1
+        -30,
+        base_z + AT01_TRANSITION_PLAN_Z - AT01_PROFILE_SLICE / 2
     ])
-        cube([AT01_PROFILE_SLICE, 60, 20]);
+        cube([60, 60, AT01_PROFILE_SLICE]);
 }
 
 module at01_receiver_retention_profile(variant = 0) {
@@ -542,7 +547,7 @@ module at01_snap_retention_profile() {
 module at01_receiver_transition_profile(variant = 0) {
     intersection() {
         at01_receiver(variant);
-        _at01_x_transition_slice();
+        _at01_transition_plan_slice(variant);
     }
 }
 
