@@ -78,6 +78,20 @@ See [source provenance](docs/00-source-provenance.md).
 
 See [experiment plan](docs/01-experiment-plan.md).
 
+## Interactive OpenSCAD view
+
+Open `dsg/openscad/main.scad` for local investigation. Its Customizer **View**
+selector exposes the stable Full/Lite experiment views directly:
+
+- complete Full and Lite assemblies;
+- individual receivers and snaps;
+- individual receiver/snap cross-sections;
+- Full-versus-Lite assembled, exploded and section comparisons.
+
+The individual build entrypoints remain authoritative for generated PNG/STL
+evidence; `main.scad` is the convenient interactive selector over the same
+experiment geometry.
+
 ## Build model
 
 This is an OpenSCAD-only consumer of the current shared SCAD project tooling. It
