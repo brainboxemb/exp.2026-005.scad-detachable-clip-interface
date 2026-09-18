@@ -1,12 +1,12 @@
-// Interactive OpenSCAD entrypoint for the detachable-clip PoP.
+// Interactive OpenSCAD entrypoint for the node-interface PoP.
 //
 // Keep this file focused on selecting and posing already-defined experiment
 // views. Geometry lives in the experiment libraries.
 
 /* [View] */
-design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:Node interface assembled, 14:Node interface exploded, 15:Node interface retention section, 16:Node receiver, 17:Node snap, 18:Clip rail vs plate examples, 19:Node receiver transition section, 20:Node snap wall profile]
+design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:Node interface assembled, 14:Node interface exploded, 15:Node interface retention section, 16:Node receiver, 17:Node snap, 18:Node rail vs plate examples, 19:Node receiver transition section, 20:Node snap wall profile]
 
-/* [Detachable clip interface] */
+/* [Node interface] */
 node_receiver_example = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
 node_show_mm_pattern = true;
 
