@@ -7,11 +7,10 @@ module: opengrid_lite_snap_design
 vpr: [65, 0, 35]
 -->
 
-## Why this reference exists
+## Purpose and source boundary
 
-This component is the pinned removable-side source reference used to understand
-which shapes in OpenGrid are structural, which provide flex, and which create
-retention.
+This directory explains how the pinned OpenGrid Lite snap is constructed. The
+upstream source itself remains unchanged.
 
 Pinned source:
 
@@ -21,76 +20,239 @@ commit e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
 openGrid/opengrid-snap.scad
 ```
 
-## Step 1 — inspect the complete Lite snap
+The reconstruction helpers in this component copy only the relevant
+non-directional Lite construction so intermediate states can be rendered. The
+final comparison still uses the pinned upstream module.
+
+## Step 1 — start from the 3.0 mm core
 
 <!-- scad-render
-view: final
+view: core
 -->
 
-The pinned QuackWorks Lite snap is 3.4 mm high and 24.8 mm wide. The top view is
-not a plain square: both the core and top are clipped/chamfered.
+For Lite:
 
-The source construction is roughly:
-
-```openscad
-w       = 24.8;
-core_h  = 3.0;
-top_h   = 0.4;
-
-core = cuboid([w,w,core_h], rounding=4.81837, $fn=2);
-top  = cuboid([w,w,top_h],  rounding=3.262743, $fn=2);
+```text
+w       = 24.8 mm
+h       = 3.4 mm
+core    = 3.0 mm
+top     = 0.4 mm
 ```
 
-The reduced snap later keeps the same clipped-corner design language rather
-than replacing it with a rectangular slab.
+The source core is:
 
-## Step 2 — separate the principal source layers
+```openscad
+cuboid(
+    [w, w, core],
+    rounding = 4.81837,
+    edges = "Z",
+    $fn = 2,
+    anchor = BOTTOM
+);
+```
 
-The exact final snap is split into its main 3.0 mm core region and 0.4 mm top
-region:
+Again, `$fn=2` means a clipped/chamfered plan corner rather than a rounded
+high-facet corner.
+
+## Step 2 — add the 0.4 mm top layer
+
+The core is grey; the top layer is red:
+
+<!-- scad-render
+view: core-plus-top
+-->
+
+The source places the top at the top of the 3.4 mm Lite snap:
+
+```openscad
+zmove(h - top_h - 0.01)
+    cuboid(
+        [w, w, top_h + 0.01],
+        rounding = 3.262743,
+        edges = "Z",
+        $fn = 2,
+        anchor = BOTTOM
+    );
+```
+
+This immediately explains why the OpenGrid Lite snap is not a 4.0 mm object:
+its explicit source height is 3.4 mm.
+
+## Step 3 — add the shaped top nub
+
+The existing core+top is grey; the top-nub construction is red:
+
+<!-- scad-render
+view: top-nub
+-->
+
+This is an important intermediate feature that is easy to miss if the source is
+treated as “core + top only”.
+
+The upstream operation intersects a 1.1 mm-high chamfered body with four rotated
+wedges:
+
+```openscad
+intersection() {
+    zmove(core - top_nub_h - 0.01)
+        cuboid(
+            [w, w, top_nub_h + 0.01],
+            rounding = 3.262743,
+            edges = "Z",
+            $fn = 2,
+            anchor = BOTTOM
+        );
+
+    zrot_copies(n = 4)
+        move([w / 2 - offs, w / 2 - offs, core])
+            rotate([180, 0, 135])
+                wedge([6.817, top_nub_h, top_nub_h]);
+}
+```
+
+So the upper guide shape is not produced by the 0.4 mm top plate alone.
+
+## Step 4 — add the four normal retention nubs
+
+The body built so far is grey. The four normal bottom nubs are red:
+
+<!-- scad-render
+view: bottom-nubs
+-->
+
+Each nub is itself a multi-stage construction:
+
+```openscad
+intersection() {
+    difference() {
+        nub_box();
+        top_wedge();
+        bottom_wedge();
+    }
+
+    elliptical_rounding_cylinder();
+}
+```
+
+The important normal-nub source dimensions are:
+
+```text
+nub base height        0.2 mm
+nub tangential width  11.0 mm
+nub radial depth       0.4 mm
+upper wedge height     0.6 mm
+lower wedge height     0.6 mm
+rounding radius       13.025 mm
+Y scale                1.36
+```
+
+The node snap later reuses this exact construction principle rather than
+approximating it with a trapezoid.
+
+## Step 5 — inspect the complete positive body before slots
+
+<!-- scad-render
+view: body-before-slots
+-->
+
+At this point the snap is a solid union of:
+
+```text
+core
++ top
++ top nub
++ four normal bottom nubs
+```
+
+The flex system does not exist yet.
+
+## Step 6 — cut the four main click/flex slots
+
+The positive body is grey; the click-slot cutters are red:
+
+<!-- scad-render
+view: click-slot-cutters
+-->
+
+The pinned Lite slot operation is:
+
+```openscad
+zrot_copies(n = 4)
+    move([w / 2 - 1, 0, 0])
+        cuboid(
+            [0.6, 12.4, 1.5],
+            rounding = 0.3,
+            $fn = 100,
+            edges = "Z",
+            anchor = BOTTOM
+        );
+```
+
+After subtraction:
+
+<!-- scad-render
+view: after-click-slots
+-->
+
+These slots create the long flexible tongues. The slot itself is not the
+retention profile.
+
+## Step 7 — cut the upper wall slots
+
+The body after the main click slots is grey. The upper wall-slot cutters are
+red:
+
+<!-- scad-render
+view: wall-slot-cutters
+-->
+
+The source uses:
+
+```openscad
+zrot_copies(n = 4)
+    move([w / 2, 0, 2.2])
+        cuboid(
+            [1.4, 12, 0.4],
+            anchor = BOTTOM
+        );
+```
+
+This small upper cut separates the flex tongue from the upper body near the
+source-derived Z=2.2 mm level.
+
+## Step 8 — reconstructed non-directional Lite snap
+
+<!-- scad-render
+view: reconstructed
+-->
+
+This reconstruction is assembled from the intermediate modules above.
+
+For validation, the reconstructed snap is shown on the left and the pinned
+upstream `openGridSnap(lite=true)` result on the right:
+
+<!-- scad-render
+view: reconstruction-compare
+vpd: 105
+-->
+
+The purpose of this comparison is not to create a replacement implementation;
+it is to make the source construction inspectable step by step while retaining
+the pinned upstream module as authority.
+
+## Step 9 — inspect the core/top height bands
+
+The exact pinned final snap can also be split by Z to show the 3.0 mm core and
+0.4 mm top bands:
 
 <!-- scad-render
 view: source-layers
 -->
 
-The red upper band is only 0.4 mm. This is why the old impression that the Lite
-snap should simply fill the entire 4.0 mm receiver height was misleading: the
-pinned source really is a 3.4 mm snap.
+This is a height explanation only. Features such as the top nub cross those
+conceptual bands and remain part of the same final object.
 
-The source also adds a shaped top nub inside the upper core region. So “core +
-top” describes the height stack, not two featureless boxes.
-
-## Step 3 — understand the retention nub
-
-The normal nub is not a trapezoid. Its source construction combines two wedge
-subtractions with a rounded-cylinder intersection.
-
-A compact equivalent description is:
-
-```openscad
-nub =
-    intersection(
-        box
-          - top_wedge
-          - bottom_wedge,
-        rounded_cylinder
-    );
-```
-
-Important source dimensions used by the experiment are:
-
-```text
-nub radial depth       0.4 mm
-nub width             11.0 mm
-upper wedge height     0.6 mm
-lower wedge height     0.6 mm
-rounded radius        13.025 mm
-```
-
-This is the reason the reduced snap now keeps a bulb-like shaped nub instead of
-the earlier straight-sided approximation.
-
-## Step 4 — inspect the continuous wall profile
+## Step 10 — inspect the continuous wall section
 
 <!-- scad-render
 view: solid-profile
@@ -98,34 +260,29 @@ vpr: [90, 0, 0]
 -->
 
 This section avoids the long click slot and shows the body/nub relationship
-without missing material.
+continuously.
 
-## Step 5 — inspect the flex-slot plane
+## Step 11 — inspect the flex-slot plane
 
 <!-- scad-render
 view: flex-profile
 vpr: [90, 0, 0]
 -->
 
-The long slot is deliberately simple. The important source dimensions are:
-
-```text
-slot radial width       0.6 mm
-slot rounding           0.3 mm
-slot centre             1.0 mm inward from body face
-```
-
-That leaves a 0.7 mm nub-bearing flex tongue at the body edge:
-
-```text
-12.4 - (11.4 + 0.6 / 2) = 0.7 mm
-```
-
-The slot creates compliance; the shaped nub creates retention. Those are two
-different jobs and remain separate in the reduced design.
+This section intentionally crosses the long click slot so the compliant tongue
+can be read directly.
 
 ## Derivation boundary
 
-The experiment may reduce the snap to two active walls and scale its tangential
-length, but it should preserve these source roles before introducing tolerance
-variants.
+The node snap may reduce this four-sided source to two active walls and scale
+the tangential dimension, but the source roles remain distinct:
+
+```text
+body outline
+top guide / top nub
+normal retention nub
+main click slot
+upper wall slot
+```
+
+Those roles are the basis for the node design walkthrough.
