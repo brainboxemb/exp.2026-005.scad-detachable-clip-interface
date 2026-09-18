@@ -48,14 +48,20 @@ Full:
 Lite:
 
 - receiver height: 4.0 mm;
-- snap height: 3.4 mm;
-- top-flush assembled snap bottom offset: 0.6 mm.
+- basic/QuackWorks Lite snap height: 3.4 mm;
+- arithmetic envelope difference: 0.6 mm.
+
+The reference does **not** impose a derived 0.6 mm Z offset. Receiver and snap
+are posed using the upstream CENTER anchoring. The 3.4 mm Lite snap is therefore
+shown as the actual pinned/basic reference rather than visually stretched to
+fill the 4.0 mm receiver envelope.
 
 Comparison PNG:
 
 - `og-02-full-lite-assembled.png`
 - `og-02-full-lite-exploded.png`
-- `og-02-full-lite-section.png`
+- `og-02-full-lite-section.png` — primary solid/off-slot section;
+- `og-02-full-lite-flex-section.png` — technical center/flex-slot section
 
 Individual profile PNG + 1.0 mm profile-slice STL:
 
@@ -111,7 +117,9 @@ selector exposes the stable Full/Lite experiment views directly:
 - complete Full and Lite assemblies;
 - individual receivers and snaps;
 - individual receiver/snap cross-sections;
-- selectable center/flex-slot versus solid/off-slot profile plane;
+- selectable center/flex-slot versus solid/off-slot profile plane, with the
+  solid/off-slot plane as the default because it gives the clearest first
+  impression of the complete mating body;
 - Full-versus-Lite assembled, exploded and section comparisons;
 - AT-01 rail/plate assembled and exploded views, retention sections, individual
   receiver/snap views, a rail-vs-plate comparison and a generated top-view
