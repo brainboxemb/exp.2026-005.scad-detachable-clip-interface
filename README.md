@@ -56,25 +56,25 @@ are posed using the upstream CENTER anchoring. The 3.4 mm Lite snap is therefore
 shown as the actual pinned/basic reference rather than visually stretched to
 fill the 4.0 mm receiver envelope.
 
-Comparison PNG:
+Generated output names are intentionally user-facing rather than experiment-code
+names. Numeric prefixes keep the most useful geometry at the top of the
+auto-generated gallery.
 
-- `og-02-full-lite-assembled.png`
-- `og-02-full-lite-exploded.png`
-- `og-02-full-lite-section.png` — primary solid/off-slot section;
-- `og-02-full-lite-flex-section.png` — technical center/flex-slot section
+The first outputs are:
 
-Individual profile PNG + 1.0 mm profile-slice STL:
+- `01-reference-lite-receiver.png/.stl`;
+- `02-reference-lite-snap.png/.stl`;
+- `03-interface-receiver-rail.png/.stl`;
+- `04-interface-receiver-plate.png/.stl`;
+- `05-interface-snap.png/.stl`.
 
-- Full receiver;
-- Full snap;
-- Lite receiver;
-- Lite snap.
+Assemblies follow in the `10-...` range, exploded/comparison views in the
+`20-...` range, interface sections/profiles in the `30-...` range, and
+reference/detail evidence afterwards.
 
-Printable complete parts:
-
-- existing OG-01 Full receiver/snap STL exports remain the Full baseline;
-- `og-02-lite-receiver.stl`;
-- `og-02-lite-snap.stl`.
+Internal labels such as OG-01, OG-02 and AT-01 remain in the experiment records
+and testcase discussion, but are deliberately not required to understand a
+generated PNG or STL filename.
 
 After merge, normal production output is published under:
 
