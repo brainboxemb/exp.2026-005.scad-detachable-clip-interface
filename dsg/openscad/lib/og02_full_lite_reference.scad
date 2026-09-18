@@ -1,4 +1,13 @@
-// File: og02_full_lite_reference.scad
+// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+//
+// Experiment wrapper around the pinned QuackWorks/OpenGrid reference.
+// Original OpenGrid design: David D.
+// QuackWorks/OpenSCAD reference: AndyLevesque/QuackWorks,
+// pinned at e0c1cb7ec78dd9e9a8476ed739bd3402074354f3.
+// Third-party source retains its own notices; see LICENSE and
+// docs/00-source-provenance.md.
+//
+// // File: og02_full_lite_reference.scad
 // Full versus Lite QuackWorks OpenGrid reference comparison.
 //
 // Keep upstream defaults intact wherever possible. The only variant selector
