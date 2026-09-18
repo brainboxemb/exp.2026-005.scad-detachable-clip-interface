@@ -1,23 +1,23 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **current digital baseline; visual acceptance and physical qualification still open**
+Status: **current digital design baseline; final visual review open; physical qualification follows separately**
 
 Qualified source head:
 
 ```text
-e4b3878aa0c2bf786781a02716fea77293cdcb61
+faebf5b886641bb0a83cfe18b49c22ef76fa8785
 ```
 
 Build run:
 
 ```text
-35356649821
+35386827873
 ```
 
 Published preview:
 
 ```text
-dev/pr-4/bld
+dev/pr-7/bld
 ```
 
 Pinned QuackWorks source:
@@ -126,12 +126,13 @@ STL includes:
 - receiver/profile slices;
 - OpenGrid reference parts and profile slices.
 
-The receiver coupons may include the optional compact 1 mm physical reference
-groove cross. It remains outside the mating edges and is not functional geometry.
+The receiver and snap may include the optional compact 1 mm physical reference
+grooves. They are shallow, top-surface scale references and do not replace or
+define the side mating/retention geometry.
 
 ## CI result
 
-Run `35356649821` completed successfully from exact source
+Run `35386827873` completed successfully from exact source
 `e4b3878aa0c2bf786781a02716fea77293cdcb61`.
 
 For all reduced-interface PNG renders and STL exports used by this baseline:
@@ -158,26 +159,40 @@ The current digital evidence establishes that:
 - solid and flex-slot sections are intentionally distinguished;
 - all generated reduced-interface outputs build as manifold geometry.
 
-## Still open before acceptance
+## Still open for digital design acceptance
 
-Digital success is not yet final acceptance.
+The current geometry, generated walkthroughs and machine evidence are coherent.
+One design checkpoint remains before this digital step is closed:
 
-Still required:
+1. final visual review of the current receiver, snap and assembled preview
+   renders as a complete design set.
 
-1. visual inspection of the corrected receiver top, snap profile and assembled
-   rail/plate renders;
-2. confirm that the reduced snap still looks mechanically coherent relative to
-   the pinned OpenGrid profile;
-3. print neutral coupons;
-4. establish insertion/removal behaviour and whether the flex region survives
-   repeated use;
-5. determine whether the nominal interference/clearance needs explicit tolerance
-   variants;
-6. decide whether rail or plate carrier context is preferable for later HUB75
-   integration.
+The detailed design walkthrough now makes the source reduction auditable rather
+than relying on coarse before/after images:
 
-Do not move on to tolerance or carrier qualification to bypass an unresolved
-base receiver/snap geometry problem.
+- Lite receiver: source → retained slice → shared-scene recentering comparison
+  → exact Lite result → profile zones;
+- Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
+- click slots: actual removed material plus a center-section before/after view;
+- node receiver: lower-profile subtraction → top-guide removed material →
+  before/after result.
+
+Do not move on to later qualification to hide an unresolved base receiver/snap
+geometry problem.
+
+## Later physical qualification
+
+After digital design acceptance, retain the neutral coupon as the qualification
+fixture and determine:
+
+- insertion/removal behaviour;
+- flex survival under repeated use;
+- whether the nominal interference/clearance needs explicit tolerance variants;
+- whether rail or plate carrier context is preferable for later HUB75
+  integration.
+
+Those are follow-up qualification questions, not prerequisites for merging a
+coherent digital design/evidence checkpoint.
 
 ## Physical boundary
 
