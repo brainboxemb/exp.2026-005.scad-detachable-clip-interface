@@ -122,7 +122,12 @@ AT01_PLAN_SCALE =
 AT01_SOURCE_CORE_ROUNDING = 4.81837;
 AT01_SOURCE_TOP_ROUNDING = 3.262743;
 AT01_SNAP_CORE_ROUNDING = AT01_SOURCE_CORE_ROUNDING * AT01_PLAN_SCALE;
-AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
+
+// The source uses a smaller top-corner value than the core. On the reduced,
+// open-ended rectangular snap that produces two visibly different chamfer
+// lines without adding useful guidance. Keep one coherent outer plan contour
+// instead: top and core use the same reduced chamfer.
+AT01_SNAP_TOP_ROUNDING = AT01_SNAP_CORE_ROUNDING;
 
 // OpenGrid click-hole proportions retained on +/-X only.
 // Radial width and rounding are source values. Tangential length is shortened
@@ -163,7 +168,7 @@ assert(abs(AT01_FLEX_TONGUE - 0.7) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_RADIAL - 0.6) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_ROUNDING - 0.3) < 0.0001);
 assert(abs(AT01_SNAP_WALL - 2.0) < 0.0001);
-assert(AT01_SNAP_CORE_ROUNDING > AT01_SNAP_TOP_ROUNDING);
+assert(abs(AT01_SNAP_CORE_ROUNDING - AT01_SNAP_TOP_ROUNDING) < 0.0001);
 assert(AT01_SNAP_CORE_ROUNDING < AT01_SNAP_LENGTH / 2);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TRANSITION - 1.0) < 0.0001);
