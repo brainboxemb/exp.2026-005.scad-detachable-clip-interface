@@ -1,6 +1,6 @@
 # Reduced detachable receiver + snap
 
-Status: **active in PR #4**
+Status: **active in PR #7**
 
 ## Purpose
 

@@ -129,7 +129,7 @@ unchanged from `Y=-3` through `Y=+3`, then tapers away before the 10 mm
 receiver ends.
 
 The design helper does not redraw that triangle. It intersects the real
-production top-guide cutter with the central 10 mm:
+production top-guide cutter with the central 6 mm full-guide region:
 
 ```openscad
 intersection() {
