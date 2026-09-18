@@ -11,33 +11,38 @@ We test two carrier directions while keeping one local snap interface unchanged.
 
 ## Carrier A — receiver rail
 
-The receiver itself forms a 50 mm rail:
+The carrier is a 50 × 10 × 4 mm rail, but the receiver interface exists at
+**one local 10 × 10 mm position only** in the middle:
 
 ```text
-length          50 mm
-max width       10 mm
-height           4 mm
+carrier length              50 mm
+carrier width               10 mm
+carrier height               4 mm
+receiver footprint          10 × 10 mm
+receiver active length       8 mm
+transition to carrier        1 mm each end
 ```
 
-The removable snap is only 10 mm long and is open at both Y ends. It therefore
-clips locally over the rail from above and can be positioned anywhere along the
-50 mm length.
+Outside that 10 mm receiver footprint the rail remains an ordinary rectangular
+10 × 4 mm section. The removable snap clips only at the defined local receiver
+position; it is not a free-sliding rail attachment.
 
 ## Carrier B — receiver on plate
 
-The exact same 50 mm receiver profile is placed on a wider base:
+The same local 10 × 10 mm receiver is placed on a wider base:
 
 ```text
 plate length    50 mm
 plate width     20 mm
 plate height     6 mm
-receiver        same 50 mm profile on top
+receiver        one local 10 × 10 mm position on top
 ```
 
 This represents the alternative where the eventual coupler or mounting piece has
 enough area for a broader fixed base.
 
-The removable snap is identical between A and B.
+The removable snap and the local receiver mating profile are identical between
+A and B. Only the surrounding carrier differs.
 
 ## OpenGrid Lite derivation
 
@@ -70,7 +75,9 @@ AT-01 Z          fixed receiver width
 3.6 .. 4.0       10.0 -> 9.2 mm
 ```
 
-This is the fixed receiver's X/Z profile for both carriers.
+This is the fixed receiver's X/Z profile inside the local 10 × 10 mm receiver
+footprint for both carriers. Along Y, an 8 mm active region uses this profile
+and 1 mm transitions at each end return into the surrounding carrier.
 
 ## Snap clearance and retention
 
@@ -107,8 +114,9 @@ two long +/-X receiver sides.
 Reasons:
 
 - a 10 mm-wide clip would become unnecessarily stiff with four active walls;
-- the receiver is a continuous rail along Y, so Y-end retention is not needed;
-- an open-ended snap can be installed anywhere along the rail from above;
+- the local receiver is intentionally only 10 mm long, so Y-end retention is
+  not needed;
+- an open-ended snap installs vertically onto that one local receiver position;
 - it isolates the question we care about: can two source-derived flex/retention
   walls hold a compact removable attachment?
 
@@ -189,10 +197,12 @@ STL:
 
 Before accepting AT-01:
 
-- rail receiver length is exactly 50 mm;
-- rail receiver envelope is at most 10 mm wide and exactly 4 mm high;
+- rail carrier envelope is exactly 50 × 10 × 4 mm;
+- only the middle 10 mm of the rail contains receiver profiling;
+- the local receiver has an 8 mm active region plus two 1 mm transitions;
 - plate base is exactly 50 × 20 × 6 mm;
-- plate variant uses the same receiver profile as the rail variant;
+- only one local 10 × 10 mm receiver exists on the plate;
+- plate variant uses the same local receiver profile as the rail variant;
 - one identical snap is used in both assemblies;
 - seated snap bottom is 0.6 mm above each local receiver base;
 - snap top-stop underside coincides with receiver Z=4.0 mm;
