@@ -43,7 +43,7 @@ $vpr =
     design_view == 15 || design_view == 20
         ? [90, 0, 0]
         : design_view == 19
-            ? [90, 0, 90]
+            ? [0, 0, 0]
             : _main_at01_view(design_view)
                 ? [68, 0, 28]
                 : _main_profile_view(design_view)
