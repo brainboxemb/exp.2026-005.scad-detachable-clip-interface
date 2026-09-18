@@ -305,9 +305,9 @@ module _at01_receiver_cuts() {
 
 // --- Optional physical millimetre reference pattern ------------------------
 
-module _at01_mm_reference_cuts(base_z = 0) {
+module _at01_mm_reference_cuts_at_top(top_z) {
     z_center =
-        base_z + AT01_RECEIVER_HEIGHT - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
+        top_z - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
 
     half = AT01_MM_CROSS_LENGTH / 2;
 
@@ -371,7 +371,7 @@ module at01_receiver_rail(mm_pattern = false) {
         _at01_receiver_rail_geometry();
 
         if (mm_pattern)
-            _at01_mm_reference_cuts(0);
+            _at01_mm_reference_cuts_at_top(AT01_RECEIVER_HEIGHT);
     }
 }
 
@@ -413,7 +413,9 @@ module at01_receiver_plate(mm_pattern = false) {
         _at01_receiver_plate_geometry();
 
         if (mm_pattern)
-            _at01_mm_reference_cuts(AT01_PLATE_HEIGHT);
+            _at01_mm_reference_cuts_at_top(
+                AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT
+            );
     }
 }
 
@@ -585,7 +587,7 @@ module _at01_positive_x_top_slot() {
         ], center = true);
 }
 
-module at01_removable_snap() {
+module at01_removable_snap(mm_pattern = false) {
     difference() {
         union() {
             _at01_snap_side_wall(1);
@@ -605,6 +607,9 @@ module at01_removable_snap() {
             _at01_positive_x_click_slot();
             _at01_positive_x_top_slot();
         }
+
+        if (mm_pattern)
+            _at01_mm_reference_cuts_at_top(AT01_SNAP_TOTAL_HEIGHT);
     }
 }
 
@@ -618,7 +623,7 @@ module at01_assembled(variant = 0, snap_alpha = 0.55, mm_pattern = false) {
 
     translate([0, 0, base_z + AT01_SNAP_SEATED_Z])
         color([0.92, 0.30, 0.12, snap_alpha])
-            at01_removable_snap();
+            at01_removable_snap(mm_pattern);
 }
 
 module at01_exploded(variant = 0, mm_pattern = false) {
@@ -633,7 +638,7 @@ module at01_exploded(variant = 0, mm_pattern = false) {
         base_z + AT01_SNAP_SEATED_Z + AT01_EXPLODED_Z
     ])
         color([0.92, 0.30, 0.12])
-            at01_removable_snap();
+            at01_removable_snap(mm_pattern);
 }
 
 module at01_concepts_comparison(mm_pattern = false) {
