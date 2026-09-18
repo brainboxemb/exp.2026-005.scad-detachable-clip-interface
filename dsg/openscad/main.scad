@@ -4,11 +4,11 @@
 // views. Geometry lives in the experiment libraries.
 
 /* [View] */
-design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:AT-01 assembled, 14:AT-01 exploded, 15:AT-01 retention section, 16:AT-01 receiver, 17:AT-01 removable snap, 18:AT-01 rail vs plate, 19:AT-01 receiver transition section, 20:AT-01 snap wall profile]
+design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full receiver profile, 4:Full snap profile, 5:Lite assembled, 6:Lite receiver, 7:Lite snap, 8:Lite receiver profile, 9:Lite snap profile, 10:Full vs Lite assembled, 11:Full vs Lite exploded, 12:Full vs Lite section, 13:Clip interface assembled, 14:Clip interface exploded, 15:Clip interface retention section, 16:Clip receiver, 17:Clip snap, 18:Clip rail vs plate examples, 19:Clip receiver transition section, 20:Clip snap wall profile]
 
-/* [AT-01] */
-at01_receiver_variant = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
-at01_show_mm_pattern = true;
+/* [Detachable clip interface] */
+clip_receiver_example = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
+clip_show_mm_pattern = true;
 
 /* [Profile] */
 profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
@@ -39,7 +39,7 @@ $vpt =
     _main_clip_view(design_view)
         ? [0, 0,
             design_view == 18 ? 5 :
-            at01_receiver_variant == 1 ? 8 : 2.5]
+            clip_receiver_example == 1 ? 8 : 2.5]
         : _main_comparison_view(design_view)
             ? [0, 0, _main_exploded_view(design_view) ? 9 : 3.4]
             : [0, 0, 2.5];
@@ -118,29 +118,29 @@ module _main_selected_view(view) {
         og02_comparison_section();
     else if (view == 13)
         detachable_clip_example_assembled(
-            at01_receiver_variant,
-            mm_pattern = at01_show_mm_pattern
+            clip_receiver_example,
+            mm_pattern = clip_show_mm_pattern
         );
     else if (view == 14)
         detachable_clip_example_exploded(
-            at01_receiver_variant,
-            mm_pattern = at01_show_mm_pattern
+            clip_receiver_example,
+            mm_pattern = clip_show_mm_pattern
         );
     else if (view == 15)
-        detachable_clip_retention_section(at01_receiver_variant);
+        detachable_clip_retention_section(clip_receiver_example);
     else if (view == 16)
         color([0.68, 0.70, 0.74])
             detachable_clip_example_receiver(
-                at01_receiver_variant,
-                at01_show_mm_pattern
+                clip_receiver_example,
+                clip_show_mm_pattern
             );
     else if (view == 17)
         color([0.92, 0.30, 0.12])
-            detachable_clip_snap(at01_show_mm_pattern);
+            detachable_clip_snap(clip_show_mm_pattern);
     else if (view == 18)
-        detachable_clip_examples_comparison(at01_show_mm_pattern);
+        detachable_clip_examples_comparison(clip_show_mm_pattern);
     else if (view == 19)
-        detachable_clip_transition_section(at01_receiver_variant);
+        detachable_clip_transition_section(clip_receiver_example);
     else if (view == 20)
         color([0.92, 0.30, 0.12])
             detachable_clip_snap_retention_profile();
