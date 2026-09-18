@@ -7,17 +7,17 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../lib/og02_full_lite_reference.scad>
+use <../../lib/opengrid_reference.scad>
 
 module reference_lite_receiver_build() {
-    og02_lite_receiver();
+    opengrid_lite_receiver();
 }
 
 module reference_lite_receiver_profile(flex_slot_plane = false) {
     if (flex_slot_plane)
-        og02_lite_receiver_profile();
+        opengrid_lite_receiver_profile();
     else
-        og02_lite_receiver_solid_profile();
+        opengrid_lite_receiver_solid_profile();
 }
 
 
