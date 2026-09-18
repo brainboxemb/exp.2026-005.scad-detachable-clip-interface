@@ -30,7 +30,7 @@ module interface_snap_design(view = "final") {
                     interface_snap_design_nubs();
                 }
             color(current)
-                _at01_snap_top();
+                _clip_snap_top();
 
         } else if (view == "slot-cutters") {
             color(existing)
