@@ -68,9 +68,9 @@ module interface_snap_design_plain() {
 
 module interface_snap_design_pattern_cutters() {
     _at01_mm_reference_cuts_at_top(
-        AT01_SNAP_TOTAL_HEIGHT,
-        AT01_SNAP_OUTER_WIDTH,
-        AT01_SNAP_LENGTH
+        at01_snap_total_height(),
+        at01_snap_outer_width(),
+        at01_snap_length()
     );
 }
 
