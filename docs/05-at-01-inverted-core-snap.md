@@ -20,7 +20,7 @@ No QuackWorks snap geometry is copied or scaled.
 ## Baseline dimensions
 
 ```text
-fixed core body           10.00 × 10.00 × 4.00 mm
+fixed core envelope       10.00 × 10.00 × 4.00 mm
 root shoulder                         0.60 mm
 shell engagement                      3.40 mm
 side clearance              0.20 mm per side
@@ -28,9 +28,9 @@ shell inside               10.40 × 10.40 mm
 shell wall                           1.20 mm
 shell outside              12.80 × 12.80 mm
 shell top                            1.20 mm
-retention rib protrusion             0.35 mm
-shell/rib flex interference           0.15 mm
-retention lower lip                   0.60 mm
+fixed groove depth                    0.40 mm
+shell nub protrusion                  0.35 mm
+temporary flex interference           0.15 mm
 ```
 
 The 0.6 + 3.4 = 4.0 relationship is now an explicit AT-01 design choice. It is
@@ -42,11 +42,10 @@ not claimed as an authoritative QuackWorks assembled offset.
 
 The fixed feature is a rigid 10 × 10 × 4 mm square core.
 
-Two shallow retention ribs are added on opposite X sides. The nominal core body
-remains 10 × 10 mm; the ribs locally increase the overall X envelope to
-10.70 mm.
+Two shallow retention grooves are cut inward into the opposite X faces. The
+entire fixed feature therefore remains inside an exact 10 × 10 × 4 mm envelope.
 
-The fixed side contains no intended flexure.
+The fixed side contains no protruding snap geometry and no intended flexure.
 
 ### Removable side
 
@@ -55,11 +54,14 @@ The removable part is a square shell.
 Its nominal 10.40 mm internal opening gives 0.20 mm locating clearance per side
 around the 10 mm core.
 
-Two opposite X walls contain a central compliant tongue. Relief slots at both
-tongue edges let that wall flex outward. A through-window receives the fixed
-retention rib when seated.
+Two opposite X walls contain a central compliant tongue. Relief slots from the
+open bottom isolate each tongue so it can flex outward.
 
-The Y walls have no snap windows and primarily locate the shell.
+Each tongue carries a nub that protrudes **inward** into the shell cavity. During
+insertion that nub rides over the fixed core; when seated it falls into the
+matching inward groove in the fixed core.
+
+The Y walls carry no retention feature and primarily locate the shell.
 
 ### Assembly direction
 
@@ -74,22 +76,31 @@ When seated:
 
 ## Retention concept
 
-The fixed ribs are asymmetric in Z:
+The retention geometry now follows the intended inverted architecture:
 
-- a longer upper ramp is intended to spread the compliant tongue during
-  insertion;
-- a shorter lower ramp gives a more abrupt retention edge during removal.
+```text
+fixed core:       groove inward
+removable shell:  nub inward
+```
 
-The shell keeps a 0.60 mm-high solid lip below each retention window. This is
-deliberate: the earlier 0.05 mm lip was both practically unprintable and allowed
-the rib to enter the window with almost no flex event.
+The shell inner face has 0.20 mm nominal clearance from the fixed core. The
+retention nub protrudes 0.35 mm inward from that inner face, so while it passes
+the unrecessed core face the compliant tongue needs approximately:
 
-In the corrected geometry the nominal shell inner face is 0.20 mm outside the
-10 mm core while the rib protrudes 0.35 mm. The retention tongue therefore needs
-approximately 0.15 mm outward deflection while the lower lip passes the rib.
+```text
+0.35 - 0.20 = 0.15 mm
+```
 
-At the final seated position the rib is fully inside the window, allowing the
-tongue to relax again.
+outward deflection.
+
+The nub's lower surface is a lead-in ramp for downward insertion. Its upper
+return is steeper so upward removal sees a stronger retention edge.
+
+The fixed groove is 0.40 mm deep, which is deeper than the 0.15 mm interference.
+At the final seated position the nub aligns with that groove and the tongue can
+relax.
+
+The groove/nub seated Z interval is 1.35..2.15 mm in fixed-core coordinates.
 
 This is a CAD hypothesis only. Actual insertion/pull-out force requires printed
 coupons.
@@ -115,16 +126,17 @@ proves insufficient.
 
 AT-01 must verify:
 
-- core body = exactly 10 × 10 × 4 mm before ribs;
-- overall ribbed fixed envelope = 10.70 × 10 × 4 mm;
+- complete fixed-core envelope = exactly 10 × 10 × 4 mm including grooves;
+- no fixed retention feature protrudes outside that envelope;
 - shell inner opening = 10.40 × 10.40 mm;
 - shell outer footprint = 12.80 × 12.80 mm;
 - shell local height = 4.60 mm;
 - assembled shell base = Z 0.60 mm;
 - assembled shell underside/top stop = Z 4.00 mm;
-- final retention ribs occupy their windows without static solid overlap;
-- lower retention lip is 0.60 mm, not a sub-layer-thickness artifact;
-- required nominal tongue deflection at the rib is 0.15 mm;
+- seated shell nubs align with the inward fixed-core grooves without static
+  solid overlap;
+- required nominal tongue deflection while passing the solid core face is
+  0.15 mm;
 - complete and profile STLs are manifold;
 - rendered sections actually pass through the intended retention and locating
   planes.
