@@ -246,7 +246,6 @@ For direct comparison, before is shown on the left and after on the right:
 
 <!-- scad-render
 view: top-end-before-after
-vpd: 105
 -->
 
 The acceptance condition is now easy to verify from the design record:
