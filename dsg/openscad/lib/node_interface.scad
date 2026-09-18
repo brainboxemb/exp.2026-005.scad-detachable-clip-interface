@@ -25,11 +25,15 @@
 // BOSL2 is used for rounded click-slot cuts.
 include <BOSL2/std.scad>
 
-// Carrier dimensions.
-EXAMPLE_CARRIER_LENGTH = 50.0;
+// Primary node-receiver envelope.
+NODE_RECEIVER_WIDTH = 10.0;
+NODE_RECEIVER_HEIGHT = 4.0;
 
-EXAMPLE_RAIL_WIDTH = 10.0;
-EXAMPLE_RAIL_HEIGHT = 4.0;
+// Example carrier dimensions. Examples consume the node dimensions rather than
+// defining them.
+EXAMPLE_CARRIER_LENGTH = 50.0;
+EXAMPLE_RAIL_WIDTH = NODE_RECEIVER_WIDTH;
+EXAMPLE_RAIL_HEIGHT = NODE_RECEIVER_HEIGHT;
 
 EXAMPLE_PLATE_WIDTH = 20.0;
 EXAMPLE_PLATE_HEIGHT = 6.0;
@@ -54,10 +58,6 @@ NODE_RECEIVER_TOP_GUIDE_LENGTH =
 NODE_RECEIVER_BLOCK_LENGTH = 14.0;
 NODE_RECEIVER_BLOCK_END_LENGTH = 2.0;
 
-// Shared receiver X/Z dimensions.
-NODE_RECEIVER_MAX_WIDTH = 10.0;
-NODE_RECEIVER_HEIGHT = 4.0;
-
 // Removable snap length matches the local receiver footprint.
 NODE_SNAP_LENGTH = 10.0;
 
@@ -70,7 +70,7 @@ OPENGRID_SNAP_NUB_OUTER_WIDTH = 25.6;
 
 // Mirror constant: original narrow 25 mm opening becomes 10 mm fixed capture.
 NODE_RADIAL_MIRROR_SUM =
-    OPENGRID_RECEIVER_CAPTURE_WIDTH + NODE_RECEIVER_MAX_WIDTH;
+    OPENGRID_RECEIVER_CAPTURE_WIDTH + NODE_RECEIVER_WIDTH;
 
 // Mirrored fixed-receiver profile widths.
 NODE_RECEIVER_LOWER_WIDTH =
@@ -129,7 +129,7 @@ NODE_SNAP_TOTAL_HEIGHT = NODE_SNAP_ENGAGEMENT_HEIGHT + NODE_SNAP_TOP_THICKNESS;
 // Z/radial dimensions stay at upstream values; tangential length scales with
 // the 25 -> 10 mm receiver width reduction.
 NODE_TANGENTIAL_SCALE =
-    NODE_RECEIVER_MAX_WIDTH / OPENGRID_RECEIVER_CAPTURE_WIDTH; // 0.4
+    NODE_RECEIVER_WIDTH / OPENGRID_RECEIVER_CAPTURE_WIDTH; // 0.4
 
 // OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
 // plain rectangular slab. Scale the source 3.262743 mm plan chamfer with the
@@ -177,6 +177,7 @@ NODE_MM_PATTERN_TICK_LENGTH = 0.55;
 NODE_MM_PATTERN_TICK_WIDTH = 0.10;
 
 // Invariants.
+assert(abs(NODE_RECEIVER_WIDTH - 10.0) < 0.0001);
 assert(abs(NODE_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_WIDTH - 9.2) < 0.0001);
 assert(abs(NODE_SNAP_INNER_WIDTH - 10.2) < 0.0001);
@@ -205,7 +206,7 @@ assert(abs(NODE_SNAP_SEATED_Z + NODE_SNAP_ENGAGEMENT_HEIGHT - NODE_RECEIVER_HEIG
 // external wrappers tied to the production constants through these accessors
 // rather than duplicating dimensions.
 
-function node_receiver_width() = EXAMPLE_RAIL_WIDTH;
+function node_receiver_width() = NODE_RECEIVER_WIDTH;
 function node_receiver_length() = NODE_RECEIVER_BLOCK_LENGTH;
 function node_receiver_height() = NODE_RECEIVER_HEIGHT;
 function node_receiver_functional_length() = NODE_RECEIVER_FUNCTIONAL_LENGTH;
@@ -238,8 +239,8 @@ module _node_positive_x_lower_cut_active() {
         )
             polygon(points = [
                 [NODE_RECEIVER_LOWER_WIDTH / 2, 0],
-                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, 0],
-                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, NODE_RECEIVER_RAMP_TOP_Z],
+                [NODE_RECEIVER_WIDTH / 2 + 0.01, 0],
+                [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_RAMP_TOP_Z],
                 [NODE_RECEIVER_LOWER_WIDTH / 2, NODE_RECEIVER_LOWER_Z]
             ]);
 }
@@ -256,8 +257,8 @@ module _node_positive_x_top_cut_active() {
         )
             polygon(points = [
                 [NODE_RECEIVER_TOP_WIDTH / 2, NODE_RECEIVER_HEIGHT + 0.01],
-                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, NODE_RECEIVER_HEIGHT + 0.01],
-                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, NODE_RECEIVER_CAPTURE_TOP_Z]
+                [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_HEIGHT + 0.01],
+                [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_CAPTURE_TOP_Z]
             ]);
 }
 
@@ -271,7 +272,7 @@ module _node_positive_y_top_cut_transition() {
     ya = NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2;
     yb = NODE_RECEIVER_TOP_GUIDE_LENGTH / 2;
     xi = NODE_RECEIVER_TOP_WIDTH / 2;
-    xo = EXAMPLE_RAIL_WIDTH / 2 + 0.01;
+    xo = NODE_RECEIVER_WIDTH / 2 + 0.01;
     z0 = NODE_RECEIVER_CAPTURE_TOP_Z;
     z1 = NODE_RECEIVER_HEIGHT + 0.01;
 
@@ -306,7 +307,7 @@ module _node_positive_y_lower_cut_transition() {
     ya = NODE_RECEIVER_LOWER_ACTIVE_LENGTH / 2;
     yb = NODE_RECEIVER_FUNCTIONAL_LENGTH / 2;
     xi = NODE_RECEIVER_LOWER_WIDTH / 2;
-    xo = EXAMPLE_RAIL_WIDTH / 2 + 0.01;
+    xo = NODE_RECEIVER_WIDTH / 2 + 0.01;
 
     polyhedron(
         points = [
@@ -409,12 +410,12 @@ module _node_mm_reference_cuts_at_top(top_z, x_length, y_length) {
 module _node_receiver_geometry() {
     difference() {
         translate([
-            -EXAMPLE_RAIL_WIDTH / 2,
+            -NODE_RECEIVER_WIDTH / 2,
             -NODE_RECEIVER_BLOCK_LENGTH / 2,
             0
         ])
             cube([
-                EXAMPLE_RAIL_WIDTH,
+                NODE_RECEIVER_WIDTH,
                 NODE_RECEIVER_BLOCK_LENGTH,
                 NODE_RECEIVER_HEIGHT
             ]);
@@ -430,7 +431,7 @@ module node_receiver(mm_pattern = false) {
         if (mm_pattern)
             _node_mm_reference_cuts_at_top(
                 NODE_RECEIVER_HEIGHT,
-                EXAMPLE_RAIL_WIDTH,
+                NODE_RECEIVER_WIDTH,
                 NODE_RECEIVER_BLOCK_LENGTH
             );
     }
@@ -495,7 +496,7 @@ module node_receiver_plate_example(mm_pattern = false) {
         if (mm_pattern)
             _node_mm_reference_cuts_at_top(
                 EXAMPLE_PLATE_HEIGHT + NODE_RECEIVER_HEIGHT,
-                EXAMPLE_RAIL_WIDTH,
+                NODE_RECEIVER_WIDTH,
                 NODE_RECEIVER_BLOCK_LENGTH
             );
     }
