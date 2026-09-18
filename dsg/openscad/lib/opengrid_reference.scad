@@ -119,6 +119,43 @@ module opengrid_lite_assembled(receiver_alpha = 0.48) {
         opengrid_lite_snap();
 }
 
+module opengrid_full_exploded() {
+    color([0.70, 0.72, 0.76])
+        opengrid_full_receiver();
+
+    translate([0, 0, OPENGRID_REFERENCE_EXPLODED_Z])
+        color([0.90, 0.28, 0.14])
+            opengrid_full_snap();
+}
+
+module opengrid_lite_exploded() {
+    color([0.70, 0.72, 0.76])
+        opengrid_lite_receiver();
+
+    translate([0, 0, OPENGRID_REFERENCE_EXPLODED_Z])
+        color([0.90, 0.28, 0.14])
+            opengrid_lite_snap();
+}
+
+module _opengrid_reference_half_section_volume() {
+    translate([-40, -40, -20])
+        cube([80, 40, 40]);
+}
+
+module opengrid_full_half_section() {
+    color([0.70, 0.72, 0.76])
+        intersection() {
+            opengrid_full_receiver();
+            _opengrid_reference_half_section_volume();
+        }
+
+    color([0.90, 0.28, 0.14])
+        intersection() {
+            opengrid_full_snap();
+            _opengrid_reference_half_section_volume();
+        }
+}
+
 module opengrid_comparison_assembled() {
     translate([-OPENGRID_REFERENCE_COMPARE_X, 0, 0])
         opengrid_full_assembled();
