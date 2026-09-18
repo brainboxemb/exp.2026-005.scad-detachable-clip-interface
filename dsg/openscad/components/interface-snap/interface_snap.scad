@@ -6,14 +6,14 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../lib/at01_inverted_core_snap.scad>
+use <../../lib/detachable_clip_interface.scad>
 
 module interface_snap_build(mm_pattern = true) {
-    at01_removable_snap(mm_pattern);
+    detachable_clip_snap(mm_pattern);
 }
 
 module interface_snap_profile() {
-    at01_snap_retention_profile();
+    detachable_clip_snap_retention_profile();
 }
 
 
@@ -26,16 +26,16 @@ module interface_snap_profile() {
 
 module interface_snap_design_side_walls() {
     union() {
-        _at01_snap_side_wall(1);
-        _at01_snap_side_wall(-1);
+        _clip_snap_side_wall(1);
+        _clip_snap_side_wall(-1);
     }
 }
 
 module interface_snap_design_nubs() {
     union() {
-        _at01_positive_x_nub();
+        _clip_positive_x_nub();
         mirror([1, 0, 0])
-            _at01_positive_x_nub();
+            _clip_positive_x_nub();
     }
 }
 
@@ -43,18 +43,18 @@ module interface_snap_design_before_slots() {
     union() {
         interface_snap_design_side_walls();
         interface_snap_design_nubs();
-        _at01_snap_top();
+        _clip_snap_top();
     }
 }
 
 module interface_snap_design_slot_cutters() {
     union() {
-        _at01_positive_x_click_slot();
-        _at01_positive_x_top_slot();
+        _clip_positive_x_click_slot();
+        _clip_positive_x_top_slot();
 
         mirror([1, 0, 0]) {
-            _at01_positive_x_click_slot();
-            _at01_positive_x_top_slot();
+            _clip_positive_x_click_slot();
+            _clip_positive_x_top_slot();
         }
     }
 }
@@ -67,10 +67,10 @@ module interface_snap_design_plain() {
 }
 
 module interface_snap_design_pattern_cutters() {
-    _at01_mm_reference_cuts_at_top(
-        at01_snap_total_height(),
-        at01_snap_outer_width(),
-        at01_snap_length()
+    _clip_mm_reference_cuts_at_top(
+        detachable_clip_snap_total_height(),
+        detachable_clip_snap_outer_width(),
+        detachable_clip_snap_length()
     );
 }
 
