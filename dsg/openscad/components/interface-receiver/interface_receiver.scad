@@ -23,14 +23,14 @@ module interface_receiver_build(mm_pattern = true) {
 
 module interface_receiver_design_base_block() {
     translate([
-        -AT01_RAIL_WIDTH / 2,
-        -AT01_PLATE_SUPPORT_LENGTH / 2,
+        -at01_receiver_width() / 2,
+        -at01_receiver_block_length() / 2,
         0
     ])
         cube([
-            AT01_RAIL_WIDTH,
-            AT01_PLATE_SUPPORT_LENGTH,
-            AT01_RECEIVER_HEIGHT
+            at01_receiver_width(),
+            at01_receiver_block_length(),
+            at01_receiver_height()
         ]);
 }
 
@@ -99,9 +99,9 @@ module interface_receiver_design_plain() {
 
 module interface_receiver_design_pattern_cutters() {
     _at01_mm_reference_cuts_at_top(
-        AT01_RECEIVER_HEIGHT,
-        AT01_RAIL_WIDTH,
-        AT01_PLATE_SUPPORT_LENGTH
+        at01_receiver_height(),
+        at01_receiver_width(),
+        at01_receiver_block_length()
     );
 }
 
