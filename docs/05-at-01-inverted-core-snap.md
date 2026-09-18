@@ -19,8 +19,8 @@ carrier length              50 mm
 carrier width               10 mm
 carrier height               4 mm
 receiver footprint          10 × 10 mm
-receiver active length       8 mm
-transition to carrier        1 mm each end
+receiver active length       6 mm
+transition to carrier        2 mm each end
 ```
 
 Outside that 10 mm receiver footprint the rail remains an ordinary rectangular
@@ -78,6 +78,26 @@ AT-01 Z          fixed receiver width
 This is the fixed receiver's X/Z profile inside the local 10 × 10 mm receiver
 footprint for both carriers. Along Y, an 8 mm active region uses this profile
 and 1 mm transitions at each end return into the surrounding carrier.
+
+## Receiver lead-out geometry
+
+The local receiver must not end as a hard vertical profile change.
+
+Across the 10 mm footprint, both carrier concepts therefore use:
+
+```text
+Y = -5 .. -3 mm    sloped transition into receiver
+Y = -3 .. +3 mm    full source-derived receiver profile
+Y = +3 .. +5 mm    sloped transition back to carrier
+```
+
+The transition is a linear loft between corresponding carrier and receiver
+cross-sections. Extending the lead-in/lead-out from 1 mm to 2 mm makes the
+profile visibly gradual, similar to the way the OpenGrid geometry blends a local
+functional cell into its surrounding material.
+
+For the rail the slope returns to the normal 10 × 4 mm rail section. For the
+plate the receiver ridge slopes back into the plate top.
 
 ## Snap clearance and retention
 
@@ -199,7 +219,7 @@ Before accepting AT-01:
 
 - rail carrier envelope is exactly 50 × 10 × 4 mm;
 - only the middle 10 mm of the rail contains receiver profiling;
-- the local receiver has an 8 mm active region plus two 1 mm transitions;
+- the local receiver has a 6 mm active region plus two 2 mm sloped transitions;
 - plate base is exactly 50 × 20 × 6 mm;
 - only one local 10 × 10 mm receiver exists on the plate;
 - plate variant uses the same local receiver profile as the rail variant;
