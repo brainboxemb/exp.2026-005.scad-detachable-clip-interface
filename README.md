@@ -10,28 +10,29 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
-**AT-01 — inside-out OpenGrid Lite receiver with two fixed-side carriers**
+**AT-01 — reduced detachable receiver + snap**
 
-One source-derived local mating interface is tested in two mounting contexts:
+The actual design objects are now separated from their carrier examples:
 
 ```text
-A  50 × 10 × 4 mm rail carrier
-   + one local 10 × 10 mm receiver position
+reference-lite-receiver   pinned upstream fixed-side reference
+reference-lite-snap       pinned upstream removable-side reference
 
-B  50 × 20 × 6 mm base plate
-   + 10 × 14 × 4 mm support boss
-   + the same central 10 × 10 mm receiver position
+interface-receiver        experiment-owned reduced fixed-side object
+interface-snap            experiment-owned reduced removable-side object
+
+examples/
+  receiver-rail           carrier integration example
+  receiver-plate          carrier integration example
 ```
 
-The removable snap is 10 mm long and uses retention/flex only on two opposite
-sides. It clips from above at the one defined receiver position. The local
-receiver has an 8 mm active profile with a 1 mm explicit transition at each end back into
-the surrounding carrier. Its final 0.4 mm narrows inward to a 9.2 × 9.2 mm top
-footprint so vertical insertion is centring rather than outward-guiding.
+The standalone reduced receiver is a 10 × 14 × 4 mm object: a central 10 mm
+functional receiver plus 2 mm top-guide/support transition at each end. The
+removable snap is 10 mm long and retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
-from the QuackWorks OpenGrid Lite receiver + normal snap relationship. See
-[AT-01 design record](docs/05-at-01-inverted-core-snap.md).
+from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
+See the [AT-01 experiment record](docs/05-at-01-inverted-core-snap.md).
 
 ## Previous reference phase
 
@@ -64,13 +65,17 @@ The first outputs are:
 
 - `01-reference-lite-receiver.png/.stl`;
 - `02-reference-lite-snap.png/.stl`;
-- `03-interface-receiver-rail.png/.stl`;
-- `04-interface-receiver-plate.png/.stl`;
-- `05-interface-snap.png/.stl`.
+- `03-interface-receiver.png/.stl`;
+- `04-interface-snap.png/.stl`;
+- `10-example-receiver-rail.png/.stl`;
+- `11-example-receiver-plate.png/.stl`;
+- `12-example-rail-assembled.png`;
+- `13-example-plate-assembled.png`.
 
-Assemblies follow in the `10-...` range, exploded/comparison views in the
-`20-...` range, interface sections/profiles in the `30-...` range, and
-reference/detail evidence afterwards.
+The primary reference/design objects therefore appear before carrier examples.
+Exploded/comparison views follow in the `20-...` range, interface
+sections/profiles in the `30-...` range, and reference/detail evidence
+afterwards.
 
 Internal labels such as OG-01, OG-02 and AT-01 remain in the experiment records
 and testcase discussion, but are deliberately not required to understand a
@@ -132,6 +137,19 @@ See [source provenance](docs/00-source-provenance.md).
    attachment principle is understood.
 
 See [experiment plan](docs/01-experiment-plan.md).
+
+## Component design documentation
+
+The component-local design documents are the geometry authority for their
+respective objects:
+
+- [Reference Lite receiver](dsg/openscad/components/reference-lite-receiver/design/design.md)
+- [Reference Lite snap](dsg/openscad/components/reference-lite-snap/design/design.md)
+- [Reduced interface receiver](dsg/openscad/components/interface-receiver/design/design.md)
+- [Reduced interface snap](dsg/openscad/components/interface-snap/design/design.md)
+
+Carrier usage lives separately under `dsg/openscad/examples/`. The rail and
+plate examples are consumers of the interface design, not definitions of it.
 
 ## Interactive OpenSCAD view
 
