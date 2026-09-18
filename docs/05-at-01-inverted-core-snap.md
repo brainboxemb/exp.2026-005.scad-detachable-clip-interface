@@ -79,50 +79,127 @@ This is the fixed receiver's X/Z profile inside the local 10 × 10 mm receiver
 footprint for both carriers. Along Y, an 8 mm active region uses this profile
 and 1 mm transitions at each end return into the surrounding carrier.
 
-## Receiver lead-out geometry
+## Receiver transition and top-guide design
 
-The local receiver must not end as a hard vertical profile change.
+The fixed receiver has **two different transition jobs**. They must not be
+mixed:
 
-Across the 10 mm footprint, both carrier concepts therefore use:
+1. the lower/source-derived mating profile returns to the carrier inside the
+   10 mm functional receiver zone;
+2. the upper insertion guide keeps the full 10 mm functional length and gets
+   extra guide geometry outside that zone.
+
+### Lower mating profile
+
+The lower receiver profile remains:
 
 ```text
-Y = -5 .. -4 mm    explicit transition into receiver
-Y = -4 .. +4 mm    full source-derived receiver profile
-Y = +4 .. +5 mm    explicit transition back to straight 10 × 4 section
+Y = -5 .. -4 mm    transition into lower receiver profile
+Y = -4 .. +4 mm    full lower receiver profile
+Y = +4 .. +5 mm    transition back to straight carrier
 ```
 
-The lower transition is an explicit ruled polyhedron between corresponding
-points of the straight and receiver cross-sections. No `hull()` is used. The
-lead-in/lead-out is deliberately short: it only needs to return the
-source-derived X/Z widths to the ordinary straight 10 × 4 mm section. It does
-not taper the receiver height to zero.
+So the lower mating profile is 8 mm active with 1 mm transition at each end.
+This part controls the source-derived capture/retention relationship and is not
+extended merely for appearance.
 
-At the top of the receiver the final 0.4 mm also narrows in plan from the
-10.0 mm capture width/length to a 9.2 × 9.2 mm top footprint. That inward slope
-is intentional: a removable part pressed down from above is guided toward the
-receiver centre instead of being encouraged outward.
+### Upper insertion guide
 
-For the rail the slope returns to the normal 10 × 4 mm rail section. For the
-plate the receiver ridge slopes back into the plate top.
+The top 0.4 mm is a separate insertion feature.
 
-### Plate support around the receiver
-
-The plate concept keeps extra straight material outside the 10 mm functional
-receiver zone:
+The complete X/Z lead-in must remain present over the entire **10 mm functional
+receiver length**:
 
 ```text
-2 mm straight support
+Y = -5 .. +5 mm    complete X/Z top lead-in
+```
+
+Its X/Z section is:
+
+```text
+Z = 3.6 mm     receiver reaches X = +/-5.0 mm
+Z = 4.0 mm     top edge reaches X = +/-4.6 mm
+```
+
+so the main guide face is a 0.4 mm × 0.4 mm 45-degree lead-in on both X sides.
+
+The end guidance is **additional geometry**, not a replacement for part of that
+10 mm face:
+
+```text
+Y = -7 .. -5 mm    extra end-guide transition
+Y = -5 .. +5 mm    complete main guide
+Y = +5 .. +7 mm    extra end-guide transition
+```
+
+Total top-guide length is therefore **14 mm**.
+
+At Y=+5 (and mirrored at Y=-5), one positive-X cut section is the triangle:
+
+```text
+A = (X=4.6, Z=4.0)
+B = (X=5.0, Z=4.0)
+C = (X=5.0, Z=3.6)
+```
+
+At Y=+7 that cut must have reduced to **zero cut** at the untouched carrier
+corner:
+
+```text
+D = (X=5.0, Z=4.0)
+```
+
+The required end surface is therefore the triangular/tetrahedral transition
+from `A/B/C @ Y=5` to `D @ Y=7`.
+
+This gives the intended visible form:
+
+```text
+top view, one side
+
+ ordinary carrier        full main guide        ordinary carrier
+──────────────╲══════════════════════════╱──────────────
+              2 mm        10 mm         2 mm
+
+side/end intent
+
+straight top ───────╲
+                     ╲   main X/Z guide
+                      ╲
+                       ╲
+                        \  end guide also slopes away in Y
+```
+
+The important acceptance rule is that the main 10 mm sloped face must **not**
+be shortened to create the end guides, and its ends must **not** terminate in a
+vertical wall.
+
+### Plate support
+
+The plate concept uses the same 14 mm dimension naturally:
+
+```text
+2 mm end guide/support
 10 mm functional receiver
-2 mm straight support
+2 mm end guide/support
 --------------------------
 14 mm support boss total
 ```
 
-The support boss is 10 × 14 × 4 mm on top of the 50 × 20 × 6 mm plate. Only its
-middle 10 mm is replaced by the receiver profile. The outer 2 mm at each end
-remains an ordinary straight 10 × 4 mm section.
+The snap still engages the central 10 mm functional receiver only. The extra
+2 mm on each end exists to guide insertion and transition into surrounding
+material.
 
-The snap still engages only the central 10 mm receiver.
+### Visual acceptance checks
+
+Before treating the receiver top as correct, generated evidence must show:
+
+- a 10 mm-long uninterrupted main X/Z lead-in;
+- a visible 2 mm sloped transition on both Y ends;
+- no vertical black/end face terminating the main guide;
+- left/right and front/back symmetry;
+- the lower 8+1+1 mm mating profile unchanged;
+- the rail and plate variants using the same functional receiver geometry.
 
 ## Snap clearance and retention
 
