@@ -37,11 +37,27 @@ module node_receiver_design(view = "final") {
             color(current)
                 node_receiver_design_after_top_main();
 
-        } else if (view == "top-end-cutters") {
+        } else if (view == "top-end-before") {
+            color(current)
+                node_receiver_design_after_top_main();
+
+        } else if (view == "top-end-removed") {
             color(existing)
                 node_receiver_design_after_top_main();
             color(current)
-                node_receiver_design_top_end_cutters();
+                node_receiver_design_top_end_removed_material();
+
+        } else if (view == "top-end-after") {
+            color(current)
+                node_receiver_design_after_top_end();
+
+        } else if (view == "top-end-before-after") {
+            translate([-8, 0, 0])
+                color(current)
+                    node_receiver_design_after_top_main();
+            translate([8, 0, 0])
+                color(current)
+                    node_receiver_design_after_top_end();
 
         } else if (view == "plain") {
             color(current)
