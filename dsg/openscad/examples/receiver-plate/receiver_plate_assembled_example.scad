@@ -2,6 +2,8 @@
 //
 // Integration example: reduced snap assembled on the plate carrier.
 
+include <BOSL2/std.scad>
+
 $fn = 120;
 
 use <../../lib/at01_inverted_core_snap.scad>
