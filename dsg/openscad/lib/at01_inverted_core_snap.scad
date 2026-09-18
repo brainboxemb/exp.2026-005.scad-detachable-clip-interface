@@ -201,9 +201,12 @@ module _at01_positive_x_lower_cut_active() {
 }
 
 module _at01_positive_x_top_cut_active() {
+    // Keep the full X/Z lead-in over the central active length only.
+    // The last 1 mm at each Y end is handled by an explicit taper below so
+    // the sloped face does not terminate in a vertical wall.
     rotate([90, 0, 0])
         linear_extrude(
-            height = AT01_RECEIVER_ZONE_LENGTH,
+            height = AT01_RECEIVER_ACTIVE_LENGTH,
             center = true,
             convexity = 10
         )
@@ -212,6 +215,39 @@ module _at01_positive_x_top_cut_active() {
                 [AT01_RAIL_WIDTH / 2 + 0.01, AT01_RECEIVER_HEIGHT + 0.01],
                 [AT01_RAIL_WIDTH / 2 + 0.01, AT01_RECEIVER_CAPTURE_TOP_Z]
             ]);
+}
+
+// Positive-Y transition for the X-side top lead-in.
+//
+// At Y=active_half this is the same triangular X/Z cut as the central lead-in.
+// Over the final 1 mm it tapers to zero radial depth at the ordinary rail edge.
+// This creates a diagonal guide face on BOTH ends of the main sloped surface
+// instead of cutting that surface off with a vertical plane.
+module _at01_positive_y_top_cut_transition() {
+    ya = AT01_RECEIVER_ACTIVE_LENGTH / 2;
+    yb = AT01_RECEIVER_ZONE_LENGTH / 2;
+    xi = AT01_RECEIVER_TOP_WIDTH / 2;
+    xo = AT01_RAIL_WIDTH / 2 + 0.01;
+    z0 = AT01_RECEIVER_CAPTURE_TOP_Z;
+    z1 = AT01_RECEIVER_HEIGHT + 0.01;
+
+    polyhedron(
+        points = [
+            [xi, ya, z1],
+            [xo, ya, z1],
+            [xo, ya, z0],
+            [xo, yb, z1],
+            [xo, yb, z0]
+        ],
+        faces = [
+            [0, 2, 1],
+            [0, 1, 3],
+            [1, 2, 4, 3],
+            [0, 4, 2],
+            [0, 3, 4]
+        ],
+        convexity = 10
+    );
 }
 
 // Positive-Y lower cut taper.
@@ -282,9 +318,12 @@ module _at01_positive_x_receiver_cuts() {
         _at01_positive_x_top_cut_active();
 
         _at01_positive_y_lower_cut_transition();
+        _at01_positive_y_top_cut_transition();
 
-        mirror([0, 1, 0])
+        mirror([0, 1, 0]) {
             _at01_positive_y_lower_cut_transition();
+            _at01_positive_y_top_cut_transition();
+        }
     }
 }
 
