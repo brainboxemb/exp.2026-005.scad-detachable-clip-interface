@@ -4,6 +4,13 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 
 ## Unreleased
 
+### Changed
+
+- Revalidate OG-01/OG-02 with minimal upstream parameter overrides: only required
+  board dimensions, required snap placement arguments and `lite=true` for the
+  Lite snap; remove the experiment-derived Lite Z assembly offset pending the
+  regenerated reference evidence.
+
 ### Added
 
 - Bootstrap the OpenSCAD-only direct-build experiment repository.
