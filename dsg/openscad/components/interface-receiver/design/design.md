@@ -7,74 +7,236 @@ module: interface_receiver_design
 vpr: [68, 0, 28]
 -->
 
-## Purpose
+## Design intent
 
-This is the **primary fixed-side experiment object**. Rail and plate are not
-the receiver design; they are later examples of integrating this receiver into
-a carrier.
+The receiver is the fixed half of the detachable interface. It is designed as a
+standalone object first; rail and plate are only later integration examples.
 
-The standalone block is:
+The construction starts from one simple block:
 
 ```text
-width                    10 mm
-height                    4 mm
-total block length       14 mm
-
-central functional zone  10 mm
-top-guide extension       2 mm each end
+width                  10 mm
+length                 14 mm
+height                  4 mm
+functional zone        10 mm
+extra top guide         2 mm at each Y end
 ```
 
-The 14 mm block gives the receiver-top guide real material in which to return to
-the ordinary outside profile.
+The 14 mm length is deliberate: the complete 10 mm functional receiver remains
+untouched, while the top insertion guide gets real material in which it can
+transition back to the normal outer profile.
+
+## Step 1 — start from the neutral block
 
 <!-- scad-render
-view: final
+view: base-block
 -->
 
-## Source-derived X/Z mating profile
+The base is intentionally boring. All interface behaviour is created
+substractively from this block.
 
-The fixed-side X/Z profile is radially mirrored from the pinned OpenGrid Lite
-receiver:
+The production geometry starts from the same dimensions:
+
+```openscad
+translate([
+    -AT01_RAIL_WIDTH / 2,
+    -AT01_PLATE_SUPPORT_LENGTH / 2,
+    0
+])
+    cube([
+        AT01_RAIL_WIDTH,
+        AT01_PLATE_SUPPORT_LENGTH,
+        AT01_RECEIVER_HEIGHT
+    ]);
+```
+
+Keeping this as a separate conceptual step makes it easy to see which later
+surfaces are functional and which are merely the carrier envelope.
+
+## Step 2 — cut the lower source-derived mating profile
+
+The first functional operation creates the lower receiver profile. In the
+design view the still-neutral block is grey and the material that will be
+removed is red.
+
+<!-- scad-render
+view: lower-cutters
+-->
+
+The X/Z profile is the radial mirror of the pinned OpenGrid Lite receiver:
 
 ```text
 Z 0.0 .. 1.6     width 8.6 mm
 Z 1.6 .. 2.6     8.6 -> 10.0 mm
 Z 2.6 .. 3.6     width 10.0 mm
-Z 3.6 .. 4.0     10.0 -> 9.2 mm
 ```
 
-The lower mating region remains 8 mm active with 1 mm transition on each end
-inside the 10 mm functional zone.
+Along Y the lower profile is 8 mm active and returns to the untouched block over
+1 mm on both sides.
 
-## Top insertion guide
+The key construction is intentionally symmetric:
 
-The top 0.4 mm has a different job: insertion guidance.
+```openscad
+module interface_receiver_design_lower_cutters() {
+    union() {
+        _at01_positive_x_lower_cut_active();
+        _at01_positive_y_lower_cut_transition();
+        mirror([0, 1, 0])
+            _at01_positive_y_lower_cut_transition();
 
-The complete main X/Z lead-in remains present from Y=-5 to Y=+5. A further
-2 mm at each end returns that guide into the untouched top corner, giving a
-14 mm total top-guide envelope.
+        mirror([1, 0, 0]) {
+            _at01_positive_x_lower_cut_active();
+            _at01_positive_y_lower_cut_transition();
+            mirror([0, 1, 0])
+                _at01_positive_y_lower_cut_transition();
+        }
+    }
+}
+```
 
-The acceptance requirement is geometric rather than cosmetic:
+After the cut:
 
-> the 10 mm main sloped face must remain complete, and its Y ends must transition
-> through a sloped surface rather than a vertical end wall.
+<!-- scad-render
+view: after-lower
+-->
 
-This top/end transition is still under active visual review in PR #4.
+This step is the retention/capture body. It should not be reshaped merely to
+make the top look nicer.
 
-## Millimetre reference grooves
+## Step 3 — add the 10 mm main top lead-in
 
-The optional 1 mm reference cross is a shallow non-functional groove. It may run
-to the real part boundary; intersection with the receiver outline clips it.
+Insertion guidance is a separate problem from lower retention. The complete
+main top guide spans the full functional receiver length from Y=-5 to Y=+5.
+
+The material removed by this step is highlighted in red:
+
+<!-- scad-render
+view: top-main-cutters
+-->
+
+Its X/Z section is:
+
+```text
+Z = 3.6 mm     outer width 10.0 mm
+Z = 4.0 mm     top width    9.2 mm
+```
+
+So each X side has a 0.4 × 0.4 mm lead-in. The corresponding production cutter
+is a triangular extrusion:
+
+```openscad
+linear_extrude(
+    height = AT01_RECEIVER_TOP_ACTIVE_LENGTH, // 10 mm
+    center = true
+)
+    polygon(points = [
+        [AT01_RECEIVER_TOP_WIDTH / 2, AT01_RECEIVER_HEIGHT],
+        [AT01_RAIL_WIDTH / 2,         AT01_RECEIVER_HEIGHT],
+        [AT01_RAIL_WIDTH / 2,         AT01_RECEIVER_CAPTURE_TOP_Z]
+    ]);
+```
+
+After the main lead-in:
+
+<!-- scad-render
+view: after-top-main
+-->
+
+The important point is that this 10 mm face is complete. End guidance must be
+added outside it rather than shortening it.
+
+## Step 4 — taper the lead-in into the 14 mm block
+
+This is the part currently under the closest visual review.
+
+At Y=±5 the complete triangular X/Z lead-in exists. Between Y=±5 and Y=±7 it
+must return to the untouched outer/top corner of the block. The extra end-guide
+cutters are shown in red:
+
+<!-- scad-render
+view: top-end-cutters
+-->
+
+For one positive-X / positive-Y corner the intended points are:
+
+```text
+A = (X=4.6, Y=5, Z=4.0)
+B = (X=5.0, Y=5, Z=4.0)
+C = (X=5.0, Y=5, Z=3.6)
+D = (X=5.0, Y=7, Z=4.0)
+```
+
+The current construction is therefore a tetrahedral cut:
+
+```openscad
+polyhedron(
+    points = [
+        [xi, ya, z1],   // A
+        [xo, ya, z1],   // B
+        [xo, ya, z0],   // C
+        [xo, yb, z1]    // D
+    ],
+    faces = [
+        [0, 2, 1],
+        [0, 1, 3],
+        [1, 2, 3],
+        [2, 0, 3]
+    ]
+);
+```
+
+The design acceptance criterion is visible rather than merely numerical:
+
+> the 10 mm main lead-in may not end against a vertical wall; both Y ends must
+> visibly continue through a sloped guide surface into the ordinary block.
+
+That exact corner transition is still being refined in PR #4.
+
+## Step 5 — inspect the functional receiver without scale marks
 
 <!-- scad-render
 view: plain
 -->
 
-The plain view exists to judge the functional geometry without the reference
-grooves.
+This is the clean geometry that must be judged for insertion and retention.
+
+The receiver is deliberately evaluated in this form before carrier integration.
+If this standalone object is not coherent, a rail or plate must not hide the
+problem.
+
+## Step 6 — add the optional 1 mm reference grooves
+
+The millimetre pattern is physical but non-functional. Existing receiver
+geometry is grey; the groove cutters are red.
+
+<!-- scad-render
+view: pattern-cutters
+-->
+
+The same helper is used by receiver and snap:
+
+```openscad
+_at01_mm_reference_cuts_at_top(
+    AT01_RECEIVER_HEIGHT,
+    AT01_RAIL_WIDTH,
+    AT01_PLATE_SUPPORT_LENGTH
+);
+```
+
+The principal lines run to the real part boundary. The 1 mm ticks continue over
+the available length and are clipped naturally by the part outline.
+
+## Final design object
+
+<!-- scad-render
+view: final
+-->
+
+This object — not the later rail or plate — is the fixed-side interface
+definition.
 
 ## Integration boundary
 
-The reusable design object ends here. A rail, plate, HUB75 coupler or other
-consumer chooses how this 10 × 14 × 4 mm receiver region is embedded into its
-own structure.
+Consumers may embed this receiver into a rail, plate, HUB75 coupler or another
+part, but integration must not silently change its mating profile. Carrier
+examples live separately under `dsg/openscad/examples/`.
