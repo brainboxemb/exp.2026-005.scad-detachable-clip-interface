@@ -28,9 +28,9 @@ AT01_PLATE_HEIGHT = 6.0;
 
 // Local receiver footprint along the carrier.
 AT01_RECEIVER_ZONE_LENGTH = 10.0;
-AT01_RECEIVER_TRANSITION = 1.0;
+AT01_RECEIVER_TRANSITION = 2.0;
 AT01_RECEIVER_ACTIVE_LENGTH =
-    AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TRANSITION; // 8 mm
+    AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TRANSITION; // 6 mm
 
 // Shared receiver X/Z dimensions.
 AT01_RECEIVER_MAX_WIDTH = 10.0;
@@ -144,7 +144,7 @@ assert(abs(AT01_CLICK_SLOT_RADIAL - 0.6) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_ROUNDING - 0.3) < 0.0001);
 assert(abs(AT01_SNAP_WALL - 2.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
-assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
+assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 6.0) < 0.0001);
 assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIGHT) < 0.0001);
 
 // --- Shared receiver profile -----------------------------------------------
