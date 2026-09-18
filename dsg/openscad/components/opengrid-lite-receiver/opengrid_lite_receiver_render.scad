@@ -10,7 +10,13 @@ use <opengrid_lite_receiver.scad>
 
 module opengrid_lite_receiver_design(view = "final") {
     design_bosl2_context() {
-        if (view == "profile-zones")
+        if (view == "full-source")
+            opengrid_lite_receiver_design_full_source();
+        else if (view == "retained-top")
+            opengrid_lite_receiver_design_full_with_retained_top();
+        else if (view == "lite-result")
+            opengrid_lite_receiver_design_recentered_result();
+        else if (view == "profile-zones")
             opengrid_lite_receiver_design_profile_zones();
         else if (view == "solid-profile")
             opengrid_lite_receiver_profile_view(false);
