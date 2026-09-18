@@ -8,6 +8,7 @@ include <BOSL2/std.scad>
 $fn = 120;
 
 use <../../lib/opengrid_reference.scad>
+use <../../ext/quackworks/openGrid/openGrid.scad>
 
 module opengrid_lite_receiver_build() {
     opengrid_lite_receiver();
@@ -21,6 +22,43 @@ module opengrid_lite_receiver_profile_view(flex_slot_plane = false) {
 }
 
 
+
+// Design reconstruction of the upstream Lite extraction.
+// The Full source cell is 6.8 mm high and the Lite receiver keeps its upper
+// 4.0 mm before the result is re-centered around Z=0.
+
+module opengrid_lite_receiver_design_full_source() {
+    openGrid(
+        Board_Width = 1,
+        Board_Height = 1,
+        anchor = CENTER
+    );
+}
+
+module opengrid_lite_receiver_design_retained_top_raw() {
+    intersection() {
+        opengrid_lite_receiver_design_full_source();
+
+        // Full cell spans Z=-3.4..+3.4. Keeping the upper 4.0 mm therefore
+        // means Z=-0.6..+3.4 before the Lite result is re-centered.
+        translate([-20, -20, -0.6])
+            cube([40, 40, 4.0]);
+    }
+}
+
+module opengrid_lite_receiver_design_full_with_retained_top() {
+    color([0.56, 0.56, 0.56, 0.28])
+        opengrid_lite_receiver_design_full_source();
+
+    color([0.88, 0.08, 0.06, 0.88])
+        opengrid_lite_receiver_design_retained_top_raw();
+}
+
+module opengrid_lite_receiver_design_recentered_result() {
+    // Use the exact upstream Lite module for the final state. The preceding
+    // views explain the extraction that openGridLite performs internally.
+    opengrid_lite_receiver_build();
+}
 
 // Design-analysis view: split the exact solid receiver profile into the four
 // Lite Z zones used by the experiment's radial-mirror derivation.
