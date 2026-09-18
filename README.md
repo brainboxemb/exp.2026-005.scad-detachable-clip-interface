@@ -24,7 +24,7 @@ B  50 × 20 × 6 mm base plate
 
 The removable snap is 10 mm long and uses retention/flex only on two opposite
 sides. It clips from above at the one defined receiver position. The local
-receiver has an 8 mm active profile with a 1 mm transition at each end back into
+receiver has an 6 mm active profile with a 2 mm sloped transition at each end back into
 the surrounding carrier.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
