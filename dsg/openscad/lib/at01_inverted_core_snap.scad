@@ -248,9 +248,9 @@ module _at01_positive_x_top_cut_active() {
 // Positive-Y transition for the X-side top lead-in.
 //
 // At Y=active_half this is the same triangular X/Z cut as the central lead-in.
-// Over the final 1 mm it tapers to zero radial depth at the ordinary rail edge.
-// This creates a diagonal guide face on BOTH ends of the main sloped surface
-// instead of cutting that surface off with a vertical plane.
+// Over the final 2 mm the complete triangle collapses into the ordinary rail
+// edge. The transition therefore slopes in Z as well as in plan view and does
+// not terminate the lead-in with a vertical wall.
 module _at01_positive_y_top_cut_transition() {
     ya = AT01_RECEIVER_TOP_ACTIVE_LENGTH / 2;
     yb = AT01_RECEIVER_ZONE_LENGTH / 2;
@@ -259,20 +259,22 @@ module _at01_positive_y_top_cut_transition() {
     z0 = AT01_RECEIVER_CAPTURE_TOP_Z;
     z1 = AT01_RECEIVER_HEIGHT + 0.01;
 
+    // Start with the same triangular X/Z lead-in section as the active
+    // centre. Over the 2 mm Y transition, collapse that complete triangle to
+    // the outer/bottom point. This makes the end of the guide slope in X, Y
+    // AND Z instead of leaving a vertical end face.
     polyhedron(
         points = [
             [xi, ya, z1],
             [xo, ya, z1],
             [xo, ya, z0],
-            [xo, yb, z1],
             [xo, yb, z0]
         ],
         faces = [
             [0, 2, 1],
             [0, 1, 3],
-            [1, 2, 4, 3],
-            [0, 4, 2],
-            [0, 3, 4]
+            [1, 2, 3],
+            [2, 0, 3]
         ],
         convexity = 10
     );
