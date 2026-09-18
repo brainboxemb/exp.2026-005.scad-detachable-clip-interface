@@ -423,6 +423,43 @@ module _at01_mm_reference_cuts_at_top(top_z, x_length, y_length) {
                 ], center = true);
 }
 
+// --- Standalone receiver block ---------------------------------------------
+//
+// Primary fixed-side design object. The 10 mm functional receiver remains
+// centred inside a 14 mm-long block so the 2 mm top-guide transitions on both
+// ends have real material to terminate into. Rail and plate carriers are
+// integration examples built around this same interface geometry.
+
+module _at01_receiver_block_geometry() {
+    difference() {
+        translate([
+            -AT01_RAIL_WIDTH / 2,
+            -AT01_PLATE_SUPPORT_LENGTH / 2,
+            0
+        ])
+            cube([
+                AT01_RAIL_WIDTH,
+                AT01_PLATE_SUPPORT_LENGTH,
+                AT01_RECEIVER_HEIGHT
+            ]);
+
+        _at01_receiver_cuts();
+    }
+}
+
+module at01_receiver_block(mm_pattern = false) {
+    difference() {
+        _at01_receiver_block_geometry();
+
+        if (mm_pattern)
+            _at01_mm_reference_cuts_at_top(
+                AT01_RECEIVER_HEIGHT,
+                AT01_RAIL_WIDTH,
+                AT01_PLATE_SUPPORT_LENGTH
+            );
+    }
+}
+
 // --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
 
 module _at01_receiver_rail_geometry() {
@@ -471,20 +508,7 @@ module _at01_receiver_plate_geometry() {
             ]);
 
         translate([0, 0, AT01_PLATE_HEIGHT])
-            difference() {
-                translate([
-                    -AT01_RAIL_WIDTH / 2,
-                    -AT01_PLATE_SUPPORT_LENGTH / 2,
-                    0
-                ])
-                    cube([
-                        AT01_RAIL_WIDTH,
-                        AT01_PLATE_SUPPORT_LENGTH,
-                        AT01_RECEIVER_HEIGHT
-                    ]);
-
-                _at01_receiver_cuts();
-            }
+            _at01_receiver_block_geometry();
     }
 }
 
