@@ -1,6 +1,6 @@
 include <BOSL2/std.scad>
 
 $fn = 120;
-use <../components/interface-snap/interface_snap.scad>
+use <../components/node-snap/node_snap.scad>
 
-interface_snap_build(true);
+node_snap_build(true);
