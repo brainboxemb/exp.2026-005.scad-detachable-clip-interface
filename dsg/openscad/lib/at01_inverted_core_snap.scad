@@ -32,6 +32,14 @@ AT01_RECEIVER_TRANSITION = 1.0;
 AT01_RECEIVER_ACTIVE_LENGTH =
     AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TRANSITION; // 8 mm
 
+// The upper insertion guide needs a visibly longer end taper than the lower
+// receiver profile. Otherwise the X/Z lead-in simply appears to terminate in
+// a vertical cut. Keep the lower transition at 1 mm, but give the top guide
+// 2 mm per end so it reads and behaves as a real centring funnel.
+AT01_RECEIVER_TOP_TRANSITION = 2.0;
+AT01_RECEIVER_TOP_ACTIVE_LENGTH =
+    AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TOP_TRANSITION; // 6 mm
+
 // Plate-only straight support around the same 10 mm functional receiver.
 // The extra 2 mm at each Y end is ordinary 10 x 4 mm material, not part of
 // the snap interface.
@@ -178,6 +186,8 @@ assert(AT01_SNAP_CORE_ROUNDING < AT01_SNAP_LENGTH / 2);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TRANSITION - 1.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_TRANSITION - 2.0) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_ACTIVE_LENGTH - 6.0) < 0.0001);
 assert(abs(AT01_PLATE_SUPPORT_LENGTH - 14.0) < 0.0001);
 assert(abs(AT01_PLATE_SUPPORT_END - 2.0) < 0.0001);
 assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIGHT) < 0.0001);
@@ -198,7 +208,7 @@ assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIG
 module _at01_positive_x_lower_cut_active() {
     rotate([90, 0, 0])
         linear_extrude(
-            height = AT01_RECEIVER_ACTIVE_LENGTH,
+            height = AT01_RECEIVER_TOP_ACTIVE_LENGTH,
             center = true,
             convexity = 10
         )
@@ -234,7 +244,7 @@ module _at01_positive_x_top_cut_active() {
 // This creates a diagonal guide face on BOTH ends of the main sloped surface
 // instead of cutting that surface off with a vertical plane.
 module _at01_positive_y_top_cut_transition() {
-    ya = AT01_RECEIVER_ACTIVE_LENGTH / 2;
+    ya = AT01_RECEIVER_TOP_ACTIVE_LENGTH / 2;
     yb = AT01_RECEIVER_ZONE_LENGTH / 2;
     xi = AT01_RECEIVER_TOP_WIDTH / 2;
     xo = AT01_RAIL_WIDTH / 2 + 0.01;
