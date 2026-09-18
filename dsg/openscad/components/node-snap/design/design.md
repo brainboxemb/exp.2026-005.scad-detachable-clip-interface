@@ -142,7 +142,6 @@ transformed into the positive-X node wall:
 
 <!-- scad-render
 view: nub-box
-vpd: 52
 -->
 
 Source dimensions:
@@ -175,7 +174,6 @@ The same box is now cut by the OpenGrid upper and lower wedge tools:
 
 <!-- scad-render
 view: nub-wedge-shaped
-vpd: 52
 -->
 
 The production operation is:
@@ -201,7 +199,6 @@ construction used by the source:
 
 <!-- scad-render
 view: nub-final-one-side
-vpd: 52
 -->
 
 ```openscad
