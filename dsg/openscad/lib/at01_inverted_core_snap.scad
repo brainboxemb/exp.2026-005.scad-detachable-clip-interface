@@ -119,7 +119,9 @@ AT01_PLAN_SCALE =
 // OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
 // plain rectangular slab. Scale the source 3.262743 mm plan rounding with the
 // same 25 -> 10 mm reduction used for tangential dimensions.
+AT01_SOURCE_CORE_ROUNDING = 4.81837;
 AT01_SOURCE_TOP_ROUNDING = 3.262743;
+AT01_SNAP_CORE_ROUNDING = AT01_SOURCE_CORE_ROUNDING * AT01_PLAN_SCALE;
 AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
 
 // OpenGrid click-hole proportions retained on +/-X only.
@@ -162,6 +164,8 @@ assert(abs(AT01_FLEX_TONGUE - 0.7) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_RADIAL - 0.6) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_ROUNDING - 0.3) < 0.0001);
 assert(abs(AT01_SNAP_WALL - 2.0) < 0.0001);
+assert(AT01_SNAP_CORE_ROUNDING > AT01_SNAP_TOP_ROUNDING);
+assert(AT01_SNAP_CORE_ROUNDING < AT01_SNAP_LENGTH / 2);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TRANSITION - 1.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
@@ -427,20 +431,43 @@ module at01_receiver(variant = 0, mm_pattern = false) {
 
 // --- Shared removable snap -------------------------------------------------
 
+module _at01_snap_core_outer_envelope() {
+    // QuackWorks forms the Lite core with a chamfered plan outline:
+    // cuboid(... rounding=4.81837, edges="Z", $fn=2).
+    //
+    // Keep that plan-form logic under the 25 -> 10 mm reduction so the
+    // reduced snap has the same recognisable clipped-corner silhouette.
+    cuboid(
+        [
+            AT01_SNAP_OUTER_WIDTH,
+            AT01_SNAP_LENGTH,
+            AT01_SNAP_ENGAGEMENT_HEIGHT
+        ],
+        rounding = AT01_SNAP_CORE_ROUNDING,
+        edges = "Z",
+        $fn = 2,
+        anchor = BOTTOM
+    );
+}
+
 module _at01_snap_side_wall(x_sign = 1) {
     inner = AT01_SNAP_INNER_WIDTH / 2;
     outer = AT01_SNAP_OUTER_WIDTH / 2;
 
-    translate([
-        x_sign * (inner + outer) / 2,
-        0,
-        AT01_SNAP_ENGAGEMENT_HEIGHT / 2
-    ])
-        cube([
-            AT01_SNAP_WALL,
-            AT01_SNAP_LENGTH,
-            AT01_SNAP_ENGAGEMENT_HEIGHT
-        ], center = true);
+    intersection() {
+        translate([
+            x_sign * (inner + outer) / 2,
+            0,
+            AT01_SNAP_ENGAGEMENT_HEIGHT / 2
+        ])
+            cube([
+                AT01_SNAP_WALL,
+                AT01_SNAP_LENGTH,
+                AT01_SNAP_ENGAGEMENT_HEIGHT
+            ], center = true);
+
+        _at01_snap_core_outer_envelope();
+    }
 }
 
 module _at01_snap_top() {
