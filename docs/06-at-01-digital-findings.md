@@ -1,17 +1,23 @@
-# AT-01 digital findings — rail and plate receivers
+# AT-01 digital findings — current rail/plate baseline
 
-Status: **superseded geometry baseline — local receiver correction active in PR #4**
+Status: **current digital baseline; visual acceptance and physical qualification still open**
 
 Qualified source head:
 
 ```text
-bbd1ab4de21d9fb29251c1b874b40c585624ffda
+e4b3878aa0c2bf786781a02716fea77293cdcb61
 ```
 
 Build run:
 
 ```text
-35344807800
+35356649821
+```
+
+Published preview:
+
+```text
+dev/pr-4/bld
 ```
 
 Pinned QuackWorks source:
@@ -20,102 +26,160 @@ Pinned QuackWorks source:
 e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
 ```
 
-## Generated complete-part STL envelopes
+## Current AT-01 concept
 
-Measured from generated STL vertex bounds:
-
-```text
-receiver rail     10.0 × 50.0 × 4.0 mm
-receiver plate    20.0 × 50.0 × 10.0 mm total
-                  = 6.0 mm plate + 4.0 mm receiver
-removable snap    14.2 × 10.0 × 4.6 mm
-```
-
-Profile STL envelopes:
+AT-01 tests one local fixed/removable interface in two neutral carrier contexts:
 
 ```text
-rail profile      10.0 × 1.0 × 4.0 mm
-plate profile     20.0 × 1.0 × 10.0 mm
-snap profile      14.2 × 1.0 × 4.6 mm
+rail carrier       50 × 10 × 4 mm
+plate carrier      50 × 20 × 6 mm
+plate support      10 × 14 × 4 mm
+receiver position  one local 10 × 10 mm zone
+removable snap     one shared 10 mm-long part
 ```
 
-All six AT-01 STL exports report a manifold top-level 3D object and
-`Status: NoError`.
+The two carrier variants deliberately share the same functional receiver and
+removable snap. Carrier choice is not yet a separate mechanism choice.
 
-## Shared interface check
+## Receiver geometry
 
-Both concepts call the same local receiver profile and the same removable snap.
-The plate concept only adds a 50 × 20 × 6 mm carrier below the receiver rail.
-No plate-specific snap geometry exists.
+The receiver is local rather than continuous along the 50 mm carrier.
 
-## Seated static clearance
-
-The mirrored OpenGrid relation gives:
+Its source-derived X/Z relation is:
 
 ```text
-receiver capture width      10.0 mm
-snap body opening           10.2 mm
-nominal body clearance       0.1 mm per side
-
-snap nub opening             9.4 mm
-nub protrusion                0.4 mm per side
+local Z 0.0 .. 1.6    width 8.6 mm
+local Z 1.6 .. 2.6    ramp 8.6 -> 10.0 mm
+local Z 2.6 .. 3.6    width 10.0 mm
+local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
 ```
 
-The snap is seated 0.6 mm above the local receiver base. Evaluating the mirrored
-receiver ramp and mirrored nub wedge over their common Z interval gives a
-minimum seated static side clearance of approximately **0.10 mm per side**.
+Along Y, the lower receiver profile is active over the central 8 mm and returns
+to the ordinary carrier over 1 mm at each end.
 
-During insertion the 9.4 mm nub opening must pass the 10.0 mm capture band,
-creating up to approximately **0.30 mm temporary interference per side**. That
-preserves the nominal 25.0 / 24.8 / 25.6 mm OpenGrid relationship under the
-radial mirror.
+The final 0.4 mm top region also narrows in plan. This is intentional centring
+geometry: a part pressed down from above should be guided toward the local
+receiver centre rather than pushed outward.
 
-This is a geometry check only. It does not prove a printed 10 mm snap can
-elastically provide that motion without excessive force or damage.
+## Removable snap correction
 
-## Render inspection
+The earlier AT-01 nub used a simplified trapezoid. Visual review showed that the
+straight middle region did not represent the OpenGrid snap well enough.
 
-The generated evidence contains rail and plate assembled/exploded views,
-retention sections, a rail-versus-plate comparison, both receivers individually
-and the shared snap individually.
+The current baseline keeps the QuackWorks normal-snap nub construction:
 
-The two retention sections use the same X/Z mating geometry. The plate section
-differs only by the 6 mm carrier below the receiver. The snap is open at both Y
-ends and attaches locally over the continuous 50 mm receiver.
+- 0.4 mm radial nub depth;
+- source Z wedge relationship;
+- separate upper and lower wedges;
+- source-style rounded intersection;
+- only the tangential Y extent is reduced with the 25 -> 10 mm plan scale.
+
+The snap top is also no longer a plain rectangular slab. It uses a reduced
+OpenGrid-like plan chamfer.
+
+This keeps the PoP focused on reducing the attachment footprint without silently
+replacing the reference retention shape with a different mechanism.
+
+## OpenGrid Lite reference interpretation
+
+The pinned QuackWorks/basic Lite reference remains:
+
+```text
+Lite receiver height        4.0 mm
+basic Lite snap height      3.4 mm
+arithmetic difference       0.6 mm
+```
+
+The experiment does **not** impose a derived 0.6 mm seated Z offset. Receiver
+and snap are posed using the upstream CENTER anchoring.
+
+For render interpretation, two section planes are retained:
+
+- **solid/off-slot section** — primary overview of the continuous mating body;
+- **center/flex-slot section** — technical view through the compliant click slot.
+
+This prevents intentionally missing flex-slot material from being mistaken for
+general fit clearance.
+
+## Generated evidence
+
+PNG includes:
+
+- rail and plate assembled/exploded views;
+- rail and plate retention sections;
+- rail and plate transition sections;
+- rail-versus-plate comparison;
+- receiver rail and plate views;
+- receiver top-view comparison;
+- removable snap;
+- AT-01 snap wall versus OpenGrid snap wall profile;
+- OpenGrid Full/Lite solid overview sections;
+- separate OpenGrid Full/Lite flex-slot sections.
+
+STL includes:
+
+- receiver rail;
+- receiver plate;
+- removable snap;
+- receiver/profile slices;
+- OpenGrid reference parts and profile slices.
+
+The receiver coupons may include the optional compact 1 mm physical reference
+groove cross. It remains outside the mating edges and is not functional geometry.
+
+## CI result
+
+Run `35356649821` completed successfully from exact source
+`e4b3878aa0c2bf786781a02716fea77293cdcb61`.
+
+For all AT-01 PNG renders and STL exports used by this baseline:
+
+- OpenSCAD reports `Status: NoError`;
+- top-level output is reported as a manifold 3D object.
+
+The build publication records the exact experiment source and exact pinned
+QuackWorks gitlink.
+
+Generic runner/tooling warnings in the workflow are not AT-01 geometry warnings.
 
 ## Digitally established
 
-- the two requested carrier directions exist;
-- receiver dimensions match their intended envelopes;
-- both use the same local receiver/snap interface;
-- source-derived seated geometry has positive static clearance;
-- all build/export geometry is manifold;
-- build provenance pins the exact QuackWorks source.
+The current digital evidence establishes that:
 
-## Still requires physical evidence
+- the receiver is local rather than a 50 mm continuous attachment profile;
+- rail and plate variants use one shared mating interface;
+- receiver top geometry centres inward;
+- the removable nub now retains the source OpenGrid wedge/rounding principle
+  rather than the superseded straight trapezoid;
+- the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
+  snap without an invented seated offset;
+- solid and flex-slot sections are intentionally distinguished;
+- all generated AT-01 outputs build as manifold geometry.
 
-- whether 0.30 mm temporary interference per side is too stiff at this scale;
-- whether the 2.0 mm side wall is appropriately flexible;
-- whether the scaled click slot remains effective;
-- insertion/removal force;
-- fatigue;
-- material choice;
-- whether rail or plate carrier is preferable for HUB75 integration.
+## Still open before AT-01 acceptance
 
-Do not promote the interface into production from digital evidence alone.
+Digital success is not yet final AT-01 acceptance.
 
+Still required:
 
-## Superseded by local receiver correction
+1. visual inspection of the corrected receiver top, snap profile and assembled
+   rail/plate renders;
+2. confirm that the reduced snap still looks mechanically coherent relative to
+   the pinned OpenGrid profile;
+3. print neutral coupons;
+4. establish insertion/removal behaviour and whether the flex region survives
+   repeated use;
+5. determine whether the nominal interference/clearance needs AT-03 tolerance
+   variants;
+6. decide whether rail or plate carrier context is preferable for later HUB75
+   integration.
 
-The run above qualified the first rail/plate geometry, but that revision
-incorrectly extended the receiver profile over the full 50 mm carrier length.
+AT-02 must not be used to bypass an unresolved AT-01 geometry problem.
 
-PR #4 now corrects both concepts to one local 10 × 10 mm receiver position with
-an 8 mm active region and 1 mm explicit transition at each end. New digital findings must
-be recorded from the regenerated output before AT-01 is accepted.
+## Physical boundary
 
+CAD and CI establish geometry, reproducibility and provenance. They do not
+establish insertion force, removal force, fatigue, final material, printer
+tolerance robustness or load capacity.
 
-The subsequent correction also replaces receiver `hull()` transitions with
-explicit point-to-point polyhedron slopes. For the plate concept, the local
-10 mm receiver sits in the centre of a 10 × 14 × 4 mm straight support boss,
-leaving 2 mm support material at both longitudinal ends.
+Those remain physical qualification questions.
