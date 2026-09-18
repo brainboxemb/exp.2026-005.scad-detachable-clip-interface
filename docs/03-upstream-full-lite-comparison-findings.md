@@ -18,7 +18,7 @@ Qualified by PR run:
 ## Generated evidence
 
 The generated filenames are user-facing and no longer depend on knowing the
-internal OG/AT testcase codes.
+internal testcase codes.
 
 Primary complete Lite reference parts:
 
@@ -86,8 +86,8 @@ basic/QuackWorks Lite snap = 3.4 mm
 arithmetic difference = 0.6 mm
 ```
 
-The earlier the Full/Lite comparison revision interpreted that difference as a top-flush 0.6 mm
-assembly offset. PR #3 superseded that interpretation. The accepted upstream
+An earlier comparison revision interpreted that difference as a top-flush
+0.6 mm assembly offset. PR #3 superseded that interpretation. The accepted upstream
 reference now uses the upstream CENTER anchoring for both receiver and snap and
 does not manufacture a seated Z offset from the arithmetic height difference.
 
@@ -115,7 +115,7 @@ that relationship.
 
 Directional retention exists independently of the Full/Lite selection.
 
-the Full/Lite comparison intentionally uses:
+The Full/Lite comparison intentionally uses:
 
 ```text
 directional = false
@@ -124,11 +124,12 @@ directional = false
 for both variants. Mixing directional behaviour into this comparison would add
 a second variable before the basic Full/Lite height/profile question is settled.
 
-## the reduced receiver + snap phase consequence
+## Reduced receiver + snap consequence
 
 **Lite is the preferred first reference for the reduced receiver + snap phase.**
 
-That does not mean the reduced receiver + snap phase should copy the 24.8 mm Lite snap. It means Lite is the
+That does not mean the reduced receiver + snap phase should copy the 24.8 mm
+Lite snap. It means Lite is the
 better reduction starting point because upstream already demonstrates that:
 
 - the Full 6.8 mm vertical envelope is not essential to the attachment concept;
@@ -137,7 +138,8 @@ better reduction starting point because upstream already demonstrates that:
 - retention/compliance can live near the functional interface instead of
   requiring the complete Full depth.
 
-the reduced receiver + snap phase should therefore begin from the Lite relationship and ask what can be
+The reduced receiver + snap phase should therefore begin from the Lite
+relationship and ask what can be
 reduced further:
 
 1. how much of the four-sided receiver is actually needed;
@@ -152,7 +154,7 @@ feature whose purpose is unclear.
 
 ## Not established
 
-the Full/Lite comparison still does not establish:
+The Full/Lite comparison still does not establish:
 
 - physical insertion or removal force;
 - fatigue;

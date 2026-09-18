@@ -112,44 +112,84 @@ intersection() {
 
 So the upper guide shape is not produced by the 0.4 mm top plate alone.
 
-## Step 4 — add the four normal retention nubs
+## Step 4 — start one normal retention nub from its source box
 
-The body built so far is grey. The four normal bottom nubs are red:
+The body built so far is grey. The red geometry is only the source bounding box
+for one normal retention nub:
 
 <!-- scad-render
-view: bottom-nubs
+view: nub-box
 -->
 
-Each nub is itself a multi-stage construction:
-
-```openscad
-intersection() {
-    difference() {
-        nub_box();
-        top_wedge();
-        bottom_wedge();
-    }
-
-    elliptical_rounding_cylinder();
-}
-```
-
-The important normal-nub source dimensions are:
+Source dimensions:
 
 ```text
 nub base height        0.2 mm
 nub tangential width  11.0 mm
 nub radial depth       0.4 mm
-upper wedge height     0.6 mm
-lower wedge height     0.6 mm
+```
+
+The box deliberately extends higher than the final nub; the next operations
+shape that raw volume.
+
+## Step 5 — cut the upper and lower wedges
+
+The same single nub is shown after the two source wedge cutters have been
+subtracted:
+
+<!-- scad-render
+view: nub-wedge-shaped
+-->
+
+The source keeps separate 0.6 mm upper and lower wedge heights. That is why the
+entry/retention profile is not equivalent to one straight chamfer.
+
+```openscad
+difference() {
+    _og_lite_snap_design_normal_nub_box_local();
+    _og_lite_snap_design_normal_nub_top_wedge_local();
+    _og_lite_snap_design_normal_nub_bottom_wedge_local();
+}
+```
+
+## Step 6 — apply the elliptical rounding intersection
+
+The wedge-shaped nub is then intersected with the source rounding volume:
+
+<!-- scad-render
+view: nub-final-one-side
+-->
+
+```text
 rounding radius       13.025 mm
 Y scale                1.36
 ```
 
-The node snap later reuses this exact construction principle rather than
-approximating it with a trapezoid.
+```openscad
+intersection() {
+    _og_lite_snap_design_normal_nub_wedge_shaped_local();
+    _og_lite_snap_design_normal_nub_rounding_local();
+}
+```
 
-## Step 5 — inspect the complete positive body before slots
+This produces the rounded/bulb-like middle that would disappear if the source
+nub were simplified to a trapezoid.
+
+## Step 7 — replicate the finished nub on all four sides
+
+The body is grey and the four completed normal retention nubs are red:
+
+<!-- scad-render
+view: bottom-nubs
+-->
+
+The source uses rotational copies of the same finished nub; the four sides are
+not independently redrawn.
+
+The node snap later keeps this exact box → wedges → rounding construction
+principle while reducing the interface to two active walls.
+
+## Step 8 — inspect the complete positive body before slots
 
 <!-- scad-render
 view: body-before-slots
@@ -166,7 +206,7 @@ core
 
 The flex system does not exist yet.
 
-## Step 6 — cut the four main click/flex slots
+## Step 9 — cut the four main click/flex slots
 
 The positive body is grey; the click-slot cutters are red:
 
@@ -197,7 +237,7 @@ view: after-click-slots
 These slots create the long flexible tongues. The slot itself is not the
 retention profile.
 
-## Step 7 — cut the upper wall slots
+## Step 10 — cut the upper wall slots
 
 The body after the main click slots is grey. The upper wall-slot cutters are
 red:
@@ -220,7 +260,7 @@ zrot_copies(n = 4)
 This small upper cut separates the flex tongue from the upper body near the
 source-derived Z=2.2 mm level.
 
-## Step 8 — reconstructed non-directional Lite snap
+## Step 11 — reconstructed non-directional Lite snap
 
 <!-- scad-render
 view: reconstructed
@@ -239,7 +279,7 @@ The purpose of this comparison is not to create a replacement implementation;
 it is to make the source construction inspectable step by step while retaining
 the pinned upstream module as authority.
 
-## Step 9 — inspect the core/top height bands
+## Step 12 — inspect the core/top height bands
 
 The exact pinned final snap can also be split by Z to show the 3.0 mm core and
 0.4 mm top bands:
@@ -251,7 +291,7 @@ view: source-layers
 This is a height explanation only. Features such as the top nub cross those
 conceptual bands and remain part of the same final object.
 
-## Step 10 — inspect the continuous wall section
+## Step 13 — inspect the continuous wall section
 
 <!-- scad-render
 view: solid-profile
@@ -261,7 +301,7 @@ vpr: [90, 0, 0]
 This section avoids the long click slot and shows the body/nub relationship
 continuously.
 
-## Step 11 — inspect the flex-slot plane
+## Step 14 — inspect the flex-slot plane
 
 <!-- scad-render
 view: flex-profile

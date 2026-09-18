@@ -14,6 +14,12 @@ module opengrid_lite_receiver_design(view = "final") {
             opengrid_lite_receiver_design_full_source();
         else if (view == "retained-top")
             opengrid_lite_receiver_design_full_with_retained_top();
+        else if (view == "retained-top-only")
+            opengrid_lite_receiver_design_retained_top_only();
+        else if (view == "recentered-extraction")
+            opengrid_lite_receiver_design_recentered_extraction();
+        else if (view == "recentered-compare")
+            opengrid_lite_receiver_design_recentered_compare();
         else if (view == "lite-result")
             opengrid_lite_receiver_design_recentered_result();
         else if (view == "profile-zones")

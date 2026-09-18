@@ -24,6 +24,30 @@ module opengrid_lite_snap_design(view = "final") {
             }
             color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_top_nub();
+        } else if (view == "nub-box") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_box();
+        } else if (view == "nub-wedge-shaped") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_wedge_shaped();
+        } else if (view == "nub-final-one-side") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_final();
         } else if (view == "bottom-nubs") {
             color([0.56, 0.56, 0.56, 0.42]) {
                 opengrid_lite_snap_design_core();

@@ -96,47 +96,94 @@ module opengrid_lite_snap_design_top_nub() {
         }
 }
 
-module _og_lite_snap_design_normal_nub_local() {
+module _og_lite_snap_design_normal_nub_source_space() {
     w = _og_lite_snap_w();
+
+    move([w / 2 - 0.01, 0, 0])
+        children();
+}
+
+module _og_lite_snap_design_normal_nub_box_local() {
     nub_h = 0.2;
     nub_w = 11;
     nub_d = 0.4;
+
+    _og_lite_snap_design_normal_nub_source_space()
+        zmove(nub_h - 0.01)
+            cuboid(
+                [nub_d, nub_w, 2 - nub_h + 0.01],
+                anchor = CENTER + LEFT + BOTTOM
+            );
+}
+
+module _og_lite_snap_design_normal_nub_top_wedge_local() {
+    nub_w = 11;
+    nub_d = 0.4;
     top_wedge_h = 0.6;
+
+    _og_lite_snap_design_normal_nub_source_space()
+        zmove(2)
+            rotate([0, 180, 90])
+                wedge(
+                    [nub_w, nub_d, top_wedge_h],
+                    anchor = CENTER + BOTTOM + BACK
+                );
+}
+
+module _og_lite_snap_design_normal_nub_bottom_wedge_local() {
+    nub_h = 0.2;
+    nub_w = 11;
     bot_wedge_h = 0.6;
 
-    move([w / 2 - 0.01, 0, 0])
-        intersection() {
-            difference() {
-                zmove(nub_h - 0.01)
-                    cuboid(
-                        [nub_d, nub_w, 2 - nub_h + 0.01],
-                        anchor = CENTER + LEFT + BOTTOM
-                    );
+    _og_lite_snap_design_normal_nub_source_space()
+        zmove(nub_h)
+            rotate([0, 0, 90])
+                wedge(
+                    [nub_w, 0.4, bot_wedge_h],
+                    anchor = CENTER + BOTTOM + BACK
+                );
+}
 
-                zmove(2)
-                    rotate([0, 180, 90])
-                        wedge(
-                            [nub_w, nub_d, top_wedge_h],
-                            anchor = CENTER + BOTTOM + BACK
-                        );
+module _og_lite_snap_design_normal_nub_wedge_shaped_local() {
+    difference() {
+        _og_lite_snap_design_normal_nub_box_local();
+        _og_lite_snap_design_normal_nub_top_wedge_local();
+        _og_lite_snap_design_normal_nub_bottom_wedge_local();
+    }
+}
 
-                zmove(nub_h)
-                    rotate([0, 0, 90])
-                        wedge(
-                            [nub_w, 0.4, bot_wedge_h],
-                            anchor = CENTER + BOTTOM + BACK
-                        );
-            }
+module _og_lite_snap_design_normal_nub_rounding_local() {
+    _og_lite_snap_design_normal_nub_source_space()
+        xmove(-12.36)
+            yscale(1.36)
+                cyl(
+                    $fn = 180,
+                    r = 13.025,
+                    h = 2.01,
+                    anchor = BOTTOM
+                );
+}
 
-            xmove(-12.36)
-                yscale(1.36)
-                    cyl(
-                        $fn = 180,
-                        r = 13.025,
-                        h = 2.01,
-                        anchor = BOTTOM
-                    );
-        }
+module _og_lite_snap_design_normal_nub_local() {
+    intersection() {
+        _og_lite_snap_design_normal_nub_wedge_shaped_local();
+        _og_lite_snap_design_normal_nub_rounding_local();
+    }
+}
+
+module opengrid_lite_snap_design_one_nub_box() {
+    _og_lite_snap_centered_source_space()
+        _og_lite_snap_design_normal_nub_box_local();
+}
+
+module opengrid_lite_snap_design_one_nub_wedge_shaped() {
+    _og_lite_snap_centered_source_space()
+        _og_lite_snap_design_normal_nub_wedge_shaped_local();
+}
+
+module opengrid_lite_snap_design_one_nub_final() {
+    _og_lite_snap_centered_source_space()
+        _og_lite_snap_design_normal_nub_local();
 }
 
 module opengrid_lite_snap_design_bottom_nubs() {

@@ -22,11 +22,11 @@ Functional evolution of the detachable SCAD clip-interface PoP.
 - Bootstrap the OpenSCAD-only direct-build experiment repository.
 - Pin the QuackWorks fork at exact source
   `e0c1cb7ec78dd9e9a8476ed739bd3402074354f3`.
-- Add the upstream Full reference upstream reference assembled, exploded and section PNG entrypoints.
-- Add separate the upstream Full reference fixed-receiver and removable-snap STL entrypoints.
+- Add upstream Full reference assembled, exploded and section PNG entrypoints.
+- Add separate upstream Full reference fixed-receiver and removable-snap STL entrypoints.
 - Qualify the upstream Full reference on run `35336131546`: all three PNG and two STL targets build
   without geometry errors, and both exported parts are manifold.
-- Add the Full/Lite comparison Full/Lite comparison, individual receiver/snap profile PNGs and
+- Add the Full/Lite comparison, individual receiver/snap profile PNGs and
   1.0 mm profile-slice STLs, plus complete Lite receiver/snap STL exports.
 - Qualify the Full/Lite comparison on run `35338032630`: all comparison/profile PNG and STL
   targets build without geometry errors and all exported STL solids are

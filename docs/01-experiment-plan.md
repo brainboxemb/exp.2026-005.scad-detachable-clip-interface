@@ -62,9 +62,9 @@ footprint                         ~24.8 x 24.8 mm
 ```
 
 The Lite receiver is derived from the upper portion of the Full receiver. The
-Lite snap likewise removes the lower half of the Full snap. For a top-flush
-assembled comparison, the Lite snap is therefore posed 0.6 mm above the Lite
-receiver bottom.
+Lite snap likewise removes the lower Full-height stage. The accepted reference
+keeps the upstream CENTER anchoring for both parts; the arithmetic 0.6 mm height
+difference is not converted into a seated offset.
 
 Evidence:
 

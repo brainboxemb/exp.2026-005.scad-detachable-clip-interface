@@ -53,7 +53,7 @@ occlusion. The section render exposes the receiver/snap mating region locally.
 
 ## What the upstream Full reference does not establish
 
-the upstream Full reference does not prove:
+The upstream Full reference does not prove:
 
 - insertion force;
 - pull-out force;
@@ -70,7 +70,8 @@ Those are later PoP questions.
 
 The next useful step is the **reduced receiver + snap** phase, not a tube clip yet.
 
-The reduced receiver + snap phase should retain the functional decomposition visible in the upstream Full reference while reducing
+The reduced receiver + snap phase should retain the functional decomposition
+visible in the upstream Full reference while reducing
 the complete OpenGrid cell context to a neutral attachment coupon:
 
 ```text
