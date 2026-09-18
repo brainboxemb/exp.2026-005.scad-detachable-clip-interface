@@ -18,7 +18,7 @@ render_fn = 96;
 $fn = render_fn;
 
 include <lib/og02_full_lite_reference.scad>
-include <lib/at01_inverted_core_snap.scad>
+include <lib/detachable_clip_interface.scad>
 
 function _main_profile_view(view) =
     view == 3 || view == 4 || view == 8 || view == 9;
@@ -29,14 +29,14 @@ function _main_comparison_view(view) =
 function _main_exploded_view(view) =
     view == 11 || view == 14;
 
-function _main_at01_view(view) =
+function _main_clip_view(view) =
     view >= 13 && view <= 20;
 
-function _main_at01_section_view(view) =
+function _main_clip_section_view(view) =
     view == 15 || view == 19;
 
 $vpt =
-    _main_at01_view(design_view)
+    _main_clip_view(design_view)
         ? [0, 0,
             design_view == 18 ? 5 :
             at01_receiver_variant == 1 ? 8 : 2.5]
@@ -49,7 +49,7 @@ $vpr =
         ? [90, 0, 0]
         : design_view == 19
             ? [0, 0, 0]
-            : _main_at01_view(design_view)
+            : _main_clip_view(design_view)
                 ? [68, 0, 28]
                 : _main_profile_view(design_view)
                     ? [90, 0, 0]
@@ -58,7 +58,7 @@ $vpr =
                         : [65, 0, 35];
 
 $vpd =
-    _main_at01_view(design_view)
+    _main_clip_view(design_view)
         ? (design_view == 15 ? 48 :
            design_view == 17 ? 46 :
            design_view == 18 ? 150 :
@@ -117,33 +117,33 @@ module _main_selected_view(view) {
     else if (view == 12)
         og02_comparison_section();
     else if (view == 13)
-        at01_assembled(
+        detachable_clip_example_assembled(
             at01_receiver_variant,
             mm_pattern = at01_show_mm_pattern
         );
     else if (view == 14)
-        at01_exploded(
+        detachable_clip_example_exploded(
             at01_receiver_variant,
             mm_pattern = at01_show_mm_pattern
         );
     else if (view == 15)
-        at01_retention_section(at01_receiver_variant);
+        detachable_clip_retention_section(at01_receiver_variant);
     else if (view == 16)
         color([0.68, 0.70, 0.74])
-            at01_receiver(
+            detachable_clip_example_receiver(
                 at01_receiver_variant,
                 at01_show_mm_pattern
             );
     else if (view == 17)
         color([0.92, 0.30, 0.12])
-            at01_removable_snap(at01_show_mm_pattern);
+            detachable_clip_snap(at01_show_mm_pattern);
     else if (view == 18)
-        at01_concepts_comparison(at01_show_mm_pattern);
+        detachable_clip_examples_comparison(at01_show_mm_pattern);
     else if (view == 19)
-        at01_transition_section(at01_receiver_variant);
+        detachable_clip_transition_section(at01_receiver_variant);
     else if (view == 20)
         color([0.92, 0.30, 0.12])
-            at01_snap_retention_profile();
+            detachable_clip_snap_retention_profile();
     else
         assert(false, str("Unsupported design_view: ", view));
 }
