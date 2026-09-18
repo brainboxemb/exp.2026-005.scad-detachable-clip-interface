@@ -87,29 +87,28 @@ The Lite snap is therefore not merely a slicer-scaled Full snap. It is an
 explicit upstream low-profile variant preserving the same basic footprint and
 retention concept.
 
-## Seated Z relationship
+## Z-envelope relationship
 
-Full receiver and Full snap are both 6.8 mm high, so their bottom and top
-surfaces align in the reference assembly.
+Full receiver and Full snap are both 6.8 mm high.
 
 Lite differs:
 
 ```text
 receiver = 4.0 mm
-snap     = 3.4 mm
-difference = 0.6 mm
+basic/QuackWorks Lite snap = 3.4 mm
+arithmetic difference = 0.6 mm
 ```
 
-To preserve the same top-flush functional relationship, OG-02 poses the Lite
-snap with:
+The earlier OG-02 revision interpreted that difference as a top-flush 0.6 mm
+assembly offset. PR #3 superseded that interpretation. The accepted upstream
+reference now uses the upstream CENTER anchoring for both receiver and snap and
+does not manufacture a seated Z offset from the arithmetic height difference.
 
-```text
-snap bottom = receiver bottom + 0.6 mm
-snap top    = receiver top
-```
-
-This 0.6 mm offset is a derived assembly relationship, not an arbitrary visual
-offset.
+The 3.4 mm value is not an accidental legacy artefact in this reference:
+current official openGrid documentation still describes the basic Lite snap as
+using 3.4 mm of the 4.0 mm Lite board thickness. Newer community snap families
+may make a different thickness choice and should be identified by family rather
+than treated as a silent replacement for this pinned reference.
 
 ## What remains common
 
