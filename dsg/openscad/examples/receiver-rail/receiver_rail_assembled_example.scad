@@ -6,10 +6,10 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../lib/detachable_clip_interface.scad>
+use <../../lib/node_interface.scad>
 
 module receiver_rail_assembled_example(mm_pattern = true) {
-    detachable_clip_example_assembled(0, mm_pattern = mm_pattern);
+    node_example_assembled(0, mm_pattern = mm_pattern);
 }
 
 receiver_rail_assembled_example();
