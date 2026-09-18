@@ -158,9 +158,9 @@ assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIG
 
 // --- Shared receiver profile -----------------------------------------------
 
-function _at01_receiver_profile_points() = [
-    [-AT01_RECEIVER_LOWER_WIDTH / 2, 0],
-    [ AT01_RECEIVER_LOWER_WIDTH / 2, 0],
+function _at01_receiver_profile_points(bottom_z = 0) = [
+    [-AT01_RECEIVER_LOWER_WIDTH / 2, bottom_z],
+    [ AT01_RECEIVER_LOWER_WIDTH / 2, bottom_z],
     [ AT01_RECEIVER_LOWER_WIDTH / 2, AT01_RECEIVER_LOWER_Z],
     [ AT01_RECEIVER_MAX_WIDTH / 2, AT01_RECEIVER_RAMP_TOP_Z],
     [ AT01_RECEIVER_MAX_WIDTH / 2, AT01_RECEIVER_CAPTURE_TOP_Z],
@@ -171,12 +171,12 @@ function _at01_receiver_profile_points() = [
     [-AT01_RECEIVER_LOWER_WIDTH / 2, AT01_RECEIVER_LOWER_Z]
 ];
 
-// Same 10-point topology as the receiver profile, but every Z level returns
-// to the ordinary straight 10 x 4 mm carrier width. This is the target of the
-// short Y lead-out; height never collapses.
-function _at01_rect_profile_points() = [
-    [-AT01_RAIL_WIDTH / 2, 0],
-    [ AT01_RAIL_WIDTH / 2, 0],
+// Same topology as the receiver profile, but with an ordinary straight
+// 10 x 4 mm section. Keeping identical point count/order lets every transition
+// connect corresponding profile vertices explicitly and symmetrically.
+function _at01_rect_profile_points(bottom_z = 0) = [
+    [-AT01_RAIL_WIDTH / 2, bottom_z],
+    [ AT01_RAIL_WIDTH / 2, bottom_z],
     [ AT01_RAIL_WIDTH / 2, AT01_RECEIVER_LOWER_Z],
     [ AT01_RAIL_WIDTH / 2, AT01_RECEIVER_RAMP_TOP_Z],
     [ AT01_RAIL_WIDTH / 2, AT01_RECEIVER_CAPTURE_TOP_Z],
@@ -191,109 +191,112 @@ module _at01_receiver_profile_2d() {
     polygon(points = _at01_receiver_profile_points());
 }
 
-module _at01_profile_extrude(points, length) {
-    rotate([90, 0, 0])
-        linear_extrude(height = length, center = true, convexity = 10)
-            polygon(points = points);
-}
+// Build the complete longitudinal carrier/boss as ONE polyhedron.
+//
+// sections_y and section_profiles must have equal length. Profiles use the
+// same counter-clockwise X/Z topology. There are no hulls, no separate
+// transition solids and no coplanar joins between the straight, slope and
+// active receiver sections.
+module _at01_sectioned_receiver_solid(sections_y, section_profiles) {
+    section_count = len(sections_y);
+    profile_count = len(section_profiles[0]);
 
-// Exact ruled transition between two equal-topology X/Z profiles.
-// No hull(): every corresponding profile vertex is connected explicitly.
-module _at01_profile_loft(points_a, y_a, points_b, y_b) {
-    n = len(points_a);
+    assert(section_count == len(section_profiles));
+    assert(section_count >= 2);
 
-    points_3d = concat(
-        [for (p = points_a) [p[0], y_a, p[1]]],
-        [for (p = points_b) [p[0], y_b, p[1]]]
-    );
+    points_3d = [
+        for (s_i = [0 : section_count - 1])
+            for (p = section_profiles[s_i])
+                [p[0], sections_y[s_i], p[1]]
+    ];
 
-    // Profile points are counter-clockwise in X/Z. With y_a < y_b, each
-    // ruled side face must run a_i -> b_i -> b_next -> a_next so its normal
-    // points outward. The opposite winding makes the polyhedron invalid for
-    // Manifold conversion even when CGAL can later repair the union.
     side_faces = [
-        for (i = [0 : n - 1])
-            [
-                i,
-                n + i,
-                n + (i + 1) % n,
-                (i + 1) % n
-            ]
+        for (s_i = [0 : section_count - 2])
+            for (p_i = [0 : profile_count - 1])
+                [
+                    s_i * profile_count + p_i,
+                    (s_i + 1) * profile_count + p_i,
+                    (s_i + 1) * profile_count + (p_i + 1) % profile_count,
+                    s_i * profile_count + (p_i + 1) % profile_count
+                ]
+    ];
+
+    first_cap = [
+        for (p_i = [0 : profile_count - 1])
+            p_i
+    ];
+
+    last_offset = (section_count - 1) * profile_count;
+    last_cap = [
+        for (p_i = [profile_count - 1 : -1 : 0])
+            last_offset + p_i
     ];
 
     polyhedron(
         points = points_3d,
-        faces = concat(
-            [[for (i = [0 : n - 1]) i]],
-            [[for (i = [n - 1 : -1 : 0]) n + i]],
-            side_faces
-        ),
-        convexity = 10
+        faces = concat([first_cap], [last_cap], side_faces),
+        convexity = 20
     );
 }
 
-module _at01_local_receiver_profiled_zone() {
-    active_half = AT01_RECEIVER_ACTIVE_LENGTH / 2;
-    zone_half = AT01_RECEIVER_ZONE_LENGTH / 2;
-
-    union() {
-        _at01_profile_extrude(
-            _at01_receiver_profile_points(),
-            AT01_RECEIVER_ACTIVE_LENGTH
-        );
-
-        _at01_profile_loft(
-            _at01_receiver_profile_points(),
-            active_half,
-            _at01_rect_profile_points(),
-            zone_half
-        );
-
-        _at01_profile_loft(
-            _at01_rect_profile_points(),
-            -zone_half,
-            _at01_receiver_profile_points(),
-            -active_half
-        );
-    }
-}
-
-// --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
+// --- Carrier A: one solid 50 x 10 x 4 rail with local receiver -------------
 
 module at01_receiver_rail() {
-    difference() {
-        translate([
-            -AT01_RAIL_WIDTH / 2,
+    rect = _at01_rect_profile_points();
+    receiver = _at01_receiver_profile_points();
+
+    _at01_sectioned_receiver_solid(
+        [
             -AT01_CARRIER_LENGTH / 2,
-            0
-        ])
-            cube([
-                AT01_RAIL_WIDTH,
-                AT01_CARRIER_LENGTH,
-                AT01_RAIL_HEIGHT
-            ]);
-
-        // Replace only the central 10 mm by the profiled receiver zone.
-        translate([
-            -AT01_RAIL_WIDTH / 2 - 0.1,
             -AT01_RECEIVER_ZONE_LENGTH / 2,
-            -0.1
-        ])
-            cube([
-                AT01_RAIL_WIDTH + 0.2,
-                AT01_RECEIVER_ZONE_LENGTH,
-                AT01_RAIL_HEIGHT + 0.2
-            ]);
-    }
-
-    _at01_local_receiver_profiled_zone();
+            -AT01_RECEIVER_ACTIVE_LENGTH / 2,
+             AT01_RECEIVER_ACTIVE_LENGTH / 2,
+             AT01_RECEIVER_ZONE_LENGTH / 2,
+             AT01_CARRIER_LENGTH / 2
+        ],
+        [
+            rect,
+            rect,
+            receiver,
+            receiver,
+            rect,
+            rect
+        ]
+    );
 }
 
-// --- Carrier B: 50 x 20 x 6 plate + 10 x 14 x 4 support boss --------------
+// --- Carrier B: plate + one solid 10 x 14 x 4 receiver/support boss --------
+
+AT01_PLATE_BOSS_OVERLAP = 0.05;
+
+module _at01_plate_receiver_boss() {
+    // Bottom extends 0.05 mm into the carrier plate so the boss/base union has
+    // real volume overlap instead of relying on a coplanar contact face.
+    rect = _at01_rect_profile_points(-AT01_PLATE_BOSS_OVERLAP);
+    receiver = _at01_receiver_profile_points(-AT01_PLATE_BOSS_OVERLAP);
+
+    _at01_sectioned_receiver_solid(
+        [
+            -AT01_PLATE_SUPPORT_LENGTH / 2,
+            -AT01_RECEIVER_ZONE_LENGTH / 2,
+            -AT01_RECEIVER_ACTIVE_LENGTH / 2,
+             AT01_RECEIVER_ACTIVE_LENGTH / 2,
+             AT01_RECEIVER_ZONE_LENGTH / 2,
+             AT01_PLATE_SUPPORT_LENGTH / 2
+        ],
+        [
+            rect,
+            rect,
+            receiver,
+            receiver,
+            rect,
+            rect
+        ]
+    );
+}
 
 module at01_receiver_plate() {
     union() {
-        // Main carrier plate.
         translate([
             -AT01_PLATE_WIDTH / 2,
             -AT01_CARRIER_LENGTH / 2,
@@ -305,36 +308,8 @@ module at01_receiver_plate() {
                 AT01_PLATE_HEIGHT
             ]);
 
-        // Straight support boss with its central 10 mm removed. This leaves
-        // exactly 2 mm of ordinary 10 x 4 support at each Y end.
-        difference() {
-            translate([
-                -AT01_RAIL_WIDTH / 2,
-                -AT01_PLATE_SUPPORT_LENGTH / 2,
-                AT01_PLATE_HEIGHT
-            ])
-                cube([
-                    AT01_RAIL_WIDTH,
-                    AT01_PLATE_SUPPORT_LENGTH,
-                    AT01_RECEIVER_HEIGHT
-                ]);
-
-            translate([
-                -AT01_RAIL_WIDTH / 2 - 0.1,
-                -AT01_RECEIVER_ZONE_LENGTH / 2,
-                AT01_PLATE_HEIGHT - 0.1
-            ])
-                cube([
-                    AT01_RAIL_WIDTH + 0.2,
-                    AT01_RECEIVER_ZONE_LENGTH,
-                    AT01_RECEIVER_HEIGHT + 0.2
-                ]);
-        }
-
-        // Exact 10 mm local receiver: 8 mm full profile + two 1 mm ruled
-        // transitions back to the straight 10 x 4 support width.
         translate([0, 0, AT01_PLATE_HEIGHT])
-            _at01_local_receiver_profiled_zone();
+            _at01_plate_receiver_boss();
     }
 }
 
