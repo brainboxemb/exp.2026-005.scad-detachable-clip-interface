@@ -1,4 +1,4 @@
-# AT-01 digital findings — current rail/plate baseline
+# Reduced receiver + snap — current digital rail/plate baseline
 
 Status: **current digital baseline; visual acceptance and physical qualification still open**
 
@@ -26,9 +26,9 @@ Pinned QuackWorks source:
 e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
 ```
 
-## Current AT-01 concept
+## Current concept
 
-AT-01 tests one local fixed/removable interface in two neutral carrier contexts:
+The experiment tests one local fixed/removable interface in two neutral carrier contexts:
 
 ```text
 rail carrier       50 × 10 × 4 mm
@@ -63,7 +63,7 @@ receiver centre rather than pushed outward.
 
 ## Removable snap correction
 
-The earlier AT-01 nub used a simplified trapezoid. Visual review showed that the
+The earlier reduced nub used a simplified trapezoid. Visual review showed that the
 straight middle region did not represent the OpenGrid snap well enough.
 
 The current baseline keeps the QuackWorks normal-snap nub construction:
@@ -112,7 +112,7 @@ PNG includes:
 - receiver rail and plate views;
 - receiver top-view comparison;
 - removable snap;
-- AT-01 snap wall versus OpenGrid snap wall profile;
+- reduced snap wall versus OpenGrid snap wall profile;
 - OpenGrid Full/Lite solid overview sections;
 - separate OpenGrid Full/Lite flex-slot sections.
 
@@ -132,7 +132,7 @@ groove cross. It remains outside the mating edges and is not functional geometry
 Run `35356649821` completed successfully from exact source
 `e4b3878aa0c2bf786781a02716fea77293cdcb61`.
 
-For all AT-01 PNG renders and STL exports used by this baseline:
+For all reduced-interface PNG renders and STL exports used by this baseline:
 
 - OpenSCAD reports `Status: NoError`;
 - top-level output is reported as a manifold 3D object.
@@ -140,7 +140,7 @@ For all AT-01 PNG renders and STL exports used by this baseline:
 The build publication records the exact experiment source and exact pinned
 QuackWorks gitlink.
 
-Generic runner/tooling warnings in the workflow are not AT-01 geometry warnings.
+Generic runner/tooling warnings in the workflow are not reduced-interface geometry warnings.
 
 ## Digitally established
 
@@ -154,11 +154,11 @@ The current digital evidence establishes that:
 - the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
   snap without an invented seated offset;
 - solid and flex-slot sections are intentionally distinguished;
-- all generated AT-01 outputs build as manifold geometry.
+- all generated reduced-interface outputs build as manifold geometry.
 
-## Still open before AT-01 acceptance
+## Still open before acceptance
 
-Digital success is not yet final AT-01 acceptance.
+Digital success is not yet final acceptance.
 
 Still required:
 
@@ -169,12 +169,13 @@ Still required:
 3. print neutral coupons;
 4. establish insertion/removal behaviour and whether the flex region survives
    repeated use;
-5. determine whether the nominal interference/clearance needs AT-03 tolerance
+5. determine whether the nominal interference/clearance needs explicit tolerance
    variants;
 6. decide whether rail or plate carrier context is preferable for later HUB75
    integration.
 
-AT-02 must not be used to bypass an unresolved AT-01 geometry problem.
+Do not move on to tolerance or carrier qualification to bypass an unresolved
+base receiver/snap geometry problem.
 
 ## Physical boundary
 

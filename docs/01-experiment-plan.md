@@ -81,30 +81,30 @@ Questions:
 - which locating and retention geometry remains;
 - whether the footprint stays unchanged;
 - whether Full and Lite preserve the same top functional surface;
-- whether Lite is a better starting point for AT-01's compact fixed-side
+- whether Lite is a better starting point for the compact fixed-side
   interface.
 
 Directional retention is deliberately deferred.
 
 Exit: generated evidence makes the Full/Lite difference explicit and the
-findings select the better starting principle for AT-01 without introducing
+findings select the better starting principle for the reduced interface without introducing
 HUB75 geometry.
 
 ## Reference correction — minimize upstream overrides
 
 **Status:** complete in PR #3.
 
-Before AT-01, revalidate OG-01/OG-02 using the smallest safe upstream call
+Before reducing the interface, revalidate OG-01/OG-02 using the smallest safe upstream call
 surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.md).
 
 The correction removes experiment-owned parameter overrides and the derived Lite
 assembly Z offset until the regenerated evidence supports an assembly relation.
 
-## AT-01 — inside-out Lite receiver, two carrier concepts
+## Reduced receiver + snap — two carrier concepts
 
 **Status:** active in PR #4 — digital rail/plate baseline green; physical fit pending.
 
-**Design record:** [AT-01 receiver concepts](05-at-01-inverted-core-snap.md)
+**Design record:** [Reduced receiver + snap](05-reduced-receiver-snap.md)
 
 Goal: preserve a recognisable OpenGrid-Lite-derived mating profile while
 inverting the roles and comparing two ways to carry the fixed receiver.
@@ -155,24 +155,24 @@ Exit: both carriers expose the same local snap interface and the generated
 evidence shows no static overlap in the seated state. Physical insertion and
 pull-out force remain later print-test questions.
 
-## AT-02 — retention/flex section
+## Retention and flex geometry
 
 **Status:** provisional.
 
 Make the retention nubs, compliant regions, lead-ins and load-carrying contact
 surfaces measurable and easy to inspect.
 
-## AT-03 — tolerance variants
+## Tolerance qualification
 
 **Status:** provisional.
 
-Vary only the dimensions shown by AT-02 to control insertion/retention. Do not
+Vary only the dimensions identified by the retention/flex analysis to control insertion/retention. Do not
 create a broad matrix of arbitrary variants.
 
 Physical coupon prints become useful here because snap/flex behaviour cannot be
 accepted from CAD alone.
 
-## TC-01 — tube-clip carrier
+## Tube-clip carrier
 
 **Status:** provisional.
 

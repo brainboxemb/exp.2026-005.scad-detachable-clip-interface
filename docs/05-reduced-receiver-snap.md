@@ -1,10 +1,10 @@
-# AT-01 — reduced detachable receiver + snap
+# Reduced detachable receiver + snap
 
 Status: **active in PR #4**
 
 ## Purpose
 
-AT-01 answers one focused question:
+This phase answers one focused question:
 
 > Can the pinned OpenGrid Lite receiver/snap relationship be reduced to a
 > compact two-sided detachable interface that is useful outside OpenGrid?
@@ -136,12 +136,12 @@ Carrier examples follow:
 13-example-plate-assembled
 ```
 
-Internal experiment labels such as OG-01, OG-02 and AT-01 remain useful in the
-record but are not required to understand output filenames.
+Historical OpenGrid reference labels remain in the upstream findings, while
+this active design phase is named directly after the geometry being evaluated.
 
 ## Acceptance boundary
 
-AT-01 is not complete merely because CI is green.
+The reduced receiver + snap phase is not complete merely because CI is green.
 
 Before acceptance:
 

@@ -10,7 +10,7 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 
 ## Current phase
 
-**AT-01 — reduced detachable receiver + snap**
+**Reduced detachable receiver + snap**
 
 The actual design objects are now separated from their carrier examples:
 
@@ -32,7 +32,7 @@ removable snap is 10 mm long and retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
-See the [AT-01 experiment record](docs/05-at-01-inverted-core-snap.md).
+See the [reduced receiver + snap experiment record](docs/05-reduced-receiver-snap.md).
 
 ## Previous reference phase
 
@@ -77,9 +77,8 @@ Exploded/comparison views follow in the `20-...` range, node
 sections/profiles in the `30-...` range, and reference/detail evidence
 afterwards.
 
-Internal labels such as OG-01, OG-02 and AT-01 remain in the experiment records
-and testcase discussion, but are deliberately not required to understand a
-generated PNG or STL filename.
+Historical OpenGrid reference labels such as OG-01 and OG-02 remain in their
+reference findings, but the active experiment phases use descriptive names.
 
 After merge, normal production output is published under:
 
@@ -130,10 +129,10 @@ See [source provenance](docs/00-source-provenance.md).
 
 1. **OG-01** — reproduce and understand the upstream Full receiver + snap.
 2. **OG-02** — compare upstream Full and Lite receiver/snap variants.
-3. **AT-01** — reduce the relationship to a neutral fixed/removable coupon.
-4. **AT-02** — expose retention/flex geometry and critical dimensions.
-5. **AT-03** — compare only the critical tolerance variants.
-6. **TC-01** — add the real horizontal tube-clamping function after the
+3. **Reduced receiver + snap** — reduce the relationship to a neutral fixed/removable coupon.
+4. **Retention and flex geometry** — expose retention/flex geometry and critical dimensions.
+5. **Tolerance qualification** — compare only the critical tolerance variants.
+6. **Tube-clip carrier** — add the real horizontal tube-clamping function after the
    attachment principle is understood.
 
 See [experiment plan](docs/01-experiment-plan.md).
