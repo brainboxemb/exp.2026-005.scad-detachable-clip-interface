@@ -81,14 +81,16 @@ the accepted reference findings.
 ## Cross-section interpretation
 
 A central X-Z slice through the snap crosses the long side click-hole/flex slot.
-That view is mechanically useful but can make the Full snap look as if its lower
-body stops at the retention area.
+That view is mechanically useful but visually misleading as a first overview:
+intentionally missing flex-slot material can look like general clearance.
 
-PR #3 therefore keeps two corresponding profile planes for every receiver/snap:
+The experiment therefore keeps two corresponding profile planes for every
+receiver/snap:
 
-- `center / flex slot` at Y=0;
-- `solid / beside flex slot` at Y=7 mm.
+- `solid / beside flex slot` at Y=7 mm — primary overview;
+- `center / flex slot` at Y=0 — technical spring/retention detail.
 
 The solid plane is outside the 12.4 mm-long central side click-hole and shows the
-continuous snap body. Both planes use the same 1.0 mm slice thickness and are
-available from the main Customizer.
+continuous snap body. Both planes use the same 1.0 mm slice thickness. Generated
+section PNGs now use the solid plane by default; separate `*-flex-section.png`
+renders retain the center-plane evidence.
