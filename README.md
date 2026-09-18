@@ -26,7 +26,8 @@ B  50 × 20 × 6 mm base plate
 The removable snap is 10 mm long and uses retention/flex only on two opposite
 sides. It clips from above at the one defined receiver position. The local
 receiver has an 8 mm active profile with a 1 mm explicit transition at each end back into
-the surrounding carrier.
+the surrounding carrier. Its final 0.4 mm narrows inward to a 9.2 × 9.2 mm top
+footprint so vertical insertion is centring rather than outward-guiding.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the QuackWorks OpenGrid Lite receiver + normal snap relationship. See
@@ -113,7 +114,8 @@ selector exposes the stable Full/Lite experiment views directly:
 - selectable center/flex-slot versus solid/off-slot profile plane;
 - Full-versus-Lite assembled, exploded and section comparisons;
 - AT-01 rail/plate assembled and exploded views, retention sections, individual
-  receiver/snap views and a rail-vs-plate comparison.
+  receiver/snap views, a rail-vs-plate comparison and a generated top-view
+  comparison for the centring lead-in / 1 mm reference grooves.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same
