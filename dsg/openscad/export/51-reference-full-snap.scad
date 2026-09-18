@@ -1,5 +1,5 @@
-// OG-01 removable upstream OpenGrid snap STL.
+// OpenGrid Full removable upstream OpenGrid snap STL.
 
-include <../lib/og01_reference.scad>
+include <../lib/opengrid_reference.scad>
 
-og01_removable_snap();
+opengrid_full_snap();
