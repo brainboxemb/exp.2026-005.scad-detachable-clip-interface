@@ -15,15 +15,17 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 One source-derived local mating interface is tested in two mounting contexts:
 
 ```text
-A  50 × 10 × 4 mm receiver rail
+A  50 × 10 × 4 mm rail carrier
+   + one local 10 × 10 mm receiver position
 
 B  50 × 20 × 6 mm base plate
-   + the same 50 mm receiver profile on top
+   + the same local 10 × 10 mm receiver position
 ```
 
-The removable snap is 10 mm long, open at both rail ends and uses retention/flex
-only on the two long sides. It clips on from above; it does not need to slide
-from the end of the 50 mm receiver.
+The removable snap is 10 mm long and uses retention/flex only on two opposite
+sides. It clips from above at the one defined receiver position. The local
+receiver has an 8 mm active profile with a 1 mm transition at each end back into
+the surrounding carrier.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the QuackWorks OpenGrid Lite receiver + normal snap relationship. See
