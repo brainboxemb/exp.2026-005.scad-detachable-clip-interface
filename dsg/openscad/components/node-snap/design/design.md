@@ -9,7 +9,7 @@ vpr: [68, 0, 35]
 
 ## Design intent
 
-The snap is the removable half of the interface. It is designed independently
+The snap is the removable half of the node interface. It is designed independently
 from rail and plate examples.
 
 The reduction keeps the functional roles of the pinned OpenGrid Lite snap:
@@ -39,7 +39,7 @@ NODE_SNAP_CORNER_CHAMFER = min(
     NODE_SNAP_WALL_THICKNESS / 2
 );
 
-NODE_SNAP_TOP_THICKNESS_ROUNDING = NODE_SNAP_CORNER_CHAMFER;
+NODE_SNAP_CORNER_CHAMFER = NODE_SNAP_CORNER_CHAMFER;
 ```
 
 Because the wall is 2.0 mm thick, the chamfer is capped at 1.0 mm. The end
@@ -94,7 +94,7 @@ cuboid(
         NODE_SNAP_LENGTH,
         NODE_SNAP_TOP_THICKNESS
     ],
-    rounding = NODE_SNAP_TOP_THICKNESS_ROUNDING,
+    rounding = NODE_SNAP_CORNER_CHAMFER,
     edges = "Z",
     $fn = 2
 );
