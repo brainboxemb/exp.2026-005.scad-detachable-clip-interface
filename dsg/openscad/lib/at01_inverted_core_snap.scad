@@ -146,7 +146,6 @@ AT01_TRANSITION_PLAN_Z = 0.8;
 // These are real subtractive features so they appear in STL as well as render.
 // The reference is deliberately compact: one centred 10 x 10 mm "centimetre"
 // patch, rather than a grid spread over the complete receiver/support area.
-AT01_MM_CROSS_LENGTH = 7.0;
 AT01_MM_PATTERN_PITCH = 1.0;
 AT01_MM_PATTERN_DEPTH = 0.12;
 AT01_MM_PATTERN_LINE_WIDTH = 0.12;
@@ -305,17 +304,16 @@ module _at01_receiver_cuts() {
 
 // --- Optional physical millimetre reference pattern ------------------------
 
-module _at01_mm_reference_cuts_at_top(top_z) {
+module _at01_mm_reference_cuts_at_top(top_z, x_length, y_length) {
     z_center =
         top_z - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
 
-    half = AT01_MM_CROSS_LENGTH / 2;
-
-    // Compact centred cross. It stops well before the receiver/snap edges so
-    // the reference cannot be mistaken for functional mating geometry.
+    // Let the two main grooves run all the way to the real part boundary.
+    // A tiny overrun guarantees the subtraction reaches the outside face;
+    // intersection with the part naturally clips chamfered outlines.
     translate([0, 0, z_center])
         cube([
-            AT01_MM_CROSS_LENGTH,
+            x_length + 0.02,
             AT01_MM_PATTERN_LINE_WIDTH,
             AT01_MM_PATTERN_DEPTH + 0.02
         ], center = true);
@@ -323,23 +321,27 @@ module _at01_mm_reference_cuts_at_top(top_z) {
     translate([0, 0, z_center])
         cube([
             AT01_MM_PATTERN_LINE_WIDTH,
-            AT01_MM_CROSS_LENGTH,
+            y_length + 0.02,
             AT01_MM_PATTERN_DEPTH + 0.02
         ], center = true);
 
-    // 1 mm ticks along both axes.
-    for (x = [-3 : AT01_MM_PATTERN_PITCH : 3])
-        if (x != 0)
-            translate([x, 0, z_center])
+    // 1 mm ticks continue over the available line length. The owning part
+    // clips ticks automatically at chamfers and outer boundaries.
+    x_tick_max = floor(x_length / 2 / AT01_MM_PATTERN_PITCH);
+    y_tick_max = floor(y_length / 2 / AT01_MM_PATTERN_PITCH);
+
+    for (i = [-x_tick_max : 1 : x_tick_max])
+        if (i != 0)
+            translate([i * AT01_MM_PATTERN_PITCH, 0, z_center])
                 cube([
                     AT01_MM_PATTERN_TICK_WIDTH,
                     AT01_MM_PATTERN_TICK_LENGTH,
                     AT01_MM_PATTERN_DEPTH + 0.02
                 ], center = true);
 
-    for (y = [-3 : AT01_MM_PATTERN_PITCH : 3])
-        if (y != 0)
-            translate([0, y, z_center])
+    for (i = [-y_tick_max : 1 : y_tick_max])
+        if (i != 0)
+            translate([0, i * AT01_MM_PATTERN_PITCH, z_center])
                 cube([
                     AT01_MM_PATTERN_TICK_LENGTH,
                     AT01_MM_PATTERN_TICK_WIDTH,
@@ -371,7 +373,11 @@ module at01_receiver_rail(mm_pattern = false) {
         _at01_receiver_rail_geometry();
 
         if (mm_pattern)
-            _at01_mm_reference_cuts_at_top(AT01_RECEIVER_HEIGHT);
+            _at01_mm_reference_cuts_at_top(
+                AT01_RECEIVER_HEIGHT,
+                AT01_RAIL_WIDTH,
+                AT01_CARRIER_LENGTH
+            );
     }
 }
 
@@ -414,7 +420,9 @@ module at01_receiver_plate(mm_pattern = false) {
 
         if (mm_pattern)
             _at01_mm_reference_cuts_at_top(
-                AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT
+                AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT,
+                AT01_RAIL_WIDTH,
+                AT01_PLATE_SUPPORT_LENGTH
             );
     }
 }
@@ -609,7 +617,11 @@ module at01_removable_snap(mm_pattern = false) {
         }
 
         if (mm_pattern)
-            _at01_mm_reference_cuts_at_top(AT01_SNAP_TOTAL_HEIGHT);
+            _at01_mm_reference_cuts_at_top(
+                AT01_SNAP_TOTAL_HEIGHT,
+                AT01_SNAP_OUTER_WIDTH,
+                AT01_SNAP_LENGTH
+            );
     }
 }
 
