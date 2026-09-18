@@ -265,52 +265,94 @@ module at01_receiver_rail() {
     );
 }
 
-// --- Carrier B: plate + one solid 10 x 14 x 4 receiver/support boss --------
+// --- Carrier B: one solid plate + local 10 x 14 x 4 support/receiver -------
+//
+// The complete plate, straight support and local receiver are one polyhedron.
+// The duplicate Y sections at +/-7 create explicit vertical end walls for the
+// 14 mm support boss without a union or touching/coplanar shells.
 
-AT01_PLATE_BOSS_OVERLAP = 0.05;
+function _at01_plate_only_profile_points() = [
+    [-AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [ 5.0, AT01_PLATE_HEIGHT],
+    [ 4.0, AT01_PLATE_HEIGHT],
+    [ 3.0, AT01_PLATE_HEIGHT],
+    [ 2.0, AT01_PLATE_HEIGHT],
+    [ 1.0, AT01_PLATE_HEIGHT],
+    [-1.0, AT01_PLATE_HEIGHT],
+    [-2.0, AT01_PLATE_HEIGHT],
+    [-3.0, AT01_PLATE_HEIGHT],
+    [-4.0, AT01_PLATE_HEIGHT],
+    [-5.0, AT01_PLATE_HEIGHT],
+    [-AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT]
+];
 
-module _at01_plate_receiver_boss() {
-    // Bottom extends 0.05 mm into the carrier plate so the boss/base union has
-    // real volume overlap instead of relying on a coplanar contact face.
-    rect = _at01_rect_profile_points(-AT01_PLATE_BOSS_OVERLAP);
-    receiver = _at01_receiver_profile_points(-AT01_PLATE_BOSS_OVERLAP);
+function _at01_plate_straight_boss_profile_points() = [
+    [-AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [ AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [ AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_LOWER_Z],
+    [ AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_RAMP_TOP_Z],
+    [ AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_CAPTURE_TOP_Z],
+    [ AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT],
+    [-AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT],
+    [-AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_CAPTURE_TOP_Z],
+    [-AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_RAMP_TOP_Z],
+    [-AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_LOWER_Z],
+    [-AT01_RAIL_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [-AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT]
+];
+
+function _at01_plate_receiver_profile_points() = [
+    [-AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, 0],
+    [ AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [ AT01_RECEIVER_LOWER_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [ AT01_RECEIVER_LOWER_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_LOWER_Z],
+    [ AT01_RECEIVER_MAX_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_RAMP_TOP_Z],
+    [ AT01_RECEIVER_MAX_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_CAPTURE_TOP_Z],
+    [ AT01_RECEIVER_TOP_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT],
+    [-AT01_RECEIVER_TOP_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_HEIGHT],
+    [-AT01_RECEIVER_MAX_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_CAPTURE_TOP_Z],
+    [-AT01_RECEIVER_MAX_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_RAMP_TOP_Z],
+    [-AT01_RECEIVER_LOWER_WIDTH / 2, AT01_PLATE_HEIGHT + AT01_RECEIVER_LOWER_Z],
+    [-AT01_RECEIVER_LOWER_WIDTH / 2, AT01_PLATE_HEIGHT],
+    [-AT01_PLATE_WIDTH / 2, AT01_PLATE_HEIGHT]
+];
+
+module at01_receiver_plate() {
+    plate = _at01_plate_only_profile_points();
+    straight = _at01_plate_straight_boss_profile_points();
+    receiver = _at01_plate_receiver_profile_points();
 
     _at01_sectioned_receiver_solid(
         [
+            -AT01_CARRIER_LENGTH / 2,
+            -AT01_PLATE_SUPPORT_LENGTH / 2,
             -AT01_PLATE_SUPPORT_LENGTH / 2,
             -AT01_RECEIVER_ZONE_LENGTH / 2,
             -AT01_RECEIVER_ACTIVE_LENGTH / 2,
              AT01_RECEIVER_ACTIVE_LENGTH / 2,
              AT01_RECEIVER_ZONE_LENGTH / 2,
-             AT01_PLATE_SUPPORT_LENGTH / 2
+             AT01_PLATE_SUPPORT_LENGTH / 2,
+             AT01_PLATE_SUPPORT_LENGTH / 2,
+             AT01_CARRIER_LENGTH / 2
         ],
         [
-            rect,
-            rect,
+            plate,
+            plate,
+            straight,
+            straight,
             receiver,
             receiver,
-            rect,
-            rect
+            straight,
+            straight,
+            plate,
+            plate
         ]
     );
-}
-
-module at01_receiver_plate() {
-    union() {
-        translate([
-            -AT01_PLATE_WIDTH / 2,
-            -AT01_CARRIER_LENGTH / 2,
-            0
-        ])
-            cube([
-                AT01_PLATE_WIDTH,
-                AT01_CARRIER_LENGTH,
-                AT01_PLATE_HEIGHT
-            ]);
-
-        translate([0, 0, AT01_PLATE_HEIGHT])
-            _at01_plate_receiver_boss();
-    }
 }
 
 function at01_receiver_base_z(variant) =
