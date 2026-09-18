@@ -59,20 +59,20 @@ module node_receiver_design_top_guide_cutters() {
 }
 
 module node_receiver_design_top_main_cutters() {
-    // Analysis-only view of the central 10 mm portion of the REAL production
-    // cutter. This explains the intended constant X/Z lead-in without creating
-    // a second geometry implementation.
+    // Analysis-only view of the central 6 mm portion of the REAL production
+    // cutter. This is the region where the complete X/Z lead-in remains
+    // unchanged before the two 2 mm end transitions taper it away.
     intersection() {
         node_receiver_design_top_guide_cutters();
 
         translate([
             -node_receiver_width(),
-            -node_receiver_functional_length() / 2,
+            -node_receiver_top_guide_active_length() / 2,
             -1
         ])
             cube([
                 2 * node_receiver_width(),
-                node_receiver_functional_length(),
+                node_receiver_top_guide_active_length(),
                 node_receiver_height() + 2
             ]);
     }
