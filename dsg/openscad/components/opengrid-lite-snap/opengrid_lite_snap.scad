@@ -223,6 +223,44 @@ module opengrid_lite_snap_design_after_click_slots() {
     }
 }
 
+// Analysis-only thin Y section through the centre of the real reconstruction.
+// The click slots run along Y, so a full external view can hide the subtraction
+// behind the front wall. A section makes before/after removal unambiguous.
+module _opengrid_lite_snap_design_center_section() {
+    intersection() {
+        children();
+
+        translate([-20, -0.5, -3])
+            cube([40, 1.0, 7]);
+    }
+}
+
+module opengrid_lite_snap_design_click_slot_section_before() {
+    _opengrid_lite_snap_design_center_section()
+        opengrid_lite_snap_design_body_before_slots();
+}
+
+module opengrid_lite_snap_design_click_slot_section_removed() {
+    _opengrid_lite_snap_design_center_section()
+        intersection() {
+            opengrid_lite_snap_design_body_before_slots();
+            opengrid_lite_snap_design_click_slot_cutters();
+        }
+}
+
+module opengrid_lite_snap_design_click_slot_section_after() {
+    _opengrid_lite_snap_design_center_section()
+        opengrid_lite_snap_design_after_click_slots();
+}
+
+module opengrid_lite_snap_design_click_slot_section_before_after() {
+    translate([-16, 0, 0])
+        opengrid_lite_snap_design_click_slot_section_before();
+
+    translate([16, 0, 0])
+        opengrid_lite_snap_design_click_slot_section_after();
+}
+
 module opengrid_lite_snap_design_wall_slot_cutters() {
     w = _og_lite_snap_w();
 

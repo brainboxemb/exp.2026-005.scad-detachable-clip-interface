@@ -18,6 +18,8 @@ module opengrid_lite_receiver_design(view = "final") {
             opengrid_lite_receiver_design_retained_top_only();
         else if (view == "recentered-extraction")
             opengrid_lite_receiver_design_recentered_extraction();
+        else if (view == "recentering-compare")
+            opengrid_lite_receiver_design_recentering_compare();
         else if (view == "recentered-compare")
             opengrid_lite_receiver_design_recentered_compare();
         else if (view == "lite-result")

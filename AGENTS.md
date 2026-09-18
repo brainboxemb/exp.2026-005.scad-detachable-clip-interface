@@ -66,11 +66,11 @@ For each meaningful step:
 - add variants only when an earlier result exposes a concrete unresolved
   question.
 
-Do not jump from OG-01 directly to a HUB75 production coupler.
+Do not jump from the upstream reference work directly to a HUB75 production coupler.
 
-## OG-01 boundary
+## Upstream Full reference boundary
 
-OG-01 reproduces the selected upstream OpenGrid receiver + snap as a reference.
+The upstream Full reference reproduces the selected OpenGrid receiver + snap without adapting it.
 
 It may:
 - pose upstream geometry;
@@ -103,6 +103,23 @@ to SCons or add PythonSCAD unless the experiment exposes a concrete need.
 
 Before changing workflow/publication behaviour, read the pinned
 `tools/tool.scad-project/AGENTS.md`.
+
+A project-local presentation or experiment need is not automatically a generic
+tooling requirement. Keep it local first unless multiple consumers or an
+explicit shared contract establish that the behaviour belongs in shared
+tooling. Before promoting a change, inspect current consumer use cases and
+compatibility rather than changing the tool for one repository.
+
+For normal source work, follow the generic Git-project PR flow:
+
+```text
+issue #N
+    -> feature/pr-N-<short-slug>
+    -> convert that same issue to draft PR #N
+```
+
+Do not invent a parallel `fix/...` source branch for ordinary ongoing design
+work when the standard feature/PR work-item flow applies.
 
 
 ## Commit and CI discipline

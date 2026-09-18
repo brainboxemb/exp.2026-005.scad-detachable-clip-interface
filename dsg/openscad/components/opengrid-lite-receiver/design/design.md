@@ -104,18 +104,24 @@ grey Full receiver around it.
 ## Step 4 — re-center the retained slice
 
 The retained region spans `Z=-0.6..+3.4`, so its centre is at `Z=+1.4`.
-Moving it down by 1.4 mm makes the Lite extraction itself centred around Z=0:
+Moving it down by 1.4 mm makes the Lite extraction itself centred around Z=0.
+A standalone render would hide that translation through auto-centering, so the
+design evidence deliberately shows **raw on the left and re-centered on the
+right in one shared scene**:
 
 <!-- scad-render
-view: recentered-extraction
+view: recentering-compare
 -->
 
-The explanatory operation is therefore simply:
+The explanatory operation itself is simply:
 
 ```openscad
 translate([0, 0, -1.4])
     opengrid_lite_receiver_design_retained_top_raw();
 ```
+
+The relative vertical shift in the shared scene is the evidence for this step;
+two separately auto-centered PNGs are not.
 
 ## Step 5 — compare the extraction with the exact upstream Lite result
 

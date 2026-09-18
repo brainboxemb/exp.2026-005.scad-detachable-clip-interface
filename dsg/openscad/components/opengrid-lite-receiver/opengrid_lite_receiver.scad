@@ -65,6 +65,16 @@ module opengrid_lite_receiver_design_recentered_extraction() {
         opengrid_lite_receiver_design_retained_top_raw();
 }
 
+module opengrid_lite_receiver_design_recentering_compare() {
+    // Keep raw and recentered geometry in one scene. Rendering either object
+    // alone would auto-center it and hide the translation we are explaining.
+    translate([-16, 0, 0])
+        opengrid_lite_receiver_design_retained_top_raw();
+
+    translate([16, 0, 0])
+        opengrid_lite_receiver_design_recentered_extraction();
+}
+
 module opengrid_lite_receiver_design_recentered_compare() {
     translate([-16, 0, 0])
         opengrid_lite_receiver_design_recentered_extraction();

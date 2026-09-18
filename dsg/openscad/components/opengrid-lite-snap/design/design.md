@@ -228,14 +228,27 @@ zrot_copies(n = 4)
         );
 ```
 
-After subtraction:
+A full outside view can hide the resulting void behind the front wall. The
+design evidence therefore takes a real 1 mm centre section through the same
+geometry. Grey is the body and red is **only the material actually removed**
+by the main click slots:
 
 <!-- scad-render
-view: after-click-slots
+view: click-slot-section-removed
+vpr: [90, 0, 0]
 -->
 
-These slots create the long flexible tongues. The slot itself is not the
-retention profile.
+The next image puts the same centre section **before on the left and after on
+the right**:
+
+<!-- scad-render
+view: click-slot-section-before-after
+vpr: [90, 0, 0]
+-->
+
+This makes the boolean result explicit instead of relying on a camera angle
+where the hole can be occluded. These slots create the long flexible tongues.
+The slot itself is not the retention profile.
 
 ## Step 10 — cut the upper wall slots
 
