@@ -13,7 +13,7 @@ module opengrid_lite_receiver_build() {
     opengrid_lite_receiver();
 }
 
-module opengrid_lite_receiver_profile(flex_slot_plane = false) {
+module opengrid_lite_receiver_profile_view(flex_slot_plane = false) {
     if (flex_slot_plane)
         opengrid_lite_receiver_profile();
     else
@@ -28,7 +28,7 @@ module opengrid_lite_receiver_profile(flex_slot_plane = false) {
 
 module _opengrid_lite_receiver_profile_band(z0, z1) {
     intersection() {
-        opengrid_lite_receiver_profile(false);
+        opengrid_lite_receiver_profile_view(false);
         translate([-40, -10, z0])
             cube([80, 20, z1 - z0]);
     }
