@@ -138,7 +138,29 @@ module og02_comparison_exploded() {
     }
 }
 
+// Primary comparison section: cut beside the flex/click slots so the
+// continuous receiver/snap body gives an honest first impression of fit.
 module og02_comparison_section() {
+    translate([-OG02_COMPARE_X, 0, 0]) {
+        color([0.70, 0.72, 0.76])
+            og02_full_receiver_solid_profile();
+
+        color([0.90, 0.28, 0.14])
+            og02_full_snap_solid_profile();
+    }
+
+    translate([OG02_COMPARE_X, 0, 0]) {
+        color([0.70, 0.72, 0.76])
+            og02_lite_receiver_solid_profile();
+
+        color([0.90, 0.28, 0.14])
+            og02_lite_snap_solid_profile();
+    }
+}
+
+// Technical comparison: deliberately cuts through the long flex/click slots.
+// Keep separate so missing slot material is not mistaken for general clearance.
+module og02_comparison_flex_section() {
     translate([-OG02_COMPARE_X, 0, 0]) {
         color([0.70, 0.72, 0.76])
             og02_full_receiver_profile();
