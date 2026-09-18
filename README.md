@@ -15,8 +15,8 @@ neutral reference/coupon geometry. Production HUB75 couplers remain owned by
 The actual design objects are now separated from their carrier examples:
 
 ```text
-reference-lite-receiver   pinned upstream fixed-side reference
-reference-lite-snap       pinned upstream removable-side reference
+opengrid-lite-receiver    pinned upstream fixed-side source
+opengrid-lite-snap        pinned upstream removable-side source
 
 node-receiver             experiment-owned fixed-side node
 node-snap                 experiment-owned removable node
@@ -63,8 +63,8 @@ auto-generated gallery.
 
 The first outputs are:
 
-- `01-reference-lite-receiver.png/.stl`;
-- `02-reference-lite-snap.png/.stl`;
+- `01-opengrid-lite-receiver.png/.stl`;
+- `02-opengrid-lite-snap.png/.stl`;
 - `03-node-receiver.png/.stl`;
 - `04-node-snap.png/.stl`;
 - `10-example-receiver-rail.png/.stl`;
@@ -143,8 +143,8 @@ See [experiment plan](docs/01-experiment-plan.md).
 The component-local design documents are the geometry authority for their
 respective objects:
 
-- [Reference Lite receiver](dsg/openscad/components/reference-lite-receiver/design/design.md)
-- [Reference Lite snap](dsg/openscad/components/reference-lite-snap/design/design.md)
+- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/design/design.md)
+- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/design/design.md)
 - [Node receiver](dsg/openscad/components/node-receiver/design/design.md)
 - [Node snap](dsg/openscad/components/node-snap/design/design.md)
 
