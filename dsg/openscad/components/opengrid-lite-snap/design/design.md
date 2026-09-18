@@ -233,7 +233,6 @@ upstream `openGridSnap(lite=true)` result on the right:
 
 <!-- scad-render
 view: reconstruction-compare
-vpd: 105
 -->
 
 The purpose of this comparison is not to create a replacement implementation;
