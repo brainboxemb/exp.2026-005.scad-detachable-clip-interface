@@ -39,12 +39,12 @@ The production geometry starts from the same dimensions:
 
 ```openscad
 translate([
-    -EXAMPLE_RAIL_WIDTH / 2,
+    -NODE_RECEIVER_WIDTH / 2,
     -NODE_RECEIVER_BLOCK_LENGTH / 2,
     0
 ])
     cube([
-        EXAMPLE_RAIL_WIDTH,
+        NODE_RECEIVER_WIDTH,
         NODE_RECEIVER_BLOCK_LENGTH,
         NODE_RECEIVER_HEIGHT
     ]);
@@ -133,8 +133,8 @@ linear_extrude(
 )
     polygon(points = [
         [NODE_RECEIVER_TOP_WIDTH / 2, NODE_RECEIVER_HEIGHT],
-        [EXAMPLE_RAIL_WIDTH / 2,         NODE_RECEIVER_HEIGHT],
-        [EXAMPLE_RAIL_WIDTH / 2,         NODE_RECEIVER_CAPTURE_TOP_Z]
+        [NODE_RECEIVER_WIDTH / 2,         NODE_RECEIVER_HEIGHT],
+        [NODE_RECEIVER_WIDTH / 2,         NODE_RECEIVER_CAPTURE_TOP_Z]
     ]);
 ```
 
@@ -223,7 +223,7 @@ The same helper is used by receiver and snap:
 ```openscad
 _node_mm_reference_cuts_at_top(
     NODE_RECEIVER_HEIGHT,
-    EXAMPLE_RAIL_WIDTH,
+    NODE_RECEIVER_WIDTH,
     NODE_RECEIVER_BLOCK_LENGTH
 );
 ```
