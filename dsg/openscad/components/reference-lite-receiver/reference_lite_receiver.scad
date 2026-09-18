@@ -3,6 +3,8 @@
 // Thin design-object wrapper around the pinned QuackWorks/OpenGrid Lite
 // receiver. See LICENSE and docs/00-source-provenance.md.
 
+include <BOSL2/std.scad>
+
 $fn = 120;
 
 use <../../lib/og02_full_lite_reference.scad>
