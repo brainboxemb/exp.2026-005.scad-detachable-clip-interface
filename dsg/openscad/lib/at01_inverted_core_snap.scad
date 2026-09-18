@@ -122,6 +122,13 @@ AT01_PLAN_SCALE =
 AT01_SOURCE_TOP_ROUNDING = 3.262743;
 AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
 
+// The reduced snap is open at both Y ends. A square inner corner there gives
+// no lateral lead-in when the snap is slightly offset over the local receiver.
+// Reuse the reduced Lite top-corner amount as a short 45-degree inner-end
+// chamfer on both flex walls. This changes only the wall plan outline; nub and
+// flex-slot geometry remain untouched.
+AT01_SNAP_END_GUIDE = AT01_SNAP_TOP_ROUNDING;
+
 // OpenGrid click-hole proportions retained on +/-X only.
 // Radial width and rounding are source values. Tangential length is shortened
 // for this 10 mm coupon while preserving the 11/12.4 nub/slot relationship.
@@ -162,6 +169,8 @@ assert(abs(AT01_FLEX_TONGUE - 0.7) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_RADIAL - 0.6) < 0.0001);
 assert(abs(AT01_CLICK_SLOT_ROUNDING - 0.3) < 0.0001);
 assert(abs(AT01_SNAP_WALL - 2.0) < 0.0001);
+assert(AT01_SNAP_END_GUIDE > 0);
+assert(AT01_SNAP_END_GUIDE < AT01_SNAP_LENGTH / 2);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TRANSITION - 1.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
@@ -427,20 +436,42 @@ module at01_receiver(variant = 0, mm_pattern = false) {
 
 // --- Shared removable snap -------------------------------------------------
 
-module _at01_snap_side_wall(x_sign = 1) {
+module _at01_positive_x_snap_side_wall() {
     inner = AT01_SNAP_INNER_WIDTH / 2;
     outer = AT01_SNAP_OUTER_WIDTH / 2;
+    half_y = AT01_SNAP_LENGTH / 2;
+    guide = AT01_SNAP_END_GUIDE;
 
-    translate([
-        x_sign * (inner + outer) / 2,
-        0,
-        AT01_SNAP_ENGAGEMENT_HEIGHT / 2
-    ])
-        cube([
-            AT01_SNAP_WALL,
-            AT01_SNAP_LENGTH,
-            AT01_SNAP_ENGAGEMENT_HEIGHT
-        ], center = true);
+    // The wall stays full-width at the outside, while each inner end is
+    // chamfered over a short distance. In plan view this is the reduced,
+    // inside-out equivalent of the non-square Lite snap corner treatment:
+    //
+    //      outer  +-------------------+
+    //             |                   |
+    //      inner  +--/             \--+
+    //
+    // The diagonal faces are the first Y-direction contact when the removable
+    // snap is slightly misaligned over the local receiver.
+    linear_extrude(
+        height = AT01_SNAP_ENGAGEMENT_HEIGHT,
+        convexity = 10
+    )
+        polygon(points = [
+            [inner, -half_y + guide],
+            [inner + guide, -half_y],
+            [outer, -half_y],
+            [outer, half_y],
+            [inner + guide, half_y],
+            [inner, half_y - guide]
+        ]);
+}
+
+module _at01_snap_side_wall(x_sign = 1) {
+    if (x_sign > 0)
+        _at01_positive_x_snap_side_wall();
+    else
+        mirror([1, 0, 0])
+            _at01_positive_x_snap_side_wall();
 }
 
 module _at01_snap_top() {
