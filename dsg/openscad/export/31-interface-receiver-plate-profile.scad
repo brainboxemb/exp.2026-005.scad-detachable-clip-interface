@@ -1,2 +1,2 @@
-include <../lib/detachable_clip_interface.scad>
-detachable_clip_receiver_retention_profile(1);
+include <../lib/node_interface.scad>
+node_receiver_retention_profile(1);
