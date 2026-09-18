@@ -144,12 +144,12 @@ AT01_TRANSITION_PLAN_Z = 0.8;
 // These are real subtractive features so they appear in STL as well as render.
 // The reference is deliberately compact: one centred 10 x 10 mm "centimetre"
 // patch, rather than a grid spread over the complete receiver/support area.
-AT01_MM_PATTERN_SIZE = 10.0;
+AT01_MM_CROSS_LENGTH = 7.0;
 AT01_MM_PATTERN_PITCH = 1.0;
-AT01_MM_PATTERN_DEPTH = 0.20;
-AT01_MM_PATTERN_MINOR_WIDTH = 0.20;
-AT01_MM_PATTERN_MAJOR_WIDTH = 0.30;
-AT01_MM_PATTERN_MAJOR_EVERY = 5;
+AT01_MM_PATTERN_DEPTH = 0.12;
+AT01_MM_PATTERN_LINE_WIDTH = 0.12;
+AT01_MM_PATTERN_TICK_LENGTH = 0.55;
+AT01_MM_PATTERN_TICK_WIDTH = 0.10;
 
 // Invariants.
 assert(abs(AT01_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
@@ -301,33 +301,46 @@ module _at01_receiver_cuts() {
 
 // --- Optional physical millimetre reference pattern ------------------------
 
-function _at01_mm_line_width(index) =
-    abs(index) % AT01_MM_PATTERN_MAJOR_EVERY == 0
-        ? AT01_MM_PATTERN_MAJOR_WIDTH
-        : AT01_MM_PATTERN_MINOR_WIDTH;
-
 module _at01_mm_reference_cuts(base_z = 0) {
     z_center =
         base_z + AT01_RECEIVER_HEIGHT - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
 
-    half = AT01_MM_PATTERN_SIZE / 2;
+    half = AT01_MM_CROSS_LENGTH / 2;
 
-    // One centred 10 x 10 mm reference patch.
-    for (x = [-half + 1 : AT01_MM_PATTERN_PITCH : half - 1])
-        translate([x, 0, z_center])
-            cube([
-                _at01_mm_line_width(x),
-                AT01_MM_PATTERN_SIZE,
-                AT01_MM_PATTERN_DEPTH + 0.02
-            ], center = true);
+    // Compact centred cross. It stops well before the receiver/snap edges so
+    // the reference cannot be mistaken for functional mating geometry.
+    translate([0, 0, z_center])
+        cube([
+            AT01_MM_CROSS_LENGTH,
+            AT01_MM_PATTERN_LINE_WIDTH,
+            AT01_MM_PATTERN_DEPTH + 0.02
+        ], center = true);
 
-    for (y = [-half + 1 : AT01_MM_PATTERN_PITCH : half - 1])
-        translate([0, y, z_center])
-            cube([
-                AT01_MM_PATTERN_SIZE,
-                _at01_mm_line_width(y),
-                AT01_MM_PATTERN_DEPTH + 0.02
-            ], center = true);
+    translate([0, 0, z_center])
+        cube([
+            AT01_MM_PATTERN_LINE_WIDTH,
+            AT01_MM_CROSS_LENGTH,
+            AT01_MM_PATTERN_DEPTH + 0.02
+        ], center = true);
+
+    // 1 mm ticks along both axes.
+    for (x = [-3 : AT01_MM_PATTERN_PITCH : 3])
+        if (x != 0)
+            translate([x, 0, z_center])
+                cube([
+                    AT01_MM_PATTERN_TICK_WIDTH,
+                    AT01_MM_PATTERN_TICK_LENGTH,
+                    AT01_MM_PATTERN_DEPTH + 0.02
+                ], center = true);
+
+    for (y = [-3 : AT01_MM_PATTERN_PITCH : 3])
+        if (y != 0)
+            translate([0, y, z_center])
+                cube([
+                    AT01_MM_PATTERN_TICK_LENGTH,
+                    AT01_MM_PATTERN_TICK_WIDTH,
+                    AT01_MM_PATTERN_DEPTH + 0.02
+                ], center = true);
 }
 
 // --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
