@@ -255,3 +255,27 @@ CAD can establish the intended profile and assembled relation. It cannot yet
 accept insertion force, removal force, fatigue, best material or final wall
 thickness. Those require printed coupons after the geometry is digitally
 coherent.
+
+
+## Millimetre reference grooves
+
+The complete receiver coupons can include a physical scale reference on the
+local receiver/support top.
+
+```text
+pitch                 1.00 mm
+minor groove width    0.20 mm
+major groove width    0.30 mm every 5 mm
+groove depth          0.20 mm
+pattern area          local 10 × 14 mm receiver/support area
+```
+
+These are real subtractive grooves, not a render overlay, so the scale reference
+is visible in both OpenSCAD and the generated full receiver STL files.
+
+`dsg/openscad/main.scad` exposes `at01_show_mm_pattern` to switch them on or
+off interactively.
+
+The full rail/plate evidence STL files currently enable the pattern. Profile and
+section STL evidence keeps it disabled so the measurement grooves cannot be
+confused with functional mating geometry.
