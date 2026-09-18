@@ -13,7 +13,7 @@ module opengrid_lite_snap_build() {
     opengrid_lite_snap();
 }
 
-module opengrid_lite_snap_profile(flex_slot_plane = false) {
+module opengrid_lite_snap_profile_view(flex_slot_plane = false) {
     if (flex_slot_plane)
         opengrid_lite_snap_profile();
     else
