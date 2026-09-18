@@ -1,4 +1,12 @@
-// File: at01_inverted_core_snap.scad
+// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+//
+// This file contains experiment geometry derived from the OpenGrid/QuackWorks
+// reference. Original OpenGrid design: David D.
+// QuackWorks/OpenSCAD reference: AndyLevesque/QuackWorks,
+// pinned at e0c1cb7ec78dd9e9a8476ed739bd3402074354f3.
+// See LICENSE and docs/00-source-provenance.md for attribution and provenance.
+//
+// // File: at01_inverted_core_snap.scad
 // AT-01 — two fixed-receiver carrier concepts with one shared removable snap.
 //
 // The local X/Z mating profile is intentionally derived from the QuackWorks
