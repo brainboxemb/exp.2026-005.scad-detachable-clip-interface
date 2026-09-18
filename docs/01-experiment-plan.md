@@ -45,7 +45,9 @@ clear enough to describe the mechanism without guessing.
 
 ## OG-02 — Full versus Lite upstream comparison
 
-**Status:** active in PR #2.
+**Status:** complete in PR #2.
+
+**Findings:** [OG-02 Full/Lite findings](03-og-02-findings.md)
 
 Goal: understand the upstream Lite interface before reducing OpenGrid to a
 project-owned neutral coupon.
@@ -90,7 +92,10 @@ HUB75 geometry.
 
 ## AT-01 — neutral fixed/removable coupon
 
-**Status:** blocked on OG-02.
+**Status:** next after PR #2 merges.
+
+Start from the Lite relationship as the primary reduction reference. Keep Full
+as a control when the purpose of a removed feature is uncertain.
 
 Goal: isolate the minimum useful attachment relationship from the complete
 OpenGrid tile context without adding HUB75 geometry.
