@@ -7,17 +7,17 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../lib/og02_full_lite_reference.scad>
+use <../../lib/opengrid_reference.scad>
 
 module reference_lite_snap_build() {
-    og02_lite_snap();
+    opengrid_lite_snap();
 }
 
 module reference_lite_snap_profile(flex_slot_plane = false) {
     if (flex_slot_plane)
-        og02_lite_snap_profile();
+        opengrid_lite_snap_profile();
     else
-        og02_lite_snap_solid_profile();
+        opengrid_lite_snap_solid_profile();
 }
 
 
