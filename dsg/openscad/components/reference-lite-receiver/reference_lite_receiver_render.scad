@@ -10,7 +10,9 @@ use <reference_lite_receiver.scad>
 
 module reference_lite_receiver_design(view = "final") {
     design_bosl2_context() {
-        if (view == "solid-profile")
+        if (view == "profile-zones")
+            reference_lite_receiver_design_profile_zones();
+        else if (view == "solid-profile")
             reference_lite_receiver_profile(false);
         else if (view == "flex-profile")
             reference_lite_receiver_profile(true);
