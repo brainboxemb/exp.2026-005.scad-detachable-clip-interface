@@ -8,6 +8,7 @@ design_view = 13; // [0:Full assembled, 1:Full receiver, 2:Full snap, 3:Full rec
 
 /* [AT-01] */
 at01_receiver_variant = 0; // [0:Rail 50x10x4, 1:Plate 50x20x6 + receiver]
+at01_show_mm_pattern = true;
 
 /* [Profile] */
 profile_plane = 0; // [0:Center / flex slot, 1:Solid / beside flex slot]
@@ -112,19 +113,28 @@ module _main_selected_view(view) {
     else if (view == 12)
         og02_comparison_section();
     else if (view == 13)
-        at01_assembled(at01_receiver_variant);
+        at01_assembled(
+            at01_receiver_variant,
+            mm_pattern = at01_show_mm_pattern
+        );
     else if (view == 14)
-        at01_exploded(at01_receiver_variant);
+        at01_exploded(
+            at01_receiver_variant,
+            mm_pattern = at01_show_mm_pattern
+        );
     else if (view == 15)
         at01_retention_section(at01_receiver_variant);
     else if (view == 16)
         color([0.68, 0.70, 0.74])
-            at01_receiver(at01_receiver_variant);
+            at01_receiver(
+                at01_receiver_variant,
+                at01_show_mm_pattern
+            );
     else if (view == 17)
         color([0.92, 0.30, 0.12])
             at01_removable_snap();
     else if (view == 18)
-        at01_concepts_comparison();
+        at01_concepts_comparison(at01_show_mm_pattern);
     else if (view == 19)
         at01_transition_section(at01_receiver_variant);
     else if (view == 20)
