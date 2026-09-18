@@ -1,3 +1,3 @@
-include <../lib/at01_inverted_core_snap.scad>
+include <../lib/detachable_clip_interface.scad>
 $vpt=[0,0,5]; $vpr=[68,0,28]; $vpd=150;
-at01_concepts_comparison(true);
+detachable_clip_examples_comparison(true);
