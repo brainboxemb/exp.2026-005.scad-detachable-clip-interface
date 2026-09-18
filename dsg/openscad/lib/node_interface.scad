@@ -141,6 +141,16 @@ NODE_TANGENTIAL_SCALE =
 // same 25 -> 10 mm reduction used for tangential dimensions.
 OPENGRID_SNAP_CORE_CHAMFER = 4.81837;
 OPENGRID_SNAP_TOP_CHAMFER = 3.262743;
+
+// Normal OpenGrid nub source dimensions used by the node snap.
+OPENGRID_SNAP_NUB_HEIGHT = 0.2;
+OPENGRID_SNAP_NUB_WIDTH = 11.0;
+OPENGRID_SNAP_NUB_DEPTH = 0.4;
+OPENGRID_SNAP_NUB_TOP_WEDGE_HEIGHT = 0.6;
+OPENGRID_SNAP_NUB_BOTTOM_WEDGE_HEIGHT = 0.6;
+OPENGRID_SNAP_NUB_ROUND_X = -12.36;
+OPENGRID_SNAP_NUB_ROUND_SCALE_Y = 1.36;
+OPENGRID_SNAP_NUB_ROUND_RADIUS = 13.025;
 // A direct 25 -> 10 mm scale gives ~1.93 mm, which consumes almost the entire
 // 2.0 mm wall at the open end. Keep the source 45-degree corner language, but
 // cap the reduced chamfer at half the wall thickness so the end retains a
@@ -590,50 +600,71 @@ module _node_snap_top() {
 // reduction created the visually wrong straight middle section. The PoP keeps
 // the source 0.4 mm radial depth and 0.2/0.6/0.6 mm Z wedge relationship, then
 // scales only the tangential Y direction by NODE_TANGENTIAL_SCALE.
-module _node_source_nub_local() {
-    source_nub_h = 0.2;
-    source_nub_w = 11.0;
-    source_nub_d = 0.4;
-    source_top_wedge_h = 0.6;
-    source_bottom_wedge_h = 0.6;
-    source_round_x = -12.36;
-    source_round_scale_y = 1.36;
-    source_round_r = 13.025;
+module _node_source_nub_box() {
+    translate([0, 0, OPENGRID_SNAP_NUB_HEIGHT - 0.01])
+        cuboid(
+            [
+                OPENGRID_SNAP_NUB_DEPTH,
+                OPENGRID_SNAP_NUB_WIDTH,
+                2.0 - OPENGRID_SNAP_NUB_HEIGHT + 0.01
+            ],
+            anchor = CENTER + LEFT + BOTTOM
+        );
+}
 
-    intersection() {
-        difference() {
-            translate([0, 0, source_nub_h - 0.01])
-                cuboid(
-                    [
-                        source_nub_d,
-                        source_nub_w,
-                        2.0 - source_nub_h + 0.01
-                    ],
-                    anchor = CENTER + LEFT + BOTTOM
-                );
+module _node_source_nub_top_wedge() {
+    translate([0, 0, 2.0])
+        rotate([0, 180, 90])
+            wedge(
+                [
+                    OPENGRID_SNAP_NUB_WIDTH,
+                    OPENGRID_SNAP_NUB_DEPTH,
+                    OPENGRID_SNAP_NUB_TOP_WEDGE_HEIGHT
+                ],
+                anchor = CENTER + BOTTOM + BACK
+            );
+}
 
-            translate([0, 0, 2.0])
-                rotate([0, 180, 90])
-                    wedge(
-                        [source_nub_w, source_nub_d, source_top_wedge_h],
-                        anchor = CENTER + BOTTOM + BACK
-                    );
+module _node_source_nub_bottom_wedge() {
+    translate([0, 0, OPENGRID_SNAP_NUB_HEIGHT])
+        rotate([0, 0, 90])
+            wedge(
+                [
+                    OPENGRID_SNAP_NUB_WIDTH,
+                    0.4,
+                    OPENGRID_SNAP_NUB_BOTTOM_WEDGE_HEIGHT
+                ],
+                anchor = CENTER + BOTTOM + BACK
+            );
+}
 
-            translate([0, 0, source_nub_h])
-                rotate([0, 0, 90])
-                    wedge(
-                        [source_nub_w, 0.4, source_bottom_wedge_h],
-                        anchor = CENTER + BOTTOM + BACK
-                    );
-        }
-
-        translate([source_round_x, 0, 0])
-            scale([1, source_round_scale_y, 1])
-                cyl($fn = 180, r = source_round_r, h = 2.01, anchor = BOTTOM);
+module _node_source_nub_wedge_shaped() {
+    difference() {
+        _node_source_nub_box();
+        _node_source_nub_top_wedge();
+        _node_source_nub_bottom_wedge();
     }
 }
 
-module _node_positive_x_nub() {
+module _node_source_nub_rounding_volume() {
+    translate([OPENGRID_SNAP_NUB_ROUND_X, 0, 0])
+        scale([1, OPENGRID_SNAP_NUB_ROUND_SCALE_Y, 1])
+            cyl(
+                $fn = 180,
+                r = OPENGRID_SNAP_NUB_ROUND_RADIUS,
+                h = 2.01,
+                anchor = BOTTOM
+            );
+}
+
+module _node_source_nub_local() {
+    intersection() {
+        _node_source_nub_wedge_shaped();
+        _node_source_nub_rounding_volume();
+    }
+}
+
+module _node_positive_x_nub_transform() {
     inner = NODE_SNAP_INNER_WIDTH / 2;
 
     // The upstream nub grows outward from the body face. Mirror that radial
@@ -641,7 +672,12 @@ module _node_positive_x_nub() {
     translate([inner + 0.01, 0, 0])
         mirror([1, 0, 0])
             scale([1, NODE_TANGENTIAL_SCALE, 1])
-                _node_source_nub_local();
+                children();
+}
+
+module _node_positive_x_nub() {
+    _node_positive_x_nub_transform()
+        _node_source_nub_local();
 }
 
 module _node_positive_x_click_slot() {
