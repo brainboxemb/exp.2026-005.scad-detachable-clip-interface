@@ -102,7 +102,7 @@ assembly Z offset until the regenerated evidence supports an assembly relation.
 
 ## AT-01 — inside-out Lite receiver, two carrier concepts
 
-**Status:** active in PR #4.
+**Status:** active in PR #4 — digital rail/plate baseline green; physical fit pending.
 
 **Design record:** [AT-01 receiver concepts](05-at-01-inverted-core-snap.md)
 
