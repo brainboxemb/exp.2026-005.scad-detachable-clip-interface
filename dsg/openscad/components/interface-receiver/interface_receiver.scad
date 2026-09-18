@@ -55,10 +55,6 @@ module interface_receiver_design_top_main_cutters() {
         _at01_positive_x_top_cut_active();
         mirror([1, 0, 0])
             _at01_positive_x_top_cut_active();
-
-        _at01_positive_y_top_leadin_cut();
-        mirror([0, 1, 0])
-            _at01_positive_y_top_leadin_cut();
     }
 }
 
