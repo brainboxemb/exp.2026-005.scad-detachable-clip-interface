@@ -6,10 +6,10 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../lib/at01_inverted_core_snap.scad>
+use <../../lib/detachable_clip_interface.scad>
 
 module receiver_rail_example(mm_pattern = true) {
-    at01_receiver_rail(mm_pattern);
+    detachable_clip_receiver_rail_example(mm_pattern);
 }
 
 receiver_rail_example();
