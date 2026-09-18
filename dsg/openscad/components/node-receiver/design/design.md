@@ -148,37 +148,75 @@ The important point is that this 10 mm face is complete. There is no separate
 +/-Y capture chamfer competing with it. End guidance is added outside the
 functional zone rather than shortening the main face.
 
-## Step 4 — taper the lead-in into the 14 mm block
+## Step 4 — taper the main guide into the 14 mm block
 
-This is the part currently under the closest visual review.
+This step used to be documented badly: the design image showed the **complete
+mathematical cutter** in red. Most of that cutter lives outside the receiver,
+so it looked like a red wedge floating in a strange place and did not make the
+subtraction obvious.
 
-At Y=±5 the complete triangular X/Z lead-in exists. Between Y=±5 and Y=±7 it
-returns to the untouched outer/top corner of the block. Because no separate
-Y-side top cut overlaps this transition anymore, the end guide is one clean
-three-dimensional taper. The extra end-guide cutters are shown in red:
+The design record now shows three separate states.
+
+### 4a — geometry before the end taper
+
+The 10 mm main guide is already complete:
 
 <!-- scad-render
-view: top-end-cutters
+view: top-end-before
 -->
 
-For one positive-X / positive-Y corner the intended points are:
+At this point the main guide ends at Y=±5.
 
-```text
-A = (X=4.6, Y=5, Z=4.0)
-B = (X=5.0, Y=5, Z=4.0)
-C = (X=5.0, Y=5, Z=3.6)
-D = (X=5.0, Y=7, Z=4.0)
-```
+### 4b — show only material that will really be removed
 
-The current construction is therefore a tetrahedral cut:
+Grey is the current receiver. Red is **only the intersection between the
+receiver and the end-guide cutter**:
+
+<!-- scad-render
+view: top-end-removed
+-->
+
+The design helper is intentionally an intersection:
 
 ```openscad
+module node_receiver_design_top_end_removed_material() {
+    intersection() {
+        node_receiver_design_after_top_main();
+        node_receiver_design_top_end_cutters();
+    }
+}
+```
+
+So every red fragment in this image is material that must disappear in the next
+state. Cutter volume outside the part is no longer displayed.
+
+The production end cutter itself remains the tetrahedral transition. For one
+positive-X / positive-Y corner:
+
+```text
+A = (X=4.6, Y≈5.0, Z=4.0)
+B = (X=5.0, Y≈5.0, Z=4.0)
+C = (X=5.0, Y≈5.0, Z=3.6)
+D = (X=5.0, Y=7.0, Z=4.0)
+```
+
+The start is moved 0.05 mm into the main cutter only as a CSG overlap. That is
+not a functional design dimension; it prevents two subtractive solids from
+merely touching on a coplanar Y=5 face.
+
+```openscad
+ya =
+    NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2
+    - NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP;
+
+yb = NODE_RECEIVER_TOP_GUIDE_LENGTH / 2;
+
 polyhedron(
     points = [
-        [xi, ya, z1],   // A
-        [xo, ya, z1],   // B
-        [xo, ya, z0],   // C
-        [xo, yb, z1]    // D
+        [xi, ya, z1],
+        [xo, ya, z1],
+        [xo, ya, z0],
+        [xo, yb, z1]
     ],
     faces = [
         [0, 2, 1],
@@ -189,13 +227,34 @@ polyhedron(
 );
 ```
 
-The design acceptance criterion is visible rather than merely numerical:
+### 4c — result after subtraction
 
-> the 10 mm main lead-in may not end against a vertical wall; both Y ends must
-> visibly continue through one sloped guide surface into the ordinary block.
+<!-- scad-render
+view: top-end-after
+-->
 
-This also preserves the intended open-ended behaviour of the snap: the receiver
-guides laterally in X without introducing an unnecessary Y capture wall.
+The actual production operation is simply:
+
+```openscad
+difference() {
+    node_receiver_design_after_top_main();
+    node_receiver_design_top_end_cutters();
+}
+```
+
+For direct comparison, before is shown on the left and after on the right:
+
+<!-- scad-render
+view: top-end-before-after
+vpd: 105
+-->
+
+The acceptance condition is now easy to verify from the design record:
+
+- the 10 mm main X-side guide remains intact;
+- the end transition removes material only outside that functional span;
+- the main guide does not finish on a vertical Y wall;
+- the receiver remains open-ended in Y.
 
 ## Step 5 — inspect the functional receiver without scale marks
 
