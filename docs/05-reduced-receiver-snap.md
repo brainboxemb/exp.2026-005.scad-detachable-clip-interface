@@ -84,16 +84,16 @@ open.
 The receiver is now a standalone 10 × 10 × 4 mm object.
 
 Its lower source-derived mating profile occupies the same 10 mm footprint.
-The upper insertion guide is treated separately: the full X/Z guide remains
-over the central 6 mm, with a 2 mm transition at each end that returns to the
-ordinary receiver width inside the same 10 mm footprint.
+The upper insertion guide is treated separately: one constant X/Z chamfer runs
+over the complete 10 mm receiver length. The guide narrows inward on +/-X only;
+there is no Y-end taper.
 
 Current visual acceptance criterion:
 
-- the full top guide remains 6 mm long in the centre;
-- each 2 mm end transition stays inside the 10 mm receiver footprint;
-- the full-guide region must not terminate in a vertical end wall;
-- the end transition must visibly slope back into the ordinary receiver block;
+- the top guide runs over the complete 10 mm receiver length;
+- the X/Z guide narrows from 10.0 mm to 9.2 mm over the top 0.4 mm;
+- no hourglass plan shape, Y-side V profile or thin end fins are present;
+- no separate Y-end taper is introduced;
 - left/right and front/back geometry must remain symmetric.
 
 The exact construction belongs in the reduced receiver design document.

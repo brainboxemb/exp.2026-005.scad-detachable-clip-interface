@@ -26,10 +26,9 @@ examples/
   receiver-plate          carrier integration example
 ```
 
-The standalone reduced receiver is a 10 × 10 × 4 mm object. Its full top
-lead-in is central over 6 mm and returns to the normal receiver width through
-2 mm transitions at both ends, all inside the same 10 mm footprint as the
-removable snap. The snap retains/flexes only on two opposite sides.
+The standalone reduced receiver is a 10 × 10 × 4 mm object. Its top insertion
+guide is one constant X/Z chamfer over the complete 10 mm length, narrowing
+from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0. No Y-end taper is added. The snap retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.

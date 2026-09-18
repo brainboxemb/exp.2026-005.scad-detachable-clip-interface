@@ -27,21 +27,27 @@ module node_receiver_design(view = "final") {
             color(current)
                 node_receiver_design_after_lower();
 
-        } else if (view == "top-main-cutters") {
+        } else if (view == "top-profile-slice") {
             color(existing)
                 node_receiver_design_after_lower();
             color(current)
-                node_receiver_design_top_main_cutters();
+                node_receiver_design_top_profile_slice();
+
+        } else if (view == "top-guide-cutter") {
+            color(current)
+                node_receiver_design_top_guide_cutters();
 
         } else if (view == "top-guide-before") {
             color(current)
                 node_receiver_design_after_lower();
 
         } else if (view == "top-guide-removed") {
-            color(existing)
-                node_receiver_design_after_lower();
-            color(current)
-                node_receiver_design_top_removed_material();
+            translate([-8, 0, 0])
+                color(existing)
+                    node_receiver_design_after_lower();
+            translate([8, 0, 0])
+                color(current)
+                    node_receiver_design_top_removed_material();
 
         } else if (view == "top-guide-after") {
             color(current)

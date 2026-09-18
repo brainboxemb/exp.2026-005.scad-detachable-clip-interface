@@ -1,6 +1,6 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **current digital design baseline; final visual review open; physical qualification follows separately**
+Status: **receiver top-guide geometry corrected in PR #7; current CI/visual qualification pending**
 
 Qualified source head:
 
@@ -57,11 +57,11 @@ local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
 Along Y, the lower receiver profile is active over the central 8 mm and returns
 to the ordinary carrier over 1 mm at each end.
 
-The final 0.4 mm top guide uses a 6 mm full-guide region plus 2 mm transition
-at each end, all inside the 10 mm receiver footprint. The top region also
-narrows in plan. This is intentional centring
-geometry: a part pressed down from above should be guided toward the local
-receiver centre rather than pushed outward.
+The final 0.4 mm top guide is one constant X/Z chamfer over the complete
+10 mm receiver length. It narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0.
+There is no Y-end taper. This keeps the centring action on +/-X, where the snap
+actually retains/flexes, without creating an hourglass plan shape or thin end
+fins.
 
 ## Removable snap correction
 
@@ -174,8 +174,8 @@ than relying on coarse before/after images:
   → exact Lite result → profile zones;
 - Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
 - click slots: actual removed material plus a center-section before/after view;
-- node receiver: lower-profile subtraction → top-guide removed material →
-  before/after result.
+- node receiver: lower-profile subtraction → X/Z guide profile → full-length
+  cutter → exact removed material → before/after result.
 
 Do not move on to later qualification to hide an unresolved base receiver/snap
 geometry problem.

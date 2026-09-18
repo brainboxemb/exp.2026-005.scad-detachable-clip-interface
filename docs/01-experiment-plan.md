@@ -138,8 +138,8 @@ support boss        10 × 10 × 4 mm
 receiver zone       full 10 mm support footprint
 lower active profile 8 mm
 lower transition     1 mm at each Y end
-top full guide       6 mm
-top transition       2 mm at each Y end
+top guide length    10 mm
+top X/Z narrowing    10.0 -> 9.2 mm over 0.4 mm Z
 ```
 
 The exact same removable snap must fit both.
