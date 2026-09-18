@@ -1,2 +1,2 @@
-include <../lib/detachable_clip_interface.scad>
-detachable_clip_snap_retention_profile();
+include <../lib/node_interface.scad>
+node_snap_retention_profile();
