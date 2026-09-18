@@ -1,0 +1,12 @@
+workspace:
+  inheritedTasks:
+    include:
+      - scad.build
+
+tasks:
+  scad.build:
+    inputs:
+      - 'dsg/openscad/**/*.scad'
+      - 'dsg/openscad/**/render.yml'
+      - 'dsg/openscad/**/export.yml'
+      - 'dsg/openscad/ext/**'
