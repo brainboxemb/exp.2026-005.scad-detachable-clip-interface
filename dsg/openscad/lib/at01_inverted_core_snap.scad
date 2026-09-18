@@ -1,41 +1,43 @@
 // File: at01_inverted_core_snap.scad
 // AT-01 — experiment-owned inverted fixed-core / removable-shell snap.
 //
-// This geometry does not copy the QuackWorks/OpenGrid snap. It keeps only the
-// high-level design lessons: compact fixed side, removable compliant side,
-// explicit locating/retention roles, and a Lite-like 4.0 / 3.4 mm Z baseline.
+// The fixed part stays entirely inside a 10 x 10 x 4 mm envelope and carries
+// inward retention grooves. All protruding snap geometry and intended flexure
+// live on the removable outside shell.
 
-// Fixed-side baseline.
+// Fixed-side Lite-inspired baseline.
 AT01_CORE_SIZE = 10.0;
 AT01_CORE_HEIGHT = 4.0;
 AT01_ROOT_SHOULDER = 0.6;
 AT01_ENGAGEMENT_HEIGHT = 3.4;
 
 // Removable shell.
-AT01_CLEARANCE = 0.20;              // per side on nominal 10 x 10 core
+AT01_CLEARANCE = 0.20;              // per side around nominal core
 AT01_SHELL_WALL = 1.20;
 AT01_SHELL_TOP = 1.20;
 AT01_SHELL_INNER = AT01_CORE_SIZE + 2 * AT01_CLEARANCE;
 AT01_SHELL_OUTER = AT01_SHELL_INNER + 2 * AT01_SHELL_WALL;
 AT01_SHELL_HEIGHT = AT01_ENGAGEMENT_HEIGHT + AT01_SHELL_TOP;
 
-// Two-sided retention on +/-X.
-AT01_RIB_PROTRUSION = 0.35;
-AT01_RIB_WIDTH = 4.0;
-AT01_RIB_Z_BOTTOM = 1.25;
-AT01_RIB_Z_LOWER_MAX = 1.35;
-AT01_RIB_Z_UPPER_MAX = 1.55;
-AT01_RIB_Z_TOP = 2.05;
+// Fixed retention grooves on +/-X.
+AT01_GROOVE_DEPTH = 0.40;
+AT01_GROOVE_WIDTH = 4.40;
+AT01_GROOVE_Z_MIN = 1.35;
+AT01_GROOVE_Z_MAX = 2.15;
 
-// Receiving window in each compliant shell tongue.
-// Values are shell-local; assembled shell starts at Z=AT01_ROOT_SHOULDER.
-AT01_WINDOW_WIDTH = 4.8;
-AT01_WINDOW_Z_MIN = 0.60;
-AT01_WINDOW_Z_MAX = 1.55;
+// Inward shell nubs on the two compliant +/-X tongues.
+// Local shell coordinates; assembled shell bottom sits at ROOT_SHOULDER.
+AT01_NUB_PROTRUSION = 0.35;
+AT01_NUB_WIDTH = 4.00;
+AT01_NUB_Z_BOTTOM = 0.75;
+AT01_NUB_Z_MAX_IN = 1.10;
+AT01_NUB_Z_RETENTION = 1.45;
+AT01_NUB_Z_TOP = 1.55;
 
-// Two relief slots isolate the center tongue on each +/-X wall.
-AT01_FLEX_SLOT_Y = 3.0;
-AT01_FLEX_SLOT_WIDTH = 0.8;
+// Flex slots isolate a center tongue on each +/-X shell wall.
+AT01_FLEX_SLOT_Y = 2.50;
+AT01_FLEX_SLOT_WIDTH = 0.80;
+AT01_FLEX_SLOT_HEIGHT = 2.80;
 
 // Evidence helpers.
 AT01_EXPLODED_Z = 8.0;
@@ -50,39 +52,44 @@ assert(
     "AT-01 shell inner size must preserve the stated side clearance."
 );
 assert(
-    AT01_ROOT_SHOULDER + AT01_WINDOW_Z_MIN < AT01_RIB_Z_BOTTOM,
-    "AT-01 seated window must start below the retention rib."
+    AT01_NUB_PROTRUSION > AT01_CLEARANCE,
+    "AT-01 inward nub must exceed nominal side clearance to create snap flex."
 );
 assert(
-    AT01_ROOT_SHOULDER + AT01_WINDOW_Z_MAX > AT01_RIB_Z_TOP,
-    "AT-01 seated window must end above the retention rib."
+    AT01_GROOVE_DEPTH > (AT01_NUB_PROTRUSION - AT01_CLEARANCE),
+    "AT-01 fixed groove must be deep enough for the seated inward nub."
 );
 assert(
-    AT01_RIB_PROTRUSION > AT01_CLEARANCE,
-    "AT-01 retention rib must exceed nominal shell side clearance to create flex."
+    abs((AT01_ROOT_SHOULDER + AT01_NUB_Z_BOTTOM) - AT01_GROOVE_Z_MIN) < 0.0001,
+    "AT-01 seated nub bottom must align with groove bottom."
+);
+assert(
+    abs((AT01_ROOT_SHOULDER + AT01_NUB_Z_TOP) - AT01_GROOVE_Z_MAX) < 0.0001,
+    "AT-01 seated nub top must align with groove top."
 );
 
-module _at01_positive_x_retention_rib() {
-    // Polygon is defined in X/Z and extruded along Y.
-    rotate([90, 0, 0])
-        linear_extrude(height = AT01_RIB_WIDTH, center = true, convexity = 10)
-            polygon(points = [
-                [AT01_CORE_SIZE / 2, AT01_RIB_Z_BOTTOM],
-                [AT01_CORE_SIZE / 2 + AT01_RIB_PROTRUSION, AT01_RIB_Z_LOWER_MAX],
-                [AT01_CORE_SIZE / 2 + AT01_RIB_PROTRUSION, AT01_RIB_Z_UPPER_MAX],
-                [AT01_CORE_SIZE / 2, AT01_RIB_Z_TOP]
-            ]);
+module _at01_positive_x_groove() {
+    translate([
+        AT01_CORE_SIZE / 2 - AT01_GROOVE_DEPTH / 2 + 0.01,
+        0,
+        (AT01_GROOVE_Z_MIN + AT01_GROOVE_Z_MAX) / 2
+    ])
+        cube([
+            AT01_GROOVE_DEPTH + 0.02,
+            AT01_GROOVE_WIDTH,
+            AT01_GROOVE_Z_MAX - AT01_GROOVE_Z_MIN
+        ], center = true);
 }
 
 module at01_fixed_core() {
-    union() {
+    difference() {
         translate([-AT01_CORE_SIZE / 2, -AT01_CORE_SIZE / 2, 0])
             cube([AT01_CORE_SIZE, AT01_CORE_SIZE, AT01_CORE_HEIGHT]);
 
-        _at01_positive_x_retention_rib();
+        _at01_positive_x_groove();
 
         mirror([1, 0, 0])
-            _at01_positive_x_retention_rib();
+            _at01_positive_x_groove();
     }
 }
 
@@ -92,50 +99,63 @@ module _at01_shell_outer() {
 }
 
 module _at01_shell_cavity() {
-    // Ends exactly at the underside of the top plate.
+    // Open from the bottom and stop at the underside of the top plate.
     translate([-AT01_SHELL_INNER / 2, -AT01_SHELL_INNER / 2, -0.05])
-        cube([AT01_SHELL_INNER, AT01_SHELL_INNER, AT01_ENGAGEMENT_HEIGHT + 0.05]);
+        cube([
+            AT01_SHELL_INNER,
+            AT01_SHELL_INNER,
+            AT01_ENGAGEMENT_HEIGHT + 0.05
+        ]);
 }
 
-module _at01_retention_window(x_sign = 1) {
-    wall_center = (AT01_SHELL_INNER / 2 + AT01_SHELL_OUTER / 2) / 2;
-    translate([
-        x_sign * wall_center,
-        0,
-        (AT01_WINDOW_Z_MIN + AT01_WINDOW_Z_MAX) / 2
-    ])
-        cube([
-            AT01_SHELL_WALL + 0.4,
-            AT01_WINDOW_WIDTH,
-            AT01_WINDOW_Z_MAX - AT01_WINDOW_Z_MIN
-        ], center = true);
+module _at01_positive_x_nub() {
+    // X/Z profile extruded along Y.
+    // During downward insertion the lower ramp meets the fixed-core top/side
+    // first and deflects the tongue outward. The upper return is deliberately
+    // steeper to provide retention during removal.
+    inner_face = AT01_SHELL_INNER / 2;
+
+    rotate([90, 0, 0])
+        linear_extrude(height = AT01_NUB_WIDTH, center = true, convexity = 10)
+            polygon(points = [
+                [inner_face, AT01_NUB_Z_BOTTOM],
+                [inner_face - AT01_NUB_PROTRUSION, AT01_NUB_Z_MAX_IN],
+                [inner_face - AT01_NUB_PROTRUSION, AT01_NUB_Z_RETENTION],
+                [inner_face, AT01_NUB_Z_TOP]
+            ]);
 }
 
 module _at01_flex_slot(x_sign = 1, y_sign = 1) {
-    wall_center = (AT01_SHELL_INNER / 2 + AT01_SHELL_OUTER / 2) / 2;
+    wall_center =
+        (AT01_SHELL_INNER / 2 + AT01_SHELL_OUTER / 2) / 2;
+
     translate([
         x_sign * wall_center,
         y_sign * AT01_FLEX_SLOT_Y,
-        AT01_ENGAGEMENT_HEIGHT / 2
+        AT01_FLEX_SLOT_HEIGHT / 2 - 0.05
     ])
         cube([
             AT01_SHELL_WALL + 0.4,
             AT01_FLEX_SLOT_WIDTH,
-            AT01_ENGAGEMENT_HEIGHT + 0.10
+            AT01_FLEX_SLOT_HEIGHT + 0.10
         ], center = true);
 }
 
 module at01_removable_shell() {
-    difference() {
-        _at01_shell_outer();
-        _at01_shell_cavity();
+    union() {
+        difference() {
+            _at01_shell_outer();
+            _at01_shell_cavity();
 
-        for (x_sign = [-1, 1]) {
-            _at01_retention_window(x_sign);
-
-            for (y_sign = [-1, 1])
-                _at01_flex_slot(x_sign, y_sign);
+            for (x_sign = [-1, 1])
+                for (y_sign = [-1, 1])
+                    _at01_flex_slot(x_sign, y_sign);
         }
+
+        _at01_positive_x_nub();
+
+        mirror([1, 0, 0])
+            _at01_positive_x_nub();
     }
 }
 
