@@ -1,2 +1,2 @@
-include <../lib/at01_inverted_core_snap.scad>
-at01_receiver_retention_profile(1);
+include <../lib/detachable_clip_interface.scad>
+detachable_clip_receiver_retention_profile(1);
