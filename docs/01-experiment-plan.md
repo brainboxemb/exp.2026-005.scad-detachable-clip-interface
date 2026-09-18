@@ -124,8 +124,8 @@ Carrier A — **rail**:
 ```text
 carrier            50 × 10 × 4 mm
 receiver zone      one local 10 × 10 mm position
-active profile     6 mm
-transition         2 mm at each Y end
+active profile     8 mm
+transition         1 mm at each Y end
 ```
 
 The remainder of the 50 mm carrier stays rectangular.
@@ -133,10 +133,12 @@ The remainder of the 50 mm carrier stays rectangular.
 Carrier B — **plate**:
 
 ```text
-base plate         50 × 20 × 6 mm
-receiver zone      one local 10 × 10 mm position on top
-active profile      6 mm
-transition          2 mm at each Y end
+base plate          50 × 20 × 6 mm
+support boss        10 × 14 × 4 mm
+receiver zone       central 10 mm of that boss
+active profile       8 mm
+transition           1 mm at each Y end
+straight support     2 mm beyond receiver at each end
 ```
 
 The exact same removable snap must fit both.
