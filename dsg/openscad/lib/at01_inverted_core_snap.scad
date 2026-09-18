@@ -22,16 +22,16 @@ AT01_SHELL_HEIGHT = AT01_ENGAGEMENT_HEIGHT + AT01_SHELL_TOP;
 // Two-sided retention on +/-X.
 AT01_RIB_PROTRUSION = 0.35;
 AT01_RIB_WIDTH = 4.0;
-AT01_RIB_Z_BOTTOM = 0.75;
-AT01_RIB_Z_LOWER_MAX = 0.95;
-AT01_RIB_Z_UPPER_MAX = 1.15;
-AT01_RIB_Z_TOP = 1.60;
+AT01_RIB_Z_BOTTOM = 1.25;
+AT01_RIB_Z_LOWER_MAX = 1.35;
+AT01_RIB_Z_UPPER_MAX = 1.55;
+AT01_RIB_Z_TOP = 2.05;
 
 // Receiving window in each compliant shell tongue.
 // Values are shell-local; assembled shell starts at Z=AT01_ROOT_SHOULDER.
 AT01_WINDOW_WIDTH = 4.8;
-AT01_WINDOW_Z_MIN = 0.05;
-AT01_WINDOW_Z_MAX = 1.10;
+AT01_WINDOW_Z_MIN = 0.60;
+AT01_WINDOW_Z_MAX = 1.55;
 
 // Two relief slots isolate the center tongue on each +/-X wall.
 AT01_FLEX_SLOT_Y = 3.0;
@@ -48,6 +48,18 @@ assert(
 assert(
     abs(AT01_SHELL_INNER - (AT01_CORE_SIZE + 2 * AT01_CLEARANCE)) < 0.0001,
     "AT-01 shell inner size must preserve the stated side clearance."
+);
+assert(
+    AT01_ROOT_SHOULDER + AT01_WINDOW_Z_MIN < AT01_RIB_Z_BOTTOM,
+    "AT-01 seated window must start below the retention rib."
+);
+assert(
+    AT01_ROOT_SHOULDER + AT01_WINDOW_Z_MAX > AT01_RIB_Z_TOP,
+    "AT-01 seated window must end above the retention rib."
+);
+assert(
+    AT01_RIB_PROTRUSION > AT01_CLEARANCE,
+    "AT-01 retention rib must exceed nominal shell side clearance to create flex."
 );
 
 module _at01_positive_x_retention_rib() {
