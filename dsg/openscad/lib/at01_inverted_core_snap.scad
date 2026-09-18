@@ -40,13 +40,13 @@ AT01_RECEIVER_TRANSITION = 1.0;
 AT01_RECEIVER_ACTIVE_LENGTH =
     AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TRANSITION; // 8 mm
 
-// The upper insertion guide needs a visibly longer end taper than the lower
-// receiver profile. Otherwise the X/Z lead-in simply appears to terminate in
-// a vertical cut. Keep the lower transition at 1 mm, but give the top guide
-// 2 mm per end so it reads and behaves as a real centring funnel.
+// Keep the complete 10 mm functional top lead-in. The guide transitions are
+// EXTRA geometry outside that functional receiver zone; they must not steal
+// length from the main sloped face.
+AT01_RECEIVER_TOP_ACTIVE_LENGTH = AT01_RECEIVER_ZONE_LENGTH; // 10 mm
 AT01_RECEIVER_TOP_TRANSITION = 2.0;
-AT01_RECEIVER_TOP_ACTIVE_LENGTH =
-    AT01_RECEIVER_ZONE_LENGTH - 2 * AT01_RECEIVER_TOP_TRANSITION; // 6 mm
+AT01_RECEIVER_TOP_GUIDE_LENGTH =
+    AT01_RECEIVER_TOP_ACTIVE_LENGTH + 2 * AT01_RECEIVER_TOP_TRANSITION; // 14 mm
 
 // Plate-only straight support around the same 10 mm functional receiver.
 // The extra 2 mm at each Y end is ordinary 10 x 4 mm material, not part of
@@ -195,7 +195,9 @@ assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TRANSITION - 1.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
 assert(abs(AT01_RECEIVER_TOP_TRANSITION - 2.0) < 0.0001);
-assert(abs(AT01_RECEIVER_TOP_ACTIVE_LENGTH - 6.0) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_ACTIVE_LENGTH - 10.0) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_GUIDE_LENGTH - 14.0) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_GUIDE_LENGTH - AT01_PLATE_SUPPORT_LENGTH) < 0.0001);
 assert(abs(AT01_PLATE_SUPPORT_LENGTH - 14.0) < 0.0001);
 assert(abs(AT01_PLATE_SUPPORT_END - 2.0) < 0.0001);
 assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIGHT) < 0.0001);
@@ -247,13 +249,13 @@ module _at01_positive_x_top_cut_active() {
 
 // Positive-Y transition for the X-side top lead-in.
 //
-// At Y=active_half this is the same triangular X/Z cut as the central lead-in.
-// Over the final 2 mm the complete triangle collapses into the ordinary rail
-// edge. The transition therefore slopes in Z as well as in plan view and does
-// not terminate the lead-in with a vertical wall.
+// At Y=5 mm this is the same triangular X/Z cut as the complete 10 mm
+// functional lead-in. Over the EXTRA 2 mm it collapses into the ordinary rail
+// edge at Y=7 mm. The main sloped face therefore stays 10 mm long while its
+// ends gain a real three-dimensional guide transition.
 module _at01_positive_y_top_cut_transition() {
     ya = AT01_RECEIVER_TOP_ACTIVE_LENGTH / 2;
-    yb = AT01_RECEIVER_ZONE_LENGTH / 2;
+    yb = AT01_RECEIVER_TOP_GUIDE_LENGTH / 2;
     xi = AT01_RECEIVER_TOP_WIDTH / 2;
     xo = AT01_RAIL_WIDTH / 2 + 0.01;
     z0 = AT01_RECEIVER_CAPTURE_TOP_Z;
