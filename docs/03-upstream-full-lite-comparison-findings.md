@@ -1,4 +1,4 @@
-# OG-02 findings — Full versus Lite OpenGrid reference
+# Full versus Lite OpenGrid reference findings
 
 Status: **accepted as the Full/Lite comparison baseline**
 
@@ -22,8 +22,8 @@ internal OG/AT testcase codes.
 
 Primary complete Lite reference parts:
 
-- `01-reference-lite-receiver.png/.stl`;
-- `02-reference-lite-snap.png/.stl`.
+- `01-opengrid-lite-receiver.png/.stl`;
+- `02-opengrid-lite-snap.png/.stl`.
 
 Lite reference sections/profiles are grouped in the `40-...` range. Full
 baseline/reference evidence is grouped in the `50-...` range, and Full-versus-
@@ -33,8 +33,8 @@ The profile STL files remain true 1.0 mm-thick slices. All generated reference
 targets report `Status: NoError`; all STL exports report a manifold top-level
 3D object.
 
-The numeric prefix is an output-navigation aid only. OG-01 and OG-02 remain the
-experiment/testcase identifiers in the design record.
+The numeric prefix is an output-navigation aid only. The experiment phases are
+named descriptively in the design record.
 
 ## Dimension relationship
 
@@ -86,7 +86,7 @@ basic/QuackWorks Lite snap = 3.4 mm
 arithmetic difference = 0.6 mm
 ```
 
-The earlier OG-02 revision interpreted that difference as a top-flush 0.6 mm
+The earlier the Full/Lite comparison revision interpreted that difference as a top-flush 0.6 mm
 assembly offset. PR #3 superseded that interpretation. The accepted upstream
 reference now uses the upstream CENTER anchoring for both receiver and snap and
 does not manufacture a seated Z offset from the arithmetic height difference.
@@ -115,7 +115,7 @@ that relationship.
 
 Directional retention exists independently of the Full/Lite selection.
 
-OG-02 intentionally uses:
+the Full/Lite comparison intentionally uses:
 
 ```text
 directional = false
@@ -124,11 +124,11 @@ directional = false
 for both variants. Mixing directional behaviour into this comparison would add
 a second variable before the basic Full/Lite height/profile question is settled.
 
-## AT-01 consequence
+## the reduced receiver + snap phase consequence
 
-**Lite is the preferred first reference for AT-01.**
+**Lite is the preferred first reference for the reduced receiver + snap phase.**
 
-That does not mean AT-01 should copy the 24.8 mm Lite snap. It means Lite is the
+That does not mean the reduced receiver + snap phase should copy the 24.8 mm Lite snap. It means Lite is the
 better reduction starting point because upstream already demonstrates that:
 
 - the Full 6.8 mm vertical envelope is not essential to the attachment concept;
@@ -137,7 +137,7 @@ better reduction starting point because upstream already demonstrates that:
 - retention/compliance can live near the functional interface instead of
   requiring the complete Full depth.
 
-AT-01 should therefore begin from the Lite relationship and ask what can be
+the reduced receiver + snap phase should therefore begin from the Lite relationship and ask what can be
 reduced further:
 
 1. how much of the four-sided receiver is actually needed;
@@ -152,7 +152,7 @@ feature whose purpose is unclear.
 
 ## Not established
 
-OG-02 still does not establish:
+the Full/Lite comparison still does not establish:
 
 - physical insertion or removal force;
 - fatigue;

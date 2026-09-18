@@ -33,7 +33,7 @@ The experiment tests one local fixed/removable interface in two neutral carrier 
 ```text
 rail carrier       50 × 10 × 4 mm
 plate carrier      50 × 20 × 6 mm
-plate support      10 × 14 × 4 mm
+plate support      10 × 10 × 4 mm
 receiver position  one local 10 × 10 mm zone
 removable snap     one shared 10 mm-long part
 ```
@@ -57,7 +57,9 @@ local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
 Along Y, the lower receiver profile is active over the central 8 mm and returns
 to the ordinary carrier over 1 mm at each end.
 
-The final 0.4 mm top region also narrows in plan. This is intentional centring
+The final 0.4 mm top guide uses a 6 mm full-guide region plus 2 mm transition
+at each end, all inside the 10 mm receiver footprint. The top region also
+narrows in plan. This is intentional centring
 geometry: a part pressed down from above should be guided toward the local
 receiver centre rather than pushed outward.
 

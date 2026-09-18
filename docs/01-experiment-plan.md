@@ -10,11 +10,11 @@ The first intended product use is a separate aluminium-tube clip for the HUB75
 display frame, but product integration is outside this PoP until the interface
 has been qualified.
 
-## OG-01 — upstream reference assembly
+## Upstream Full reference assembly
 
 **Status:** complete in PR #1.
 
-**Findings:** [OG-01 upstream reference findings](02-og-01-findings.md)
+**Findings:** [Upstream Full reference findings](02-upstream-full-reference-findings.md)
 
 Goal: understand the selected source before adapting it.
 
@@ -43,11 +43,11 @@ Questions:
 Exit: the exact upstream pair builds reproducibly and the generated evidence is
 clear enough to describe the mechanism without guessing.
 
-## OG-02 — Full versus Lite upstream comparison
+## Full versus Lite upstream comparison
 
 **Status:** complete in PR #2.
 
-**Findings:** [OG-02 Full/Lite findings](03-og-02-findings.md)
+**Findings:** [Full/Lite findings](03-upstream-full-lite-comparison-findings.md)
 
 Goal: understand the upstream Lite interface before reducing OpenGrid to a
 project-owned neutral coupon.
@@ -73,7 +73,7 @@ Evidence:
   receiver and Lite snap;
 - matching 1.0 mm-thick profile-slice STL exports for those four solids;
 - complete Lite receiver and Lite snap STL exports;
-- reuse OG-01's complete Full receiver/snap STLs rather than duplicate them.
+- reuse the upstream Full reference receiver/snap STLs rather than duplicate them.
 
 Questions:
 
@@ -94,7 +94,7 @@ HUB75 geometry.
 
 **Status:** complete in PR #3.
 
-Before reducing the interface, revalidate OG-01/OG-02 using the smallest safe upstream call
+Before reducing the interface, revalidate the upstream Full reference and Full/Lite comparison using the smallest safe upstream call
 surface. See [minimal upstream-default correction](04-minimal-upstream-defaults.md).
 
 The correction removes experiment-owned parameter overrides and the derived Lite
@@ -102,7 +102,7 @@ assembly Z offset until the regenerated evidence supports an assembly relation.
 
 ## Reduced receiver + snap — two carrier concepts
 
-**Status:** active in PR #4 — digital rail/plate baseline green; physical fit pending.
+**Status:** active — receiver/snap geometry and generated evidence are under refinement.
 
 **Design record:** [Reduced receiver + snap](05-reduced-receiver-snap.md)
 
@@ -134,11 +134,12 @@ Carrier B — **plate**:
 
 ```text
 base plate          50 × 20 × 6 mm
-support boss        10 × 14 × 4 mm
-receiver zone       central 10 mm of that boss
-active profile       8 mm
-transition           1 mm at each Y end
-straight support     2 mm beyond receiver at each end
+support boss        10 × 10 × 4 mm
+receiver zone       full 10 mm support footprint
+lower active profile 8 mm
+lower transition     1 mm at each Y end
+top full guide       6 mm
+top transition       2 mm at each Y end
 ```
 
 The exact same removable snap must fit both.

@@ -26,20 +26,22 @@ examples/
   receiver-plate          carrier integration example
 ```
 
-The standalone reduced receiver is a 10 × 14 × 4 mm object: a central 10 mm
-functional receiver plus 2 mm top-guide/support transition at each end. The
-removable snap is 10 mm long and retains/flexes only on two opposite sides.
+The standalone reduced receiver is a 10 × 10 × 4 mm object. Its full top
+lead-in is central over 6 mm and returns to the normal receiver width through
+2 mm transitions at both ends, all inside the same 10 mm footprint as the
+removable snap. The snap retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
 See the [reduced receiver + snap experiment record](docs/05-reduced-receiver-snap.md).
 
-## Previous reference phase
+## Previous reference work
 
-**OG-02 — Full versus Lite upstream comparison**
+**Full versus Lite upstream comparison**
 
-OG-01 established the Full reference pair. OG-02 compares that pair against the
-upstream Lite receiver/snap before the mechanism is reduced to a neutral coupon.
+The upstream Full reference established the source pair. The subsequent
+Full-versus-Lite comparison established which low-profile source relationship
+to reduce before creating the neutral receiver/snap coupon.
 
 Full:
 
@@ -76,9 +78,6 @@ The primary reference/design objects therefore appear before carrier examples.
 Exploded/comparison views follow in the `20-...` range, node
 sections/profiles in the `30-...` range, and reference/detail evidence
 afterwards.
-
-Historical OpenGrid reference labels such as OG-01 and OG-02 remain in their
-reference findings, but the active experiment phases use descriptive names.
 
 After merge, normal production output is published under:
 
@@ -127,8 +126,8 @@ See [source provenance](docs/00-source-provenance.md).
 
 ## Experiment sequence
 
-1. **OG-01** — reproduce and understand the upstream Full receiver + snap.
-2. **OG-02** — compare upstream Full and Lite receiver/snap variants.
+1. **Upstream Full reference** — reproduce and understand the upstream Full receiver + snap.
+2. **Full versus Lite comparison** — compare upstream Full and Lite receiver/snap variants.
 3. **Reduced receiver + snap** — reduce the relationship to a neutral fixed/removable coupon.
 4. **Retention and flex geometry** — expose retention/flex geometry and critical dimensions.
 5. **Tolerance qualification** — compare only the critical tolerance variants.

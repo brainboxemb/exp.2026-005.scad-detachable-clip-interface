@@ -4,7 +4,7 @@ Status: **active in PR #3**
 
 ## Why this correction exists
 
-OG-01 and OG-02 were intended to describe the upstream QuackWorks geometry, but
+the upstream Full reference and the Full/Lite comparison were intended to describe the upstream QuackWorks geometry, but
 their experiment wrappers overrode more parameters than necessary:
 
 - tile size;
@@ -73,7 +73,7 @@ half the profile.
 
 ## Acceptance
 
-Compare the regenerated PR #3 PNG/STL output against the production OG-01/OG-02
+Compare the regenerated PR #3 PNG/STL output against the production the upstream Full reference and Full/Lite comparison
 baseline and document every meaningful geometry/blob difference before replacing
 the accepted reference findings.
 

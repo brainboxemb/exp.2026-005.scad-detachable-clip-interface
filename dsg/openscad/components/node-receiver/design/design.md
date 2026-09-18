@@ -16,15 +16,16 @@ The construction starts from one simple block:
 
 ```text
 width                  10 mm
-length                 14 mm
+length                 10 mm
 height                  4 mm
 functional zone        10 mm
-extra top guide         2 mm at each Y end
+full top guide           6 mm
+guide transition         2 mm at each Y end
 ```
 
-The 14 mm length is deliberate: the complete 10 mm functional receiver remains
-untouched, while the top insertion guide gets real material in which it can
-transition back to the normal outer profile.
+The guide stays inside the same 10 mm footprint as the receiver and snap. The
+central 6 mm keeps the full X/Z insertion lead-in; each 2 mm end region tapers
+that lead-in back to the normal receiver width.
 
 ## Step 1 — start from the neutral block
 
@@ -103,14 +104,14 @@ view: after-lower
 This step is the retention/capture body. It should not be reshaped merely to
 make the top look nicer.
 
-## Step 3 — define the 10 mm main X/Z lead-in
+## Step 3 — define the central 6 mm X/Z lead-in
 
 Insertion guidance is separate from lower retention. The node snap is open at
 both Y ends and flexes/retains only on +/-X, so the receiver top guide is
 deliberately two-sided.
 
 The red volume below is an **analysis slice of the real production cutter** over
-the central 10 mm functional length:
+the central 6 mm full-guide region:
 
 <!-- scad-render
 view: top-main-cutters
@@ -123,8 +124,9 @@ Z = 3.6 mm     outer width 10.0 mm
 Z = 4.0 mm     top width    9.2 mm
 ```
 
-So each X side has a 0.4 × 0.4 mm lead-in. This triangular section must remain
-unchanged from `Y=-5` through `Y=+5`.
+So each X side has a 0.4 × 0.4 mm lead-in. This triangular section remains
+unchanged from `Y=-3` through `Y=+3`, then tapers away before the 10 mm
+receiver ends.
 
 The design helper does not redraw that triangle. It intersects the real
 production top-guide cutter with the central 10 mm:
@@ -135,12 +137,12 @@ intersection() {
 
     translate([
         -node_receiver_width(),
-        -node_receiver_functional_length() / 2,
+        -node_receiver_top_guide_active_length() / 2,
         -1
     ])
         cube([
             2 * node_receiver_width(),
-            node_receiver_functional_length(),
+            node_receiver_top_guide_active_length(),
             node_receiver_height() + 2
         ]);
 }
@@ -148,21 +150,22 @@ intersection() {
 
 ## Step 4 — make the complete top guide one continuous cutter
 
-The top guide is **not** implemented as a 10 mm prism plus two touching end
-wedges. That construction can leave a vertical seam at `Y=±5` in the exported
-mesh.
+The top guide is **not** implemented as a central prism plus two touching end
+wedges. That construction can leave visible seams at the transition positions
+in the exported mesh.
 
 Instead, each X side uses one polyhedron:
 
 ```text
-Y=-7       Y=-5                  Y=+5       Y=+7
- point  -> full triangle =================> point
-             10 mm main guide
-          <---- 2 mm ----> at each end
+Y=-5       Y=-3            Y=+3       Y=+5
+ point  -> full triangle ==========> point
+              6 mm main guide
+       <--- 2 mm ---> at each end
 ```
 
-There are deliberately **no faces at Y=±5**. Those are only changes in the
-surface slope inside one continuous solid.
+There are deliberately **no faces at Y=±3**. Those are only changes in the
+surface slope inside one continuous solid. The complete guide, including both
+end transitions, remains inside the 10 mm receiver footprint.
 
 The production construction is:
 
@@ -251,9 +254,9 @@ view: top-guide-before-after
 
 The acceptance conditions are:
 
-- the main X/Z guide remains fully 10 mm long;
-- each end gets a 2 mm three-dimensional taper;
-- there is no vertical Y face at `Y=±5`;
+- the full X/Z guide remains 6 mm long in the centre;
+- each end gets a 2 mm three-dimensional taper inside the 10 mm footprint;
+- there is no vertical Y face at `Y=±3`;
 - no separate +/-Y capture chamfer is introduced;
 - the receiver remains open-ended in Y.
 

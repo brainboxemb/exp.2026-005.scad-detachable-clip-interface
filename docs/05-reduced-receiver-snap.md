@@ -81,17 +81,18 @@ open.
 
 ## Current receiver design question
 
-The receiver is now a standalone 10 × 14 × 4 mm object.
+The receiver is now a standalone 10 × 10 × 4 mm object.
 
-Its lower source-derived mating profile occupies the central functional zone.
-The upper insertion guide is treated separately: the full 10 mm main guide must
-remain intact, with 2 mm additional end transition on each side.
+Its lower source-derived mating profile occupies the same 10 mm footprint.
+The upper insertion guide is treated separately: the full X/Z guide remains
+over the central 6 mm, with a 2 mm transition at each end that returns to the
+ordinary receiver width inside the same 10 mm footprint.
 
 Current visual acceptance criterion:
 
-- main top guide remains 10 mm long;
-- 2 mm end guides are additional, not carved out of that 10 mm;
-- the main guide must not terminate in a vertical end wall;
+- the full top guide remains 6 mm long in the centre;
+- each 2 mm end transition stays inside the 10 mm receiver footprint;
+- the full-guide region must not terminate in a vertical end wall;
 - the end transition must visibly slope back into the ordinary receiver block;
 - left/right and front/back geometry must remain symmetric.
 
@@ -136,8 +137,8 @@ Carrier examples follow:
 13-example-plate-assembled
 ```
 
-Historical OpenGrid reference labels remain in the upstream findings, while
-this active design phase is named directly after the geometry being evaluated.
+The reference work and active design phase are named directly after the
+geometry being evaluated; internal testcase-style phase codes are not used.
 
 ## Acceptance boundary
 
