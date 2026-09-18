@@ -4,7 +4,7 @@
 // Both are rendered at true physical scale.
 
 include <../lib/og02_full_lite_reference.scad>
-include <../lib/at01_inverted_core_snap.scad>
+include <../lib/detachable_clip_interface.scad>
 
 COMPARE_GAP = 7;
 PROFILE_Y = 1.0;
@@ -27,7 +27,7 @@ module opengrid_lite_wall_profile() {
 module at01_wall_profile() {
     // AT-01 +X wall/nub; outer edge is 7.1 mm from centre.
     _positive_x_crop(4.2, 7.4)
-        at01_snap_retention_profile();
+        detachable_clip_snap_retention_profile();
 }
 
 // Rebase each positive-X wall so its inner region is visually comparable.
