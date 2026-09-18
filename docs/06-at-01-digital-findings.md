@@ -1,6 +1,6 @@
 # AT-01 digital findings — rail and plate receivers
 
-Status: **digital baseline built; physical snap behaviour not yet accepted**
+Status: **superseded geometry baseline — local receiver correction active in PR #4**
 
 Qualified source head:
 
@@ -103,3 +103,13 @@ ends and attaches locally over the continuous 50 mm receiver.
 - whether rail or plate carrier is preferable for HUB75 integration.
 
 Do not promote the interface into production from digital evidence alone.
+
+
+## Superseded by local receiver correction
+
+The run above qualified the first rail/plate geometry, but that revision
+incorrectly extended the receiver profile over the full 50 mm carrier length.
+
+PR #4 now corrects both concepts to one local 10 × 10 mm receiver position with
+an 8 mm active region and 1 mm transition at each end. New digital findings must
+be recorded from the regenerated output before AT-01 is accepted.
