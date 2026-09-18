@@ -103,3 +103,36 @@ to SCons or add PythonSCAD unless the experiment exposes a concrete need.
 
 Before changing workflow/publication behaviour, read the pinned
 `tools/tool.scad-project/AGENTS.md`.
+
+
+## Commit and CI discipline
+
+Treat a branch update as a **CI boundary**, not as a file-save operation.
+
+For one coherent, reviewable work unit:
+
+1. inspect the relevant current files first;
+2. prepare all related edits before advancing the branch;
+3. re-read/check the complete changed set;
+4. write the related files as **one commit** when the available Git tooling permits;
+5. advance the branch once;
+6. then let that commit's CI/render/evidence run complete and inspect the result before starting another CI-bound correction.
+
+Do not create a separate commit for every file merely because the GitHub contents API makes that convenient. On an active CI branch this needlessly starts, supersedes or cancels workflow runs and makes evidence harder to follow.
+
+When working through GitHub tools, prefer the Git data flow for multi-file changes:
+
+```text
+create blobs
+    -> create one tree
+    -> create one commit
+    -> update the branch ref once
+```
+
+Keep the commit boundary meaningful. Separate commits are still appropriate when changes are genuinely independent review units, when a completed evidence point should remain individually traceable, or when a failing CI run reveals a new correction that could not reasonably have been validated before the push.
+
+Before pushing a logical work unit, catch avoidable follow-up commits by checking naming, imports/includes, documentation links, generated-output entrypoints and other touched references together.
+
+If one logical task spans multiple repositories, preserve ownership boundaries: make one coherent commit per affected repository rather than combining unrelated repository concerns or producing per-file commits in each repository.
+
+Do not rewrite already-published history merely to repair an earlier overly granular sequence unless there is a separate reason to do so. Apply this discipline to subsequent work.
