@@ -29,6 +29,8 @@ shell wall                           1.20 mm
 shell outside              12.80 × 12.80 mm
 shell top                            1.20 mm
 retention rib protrusion             0.35 mm
+shell/rib flex interference           0.15 mm
+retention lower lip                   0.60 mm
 ```
 
 The 0.6 + 3.4 = 4.0 relationship is now an explicit AT-01 design choice. It is
@@ -78,8 +80,16 @@ The fixed ribs are asymmetric in Z:
   insertion;
 - a shorter lower ramp gives a more abrupt retention edge during removal.
 
-The shell window provides final clearance for the rib, allowing the tongue to
-relax after insertion.
+The shell keeps a 0.60 mm-high solid lip below each retention window. This is
+deliberate: the earlier 0.05 mm lip was both practically unprintable and allowed
+the rib to enter the window with almost no flex event.
+
+In the corrected geometry the nominal shell inner face is 0.20 mm outside the
+10 mm core while the rib protrudes 0.35 mm. The retention tongue therefore needs
+approximately 0.15 mm outward deflection while the lower lip passes the rib.
+
+At the final seated position the rib is fully inside the window, allowing the
+tongue to relax again.
 
 This is a CAD hypothesis only. Actual insertion/pull-out force requires printed
 coupons.
@@ -113,6 +123,8 @@ AT-01 must verify:
 - assembled shell base = Z 0.60 mm;
 - assembled shell underside/top stop = Z 4.00 mm;
 - final retention ribs occupy their windows without static solid overlap;
+- lower retention lip is 0.60 mm, not a sub-layer-thickness artifact;
+- required nominal tongue deflection at the rib is 0.15 mm;
 - complete and profile STLs are manifold;
 - rendered sections actually pass through the intended retention and locating
   planes.
