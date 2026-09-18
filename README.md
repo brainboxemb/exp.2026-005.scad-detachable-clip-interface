@@ -19,12 +19,13 @@ A  50 × 10 × 4 mm rail carrier
    + one local 10 × 10 mm receiver position
 
 B  50 × 20 × 6 mm base plate
-   + the same local 10 × 10 mm receiver position
+   + 10 × 14 × 4 mm support boss
+   + the same central 10 × 10 mm receiver position
 ```
 
 The removable snap is 10 mm long and uses retention/flex only on two opposite
 sides. It clips from above at the one defined receiver position. The local
-receiver has an 6 mm active profile with a 2 mm sloped transition at each end back into
+receiver has an 8 mm active profile with a 1 mm explicit transition at each end back into
 the surrounding carrier.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
