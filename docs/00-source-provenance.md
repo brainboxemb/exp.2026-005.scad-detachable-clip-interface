@@ -82,5 +82,10 @@ derived geometry. Any later production integration must carry the applicable
 upstream attribution/licence notice alongside the derived interface geometry.
 
 
+The experiment repository itself now uses **CC BY-NC-SA 4.0** as its
+repository licence. The full licence text is available at the root
+`LICENSE` file.
+
 A verbatim copy of the QuackWorks repository-level CC BY-NC-SA 4.0 licence is
-retained at `LICENSES/CC-BY-NC-SA-4.0.txt` for the AT-01 derived geometry.
+also retained at `LICENSES/CC-BY-NC-SA-4.0.txt` as provenance evidence for the
+pinned upstream boundary.
