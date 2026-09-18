@@ -12,7 +12,9 @@ has been qualified.
 
 ## OG-01 — upstream reference assembly
 
-**Status:** active.
+**Status:** complete in PR #1.
+
+**Findings:** [OG-01 upstream reference findings](02-og-01-findings.md)
 
 Goal: understand the selected source before adapting it.
 
@@ -43,7 +45,7 @@ clear enough to describe the mechanism without guessing.
 
 ## AT-01 — neutral fixed/removable coupon
 
-**Status:** blocked on OG-01.
+**Status:** next after PR #1 merges.
 
 Goal: isolate the minimum useful attachment relationship from the complete
 OpenGrid tile context without adding HUB75 geometry.
