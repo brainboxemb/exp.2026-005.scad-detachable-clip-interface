@@ -202,6 +202,22 @@ assert(abs(AT01_PLATE_SUPPORT_LENGTH - 14.0) < 0.0001);
 assert(abs(AT01_PLATE_SUPPORT_END - 2.0) < 0.0001);
 assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIGHT) < 0.0001);
 
+// --- Public dimension API for component/design wrappers ----------------------
+//
+// OpenSCAD use<> imports functions/modules but not top-level variables. Keep
+// external wrappers tied to the production constants through these accessors
+// rather than duplicating dimensions.
+
+function at01_receiver_width() = AT01_RAIL_WIDTH;
+function at01_receiver_block_length() = AT01_PLATE_SUPPORT_LENGTH;
+function at01_receiver_height() = AT01_RECEIVER_HEIGHT;
+function at01_receiver_functional_length() = AT01_RECEIVER_ZONE_LENGTH;
+function at01_receiver_top_guide_length() = AT01_RECEIVER_TOP_GUIDE_LENGTH;
+
+function at01_snap_length() = AT01_SNAP_LENGTH;
+function at01_snap_outer_width() = AT01_SNAP_OUTER_WIDTH;
+function at01_snap_total_height() = AT01_SNAP_TOTAL_HEIGHT;
+
 // --- Shared receiver profiling by subtractive side cuts ---------------------
 //
 // Start from an ordinary straight 10 x 4 mm carrier/support. The receiver is
