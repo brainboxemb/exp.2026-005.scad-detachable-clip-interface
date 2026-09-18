@@ -207,13 +207,17 @@ module _at01_profile_loft(points_a, y_a, points_b, y_b) {
         [for (p = points_b) [p[0], y_b, p[1]]]
     );
 
+    // Profile points are counter-clockwise in X/Z. With y_a < y_b, each
+    // ruled side face must run a_i -> b_i -> b_next -> a_next so its normal
+    // points outward. The opposite winding makes the polyhedron invalid for
+    // Manifold conversion even when CGAL can later repair the union.
     side_faces = [
         for (i = [0 : n - 1])
             [
                 i,
-                (i + 1) % n,
+                n + i,
                 n + (i + 1) % n,
-                n + i
+                (i + 1) % n
             ]
     ];
 
