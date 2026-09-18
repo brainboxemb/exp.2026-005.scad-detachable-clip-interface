@@ -9,110 +9,109 @@ vpr: [68, 0, 35]
 
 ## Design intent
 
-The snap is the removable half of the node interface. It is designed independently
-from rail and plate examples.
+The node snap is the removable half of the node interface.
 
-The reduction keeps the functional roles of the pinned OpenGrid Lite snap:
+The design deliberately keeps the OpenGrid roles separate:
 
-- a shaped body outline;
-- flexible +/-X walls;
-- shaped inward retention nubs;
-- click/flex slots that create compliance;
-- a top tying both walls together.
+- outer envelope controls the recognisable clipped-corner plan form;
+- two +/-X walls provide the flexible structure;
+- inward nubs provide retention;
+- the long click slots provide compliance;
+- the upper wall slots separate the flex tongue from the top bridge;
+- the top ties both walls together;
+- the Y ends remain open.
 
-Only the +/-X walls retain. The Y ends stay open.
+The design record below follows that construction in small steps instead of
+jumping directly from wall pair to finished snap.
 
-## Step 1 — build the two retaining walls
+## Step 1 — define the core envelope
+
+The OpenGrid Lite source uses a clipped plan form. The node snap starts from the
+same idea, but on the reduced 10 mm scale.
 
 <!-- scad-render
-view: side-walls
+view: core-envelope
 -->
 
-The wall pair is cut from one coherent clipped-corner envelope. This avoids the
-earlier problem where the top and lower body had visibly different outer angles.
+The envelope is not itself the snap body. It is the shape used to clip the two
+side-wall solids:
 
-The outer envelope uses one reduced chamfer value:
+```openscad
+module _node_snap_core_outer_envelope() {
+    cuboid(
+        [
+            NODE_SNAP_OUTER_WIDTH,
+            NODE_SNAP_LENGTH,
+            NODE_SNAP_ENGAGEMENT_HEIGHT
+        ],
+        rounding = NODE_SNAP_CORNER_CHAMFER,
+        edges = "Z",
+        $fn = 2,
+        anchor = BOTTOM
+    );
+}
+```
+
+Here `$fn=2` is intentional: the corner is a straight chamfer, not a rounded
+curve.
+
+The reduced chamfer is capped at half the wall thickness:
 
 ```openscad
 NODE_SNAP_CORNER_CHAMFER = min(
     OPENGRID_SNAP_CORE_CHAMFER * NODE_TANGENTIAL_SCALE,
     NODE_SNAP_WALL_THICKNESS / 2
 );
-
-NODE_SNAP_CORNER_CHAMFER = NODE_SNAP_CORNER_CHAMFER;
 ```
 
-Because the wall is 2.0 mm thick, the chamfer is capped at 1.0 mm. The end
-therefore keeps both a 45-degree section and a visible straight section.
+That gives a 1.0 mm 45-degree corner while retaining a visible straight segment
+on the 2.0 mm wall.
 
-## Step 2 — add the OpenGrid-derived inward nubs
+## Step 2 — cut one side wall from the envelope
 
-Existing walls are grey; the two nubs added in this step are red.
+The grey volume is the envelope. The red volume is the positive-X wall that
+survives the intersection.
 
 <!-- scad-render
-view: nubs
+view: positive-wall
 -->
 
-The nub is intentionally **not** a hand-drawn trapezoid. The first reduction did
-that and produced a visually wrong straight middle. The current geometry keeps
-the upstream construction principle: bounding body minus two wedges,
-intersected with a rounded cylinder, then mirrored inward.
-
-The essential operation is:
+The production wall is simply a rectangular wall intersected with the shared
+outer envelope:
 
 ```openscad
-intersection() {
-    difference() {
-        cuboid([nub_d, nub_w, ...]);
-        wedge([nub_w, nub_d, top_wedge_h]);
-        wedge([nub_w, 0.4, bot_wedge_h]);
-    }
+module _node_snap_side_wall(x_sign = 1) {
+    inner = NODE_SNAP_INNER_WIDTH / 2;
+    outer = NODE_SNAP_OUTER_WIDTH / 2;
 
-    scale([1, source_round_scale_y, 1])
-        cyl(r = source_round_r, h = 2.01);
+    intersection() {
+        translate([
+            x_sign * (inner + outer) / 2,
+            0,
+            NODE_SNAP_ENGAGEMENT_HEIGHT / 2
+        ])
+            cube([
+                NODE_SNAP_WALL_THICKNESS,
+                NODE_SNAP_LENGTH,
+                NODE_SNAP_ENGAGEMENT_HEIGHT
+            ], center = true);
+
+        _node_snap_core_outer_envelope();
+    }
 }
 ```
 
-Only the tangential Y dimension is scaled to the 10 mm experiment. The source
-radial depth and Z wedge relationship stay intact.
+This is why the outside chamfer and the wall ends remain one coherent shape.
 
-## Step 3 — tie the walls together with the top
-
-The top added in this step is red.
+## Step 3 — mirror the second wall
 
 <!-- scad-render
-view: top
+view: side-walls
 -->
 
-It uses the same outer chamfer as the core/walls so the outside contour remains
-continuous from bottom to top.
+The Y ends are intentionally open. Only +/-X carry flex and retention.
 
-```openscad
-cuboid(
-    [
-        NODE_SNAP_OUTER_WIDTH,
-        NODE_SNAP_LENGTH,
-        NODE_SNAP_TOP_THICKNESS
-    ],
-    rounding = NODE_SNAP_CORNER_CHAMFER,
-    edges = "Z",
-    $fn = 2
-);
-```
-
-The `$fn=2` here is intentional: this is a straight clipped corner, not a
-rounded high-facet curve.
-
-## Step 4 — cut the flex/click slots
-
-Before subtraction the solid body is shown grey; the cutters are red.
-
-<!-- scad-render
-view: slot-cutters
--->
-
-The main click slot keeps the upstream 0.6 mm radial width and 0.3 mm rounding.
-The wall stack is therefore:
+The radial wall stack is:
 
 ```text
 inside
@@ -124,7 +123,173 @@ inside
 outside
 ```
 
-The key slot placement is:
+and is defined directly from those three dimensions:
+
+```openscad
+NODE_SNAP_WALL_THICKNESS =
+    NODE_SNAP_FLEX_TONGUE_THICKNESS
+    + NODE_SNAP_CLICK_SLOT_WIDTH
+    + NODE_SNAP_OUTER_SUPPORT_THICKNESS;
+```
+
+## Step 4 — start the source nub from its bounding box
+
+The node nub is not a hand-drawn trapezoid. It reuses the normal OpenGrid nub
+construction and mirrors it inward.
+
+The first intermediate state is just the upstream nub's bounding box, already
+transformed into the positive-X node wall:
+
+<!-- scad-render
+view: nub-box
+vpd: 52
+-->
+
+Source dimensions:
+
+```text
+nub base height        0.2 mm
+nub tangential width  11.0 mm
+nub radial depth       0.4 mm
+```
+
+The source box is:
+
+```openscad
+module _node_source_nub_box() {
+    translate([0, 0, OPENGRID_SNAP_NUB_HEIGHT - 0.01])
+        cuboid(
+            [
+                OPENGRID_SNAP_NUB_DEPTH,
+                OPENGRID_SNAP_NUB_WIDTH,
+                2.0 - OPENGRID_SNAP_NUB_HEIGHT + 0.01
+            ],
+            anchor = CENTER + LEFT + BOTTOM
+        );
+}
+```
+
+## Step 5 — shape the nub with the two wedges
+
+The same box is now cut by the OpenGrid upper and lower wedge tools:
+
+<!-- scad-render
+view: nub-wedge-shaped
+vpd: 52
+-->
+
+The production operation is:
+
+```openscad
+module _node_source_nub_wedge_shaped() {
+    difference() {
+        _node_source_nub_box();
+        _node_source_nub_top_wedge();
+        _node_source_nub_bottom_wedge();
+    }
+}
+```
+
+The source wedge heights remain 0.6 mm / 0.6 mm. This preserves the asymmetric
+entry/retention slopes from the normal OpenGrid nub instead of approximating
+them with one straight bevel.
+
+## Step 6 — apply the source rounding intersection
+
+The wedge-shaped nub is finally intersected with the same elliptical-cylinder
+construction used by the source:
+
+<!-- scad-render
+view: nub-final-one-side
+vpd: 52
+-->
+
+```openscad
+module _node_source_nub_local() {
+    intersection() {
+        _node_source_nub_wedge_shaped();
+        _node_source_nub_rounding_volume();
+    }
+}
+```
+
+and the rounding volume is:
+
+```openscad
+translate([OPENGRID_SNAP_NUB_ROUND_X, 0, 0])
+    scale([1, OPENGRID_SNAP_NUB_ROUND_SCALE_Y, 1])
+        cyl(
+            r = OPENGRID_SNAP_NUB_ROUND_RADIUS,
+            h = 2.01,
+            $fn = 180
+        );
+```
+
+This is the step that creates the rounded/bulb-like middle that was missing in
+the earlier straight-sided experiment.
+
+## Step 7 — mirror and scale the source nub into the node
+
+Both final nubs are shown red:
+
+<!-- scad-render
+view: nubs
+-->
+
+The source nub grows outward from the OpenGrid snap. The node uses the same
+shape but mirrors its radial direction so it grows inward:
+
+```openscad
+module _node_positive_x_nub_transform() {
+    inner = NODE_SNAP_INNER_WIDTH / 2;
+
+    translate([inner + 0.01, 0, 0])
+        mirror([1, 0, 0])
+            scale([1, NODE_TANGENTIAL_SCALE, 1])
+                children();
+}
+```
+
+Only Y is scaled. Radial depth and Z slopes remain source dimensions.
+
+## Step 8 — add the top bridge
+
+The existing walls+nubs are grey and the top bridge is red:
+
+<!-- scad-render
+view: top
+-->
+
+```openscad
+translate([
+    0,
+    0,
+    NODE_SNAP_ENGAGEMENT_HEIGHT + NODE_SNAP_TOP_THICKNESS / 2
+])
+    cuboid(
+        [
+            NODE_SNAP_OUTER_WIDTH,
+            NODE_SNAP_LENGTH,
+            NODE_SNAP_TOP_THICKNESS
+        ],
+        rounding = NODE_SNAP_CORNER_CHAMFER,
+        edges = "Z",
+        $fn = 2
+    );
+```
+
+The same chamfer is used on body and top, so there is no visible kink between
+the two outer contours.
+
+## Step 9 — cut the main click/flex slots
+
+The uncut body is grey; the long slot cutters are red:
+
+<!-- scad-render
+view: main-click-slot-cutters
+-->
+
+The slot placement is derived from the inner wall face:
 
 ```openscad
 translate([
@@ -143,27 +308,41 @@ translate([
     );
 ```
 
-The long slot remains basically straight by design. It creates flex; it is not
-supposed to mimic the receiver profile.
+After subtraction:
 
-## Step 5 — inspect the functional snap without reference marks
+<!-- scad-render
+view: after-main-click-slots
+-->
+
+The long slot's job is compliance only. It does not define the mating profile.
+
+## Step 10 — cut the upper wall slots
+
+The body after the main click slots is grey; the upper slot cutters are red:
+
+<!-- scad-render
+view: top-slot-cutters
+-->
+
+These 1.4 × 4.8 × 0.4 mm cuts separate the upper part of the flex tongue from
+the top bridge at the source-derived Z position.
+
+The plain mechanical snap after both slot operations is:
 
 <!-- scad-render
 view: plain
 -->
 
-At this point the mechanical snap is complete. This is the view used to judge
-body continuity, nub shape and slot placement without the scale pattern
-distracting from them.
-
 ## Retention profile
+
+The most useful mechanical section is the solid/off-slot profile:
 
 <!-- scad-render
 view: profile
 vpr: [90, 0, 0]
 -->
 
-The nominal mirrored relationship is:
+Nominal mirrored relationship:
 
 ```text
 receiver capture width   10.0 mm
@@ -172,26 +351,24 @@ nub opening               9.4 mm
 nub protrusion            0.4 mm per side
 ```
 
-This gives 0.1 mm nominal body clearance per side and temporary nub
-interference while crossing the receiver capture band.
+This gives 0.1 mm body clearance per side while the nubs temporarily interfere
+with the receiver capture band during insertion/removal.
 
-## Step 6 — add the optional 1 mm reference grooves
+## Step 11 — add the optional millimetre reference grooves
 
-The physical groove cutters are red:
+Existing geometry is grey; the shallow physical groove cutters are red:
 
 <!-- scad-render
 view: pattern-cutters
 -->
 
-Receiver and snap intentionally use the same helper so the visual scale is
-directly comparable.
+Receiver and snap intentionally use the same 1 mm reference helper.
 
-## Final design object
+## Final node snap
 
 <!-- scad-render
 view: final
 -->
 
-The final force, fatigue life, best material and final tolerance still require
-printed coupons. A clean CAD relationship is necessary evidence, not physical
-qualification.
+The CAD now makes the construction sequence explicit. Force, material choice,
+fatigue behaviour and final tolerance still require printed coupons.
