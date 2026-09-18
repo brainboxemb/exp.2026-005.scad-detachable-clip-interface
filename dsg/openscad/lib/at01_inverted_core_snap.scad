@@ -78,8 +78,27 @@ AT01_RECEIVER_CAPTURE_TOP_Z = 3.6;
 AT01_SNAP_SEATED_Z = 0.6;
 AT01_SNAP_ENGAGEMENT_HEIGHT = 3.4;
 
-// Experiment-owned printable snap structure.
-AT01_SNAP_WALL = 2.0;
+// Radial flex-wall decomposition.
+//
+// Upstream normal snap:
+//   body outer face      x = 12.4
+//   click-slot center    x = 11.4
+//   click-slot width         0.6
+//
+// Therefore the nub-bearing flex tongue between body face and slot is:
+//   12.4 - (11.4 + 0.3) = 0.7 mm.
+//
+// The radial mirror keeps that 0.7 mm tongue on the INSIDE of our shell.
+// The 0.6 mm slot and its 0.3 mm rounding are also kept unchanged.
+// Material beyond the slot is experiment-owned support; start at 0.7 mm so
+// the first coupon has a symmetric 0.7 / 0.6 / 0.7 radial wall stack.
+AT01_FLEX_TONGUE = 0.7;
+AT01_CLICK_SLOT_RADIAL = 0.6;
+AT01_CLICK_SLOT_ROUNDING = 0.3;
+AT01_OUTER_SUPPORT = 0.7;
+
+AT01_SNAP_WALL =
+    AT01_FLEX_TONGUE + AT01_CLICK_SLOT_RADIAL + AT01_OUTER_SUPPORT; // 2.0
 AT01_SNAP_TOP = 1.2;
 AT01_SNAP_OUTER_WIDTH = AT01_SNAP_INNER_WIDTH + 2 * AT01_SNAP_WALL;
 AT01_SNAP_TOTAL_HEIGHT = AT01_SNAP_ENGAGEMENT_HEIGHT + AT01_SNAP_TOP;
@@ -97,11 +116,12 @@ AT01_NUB_Z_INWARD_END = 1.4;
 AT01_NUB_Z_TOP = 2.0;
 
 // OpenGrid click-hole proportions retained on +/-X only.
-AT01_CLICK_SLOT_RADIAL = 0.6;
+// Radial width and rounding are source values. Tangential length is shortened
+// for this 10 mm coupon while preserving the 11/12.4 nub/slot relationship.
 AT01_CLICK_SLOT_LENGTH_Y = 12.4 * AT01_PLAN_SCALE;         // 4.96
 AT01_CLICK_SLOT_HEIGHT = 1.5;
-AT01_CLICK_SLOT_ROUNDING = 0.3;
-AT01_CLICK_SLOT_X_FROM_INNER = 1.0;
+AT01_CLICK_SLOT_X_FROM_INNER =
+    AT01_FLEX_TONGUE + AT01_CLICK_SLOT_RADIAL / 2;          // 1.0
 
 AT01_TOP_SLOT_RADIAL = 1.4;
 AT01_TOP_SLOT_LENGTH_Y = 12.0 * AT01_PLAN_SCALE;           // 4.8
@@ -119,6 +139,10 @@ assert(abs(AT01_RECEIVER_TOP_WIDTH - 9.2) < 0.0001);
 assert(abs(AT01_SNAP_INNER_WIDTH - 10.2) < 0.0001);
 assert(abs(AT01_SNAP_NUB_OPENING - 9.4) < 0.0001);
 assert(abs(AT01_NUB_PROTRUSION - 0.4) < 0.0001);
+assert(abs(AT01_FLEX_TONGUE - 0.7) < 0.0001);
+assert(abs(AT01_CLICK_SLOT_RADIAL - 0.6) < 0.0001);
+assert(abs(AT01_CLICK_SLOT_ROUNDING - 0.3) < 0.0001);
+assert(abs(AT01_SNAP_WALL - 2.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ZONE_LENGTH - 10.0) < 0.0001);
 assert(abs(AT01_RECEIVER_ACTIVE_LENGTH - 8.0) < 0.0001);
 assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIGHT) < 0.0001);
