@@ -208,7 +208,7 @@ assert(abs(AT01_SNAP_SEATED_Z + AT01_SNAP_ENGAGEMENT_HEIGHT - AT01_RECEIVER_HEIG
 module _at01_positive_x_lower_cut_active() {
     rotate([90, 0, 0])
         linear_extrude(
-            height = AT01_RECEIVER_TOP_ACTIVE_LENGTH,
+            height = AT01_RECEIVER_ACTIVE_LENGTH,
             center = true,
             convexity = 10
         )
@@ -221,12 +221,12 @@ module _at01_positive_x_lower_cut_active() {
 }
 
 module _at01_positive_x_top_cut_active() {
-    // Keep the full X/Z lead-in over the central active length only.
-    // The last 1 mm at each Y end is handled by an explicit taper below so
+    // Keep the full X/Z lead-in over the central top-guide length only.
+    // The last 2 mm at each Y end are handled by an explicit taper below so
     // the sloped face does not terminate in a vertical wall.
     rotate([90, 0, 0])
         linear_extrude(
-            height = AT01_RECEIVER_ACTIVE_LENGTH,
+            height = AT01_RECEIVER_TOP_ACTIVE_LENGTH,
             center = true,
             convexity = 10
         )
