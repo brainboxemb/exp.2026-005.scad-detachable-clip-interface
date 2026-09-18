@@ -52,6 +52,11 @@ NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH = 2.0;
 NODE_RECEIVER_TOP_GUIDE_LENGTH =
     NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH + 2 * NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH; // 14 mm
 
+// CSG-only overlap between the main top-guide cutter and its end taper.
+// This is not a design dimension: it prevents a coplanar touch at Y=+/-5
+// from surviving as a vertical seam/end face in the boolean result.
+NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP = 0.05;
+
 // Plate-only straight support around the same 10 mm functional receiver.
 // The extra 2 mm at each Y end is ordinary 10 x 4 mm material, not part of
 // the snap interface.
@@ -193,6 +198,8 @@ assert(abs(NODE_RECEIVER_FUNCTIONAL_LENGTH - 10.0) < 0.0001);
 assert(abs(NODE_RECEIVER_LOWER_TRANSITION_LENGTH - 1.0) < 0.0001);
 assert(abs(NODE_RECEIVER_LOWER_ACTIVE_LENGTH - 8.0) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH - 2.0) < 0.0001);
+assert(NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP > 0);
+assert(NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP < NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH - 10.0) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - 14.0) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - NODE_RECEIVER_BLOCK_LENGTH) < 0.0001);
@@ -269,7 +276,9 @@ module _node_positive_x_top_cut_active() {
 // edge at Y=7 mm. The main sloped face therefore stays 10 mm long while its
 // ends gain a real three-dimensional guide transition.
 module _node_positive_y_top_cut_transition() {
-    ya = NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2;
+    ya =
+        NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2
+        - NODE_RECEIVER_TOP_GUIDE_CSG_OVERLAP;
     yb = NODE_RECEIVER_TOP_GUIDE_LENGTH / 2;
     xi = NODE_RECEIVER_TOP_WIDTH / 2;
     xo = NODE_RECEIVER_WIDTH / 2 + 0.01;
