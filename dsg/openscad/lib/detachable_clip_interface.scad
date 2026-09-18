@@ -1,0 +1,795 @@
+// SPDX-License-Identifier: CC-BY-NC-SA-4.0
+//
+// This file contains experiment geometry derived from the OpenGrid/QuackWorks
+// reference. Original OpenGrid design: David D.
+// QuackWorks/OpenSCAD reference: AndyLevesque/QuackWorks,
+// pinned at e0c1cb7ec78dd9e9a8476ed739bd3402074354f3.
+// See LICENSE and docs/00-source-provenance.md for attribution and provenance.
+//
+// File: detachable_clip_interface.scad
+// Detachable clip interface — fixed receiver and removable snap.
+//
+// The local X/Z mating profile is intentionally derived from the QuackWorks
+// OpenGrid Lite receiver + normal snap relationship at:
+//   AndyLevesque/QuackWorks
+//   e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+//
+// Roles are inverted radially:
+//   OpenGrid receiver inner wall -> detachable clip receiver outer wall
+//   OpenGrid snap outward nub    -> detachable clip snap inward nub
+//
+// The receiver is LOCAL: one 10 x 10 mm attachment zone in the middle of each
+// 50 mm carrier. Only the two +/-X sides retain/flex. The snap is open at both
+// Y ends and clips on locally from above.
+
+// BOSL2 is used for rounded click-slot cuts.
+include <BOSL2/std.scad>
+
+// Carrier dimensions.
+EXAMPLE_CARRIER_LENGTH = 50.0;
+
+EXAMPLE_RAIL_WIDTH = 10.0;
+EXAMPLE_RAIL_HEIGHT = 4.0;
+
+EXAMPLE_PLATE_WIDTH = 20.0;
+EXAMPLE_PLATE_HEIGHT = 6.0;
+
+// Local receiver footprint along the carrier.
+CLIP_RECEIVER_FUNCTIONAL_LENGTH = 10.0;
+CLIP_RECEIVER_LOWER_TRANSITION_LENGTH = 1.0;
+CLIP_RECEIVER_LOWER_ACTIVE_LENGTH =
+    CLIP_RECEIVER_FUNCTIONAL_LENGTH - 2 * CLIP_RECEIVER_LOWER_TRANSITION_LENGTH; // 8 mm
+
+// Keep the complete 10 mm functional top lead-in. The guide transitions are
+// EXTRA geometry outside that functional receiver zone; they must not steal
+// length from the main sloped face.
+CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH = CLIP_RECEIVER_FUNCTIONAL_LENGTH; // 10 mm
+CLIP_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH = 2.0;
+CLIP_RECEIVER_TOP_GUIDE_LENGTH =
+    CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH + 2 * CLIP_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH; // 14 mm
+
+// Plate-only straight support around the same 10 mm functional receiver.
+// The extra 2 mm at each Y end is ordinary 10 x 4 mm material, not part of
+// the snap interface.
+CLIP_RECEIVER_BLOCK_LENGTH = 14.0;
+CLIP_RECEIVER_BLOCK_END_LENGTH = 2.0;
+
+// Shared receiver X/Z dimensions.
+CLIP_RECEIVER_MAX_WIDTH = 10.0;
+CLIP_RECEIVER_HEIGHT = 4.0;
+
+// Removable snap length matches the local receiver footprint.
+CLIP_SNAP_LENGTH = 10.0;
+
+// OpenGrid Lite source dimensions used by the radial mirror.
+OPENGRID_RECEIVER_CAPTURE_WIDTH = 25.0;
+OPENGRID_RECEIVER_LOWER_WIDTH = 26.4;
+OPENGRID_RECEIVER_TOP_WIDTH = 25.8;
+OPENGRID_SNAP_BODY_WIDTH = 24.8;
+OPENGRID_SNAP_NUB_OUTER_WIDTH = 25.6;
+
+// Mirror constant: original narrow 25 mm opening becomes 10 mm fixed capture.
+CLIP_RADIAL_MIRROR_SUM =
+    OPENGRID_RECEIVER_CAPTURE_WIDTH + CLIP_RECEIVER_MAX_WIDTH;
+
+// Mirrored fixed-receiver profile widths.
+CLIP_RECEIVER_LOWER_WIDTH =
+    CLIP_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_LOWER_WIDTH; // 8.6
+CLIP_RECEIVER_TOP_WIDTH =
+    CLIP_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_TOP_WIDTH;  // 9.2
+
+// Mirrored snap inner widths.
+CLIP_SNAP_INNER_WIDTH =
+    CLIP_RADIAL_MIRROR_SUM - OPENGRID_SNAP_BODY_WIDTH;     // 10.2
+CLIP_SNAP_NUB_OPENING =
+    CLIP_RADIAL_MIRROR_SUM - OPENGRID_SNAP_NUB_OUTER_WIDTH;      // 9.4
+CLIP_SNAP_NUB_PROTRUSION =
+    (CLIP_SNAP_INNER_WIDTH - CLIP_SNAP_NUB_OPENING) / 2; // 0.4
+
+// Lite receiver X/Z profile after taking the upper 4.0 mm of the Full board.
+// Radially mirrored fixed receiver:
+//   z 0.0 .. 1.6   width 8.6
+//   z 1.6 .. 2.6   ramp 8.6 -> 10.0
+//   z 2.6 .. 3.6   width 10.0
+//   z 3.6 .. 4.0   ramp 10.0 -> 9.2
+CLIP_RECEIVER_LOWER_Z = 1.6;
+CLIP_RECEIVER_RAMP_TOP_Z = 2.6;
+CLIP_RECEIVER_CAPTURE_TOP_Z = 3.6;
+
+// Lite snap seated top-flush against the 4 mm receiver.
+CLIP_SNAP_SEATED_Z = 0.6;
+CLIP_SNAP_ENGAGEMENT_HEIGHT = 3.4;
+
+// Radial flex-wall decomposition.
+//
+// Upstream normal snap:
+//   body outer face      x = 12.4
+//   click-slot center    x = 11.4
+//   click-slot width         0.6
+//
+// Therefore the nub-bearing flex tongue between body face and slot is:
+//   12.4 - (11.4 + 0.3) = 0.7 mm.
+//
+// The radial mirror keeps that 0.7 mm tongue on the INSIDE of our shell.
+// The 0.6 mm slot and its 0.3 mm rounding are also kept unchanged.
+// Material beyond the slot is experiment-owned support; start at 0.7 mm so
+// the first coupon has a symmetric 0.7 / 0.6 / 0.7 radial wall stack.
+CLIP_SNAP_FLEX_TONGUE_THICKNESS = 0.7;
+CLIP_SNAP_CLICK_SLOT_WIDTH = 0.6;
+CLIP_SNAP_CLICK_SLOT_CORNER_RADIUS = 0.3;
+CLIP_SNAP_OUTER_SUPPORT_THICKNESS = 0.7;
+
+CLIP_SNAP_WALL_THICKNESS =
+    CLIP_SNAP_FLEX_TONGUE_THICKNESS + CLIP_SNAP_CLICK_SLOT_WIDTH + CLIP_SNAP_OUTER_SUPPORT_THICKNESS; // 2.0
+CLIP_SNAP_TOP_THICKNESS = 1.2;
+CLIP_SNAP_OUTER_WIDTH = CLIP_SNAP_INNER_WIDTH + 2 * CLIP_SNAP_WALL_THICKNESS;
+CLIP_SNAP_TOTAL_HEIGHT = CLIP_SNAP_ENGAGEMENT_HEIGHT + CLIP_SNAP_TOP_THICKNESS;
+
+// Normal OpenGrid snap nub dimensions, radially mirrored.
+// Z/radial dimensions stay at upstream values; tangential length scales with
+// the 25 -> 10 mm receiver width reduction.
+CLIP_TANGENTIAL_SCALE =
+    CLIP_RECEIVER_MAX_WIDTH / OPENGRID_RECEIVER_CAPTURE_WIDTH; // 0.4
+
+// OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
+// plain rectangular slab. Scale the source 3.262743 mm plan chamfer with the
+// same 25 -> 10 mm reduction used for tangential dimensions.
+OPENGRID_SNAP_CORE_CHAMFER = 4.81837;
+OPENGRID_SNAP_TOP_CHAMFER = 3.262743;
+// A direct 25 -> 10 mm scale gives ~1.93 mm, which consumes almost the entire
+// 2.0 mm wall at the open end. Keep the source 45-degree corner language, but
+// cap the reduced chamfer at half the wall thickness so the end retains a
+// visible straight segment as well.
+CLIP_SNAP_CORNER_CHAMFER = min(
+    OPENGRID_SNAP_CORE_CHAMFER * CLIP_TANGENTIAL_SCALE,
+    CLIP_SNAP_WALL_THICKNESS / 2
+);
+
+// Keep one coherent outer plan contour: top and core use the same chamfer.
+CLIP_SNAP_TOP_THICKNESS_ROUNDING = CLIP_SNAP_CORNER_CHAMFER;
+
+// OpenGrid click-hole proportions retained on +/-X only.
+// Radial width and rounding are source values. Tangential length is shortened
+// for this 10 mm coupon while preserving the 11/12.4 nub/slot relationship.
+CLIP_SNAP_CLICK_SLOT_LENGTH = 12.4 * CLIP_TANGENTIAL_SCALE;         // 4.96
+CLIP_SNAP_CLICK_SLOT_HEIGHT = 1.5;
+CLIP_SNAP_CLICK_SLOT_OFFSET_FROM_INNER =
+    CLIP_SNAP_FLEX_TONGUE_THICKNESS + CLIP_SNAP_CLICK_SLOT_WIDTH / 2;          // 1.0
+
+CLIP_SNAP_TOP_SLOT_WIDTH = 1.4;
+CLIP_SNAP_TOP_SLOT_LENGTH = 12.0 * CLIP_TANGENTIAL_SCALE;           // 4.8
+CLIP_SNAP_TOP_SLOT_HEIGHT = 0.4;
+CLIP_SNAP_TOP_SLOT_Z = 2.2;
+
+// Evidence helpers.
+EVIDENCE_EXPLODED_Z = 8.0;
+EVIDENCE_PROFILE_SLICE = 1.0;
+EVIDENCE_TRANSITION_PLAN_Z = 0.8;
+
+// Optional physical millimetre reference grooves.
+// These are real subtractive features so they appear in STL as well as render.
+// The reference is deliberately compact: one centred 10 x 10 mm "centimetre"
+// patch, rather than a grid spread over the complete receiver/support area.
+CLIP_MM_PATTERN_PITCH = 1.0;
+CLIP_MM_PATTERN_DEPTH = 0.12;
+CLIP_MM_PATTERN_LINE_WIDTH = 0.12;
+CLIP_MM_PATTERN_TICK_LENGTH = 0.55;
+CLIP_MM_PATTERN_TICK_WIDTH = 0.10;
+
+// Invariants.
+assert(abs(CLIP_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
+assert(abs(CLIP_RECEIVER_TOP_WIDTH - 9.2) < 0.0001);
+assert(abs(CLIP_SNAP_INNER_WIDTH - 10.2) < 0.0001);
+assert(abs(CLIP_SNAP_NUB_OPENING - 9.4) < 0.0001);
+assert(abs(CLIP_SNAP_NUB_PROTRUSION - 0.4) < 0.0001);
+assert(abs(CLIP_SNAP_FLEX_TONGUE_THICKNESS - 0.7) < 0.0001);
+assert(abs(CLIP_SNAP_CLICK_SLOT_WIDTH - 0.6) < 0.0001);
+assert(abs(CLIP_SNAP_CLICK_SLOT_CORNER_RADIUS - 0.3) < 0.0001);
+assert(abs(CLIP_SNAP_WALL_THICKNESS - 2.0) < 0.0001);
+assert(abs(CLIP_SNAP_CORNER_CHAMFER - CLIP_SNAP_TOP_THICKNESS_ROUNDING) < 0.0001);
+assert(abs(CLIP_SNAP_CORNER_CHAMFER - CLIP_SNAP_WALL_THICKNESS / 2) < 0.0001);
+assert(CLIP_SNAP_CORNER_CHAMFER < CLIP_SNAP_LENGTH / 2);
+assert(abs(CLIP_RECEIVER_FUNCTIONAL_LENGTH - 10.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_LOWER_TRANSITION_LENGTH - 1.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_LOWER_ACTIVE_LENGTH - 8.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH - 2.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH - 10.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_TOP_GUIDE_LENGTH - 14.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_TOP_GUIDE_LENGTH - CLIP_RECEIVER_BLOCK_LENGTH) < 0.0001);
+assert(abs(CLIP_RECEIVER_BLOCK_LENGTH - 14.0) < 0.0001);
+assert(abs(CLIP_RECEIVER_BLOCK_END_LENGTH - 2.0) < 0.0001);
+assert(abs(CLIP_SNAP_SEATED_Z + CLIP_SNAP_ENGAGEMENT_HEIGHT - CLIP_RECEIVER_HEIGHT) < 0.0001);
+
+// --- Public dimension API for component/design wrappers ----------------------
+//
+// OpenSCAD use<> imports functions/modules but not top-level variables. Keep
+// external wrappers tied to the production constants through these accessors
+// rather than duplicating dimensions.
+
+function detachable_clip_receiver_width() = EXAMPLE_RAIL_WIDTH;
+function detachable_clip_receiver_length() = CLIP_RECEIVER_BLOCK_LENGTH;
+function detachable_clip_receiver_height() = CLIP_RECEIVER_HEIGHT;
+function detachable_clip_receiver_functional_length() = CLIP_RECEIVER_FUNCTIONAL_LENGTH;
+function detachable_clip_receiver_top_guide_length() = CLIP_RECEIVER_TOP_GUIDE_LENGTH;
+
+function detachable_clip_snap_length() = CLIP_SNAP_LENGTH;
+function detachable_clip_snap_outer_width() = CLIP_SNAP_OUTER_WIDTH;
+function detachable_clip_snap_total_height() = CLIP_SNAP_TOTAL_HEIGHT;
+
+// --- Shared receiver profiling by subtractive side cuts ---------------------
+//
+// Start from an ordinary straight 10 x 4 mm carrier/support. The receiver is
+// created only by removing the two source-derived side recesses:
+//
+//   lower recess: x 4.3..5.0 over z 0..2.6 with the 1.6..2.6 ramp
+//   top recess:   triangular x 4.6..5.0 over z 3.6..4.0
+//
+// The lower mating profile is 8 mm active + 1 mm transition per Y end.
+// The top guide is deliberately TWO-SIDED: it stays fully active for 10 mm on
+// +/-X and then tapers back to the ordinary top face over 2 mm per Y end.
+// There is no separate +/-Y top chamfer because the removable snap is open at
+// those ends. Opposite sides are generated by mirror(), guaranteeing symmetry.
+
+module _clip_positive_x_lower_cut_active() {
+    rotate([90, 0, 0])
+        linear_extrude(
+            height = CLIP_RECEIVER_LOWER_ACTIVE_LENGTH,
+            center = true,
+            convexity = 10
+        )
+            polygon(points = [
+                [CLIP_RECEIVER_LOWER_WIDTH / 2, 0],
+                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, 0],
+                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, CLIP_RECEIVER_RAMP_TOP_Z],
+                [CLIP_RECEIVER_LOWER_WIDTH / 2, CLIP_RECEIVER_LOWER_Z]
+            ]);
+}
+
+module _clip_positive_x_top_cut_active() {
+    // Two-sided insertion guide: the snap retains/flexes only on +/-X and is
+    // open at both Y ends. Keep the complete X/Z lead-in over the full 10 mm
+    // functional length; separate 2 mm end tapers return it to the top face.
+    rotate([90, 0, 0])
+        linear_extrude(
+            height = CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH,
+            center = true,
+            convexity = 10
+        )
+            polygon(points = [
+                [CLIP_RECEIVER_TOP_WIDTH / 2, CLIP_RECEIVER_HEIGHT + 0.01],
+                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, CLIP_RECEIVER_HEIGHT + 0.01],
+                [EXAMPLE_RAIL_WIDTH / 2 + 0.01, CLIP_RECEIVER_CAPTURE_TOP_Z]
+            ]);
+}
+
+// Positive-Y transition for the X-side top lead-in.
+//
+// At Y=5 mm this is the same triangular X/Z cut as the complete 10 mm
+// functional lead-in. Over the EXTRA 2 mm it collapses into the ordinary rail
+// edge at Y=7 mm. The main sloped face therefore stays 10 mm long while its
+// ends gain a real three-dimensional guide transition.
+module _clip_positive_y_top_cut_transition() {
+    ya = CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2;
+    yb = CLIP_RECEIVER_TOP_GUIDE_LENGTH / 2;
+    xi = CLIP_RECEIVER_TOP_WIDTH / 2;
+    xo = EXAMPLE_RAIL_WIDTH / 2 + 0.01;
+    z0 = CLIP_RECEIVER_CAPTURE_TOP_Z;
+    z1 = CLIP_RECEIVER_HEIGHT + 0.01;
+
+    // Start with the same triangular X/Z lead-in section as the active
+    // centre. Over the 2 mm Y transition, collapse that complete triangle to
+    // the ORIGINAL outer/top rail corner. That is the zero-cut condition.
+    //
+    // The exposed chamfer face therefore continues as a genuine 3D guide
+    // surface into the ordinary rail instead of appearing to terminate
+    // against a straight end wall.
+    polyhedron(
+        points = [
+            [xi, ya, z1],
+            [xo, ya, z1],
+            [xo, ya, z0],
+            [xo, yb, z1]
+        ],
+        faces = [
+            [0, 2, 1],
+            [0, 1, 3],
+            [1, 2, 3],
+            [2, 0, 3]
+        ],
+        convexity = 10
+    );
+}
+
+// Positive-Y lower cut taper.
+// At Y=active_half it has the full receiver cutout. At Y=zone_half it has
+// zero radial depth at X=5, so the carrier is exactly rectangular again.
+module _clip_positive_y_lower_cut_transition() {
+    ya = CLIP_RECEIVER_LOWER_ACTIVE_LENGTH / 2;
+    yb = CLIP_RECEIVER_FUNCTIONAL_LENGTH / 2;
+    xi = CLIP_RECEIVER_LOWER_WIDTH / 2;
+    xo = EXAMPLE_RAIL_WIDTH / 2 + 0.01;
+
+    polyhedron(
+        points = [
+            [xi, ya, 0],
+            [xo, ya, 0],
+            [xo, ya, CLIP_RECEIVER_RAMP_TOP_Z],
+            [xi, ya, CLIP_RECEIVER_LOWER_Z],
+            [xo, yb, 0],
+            [xo, yb, CLIP_RECEIVER_RAMP_TOP_Z]
+        ],
+        faces = [
+            [0, 1, 2, 3],
+            [0, 4, 1],
+            [1, 4, 5, 2],
+            [2, 5, 3],
+            [3, 5, 4, 0]
+        ],
+        convexity = 10
+    );
+}
+
+module _clip_positive_x_receiver_cuts() {
+    union() {
+        _clip_positive_x_lower_cut_active();
+        _clip_positive_x_top_cut_active();
+
+        _clip_positive_y_lower_cut_transition();
+        _clip_positive_y_top_cut_transition();
+
+        mirror([0, 1, 0]) {
+            _clip_positive_y_lower_cut_transition();
+            _clip_positive_y_top_cut_transition();
+        }
+    }
+}
+
+module _clip_receiver_cuts() {
+    union() {
+        _clip_positive_x_receiver_cuts();
+
+        mirror([1, 0, 0])
+            _clip_positive_x_receiver_cuts();
+    }
+}
+
+// --- Optional physical millimetre reference pattern ------------------------
+
+module _clip_mm_reference_cuts_at_top(top_z, x_length, y_length) {
+    z_center =
+        top_z - CLIP_MM_PATTERN_DEPTH / 2 + 0.01;
+
+    // Let the two main grooves run all the way to the real part boundary.
+    // A tiny overrun guarantees the subtraction reaches the outside face;
+    // intersection with the part naturally clips chamfered outlines.
+    translate([0, 0, z_center])
+        cube([
+            x_length + 0.02,
+            CLIP_MM_PATTERN_LINE_WIDTH,
+            CLIP_MM_PATTERN_DEPTH + 0.02
+        ], center = true);
+
+    translate([0, 0, z_center])
+        cube([
+            CLIP_MM_PATTERN_LINE_WIDTH,
+            y_length + 0.02,
+            CLIP_MM_PATTERN_DEPTH + 0.02
+        ], center = true);
+
+    // 1 mm ticks continue over the available line length. The owning part
+    // clips ticks automatically at chamfers and outer boundaries.
+    x_tick_max = floor(x_length / 2 / CLIP_MM_PATTERN_PITCH);
+    y_tick_max = floor(y_length / 2 / CLIP_MM_PATTERN_PITCH);
+
+    for (i = [-x_tick_max : 1 : x_tick_max])
+        if (i != 0)
+            translate([i * CLIP_MM_PATTERN_PITCH, 0, z_center])
+                cube([
+                    CLIP_MM_PATTERN_TICK_WIDTH,
+                    CLIP_MM_PATTERN_TICK_LENGTH,
+                    CLIP_MM_PATTERN_DEPTH + 0.02
+                ], center = true);
+
+    for (i = [-y_tick_max : 1 : y_tick_max])
+        if (i != 0)
+            translate([0, i * CLIP_MM_PATTERN_PITCH, z_center])
+                cube([
+                    CLIP_MM_PATTERN_TICK_LENGTH,
+                    CLIP_MM_PATTERN_TICK_WIDTH,
+                    CLIP_MM_PATTERN_DEPTH + 0.02
+                ], center = true);
+}
+
+// --- Standalone receiver block ---------------------------------------------
+//
+// Primary fixed-side design object. The 10 mm functional receiver remains
+// centred inside a 14 mm-long block so the 2 mm top-guide transitions on both
+// ends have real material to terminate into. Rail and plate carriers are
+// integration examples built around this same interface geometry.
+
+module _detachable_clip_receiver_geometry() {
+    difference() {
+        translate([
+            -EXAMPLE_RAIL_WIDTH / 2,
+            -CLIP_RECEIVER_BLOCK_LENGTH / 2,
+            0
+        ])
+            cube([
+                EXAMPLE_RAIL_WIDTH,
+                CLIP_RECEIVER_BLOCK_LENGTH,
+                CLIP_RECEIVER_HEIGHT
+            ]);
+
+        _clip_receiver_cuts();
+    }
+}
+
+module detachable_clip_receiver(mm_pattern = false) {
+    difference() {
+        _detachable_clip_receiver_geometry();
+
+        if (mm_pattern)
+            _clip_mm_reference_cuts_at_top(
+                CLIP_RECEIVER_HEIGHT,
+                EXAMPLE_RAIL_WIDTH,
+                CLIP_RECEIVER_BLOCK_LENGTH
+            );
+    }
+}
+
+// --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
+
+module _detachable_clip_receiver_rail_example_geometry() {
+    difference() {
+        translate([
+            -EXAMPLE_RAIL_WIDTH / 2,
+            -EXAMPLE_CARRIER_LENGTH / 2,
+            0
+        ])
+            cube([
+                EXAMPLE_RAIL_WIDTH,
+                EXAMPLE_CARRIER_LENGTH,
+                EXAMPLE_RAIL_HEIGHT
+            ]);
+
+        _clip_receiver_cuts();
+    }
+}
+
+module detachable_clip_receiver_rail_example(mm_pattern = false) {
+    difference() {
+        _detachable_clip_receiver_rail_example_geometry();
+
+        if (mm_pattern)
+            _clip_mm_reference_cuts_at_top(
+                CLIP_RECEIVER_HEIGHT,
+                EXAMPLE_RAIL_WIDTH,
+                EXAMPLE_CARRIER_LENGTH
+            );
+    }
+}
+
+// --- Carrier B: 50 x 20 x 6 plate + 10 x 14 x 4 support boss --------------
+
+module _detachable_clip_receiver_plate_example_geometry() {
+    union() {
+        translate([
+            -EXAMPLE_PLATE_WIDTH / 2,
+            -EXAMPLE_CARRIER_LENGTH / 2,
+            0
+        ])
+            cube([
+                EXAMPLE_PLATE_WIDTH,
+                EXAMPLE_CARRIER_LENGTH,
+                EXAMPLE_PLATE_HEIGHT
+            ]);
+
+        translate([0, 0, EXAMPLE_PLATE_HEIGHT])
+            _detachable_clip_receiver_geometry();
+    }
+}
+
+module detachable_clip_receiver_plate_example(mm_pattern = false) {
+    difference() {
+        _detachable_clip_receiver_plate_example_geometry();
+
+        if (mm_pattern)
+            _clip_mm_reference_cuts_at_top(
+                EXAMPLE_PLATE_HEIGHT + CLIP_RECEIVER_HEIGHT,
+                EXAMPLE_RAIL_WIDTH,
+                CLIP_RECEIVER_BLOCK_LENGTH
+            );
+    }
+}
+
+function detachable_clip_example_receiver_base_z(variant) =
+    variant == 0 ? 0 : EXAMPLE_PLATE_HEIGHT;
+
+module detachable_clip_example_receiver(variant = 0, mm_pattern = false) {
+    assert(variant == 0 || variant == 1, "detachable clip receiver example variant must be 0 or 1.");
+
+    if (variant == 0)
+        detachable_clip_receiver_rail_example(mm_pattern);
+    else
+        detachable_clip_receiver_plate_example(mm_pattern);
+}
+
+// --- Shared removable snap -------------------------------------------------
+
+module _clip_snap_core_outer_envelope() {
+    // QuackWorks forms the Lite core with a chamfered plan outline:
+    // cuboid(... rounding=4.81837, edges="Z", $fn=2).
+    //
+    // Keep that plan-form logic under the 25 -> 10 mm reduction so the
+    // reduced snap has the same recognisable clipped-corner silhouette.
+    cuboid(
+        [
+            CLIP_SNAP_OUTER_WIDTH,
+            CLIP_SNAP_LENGTH,
+            CLIP_SNAP_ENGAGEMENT_HEIGHT
+        ],
+        rounding = CLIP_SNAP_CORNER_CHAMFER,
+        edges = "Z",
+        $fn = 2,
+        anchor = BOTTOM
+    );
+}
+
+module _clip_snap_side_wall(x_sign = 1) {
+    inner = CLIP_SNAP_INNER_WIDTH / 2;
+    outer = CLIP_SNAP_OUTER_WIDTH / 2;
+
+    intersection() {
+        translate([
+            x_sign * (inner + outer) / 2,
+            0,
+            CLIP_SNAP_ENGAGEMENT_HEIGHT / 2
+        ])
+            cube([
+                CLIP_SNAP_WALL_THICKNESS,
+                CLIP_SNAP_LENGTH,
+                CLIP_SNAP_ENGAGEMENT_HEIGHT
+            ], center = true);
+
+        _clip_snap_core_outer_envelope();
+    }
+}
+
+module _clip_snap_top() {
+    translate([
+        0,
+        0,
+        CLIP_SNAP_ENGAGEMENT_HEIGHT + CLIP_SNAP_TOP_THICKNESS / 2
+    ])
+        cuboid(
+            [
+                CLIP_SNAP_OUTER_WIDTH,
+                CLIP_SNAP_LENGTH,
+                CLIP_SNAP_TOP_THICKNESS
+            ],
+            rounding = CLIP_SNAP_TOP_THICKNESS_ROUNDING,
+            edges = "Z",
+            $fn = 2,
+            anchor = CENTER
+        );
+}
+
+// Exact radial/Z construction used by the normal QuackWorks OpenGrid nub,
+// expressed in local coordinates with the snap body face at X=0.
+//
+// The detachable clip interface deliberately does NOT replace this with a simple trapezoid: that older
+// reduction created the visually wrong straight middle section. The PoP keeps
+// the source 0.4 mm radial depth and 0.2/0.6/0.6 mm Z wedge relationship, then
+// scales only the tangential Y direction by CLIP_TANGENTIAL_SCALE.
+module _clip_source_nub_local() {
+    source_nub_h = 0.2;
+    source_nub_w = 11.0;
+    source_nub_d = 0.4;
+    source_top_wedge_h = 0.6;
+    source_bottom_wedge_h = 0.6;
+    source_round_x = -12.36;
+    source_round_scale_y = 1.36;
+    source_round_r = 13.025;
+
+    intersection() {
+        difference() {
+            translate([0, 0, source_nub_h - 0.01])
+                cuboid(
+                    [
+                        source_nub_d,
+                        source_nub_w,
+                        2.0 - source_nub_h + 0.01
+                    ],
+                    anchor = CENTER + LEFT + BOTTOM
+                );
+
+            translate([0, 0, 2.0])
+                rotate([0, 180, 90])
+                    wedge(
+                        [source_nub_w, source_nub_d, source_top_wedge_h],
+                        anchor = CENTER + BOTTOM + BACK
+                    );
+
+            translate([0, 0, source_nub_h])
+                rotate([0, 0, 90])
+                    wedge(
+                        [source_nub_w, 0.4, source_bottom_wedge_h],
+                        anchor = CENTER + BOTTOM + BACK
+                    );
+        }
+
+        translate([source_round_x, 0, 0])
+            scale([1, source_round_scale_y, 1])
+                cyl($fn = 180, r = source_round_r, h = 2.01, anchor = BOTTOM);
+    }
+}
+
+module _clip_positive_x_nub() {
+    inner = CLIP_SNAP_INNER_WIDTH / 2;
+
+    // The upstream nub grows outward from the body face. Mirror that radial
+    // direction so it grows inward into the detachable clip snap opening. Scale only Y.
+    translate([inner + 0.01, 0, 0])
+        mirror([1, 0, 0])
+            scale([1, CLIP_TANGENTIAL_SCALE, 1])
+                _clip_source_nub_local();
+}
+
+module _clip_positive_x_click_slot() {
+    inner = CLIP_SNAP_INNER_WIDTH / 2;
+
+    translate([
+        inner + CLIP_SNAP_CLICK_SLOT_OFFSET_FROM_INNER,
+        0,
+        CLIP_SNAP_CLICK_SLOT_HEIGHT / 2
+    ])
+        cuboid(
+            [
+                CLIP_SNAP_CLICK_SLOT_WIDTH,
+                CLIP_SNAP_CLICK_SLOT_LENGTH,
+                CLIP_SNAP_CLICK_SLOT_HEIGHT
+            ],
+            rounding = CLIP_SNAP_CLICK_SLOT_CORNER_RADIUS,
+            edges = "Z",
+            anchor = CENTER
+        );
+}
+
+module _clip_positive_x_top_slot() {
+    inner = CLIP_SNAP_INNER_WIDTH / 2;
+
+    translate([
+        inner,
+        0,
+        CLIP_SNAP_TOP_SLOT_Z + CLIP_SNAP_TOP_SLOT_HEIGHT / 2
+    ])
+        cube([
+            CLIP_SNAP_TOP_SLOT_WIDTH,
+            CLIP_SNAP_TOP_SLOT_LENGTH,
+            CLIP_SNAP_TOP_SLOT_HEIGHT
+        ], center = true);
+}
+
+module detachable_clip_snap(mm_pattern = false) {
+    difference() {
+        union() {
+            _clip_snap_side_wall(1);
+            _clip_snap_side_wall(-1);
+            _clip_snap_top();
+
+            _clip_positive_x_nub();
+
+            mirror([1, 0, 0])
+                _clip_positive_x_nub();
+        }
+
+        _clip_positive_x_click_slot();
+        _clip_positive_x_top_slot();
+
+        mirror([1, 0, 0]) {
+            _clip_positive_x_click_slot();
+            _clip_positive_x_top_slot();
+        }
+
+        if (mm_pattern)
+            _clip_mm_reference_cuts_at_top(
+                CLIP_SNAP_TOTAL_HEIGHT,
+                CLIP_SNAP_OUTER_WIDTH,
+                CLIP_SNAP_LENGTH
+            );
+    }
+}
+
+// --- Assemblies ------------------------------------------------------------
+
+module detachable_clip_example_assembled(variant = 0, snap_alpha = 0.55, mm_pattern = false) {
+    base_z = detachable_clip_example_receiver_base_z(variant);
+
+    color([0.68, 0.70, 0.74])
+        detachable_clip_example_receiver(variant, mm_pattern);
+
+    translate([0, 0, base_z + CLIP_SNAP_SEATED_Z])
+        color([0.92, 0.30, 0.12, snap_alpha])
+            detachable_clip_snap(mm_pattern);
+}
+
+module detachable_clip_example_exploded(variant = 0, mm_pattern = false) {
+    base_z = detachable_clip_example_receiver_base_z(variant);
+
+    color([0.68, 0.70, 0.74])
+        detachable_clip_example_receiver(variant, mm_pattern);
+
+    translate([
+        0,
+        0,
+        base_z + CLIP_SNAP_SEATED_Z + EVIDENCE_EXPLODED_Z
+    ])
+        color([0.92, 0.30, 0.12])
+            detachable_clip_snap(mm_pattern);
+}
+
+module detachable_clip_examples_comparison(mm_pattern = false) {
+    translate([-16, 0, 0])
+        detachable_clip_example_assembled(0, mm_pattern = mm_pattern);
+
+    translate([16, 0, 0])
+        detachable_clip_example_assembled(1, mm_pattern = mm_pattern);
+}
+
+// --- Evidence sections -----------------------------------------------------
+
+module _clip_y_slice() {
+    translate([-30, -EVIDENCE_PROFILE_SLICE / 2, -1])
+        cube([60, EVIDENCE_PROFILE_SLICE, 20]);
+}
+
+module _clip_transition_plan_slice(variant = 0) {
+    base_z = detachable_clip_example_receiver_base_z(variant);
+
+    // A horizontal 1 mm slice entirely inside the receiver's lower constant-
+    // width band (0 .. 1.6 mm local Z). This exposes the Y lead-in/lead-out
+    // directly in plan view without the misleading near-edge X/Z cut.
+    translate([
+        -30,
+        -30,
+        base_z + EVIDENCE_TRANSITION_PLAN_Z - EVIDENCE_PROFILE_SLICE / 2
+    ])
+        cube([60, 60, EVIDENCE_PROFILE_SLICE]);
+}
+
+module detachable_clip_receiver_retention_profile(variant = 0) {
+    intersection() {
+        detachable_clip_example_receiver(variant);
+        _clip_y_slice();
+    }
+}
+
+module detachable_clip_snap_retention_profile() {
+    intersection() {
+        detachable_clip_snap();
+        _clip_y_slice();
+    }
+}
+
+module detachable_clip_receiver_transition_profile(variant = 0) {
+    intersection() {
+        detachable_clip_example_receiver(variant);
+        _clip_transition_plan_slice(variant);
+    }
+}
+
+module detachable_clip_retention_section(variant = 0) {
+    base_z = detachable_clip_example_receiver_base_z(variant);
+
+    color([0.68, 0.70, 0.74])
+        detachable_clip_receiver_retention_profile(variant);
+
+    translate([0, 0, base_z + CLIP_SNAP_SEATED_Z])
+        color([0.92, 0.30, 0.12])
+            detachable_clip_snap_retention_profile();
+}
+
+module detachable_clip_transition_section(variant = 0) {
+    color([0.68, 0.70, 0.74])
+        detachable_clip_receiver_transition_profile(variant);
+}
