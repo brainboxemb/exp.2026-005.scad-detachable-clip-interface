@@ -13,6 +13,10 @@ at01_show_mm_pattern = true;
 /* [Profile] */
 profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 
+/* [Quality] */
+render_fn = 96;
+$fn = render_fn;
+
 include <lib/og02_full_lite_reference.scad>
 include <lib/at01_inverted_core_snap.scad>
 
