@@ -11,11 +11,39 @@ use <node_snap.scad>
 module node_snap_design(view = "final") {
     design_bosl2_context() {
         existing = [0.56, 0.56, 0.56, 0.42];
-        current = [0.88, 0.08, 0.06, 0.78];
+        current = [0.88, 0.08, 0.06, 0.82];
 
-        if (view == "side-walls") {
+        if (view == "core-envelope") {
+            color(current)
+                node_snap_design_core_envelope();
+
+        } else if (view == "positive-wall") {
+            color(existing)
+                node_snap_design_core_envelope();
+            color(current)
+                node_snap_design_positive_wall();
+
+        } else if (view == "side-walls") {
             color(current)
                 node_snap_design_side_walls();
+
+        } else if (view == "nub-box") {
+            color(existing)
+                node_snap_design_side_walls();
+            color(current)
+                node_snap_design_positive_nub_box();
+
+        } else if (view == "nub-wedge-shaped") {
+            color(existing)
+                node_snap_design_side_walls();
+            color(current)
+                node_snap_design_positive_nub_wedge_shaped();
+
+        } else if (view == "nub-final-one-side") {
+            color(existing)
+                node_snap_design_side_walls();
+            color(current)
+                node_snap_design_positive_nub_final();
 
         } else if (view == "nubs") {
             color(existing)
@@ -25,18 +53,25 @@ module node_snap_design(view = "final") {
 
         } else if (view == "top") {
             color(existing)
-                union() {
-                    node_snap_design_side_walls();
-                    node_snap_design_nubs();
-                }
+                node_snap_design_walls_and_nubs();
             color(current)
                 _node_snap_top();
 
-        } else if (view == "slot-cutters") {
+        } else if (view == "main-click-slot-cutters") {
             color(existing)
                 node_snap_design_before_slots();
             color(current)
-                node_snap_design_slot_cutters();
+                node_snap_design_main_click_slot_cutters();
+
+        } else if (view == "after-main-click-slots") {
+            color(current)
+                node_snap_design_after_main_click_slots();
+
+        } else if (view == "top-slot-cutters") {
+            color(existing)
+                node_snap_design_after_main_click_slots();
+            color(current)
+                node_snap_design_top_slot_cutters();
 
         } else if (view == "plain") {
             color(current)
