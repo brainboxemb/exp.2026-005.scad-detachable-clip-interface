@@ -61,6 +61,7 @@ AT01_RECEIVER_LOWER_WIDTH =
     AT01_RADIAL_MIRROR_SUM - AT01_SOURCE_RECEIVER_WIDE; // 8.6
 AT01_RECEIVER_TOP_WIDTH =
     AT01_RADIAL_MIRROR_SUM - AT01_SOURCE_RECEIVER_TOP;  // 9.2
+AT01_RECEIVER_TOP_LENGTH = AT01_RECEIVER_TOP_WIDTH;     // four-sided lead-in
 
 // Mirrored snap inner widths.
 AT01_SNAP_INNER_WIDTH =
@@ -152,6 +153,7 @@ AT01_MM_PATTERN_MAJOR_EVERY = 5;
 // Invariants.
 assert(abs(AT01_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
 assert(abs(AT01_RECEIVER_TOP_WIDTH - 9.2) < 0.0001);
+assert(abs(AT01_RECEIVER_TOP_LENGTH - 9.2) < 0.0001);
 assert(abs(AT01_SNAP_INNER_WIDTH - 10.2) < 0.0001);
 assert(abs(AT01_SNAP_NUB_OPENING - 9.4) < 0.0001);
 assert(abs(AT01_NUB_PROTRUSION - 0.4) < 0.0001);
@@ -197,7 +199,7 @@ module _at01_positive_x_lower_cut_active() {
 module _at01_positive_x_top_cut_active() {
     rotate([90, 0, 0])
         linear_extrude(
-            height = AT01_RECEIVER_ACTIVE_LENGTH,
+            height = AT01_RECEIVER_ZONE_LENGTH,
             center = true,
             convexity = 10
         )
@@ -237,30 +239,34 @@ module _at01_positive_y_lower_cut_transition() {
     );
 }
 
-// Positive-Y top cut taper. The triangular top recess collapses to the outer
-// X=5 edge at the end of the 1 mm transition.
-module _at01_positive_y_top_cut_transition() {
-    ya = AT01_RECEIVER_ACTIVE_LENGTH / 2;
-    yb = AT01_RECEIVER_ZONE_LENGTH / 2;
-    xi = AT01_RECEIVER_TOP_WIDTH / 2;
-    xo = AT01_RAIL_WIDTH / 2 + 0.01;
+// Positive-Y top lead-in cut.
+//
+// The local receiver's top footprint must help centre a part pressed down from
+// above. At Z=3.6 the receiver still reaches Y=5.0; at Z=4.0 the top edge has
+// moved inward to Y=4.6. Material outside Y=5 belongs to the surrounding
+// rail/support, leaving a small V-like separation at the receiver boundary.
+module _at01_positive_y_top_leadin_cut() {
+    xi = AT01_RAIL_WIDTH / 2 + 0.01;
+    yi = AT01_RECEIVER_TOP_LENGTH / 2;
+    yo = AT01_RECEIVER_ZONE_LENGTH / 2 + 0.01;
     z0 = AT01_RECEIVER_CAPTURE_TOP_Z;
     z1 = AT01_RECEIVER_HEIGHT + 0.01;
 
     polyhedron(
         points = [
-            [xi, ya, z1],
-            [xo, ya, z1],
-            [xo, ya, z0],
-            [xo, yb, z1],
-            [xo, yb, z0]
+            [-xi, yi, z1],
+            [ xi, yi, z1],
+            [-xi, yo, z1],
+            [ xi, yo, z1],
+            [-xi, yo, z0],
+            [ xi, yo, z0]
         ],
         faces = [
-            [0, 1, 2],
-            [0, 3, 1],
-            [1, 3, 4, 2],
-            [2, 4, 0],
-            [0, 4, 3]
+            [0, 2, 4],
+            [1, 5, 3],
+            [0, 1, 3, 2],
+            [2, 3, 5, 4],
+            [4, 5, 1, 0]
         ],
         convexity = 10
     );
@@ -272,12 +278,9 @@ module _at01_positive_x_receiver_cuts() {
         _at01_positive_x_top_cut_active();
 
         _at01_positive_y_lower_cut_transition();
-        _at01_positive_y_top_cut_transition();
 
-        mirror([0, 1, 0]) {
+        mirror([0, 1, 0])
             _at01_positive_y_lower_cut_transition();
-            _at01_positive_y_top_cut_transition();
-        }
     }
 }
 
@@ -287,6 +290,11 @@ module _at01_receiver_cuts() {
 
         mirror([1, 0, 0])
             _at01_positive_x_receiver_cuts();
+
+        _at01_positive_y_top_leadin_cut();
+
+        mirror([0, 1, 0])
+            _at01_positive_y_top_leadin_cut();
     }
 }
 
