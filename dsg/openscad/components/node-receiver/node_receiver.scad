@@ -86,11 +86,25 @@ module node_receiver_design_after_top_main() {
     }
 }
 
-module node_receiver_design_plain() {
+module node_receiver_design_top_end_removed_material() {
+    // Show only cutter volume that actually intersects the current part.
+    // This is more useful in the design record than displaying the complete
+    // mathematical cutter, most of which intentionally lies outside the part.
+    intersection() {
+        node_receiver_design_after_top_main();
+        node_receiver_design_top_end_cutters();
+    }
+}
+
+module node_receiver_design_after_top_end() {
     difference() {
         node_receiver_design_after_top_main();
         node_receiver_design_top_end_cutters();
     }
+}
+
+module node_receiver_design_plain() {
+    node_receiver_design_after_top_end();
 }
 
 module node_receiver_design_pattern_cutters() {
