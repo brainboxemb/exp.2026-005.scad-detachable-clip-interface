@@ -110,6 +110,12 @@ AT01_SNAP_TOP = 1.2;
 AT01_SNAP_OUTER_WIDTH = AT01_SNAP_INNER_WIDTH + 2 * AT01_SNAP_WALL;
 AT01_SNAP_TOTAL_HEIGHT = AT01_SNAP_ENGAGEMENT_HEIGHT + AT01_SNAP_TOP;
 
+// OpenGrid uses a chamfered/rounded plan form on the snap top rather than a
+// plain rectangular slab. Scale the source 3.262743 mm plan rounding with the
+// same 25 -> 10 mm reduction used for tangential dimensions.
+AT01_SOURCE_TOP_ROUNDING = 3.262743;
+AT01_SNAP_TOP_ROUNDING = AT01_SOURCE_TOP_ROUNDING * AT01_PLAN_SCALE;
+
 // Normal OpenGrid snap nub dimensions, radially mirrored.
 // Z/radial dimensions stay at upstream values; tangential length scales with
 // the 25 -> 10 mm receiver width reduction.
@@ -449,28 +455,78 @@ module _at01_snap_top() {
         0,
         AT01_SNAP_ENGAGEMENT_HEIGHT + AT01_SNAP_TOP / 2
     ])
-        cube([
-            AT01_SNAP_OUTER_WIDTH,
-            AT01_SNAP_LENGTH,
-            AT01_SNAP_TOP
-        ], center = true);
+        cuboid(
+            [
+                AT01_SNAP_OUTER_WIDTH,
+                AT01_SNAP_LENGTH,
+                AT01_SNAP_TOP
+            ],
+            rounding = AT01_SNAP_TOP_ROUNDING,
+            edges = "Z",
+            $fn = 2,
+            anchor = CENTER
+        );
+}
+
+// Exact radial/Z construction used by the normal QuackWorks OpenGrid nub,
+// expressed in local coordinates with the snap body face at X=0.
+//
+// AT-01 deliberately does NOT replace this with a simple trapezoid: that older
+// reduction created the visually wrong straight middle section. The PoP keeps
+// the source 0.4 mm radial depth and 0.2/0.6/0.6 mm Z wedge relationship, then
+// scales only the tangential Y direction by AT01_PLAN_SCALE.
+module _at01_source_nub_local() {
+    source_nub_h = 0.2;
+    source_nub_w = 11.0;
+    source_nub_d = 0.4;
+    source_top_wedge_h = 0.6;
+    source_bottom_wedge_h = 0.6;
+    source_round_x = -12.36;
+    source_round_scale_y = 1.36;
+    source_round_r = 13.025;
+
+    intersection() {
+        difference() {
+            translate([0, 0, source_nub_h - 0.01])
+                cuboid(
+                    [
+                        source_nub_d,
+                        source_nub_w,
+                        2.0 - source_nub_h + 0.01
+                    ],
+                    anchor = CENTER + LEFT + BOTTOM
+                );
+
+            translate([0, 0, 2.0])
+                rotate([0, 180, 90])
+                    wedge(
+                        [source_nub_w, source_nub_d, source_top_wedge_h],
+                        anchor = CENTER + BOTTOM + BACK
+                    );
+
+            translate([0, 0, source_nub_h])
+                rotate([0, 0, 90])
+                    wedge(
+                        [source_nub_w, 0.4, source_bottom_wedge_h],
+                        anchor = CENTER + BOTTOM + BACK
+                    );
+        }
+
+        translate([source_round_x, 0, 0])
+            scale([1, source_round_scale_y, 1])
+                cyl($fn = 180, r = source_round_r, h = 2.01, anchor = BOTTOM);
+    }
 }
 
 module _at01_positive_x_nub() {
     inner = AT01_SNAP_INNER_WIDTH / 2;
 
-    rotate([90, 0, 0])
-        linear_extrude(
-            height = AT01_NUB_LENGTH_Y,
-            center = true,
-            convexity = 10
-        )
-            polygon(points = [
-                [inner, AT01_NUB_Z_BOTTOM],
-                [inner - AT01_NUB_PROTRUSION, AT01_NUB_Z_INWARD_START],
-                [inner - AT01_NUB_PROTRUSION, AT01_NUB_Z_INWARD_END],
-                [inner, AT01_NUB_Z_TOP]
-            ]);
+    // The upstream nub grows outward from the body face. Mirror that radial
+    // direction so it grows inward into the AT-01 snap opening. Scale only Y.
+    translate([inner + 0.01, 0, 0])
+        mirror([1, 0, 0])
+            scale([1, AT01_PLAN_SCALE, 1])
+                _at01_source_nub_local();
 }
 
 module _at01_positive_x_click_slot() {
