@@ -1,0 +1,41 @@
+paths:
+  design_root: dsg
+  build_root: bld
+  render_root: dsg/openscad/render
+  export_root: dsg/openscad/export
+
+design:
+  include_externals: false
+
+build_engine:
+  engine: direct
+
+openscad:
+  render_flags:
+    - --render
+  image_size: [1600, 1000]
+  design_image_size: [640, 480]
+
+rendering:
+  watermark:
+    text: "© 2026 brainboxemb"
+
+externals:
+  - name: quackworks
+    required_file: openGrid/opengrid-snap.scad
+
+publication:
+  production:
+    source_branch: main
+    build_branch: prod/bld
+    verification_branch: prod/vrf
+
+  development:
+    pr_branch_prefix: dev/pr
+
+  tags:
+    pattern: "v*"
+
+  release:
+    branch_prefix: rel
+    tag_pattern: "v*"

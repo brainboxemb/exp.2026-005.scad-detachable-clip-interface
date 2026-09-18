@@ -1,0 +1,23 @@
+schema_version: 1
+
+project:
+  name: exp.2026-005.scad-detachable-clip-interface
+
+profiles:
+  - type: scad
+    config: project.scad.yml
+
+dependencies:
+  - name: tool.scad-project
+    role: tooling
+    type: git-submodule
+    url: https://github.com/brainboxemb/tool.scad-project.git
+    path: tools/tool.scad-project
+    ref: v0.14.10
+
+  - name: quackworks
+    role: external
+    type: git-submodule
+    url: https://github.com/brainboxemb/fork.andylevesque.quackworks.git
+    path: dsg/openscad/ext/quackworks
+    ref: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
