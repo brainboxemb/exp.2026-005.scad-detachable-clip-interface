@@ -50,6 +50,13 @@ module node_receiver_design_lower_cutters() {
     }
 }
 
+module node_receiver_design_lower_removed_material() {
+    intersection() {
+        node_receiver_design_base_block();
+        node_receiver_design_lower_cutters();
+    }
+}
+
 module node_receiver_design_top_guide_cutters() {
     union() {
         _node_positive_x_top_guide_cut();

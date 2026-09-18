@@ -1,18 +1,21 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **receiver top-guide geometry corrected in PR #7; current CI/visual qualification pending**
+Status: **receiver top-guide geometry qualified in PR #7; visual walkthrough review continues**
 
-Qualified source head:
-
-```text
-faebf5b886641bb0a83cfe18b49c22ef76fa8785
-```
-
-Build run:
+Qualified receiver-geometry source:
 
 ```text
-35386827873
+a646c69d4e1a57147fa1bd27dcf956922c9408b2
 ```
+
+Receiver-geometry build run:
+
+```text
+35391589559
+```
+
+The later presentation-only cleanup does not change the production mating
+geometry.
 
 Published preview:
 

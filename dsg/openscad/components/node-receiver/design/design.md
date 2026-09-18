@@ -57,12 +57,12 @@ surfaces are functional and which are merely the carrier envelope.
 
 ## Step 2 — cut the lower source-derived mating profile
 
-The first functional operation creates the lower receiver profile. In the
-design view the still-neutral block is grey and the material that will be
-removed is red.
+The first functional operation creates the lower receiver profile. The neutral
+block is shown on the left. On the right, red is only the material that
+actually intersects the block and will be removed:
 
 <!-- scad-render
-view: lower-cutters
+view: lower-removed
 -->
 
 The X/Z profile is the radial mirror of the pinned OpenGrid Lite receiver:
@@ -76,7 +76,17 @@ Z 2.6 .. 3.6     width 10.0 mm
 Along Y the lower profile is 8 mm active and returns to the untouched block over
 1 mm on both sides.
 
-The key construction is intentionally symmetric:
+The red object is derived from the production cutters, clipped to the actual
+receiver block:
+
+```openscad
+intersection() {
+    node_receiver_design_base_block();
+    node_receiver_design_lower_cutters();
+}
+```
+
+The underlying cutter construction is intentionally symmetric:
 
 ```openscad
 module node_receiver_design_lower_cutters() {

@@ -17,11 +17,15 @@ module node_receiver_design(view = "final") {
             color(current)
                 node_receiver_design_base_block();
 
-        } else if (view == "lower-cutters") {
-            color(existing)
-                node_receiver_design_base_block();
-            color(current)
-                node_receiver_design_lower_cutters();
+        } else if (view == "lower-removed") {
+            // Separate the before-state and the exact removed material so
+            // cutter volume outside the part cannot be mistaken for geometry.
+            translate([-8, 0, 0])
+                color(existing)
+                    node_receiver_design_base_block();
+            translate([8, 0, 0])
+                color(current)
+                    node_receiver_design_lower_removed_material();
 
         } else if (view == "after-lower") {
             color(current)

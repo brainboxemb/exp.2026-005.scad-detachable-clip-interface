@@ -365,9 +365,9 @@ module _node_mm_reference_cuts_at_top(top_z, x_length, y_length) {
 // --- Standalone receiver block ---------------------------------------------
 //
 // Primary fixed-side design object. The complete receiver stays within a
-// 10 x 10 mm footprint. The central 6 mm carries the full top lead-in and the
-// two 2 mm end regions taper it back to the ordinary receiver width. Rail and
-// plate carriers are integration examples built around this same geometry.
+// 10 x 10 mm footprint. One constant X/Z top chamfer runs over the complete
+// 10 mm Y length; there is no separate Y-end taper. Rail and plate carriers
+// are integration examples built around this same geometry.
 
 module _node_receiver_geometry() {
     difference() {
