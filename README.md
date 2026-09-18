@@ -73,7 +73,7 @@ The first outputs are:
 - `13-example-plate-assembled.png`.
 
 The primary reference/design objects therefore appear before carrier examples.
-Exploded/comparison views follow in the `20-...` range, interface
+Exploded/comparison views follow in the `20-...` range, node
 sections/profiles in the `30-...` range, and reference/detail evidence
 afterwards.
 
