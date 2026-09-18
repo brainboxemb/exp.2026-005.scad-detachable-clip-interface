@@ -66,9 +66,9 @@ module node_receiver_design_top_guide_cutters() {
 }
 
 module node_receiver_design_top_profile_slice() {
-    // Analysis-only 1 mm Y slice through the REAL production cutter. Because
-    // the cutter is constant along Y, this exposes the exact X/Z guide profile
-    // without introducing a second implementation.
+    // Analysis-only 1 mm Y slice through the centre of the REAL production
+    // cutter. This exposes the exact full-depth X/Z guide profile without
+    // introducing a second implementation.
     intersection() {
         node_receiver_design_top_guide_cutters();
 

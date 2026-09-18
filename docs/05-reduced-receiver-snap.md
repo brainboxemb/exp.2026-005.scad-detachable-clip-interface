@@ -84,16 +84,17 @@ open.
 The receiver is now a standalone 10 × 10 × 4 mm object.
 
 Its lower source-derived mating profile occupies the same 10 mm footprint.
-The upper insertion guide is treated separately: one constant X/Z chamfer runs
-over the complete 10 mm receiver length. The guide narrows inward on +/-X only;
-there is no Y-end taper.
+The upper insertion guide is treated separately: the full X/Z chamfer runs
+over the central 8 mm. During the final 1 mm at each Y end only the chamfer
+depth tapers back to zero; the top Z stays level.
 
 Current visual acceptance criterion:
 
-- the top guide runs over the complete 10 mm receiver length;
+- the full top chamfer runs over the central 8 mm;
+- the final 1 mm per end returns only the cut depth to zero;
 - the X/Z guide narrows from 10.0 mm to 9.2 mm over the top 0.4 mm;
-- no hourglass plan shape, Y-side V profile or thin end fins are present;
-- no separate Y-end taper is introduced;
+- the top stays level in Y and there are no thin end fins;
+- the receiver returns to the ordinary 10 mm width at both Y ends;
 - left/right and front/back geometry must remain symmetric.
 
 The exact construction belongs in the reduced receiver design document.

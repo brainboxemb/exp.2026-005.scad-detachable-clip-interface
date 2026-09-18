@@ -19,14 +19,16 @@ width                  10 mm
 length                 10 mm
 height                  4 mm
 functional zone        10 mm
-top guide length        10 mm
+top guide envelope      10 mm
+full chamfer length       8 mm
+depth transition          1 mm at each Y end
 top narrowing       10.0 -> 9.2 mm over 0.4 mm Z
 ```
 
 The guide stays inside the same 10 mm footprint as the receiver and snap. The
-same X/Z insertion chamfer runs over the complete 10 mm Y length. There is no
-separate Y taper: the snap is open at both Y ends, so only the +/-X faces need
-to guide the part inward.
+full X/Z chamfer is active over the central 8 mm. During the final 1 mm at each
+Y end, only the radial chamfer depth tapers back to zero. The top plane remains
+flat in Y; the transition only returns the part to its ordinary 10 mm width.
 
 ## Step 1 — start from the neutral block
 
@@ -138,31 +140,30 @@ Each X side therefore has a 0.4 × 0.4 mm lead-in. The design helper obtains the
 slice by intersecting the real production cutter; it does not redraw the
 profile separately.
 
-## Step 4 — extend that same profile over the full 10 mm length
+## Step 4 — keep the full chamfer for 8 mm, then return to normal width
 
-The complete top cutter is that same triangular X/Z section linearly extruded
-over the receiver length:
+The central 8 mm uses the same triangular X/Z section. Over the final 1 mm at
+each Y end, the inner edge of the cutter moves radially outward until the cut
+depth is zero. The Z coordinates do not move, so the top surface does not form
+a V in side view:
 
 <!-- scad-render
 view: top-guide-cutter
 -->
 
 ```openscad
-rotate([90, 0, 0])
-    linear_extrude(
-        height = NODE_RECEIVER_TOP_GUIDE_LENGTH + 0.02,
-        center = true
-    )
-        polygon(points = [
-            [NODE_RECEIVER_TOP_WIDTH / 2, NODE_RECEIVER_HEIGHT + 0.01],
-            [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_HEIGHT + 0.01],
-            [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_CAPTURE_TOP_Z]
-        ]);
+union() {
+    _node_positive_x_top_guide_active_cut();
+    _node_positive_y_top_guide_transition();
+    mirror([0, 1, 0])
+        _node_positive_y_top_guide_transition();
+}
 ```
 
-There is deliberately no Y taper to a point. The earlier 6 mm + 2 mm end
-transition construction created an hourglass top view, a V-shaped side profile
-and thin end fins. Those were cutter artifacts, not useful centering geometry.
+The transition is not allowed to collapse the complete X/Z triangle to one top
+point. That older construction pulled the top surface downward and created
+V-shaped side geometry and thin end fins. Here only the X-depth disappears;
+the top Z remains level.
 
 ### 4a — before the top-guide subtraction
 
@@ -197,10 +198,11 @@ view: top-guide-before-after
 
 Acceptance conditions:
 
-- the X/Z guide is constant over the complete 10 mm Y length;
-- the top width is 9.2 mm and the capture width below it remains 10.0 mm;
-- the top plan is not hourglass-shaped;
-- the Y side view has no V-shaped top and no thin end fins;
+- the full X/Z guide is active over the central 8 mm;
+- the final 1 mm at each Y end only returns the chamfer depth to zero;
+- the top width in the active guide is 9.2 mm and the capture width below it remains 10.0 mm;
+- the Y side view stays level: no V-shaped top and no thin end fins;
+- the part returns to the ordinary 10 mm width at both Y ends;
 - no separate +/-Y capture chamfer is introduced.
 
 ## Step 5 — inspect the functional receiver without scale marks

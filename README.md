@@ -27,8 +27,9 @@ examples/
 ```
 
 The standalone reduced receiver is a 10 × 10 × 4 mm object. Its top insertion
-guide is one constant X/Z chamfer over the complete 10 mm length, narrowing
-from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0. No Y-end taper is added. The snap retains/flexes only on two opposite sides.
+guide narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0 over the central 8 mm.
+During the final 1 mm at each Y end, only the chamfer depth returns to zero so
+the part reaches its ordinary 10 mm width without sloping the top plane down. The snap retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.

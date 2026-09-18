@@ -60,11 +60,11 @@ local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
 Along Y, the lower receiver profile is active over the central 8 mm and returns
 to the ordinary carrier over 1 mm at each end.
 
-The final 0.4 mm top guide is one constant X/Z chamfer over the complete
-10 mm receiver length. It narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0.
-There is no Y-end taper. This keeps the centring action on +/-X, where the snap
-actually retains/flexes, without creating an hourglass plan shape or thin end
-fins.
+The final 0.4 mm top guide uses the full X/Z chamfer over the central 8 mm. It
+narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0. During the final 1 mm at each
+Y end only the radial cut depth tapers to zero; the top Z plane stays level.
+This keeps the centring action on +/-X while returning the receiver to its
+ordinary 10 mm width at the open ends.
 
 ## Removable snap correction
 
@@ -177,8 +177,8 @@ than relying on coarse before/after images:
   → exact Lite result → profile zones;
 - Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
 - click slots: actual removed material plus a center-section before/after view;
-- node receiver: lower-profile subtraction → X/Z guide profile → full-length
-  cutter → exact removed material → before/after result.
+- node receiver: lower-profile subtraction → X/Z guide profile → 8 mm active
+  chamfer + 1 mm depth transitions → exact removed material → before/after result.
 
 Do not move on to later qualification to hide an unresolved base receiver/snap
 geometry problem.

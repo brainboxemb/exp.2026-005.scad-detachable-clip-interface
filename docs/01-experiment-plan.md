@@ -138,7 +138,9 @@ support boss        10 × 10 × 4 mm
 receiver zone       full 10 mm support footprint
 lower active profile 8 mm
 lower transition     1 mm at each Y end
-top guide length    10 mm
+top guide envelope  10 mm
+full chamfer          8 mm
+depth transition      1 mm at each Y end
 top X/Z narrowing    10.0 -> 9.2 mm over 0.4 mm Z
 ```
 
