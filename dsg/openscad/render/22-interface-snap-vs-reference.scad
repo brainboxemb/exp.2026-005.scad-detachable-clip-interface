@@ -1,6 +1,6 @@
 // Side-by-side snap-wall profile comparison.
 // Left: upstream QuackWorks OpenGrid Lite snap, positive-X wall only.
-// Right: AT-01 removable snap, positive-X wall only.
+// Right: reduced detachable clip snap, positive-X wall only.
 // Both are rendered at true physical scale.
 
 include <../lib/og02_full_lite_reference.scad>
@@ -24,8 +24,8 @@ module opengrid_lite_wall_profile() {
         og02_lite_snap_profile();
 }
 
-module at01_wall_profile() {
-    // AT-01 +X wall/nub; outer edge is 7.1 mm from centre.
+module detachable_clip_wall_profile() {
+    // Reduced clip +X wall/nub; outer edge is 7.1 mm from centre.
     _positive_x_crop(4.2, 7.4)
         detachable_clip_snap_retention_profile();
 }
@@ -39,7 +39,7 @@ translate([-6.5, 0, 0])
 translate([6.5, 0, 0])
     color([0.92, 0.30, 0.12])
         translate([-4.2, 0, 0])
-            at01_wall_profile();
+            detachable_clip_wall_profile();
 
 $vpt=[0,0,1.8];
 $vpr=[90,0,0];
