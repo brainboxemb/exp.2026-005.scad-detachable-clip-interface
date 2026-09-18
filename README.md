@@ -82,6 +82,30 @@ After merge, normal production output is published under:
 - [PNG gallery](../../blob/prod/bld/png/README.md)
 - [STL output](../../tree/prod/bld/stl)
 
+
+## License
+
+This experiment repository is licensed under the
+**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International**
+license (**CC BY-NC-SA 4.0**). See [LICENSE](LICENSE).
+
+The detachable interface geometry in this repository is derived from the pinned
+QuackWorks/OpenGrid reference and therefore keeps the upstream attribution and
+ShareAlike boundary explicit.
+
+Upstream reference:
+
+```text
+OpenGrid design: David D
+QuackWorks/OpenSCAD implementation: AndyLevesque/QuackWorks
+Pinned commit: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+Upstream repository licence: CC BY-NC-SA 4.0
+```
+
+The pinned third-party source remains in its own submodule/fork boundary and
+retains its original copyright and licence notices.
+
+
 ## External source
 
 The experiment pins:
