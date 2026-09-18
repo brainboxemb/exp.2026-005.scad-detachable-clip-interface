@@ -139,6 +139,16 @@ AT01_EXPLODED_Z = 8.0;
 AT01_PROFILE_SLICE = 1.0;
 AT01_TRANSITION_PLAN_Z = 0.8;
 
+// Optional physical millimetre reference grooves.
+// These are real subtractive features so they appear in STL as well as render.
+// They are restricted to the local 10 x 14 mm receiver/support area and do not
+// change the X/Z mating profile itself.
+AT01_MM_PATTERN_PITCH = 1.0;
+AT01_MM_PATTERN_DEPTH = 0.20;
+AT01_MM_PATTERN_MINOR_WIDTH = 0.20;
+AT01_MM_PATTERN_MAJOR_WIDTH = 0.30;
+AT01_MM_PATTERN_MAJOR_EVERY = 5;
+
 // Invariants.
 assert(abs(AT01_RECEIVER_LOWER_WIDTH - 8.6) < 0.0001);
 assert(abs(AT01_RECEIVER_TOP_WIDTH - 9.2) < 0.0001);
@@ -280,9 +290,39 @@ module _at01_receiver_cuts() {
     }
 }
 
+// --- Optional physical millimetre reference pattern ------------------------
+
+function _at01_mm_line_width(index) =
+    abs(index) % AT01_MM_PATTERN_MAJOR_EVERY == 0
+        ? AT01_MM_PATTERN_MAJOR_WIDTH
+        : AT01_MM_PATTERN_MINOR_WIDTH;
+
+module _at01_mm_reference_cuts(base_z = 0) {
+    z_center =
+        base_z + AT01_RECEIVER_HEIGHT - AT01_MM_PATTERN_DEPTH / 2 + 0.01;
+
+    // X grid lines across the 14 mm local support length.
+    for (x = [-4 : AT01_MM_PATTERN_PITCH : 4])
+        translate([x, 0, z_center])
+            cube([
+                _at01_mm_line_width(x),
+                AT01_PLATE_SUPPORT_LENGTH - 0.4,
+                AT01_MM_PATTERN_DEPTH + 0.02
+            ], center = true);
+
+    // Y grid lines across the 10 mm receiver/support width.
+    for (y = [-6 : AT01_MM_PATTERN_PITCH : 6])
+        translate([0, y, z_center])
+            cube([
+                AT01_RAIL_WIDTH - 0.4,
+                _at01_mm_line_width(y),
+                AT01_MM_PATTERN_DEPTH + 0.02
+            ], center = true);
+}
+
 // --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
 
-module at01_receiver_rail() {
+module _at01_receiver_rail_geometry() {
     difference() {
         translate([
             -AT01_RAIL_WIDTH / 2,
@@ -299,9 +339,18 @@ module at01_receiver_rail() {
     }
 }
 
+module at01_receiver_rail(mm_pattern = false) {
+    difference() {
+        _at01_receiver_rail_geometry();
+
+        if (mm_pattern)
+            _at01_mm_reference_cuts(0);
+    }
+}
+
 // --- Carrier B: 50 x 20 x 6 plate + 10 x 14 x 4 support boss --------------
 
-module at01_receiver_plate() {
+module _at01_receiver_plate_geometry() {
     union() {
         translate([
             -AT01_PLATE_WIDTH / 2,
@@ -332,16 +381,25 @@ module at01_receiver_plate() {
     }
 }
 
+module at01_receiver_plate(mm_pattern = false) {
+    difference() {
+        _at01_receiver_plate_geometry();
+
+        if (mm_pattern)
+            _at01_mm_reference_cuts(AT01_PLATE_HEIGHT);
+    }
+}
+
 function at01_receiver_base_z(variant) =
     variant == 0 ? 0 : AT01_PLATE_HEIGHT;
 
-module at01_receiver(variant = 0) {
+module at01_receiver(variant = 0, mm_pattern = false) {
     assert(variant == 0 || variant == 1, "AT-01 receiver variant must be 0 or 1.");
 
     if (variant == 0)
-        at01_receiver_rail();
+        at01_receiver_rail(mm_pattern);
     else
-        at01_receiver_plate();
+        at01_receiver_plate(mm_pattern);
 }
 
 // --- Shared removable snap -------------------------------------------------
@@ -452,22 +510,22 @@ module at01_removable_snap() {
 
 // --- Assemblies ------------------------------------------------------------
 
-module at01_assembled(variant = 0, snap_alpha = 0.55) {
+module at01_assembled(variant = 0, snap_alpha = 0.55, mm_pattern = false) {
     base_z = at01_receiver_base_z(variant);
 
     color([0.68, 0.70, 0.74])
-        at01_receiver(variant);
+        at01_receiver(variant, mm_pattern);
 
     translate([0, 0, base_z + AT01_SNAP_SEATED_Z])
         color([0.92, 0.30, 0.12, snap_alpha])
             at01_removable_snap();
 }
 
-module at01_exploded(variant = 0) {
+module at01_exploded(variant = 0, mm_pattern = false) {
     base_z = at01_receiver_base_z(variant);
 
     color([0.68, 0.70, 0.74])
-        at01_receiver(variant);
+        at01_receiver(variant, mm_pattern);
 
     translate([
         0,
@@ -478,12 +536,12 @@ module at01_exploded(variant = 0) {
             at01_removable_snap();
 }
 
-module at01_concepts_comparison() {
+module at01_concepts_comparison(mm_pattern = false) {
     translate([-16, 0, 0])
-        at01_assembled(0);
+        at01_assembled(0, mm_pattern = mm_pattern);
 
     translate([16, 0, 0])
-        at01_assembled(1);
+        at01_assembled(1, mm_pattern = mm_pattern);
 }
 
 // --- Evidence sections -----------------------------------------------------
