@@ -39,14 +39,14 @@ The production geometry starts from the same dimensions:
 
 ```openscad
 translate([
-    -AT01_RAIL_WIDTH / 2,
-    -AT01_PLATE_SUPPORT_LENGTH / 2,
+    -EXAMPLE_RAIL_WIDTH / 2,
+    -CLIP_RECEIVER_BLOCK_LENGTH / 2,
     0
 ])
     cube([
-        AT01_RAIL_WIDTH,
-        AT01_PLATE_SUPPORT_LENGTH,
-        AT01_RECEIVER_HEIGHT
+        EXAMPLE_RAIL_WIDTH,
+        CLIP_RECEIVER_BLOCK_LENGTH,
+        CLIP_RECEIVER_HEIGHT
     ]);
 ```
 
@@ -79,16 +79,16 @@ The key construction is intentionally symmetric:
 ```openscad
 module interface_receiver_design_lower_cutters() {
     union() {
-        _at01_positive_x_lower_cut_active();
-        _at01_positive_y_lower_cut_transition();
+        _clip_positive_x_lower_cut_active();
+        _clip_positive_y_lower_cut_transition();
         mirror([0, 1, 0])
-            _at01_positive_y_lower_cut_transition();
+            _clip_positive_y_lower_cut_transition();
 
         mirror([1, 0, 0]) {
-            _at01_positive_x_lower_cut_active();
-            _at01_positive_y_lower_cut_transition();
+            _clip_positive_x_lower_cut_active();
+            _clip_positive_y_lower_cut_transition();
             mirror([0, 1, 0])
-                _at01_positive_y_lower_cut_transition();
+                _clip_positive_y_lower_cut_transition();
         }
     }
 }
@@ -128,13 +128,13 @@ is a triangular extrusion:
 
 ```openscad
 linear_extrude(
-    height = AT01_RECEIVER_TOP_ACTIVE_LENGTH, // 10 mm
+    height = CLIP_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH, // 10 mm
     center = true
 )
     polygon(points = [
-        [AT01_RECEIVER_TOP_WIDTH / 2, AT01_RECEIVER_HEIGHT],
-        [AT01_RAIL_WIDTH / 2,         AT01_RECEIVER_HEIGHT],
-        [AT01_RAIL_WIDTH / 2,         AT01_RECEIVER_CAPTURE_TOP_Z]
+        [CLIP_RECEIVER_TOP_WIDTH / 2, CLIP_RECEIVER_HEIGHT],
+        [EXAMPLE_RAIL_WIDTH / 2,         CLIP_RECEIVER_HEIGHT],
+        [EXAMPLE_RAIL_WIDTH / 2,         CLIP_RECEIVER_CAPTURE_TOP_Z]
     ]);
 ```
 
@@ -221,10 +221,10 @@ view: pattern-cutters
 The same helper is used by receiver and snap:
 
 ```openscad
-_at01_mm_reference_cuts_at_top(
-    AT01_RECEIVER_HEIGHT,
-    AT01_RAIL_WIDTH,
-    AT01_PLATE_SUPPORT_LENGTH
+_clip_mm_reference_cuts_at_top(
+    CLIP_RECEIVER_HEIGHT,
+    EXAMPLE_RAIL_WIDTH,
+    CLIP_RECEIVER_BLOCK_LENGTH
 );
 ```
 
