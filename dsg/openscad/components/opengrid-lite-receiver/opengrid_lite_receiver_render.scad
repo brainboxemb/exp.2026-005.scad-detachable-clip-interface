@@ -5,6 +5,9 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
+/* [Design view] */
+view = "final"; // [final,full-source,retained-top,retained-top-only,recentered-extraction,recentering-compare,recentered-compare,lite-result,profile-zones,solid-profile,flex-profile]
+
 use <../../design_support.scad>
 use <opengrid_lite_receiver.scad>
 
@@ -35,4 +38,4 @@ module opengrid_lite_receiver_design(view = "final") {
     }
 }
 
-opengrid_lite_receiver_design();
+opengrid_lite_receiver_design(view = view);
