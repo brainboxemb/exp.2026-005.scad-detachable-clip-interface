@@ -192,20 +192,22 @@ function node_snap_total_height() = NODE_SNAP_TOTAL_HEIGHT;
 
 // --- Source-derived receiver profile ----------------------------------------
 //
-// OpenGrid creates its fixed-side edge by defining one 2D radial/Z profile and
-// applying BOSL2 path_extrude2d() along a straight tile edge. OpenGrid Lite
-// keeps the upper 4.0 mm of that same profile.
+// OpenGrid's straight edge uses one 2D radial/Z profile with
+// BOSL2 path_extrude2d(), while its corner regions are separate geometry.
+// OpenGrid Lite keeps the upper 4.0 mm of that source relationship.
 //
-// The node receiver preserves that construction principle. The radial mirror
-// changes only the X widths; the Z bands remain the pinned Lite values:
+// The radial mirror below establishes the node X/Z section. The current
+// straight extrusion remains a candidate implementation only; it does not
+// settle the still-open Y termination question. The retained Z bands are:
 //
 //   z 0.0 .. 1.6   width 8.6
 //   z 1.6 .. 2.6   ramp 8.6 -> 10.0
 //   z 2.6 .. 3.6   width 10.0
 //   z 3.6 .. 4.0   ramp 10.0 -> 9.2
 //
-// Crucially, this profile is CONSTANT along Y. The 10 mm Y length is merely
-// the experiment coupon path length; there is no invented end fade.
+// Do not treat the current 10 mm straight path as design authority. The node
+// longitudinal termination must still be resolved against both the source
+// straight-edge and source corner construction.
 
 function _node_receiver_profile_points() =
     detachable_interface_receiver_profile_points();
@@ -215,9 +217,10 @@ module _node_receiver_profile_2d() {
 }
 
 module _node_receiver_profile_extrusion(length = NODE_RECEIVER_BLOCK_LENGTH) {
-    // With the path running BACK (-Y), path_extrude2d maps the profile's first
-    // coordinate to X and second coordinate to Z, matching OpenGrid's own
-    // straight-edge construction.
+    // Current comparison candidate only. With the path running BACK (-Y),
+    // path_extrude2d maps the profile's first coordinate to X and second to Z.
+    // This reproduces the source straight-edge mechanism, not its separate
+    // corner/termination geometry.
     path = [
         [0,  length / 2],
         [0, -length / 2]
@@ -296,9 +299,9 @@ module _node_mm_reference_cuts_at_top(top_z, x_length, y_length) {
 
 // --- Standalone receiver block ---------------------------------------------
 //
-// Primary fixed-side design object. The complete receiver is one constant
-// source-derived X/Z profile extruded along a straight 10 mm Y path. Rail and
-// plate carriers are integration examples built around this same geometry.
+// Current fixed-side candidate. Its X/Z profile is source-derived; its current
+// straight 10 mm Y construction remains under review. Rail and plate carriers
+// are integration examples around this candidate geometry.
 
 module _node_receiver_geometry() {
     _node_receiver_profile_extrusion();
@@ -317,7 +320,8 @@ module node_receiver(mm_pattern = false) {
     }
 }
 
-// Contract-facing name for the minimal fixed-side reference implementation.
+// Stage-2 candidate name. Only the X/Z mating section is currently
+// contract-facing; the Y termination is still under review.
 module detachable_interface_reference_receiver(mm_pattern = false) {
     node_receiver(mm_pattern);
 }

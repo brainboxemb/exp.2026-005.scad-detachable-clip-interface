@@ -2,12 +2,10 @@
 //
 // A4 fixed-side profile drawings.
 //
-// Each sheet deliberately contains orthogonal descriptions of the geometry.
 // The OpenGrid sheet uses one oriented object view, one primary transverse
-// section and one enlarged local detail. This keeps the sheet readable while
-// still exposing the source geometry that matters to the reduction.
-//
-// A single extruded X/Z profile is not a complete interface specification.
+// section and one enlarged local detail. The node sheet deliberately
+// distinguishes its established transverse profile from the current,
+// non-normative longitudinal candidate.
 
 include <../lib/detachable_interface_spec.scad>
 include <../lib/node_interface.scad>
@@ -106,8 +104,8 @@ module _opengrid_local_detail_dimensions() {
 }
 
 module _node_plan_slice_2d() {
-    // Exact node receiver. Because the X/Z profile is constant along Y, any
-    // horizontal slice exposes the same straight 10 mm plan footprint.
+    // Current node implementation candidate. This plan view is evidence for
+    // reviewing Y termination; it is not the normative interface definition.
     projection(cut = false)
         intersection() {
             node_receiver();
@@ -222,7 +220,7 @@ module node_profile_a4() {
                 }
 
             translate([36, 188])
-                text("PLAN AT Z=0.8 - STRAIGHT 10 mm EXTRUSION", size = 4.0);
+                text("PLAN AT Z=0.8 - CURRENT Y-TERMINATION CANDIDATE", size = 3.6);
 
             td_section_mark(78, 77, 170, "A");
 
@@ -234,12 +232,12 @@ module node_profile_a4() {
                 }
 
             translate([180, 169])
-                text("A-A - CONSTANT X/Z SECTION", size = 4.0);
+                text("A-A - ESTABLISHED X/Z MATING PROFILE", size = 3.8);
 
             translate([20, 42])
-                text("10 mm reference path: one source-derived X/Z profile extruded unchanged.", size = 2.7);
+                text("A-A is source-derived. The plan view is a candidate implementation, not the Y contract.", size = 2.7);
             translate([20, 36])
-                text("No Y-dependent fade, end blend, wedge or transition belongs to the receiver baseline.", size = 2.7);
+                text("Upstream uses straight-edge extrusion plus separate corner geometry; node termination is still under review.", size = 2.5);
         }
 }
 

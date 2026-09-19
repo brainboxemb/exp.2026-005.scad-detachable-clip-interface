@@ -94,8 +94,8 @@ not mix source dimensions and experiment choices without saying so.
 | lower width | 26.4 mm | 8.6 mm | derived radial mirror |
 | top width | 25.8 mm | 9.2 mm | derived radial mirror |
 | Z profile bands | 0/1.6/2.6/3.6/4.0 mm | same | upstream retained |
-| straight-edge/path length | tile edge | 10.0 mm | experiment choice |
-| Y profile variation | none on straight edge | none | construction principle retained |
+| local Y footprint | edge + separate corner construction | 10.0 mm candidate | experiment choice under review |
+| Y termination | separate source corner geometry | unresolved | open design question |
 
 ### Snap
 
@@ -126,10 +126,7 @@ difference.
 
 ## Current receiver design question
 
-The receiver is a standalone 10 mm-long straight extrusion of one
-OpenGrid-derived X/Z profile.
-
-Its source-derived profile is:
+The transverse receiver profile is established:
 
 ```text
 Z 0.0 .. 1.6     width 8.6 mm
@@ -138,24 +135,28 @@ Z 2.6 .. 3.6     width 10.0 mm
 Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
 ```
 
-The construction now follows the upstream OpenGrid principle directly:
-`polygon(profile) -> BOSL2 path_extrude2d(straight path)`. The complete X/Z
-profile remains constant over the full 10 mm path.
+The **longitudinal Y termination is reopened**. The pinned OpenGrid source
+builds a straight edge with `path_extrude2d()` and then adds separate
+corner-profile geometry. Therefore neither of the node simplifications tested
+so far is source-authoritative:
 
-There is no receiver-owned Y fade or 8+1 mm end treatment. If a future carrier
-needs a transition between the local receiver and surrounding material, that is
-an integration question and must be qualified separately.
+- the earlier 8+1+1 smooth/end-blend variant;
+- the current unchanged straight 10 mm extrusion.
 
-Current visual acceptance criteria:
+The current straight STL remains useful comparison evidence, but it must not be
+described as the qualified receiver baseline. The next design work must derive
+or explicitly choose the compact termination before accepting the receiver.
 
-- all four X/Z zones are visible in an orthographic profile;
-- the profile is constant over the complete 10 mm length;
-- STL side faces are ordinary planar extrusion faces, not a fan of sampled hull
-  facets;
-- the top 3.6..4.0 mm chamfer is part of the same profile;
-- left/right geometry remains symmetric.
+Current acceptance criteria for this sub-question:
 
-The exact construction belongs in the node receiver design document.
+- retain the established X/Z profile and left/right symmetry;
+- make the Y-end geometry explicit in drawings and STL evidence;
+- compare that termination against the pinned straight-edge **and** corner
+  construction;
+- do not hide a new transition inside implementation code without documenting
+  the design decision.
+
+The exact candidate construction belongs in the node receiver design document.
 
 ## Current snap design question
 

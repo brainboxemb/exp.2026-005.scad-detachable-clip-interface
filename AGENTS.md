@@ -92,21 +92,36 @@ In particular:
   derivation, implementation, STL/profile evidence and documentation for the
   same construction principle.
 
-For the current node receiver baseline, the authoritative construction is:
+For the current node receiver, distinguish **established geometry** from the
+still-open longitudinal construction question.
 
-```text
-one OpenGrid-derived X/Z profile
-        ↓
-BOSL2 path_extrude2d()
-        ↓
-unchanged straight 10 mm path
-```
+Established:
 
-The receiver therefore has **no Y-dependent profile variation**: no 8+1+1
-active/end split, no smooth radial-depth blend and no receiver-owned end fade.
-If a future carrier needs a transition into surrounding material, that is a
-separate carrier-integration experiment and must not be hidden inside the
-receiver/interface definition.
+- the local transverse X/Z mating profile is derived from the pinned OpenGrid
+  Lite fixed-side profile;
+- its retained Z bands and derived radial widths are source/provenance facts;
+- the reduced receiver uses only the intended opposite retaining sides.
+
+Not yet established:
+
+- how that local profile terminates or transitions in Y inside the compact
+  receiver footprint;
+- whether the final construction should reproduce/crop source corner behaviour,
+  use a straight local segment, or use another explicitly justified
+  translation.
+
+The pinned OpenGrid source itself uses a straight-edge `path_extrude2d()`
+**plus separate corner-profile geometry**. Therefore `path_extrude2d()` is not
+design authority for the node receiver by itself.
+
+Until the longitudinal termination is explicitly resolved, do **not** promote
+either of these into the contract:
+
+- an 8+1+1 smooth/end-blend construction;
+- an unchanged straight 10 mm profile extrusion.
+
+Implementation methods belong in the component design only after the geometry
+they implement has been agreed.
 
 ## Upstream Full reference boundary
 

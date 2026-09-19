@@ -1,22 +1,23 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **straight-profile receiver geometry qualified in PR #7; visual walkthrough review continues**
+Status: **receiver X/Z profile retained; longitudinal Y termination reopened in PR #7**
 
-Qualified receiver-geometry source:
+Earlier straight-extrusion candidate source:
 
 ```text
 c950b21ed24b8bd5ba9abd78ff95cff2b49c62af
 ```
 
-Receiver-geometry build run:
+Earlier candidate build run:
 
 ```text
 35425438453
 ```
 
-That run reports the plain receiver as a 36-triangle straight profile
-extrusion. The non-functional millimetre groove pattern is kept separate from
-the functional STL baseline.
+That run proves the straight-extrusion candidate builds as a manifold STL; it
+does **not** qualify that longitudinal construction as the correct receiver.
+The non-functional millimetre groove pattern remains separate from the mating
+geometry.
 
 Published preview:
 
@@ -47,10 +48,7 @@ removable snap. Carrier choice is not yet a separate mechanism choice.
 
 ## Receiver geometry
 
-The receiver is now constructed with the same principle as the pinned OpenGrid
-straight edge: one X/Z profile is extruded unchanged along a straight path.
-
-The node radial mirror gives:
+The node radial mirror establishes the transverse profile:
 
 ```text
 local Z 0.0 .. 1.6    width 8.6 mm
@@ -59,10 +57,16 @@ local Z 2.6 .. 3.6    width 10.0 mm
 local Z 3.6 .. 4.0    ramp 10.0 -> 9.2 mm
 ```
 
-BOSL2 `path_extrude2d()` applies that profile over the complete 10 mm coupon
-length. No Y-dependent receiver fade is present. Earlier 8+1 mm transition,
-polyhedron and smoothstep variants were experiment-owned constructions and are
-superseded by this source-aligned baseline.
+The longitudinal construction is **not qualified**. Inspection of the pinned
+`openGridTileAp1()` shows two separate source mechanisms:
+
+1. `path_extrude2d(path_tile)` for each straight edge;
+2. a separate `full_tile_corners_profile` extrusion for the corner regions.
+
+The current node STL keeps only the first mechanism as a 10 mm candidate. The
+earlier 8+1+1/smoothstep version invented a different end transition. Neither
+candidate may be promoted to the interface contract until the compact
+straight-edge/corner translation is explicitly resolved.
 
 ## Removable snap correction
 
@@ -152,23 +156,22 @@ The current digital evidence establishes that:
 
 - the receiver is local rather than a 50 mm continuous attachment profile;
 - rail and plate variants use one shared mating interface;
-- receiver X/Z geometry preserves the mirrored OpenGrid Lite ramps/chamfer as one constant straight-edge profile;
+- receiver X/Z geometry preserves the mirrored OpenGrid Lite ramps/chamfer in the reviewed transverse section;
 - the removable nub now retains the source OpenGrid wedge/rounding principle
   rather than the superseded straight trapezoid;
 - the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
   snap without an invented seated offset;
 - solid and flex-slot sections are intentionally distinguished;
 - all generated reduced-interface outputs build as manifold geometry;
-- the plain receiver geometry is a 36-triangle straight extrusion before any
-  optional millimetre groove subtraction.
+- the current plain receiver candidate is a manifold 36-triangle straight
+  extrusion before optional millimetre grooves; this is build evidence, not
+  longitudinal design acceptance.
 
 ## Still open for digital design acceptance
 
-The current geometry, generated walkthroughs and machine evidence are coherent.
-One design checkpoint remains before this digital step is closed:
-
-1. final visual review of the current receiver, snap and assembled preview
-   renders as a complete design set.
+The current receiver geometry is **not yet coherent enough to close the digital
+step**. The next checkpoint is the longitudinal termination decision, followed
+by regenerated receiver/snap and assembled evidence.
 
 The detailed design walkthrough now makes the source reduction auditable rather
 than relying on coarse before/after images:
@@ -177,8 +180,8 @@ than relying on coarse before/after images:
   → exact Lite result → profile zones;
 - Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
 - click slots: actual removed material plus a center-section before/after view;
-- node receiver: complete source-derived X/Z profile → unchanged 10 mm
-  BOSL2 straight-path extrusion → final receiver.
+- node receiver: source-derived X/Z profile → compare pinned straight-edge and
+  corner construction → resolve compact Y termination → final receiver.
 
 Do not move on to later qualification to hide an unresolved base receiver/snap
 geometry problem.

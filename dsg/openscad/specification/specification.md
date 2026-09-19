@@ -1,6 +1,6 @@
 # Detachable interface specification
 
-Status: **PoP baseline**
+Status: **PoP baseline for transverse mating geometry; longitudinal receiver termination under review**
 
 This document is the **stage-1 contract** between the fixed and removable
 parts. It defines the mating relationship before choosing carrier geometry or a
@@ -46,18 +46,14 @@ upstream OpenGrid manufacturing drawing.
 
 ## Node fixed tongue profile
 
-The node translation uses the same derived X/Z profile along a straight local
-path. The current reference coupon is:
+The node translation has an established transverse X/Z profile, but its
+longitudinal Y termination is **not yet normative**. The current implementation
+still provides a 10 mm candidate footprint so it can be rendered and compared,
+but that plan geometry must not be read as the interface contract.
 
-```text
-straight path length             10.0 mm   reference implementation
-fixed-side envelope height        4.0 mm   shared profile
-nominal mirrored spacing         10.0 mm   shared profile placement
-Y-dependent profile variation     none
-```
-
-The second A4 sheet shows the straight 10 mm plan footprint and the same A-A
-section at its centre.
+The second A4 sheet therefore separates the two: A-A shows the established
+transverse profile; the plan view is explicitly marked as a current candidate
+whose Y termination remains under review.
 
 <!-- scad-render
 engine: openscad
@@ -68,10 +64,11 @@ format: svg
 image: 01-node-fixed-tongue-profile-a4.svg
 -->
 
-The X/Z profile is constant at every Y position along the 10 mm reference
-path. There is no receiver-owned end blend, fade or transition zone. Any future
-transition from this local receiver into carrier material is a separate
-integration design question.
+The pinned OpenGrid source does not justify either currently tested node
+termination by itself. Its straight edges use `path_extrude2d()`, while its
+corners are constructed separately from `full_tile_corners_profile`. The node
+PoP must therefore resolve its local Y termination explicitly rather than
+assuming either a smooth end blend or a fully straight-through extrusion.
 
 ## Overview
 

@@ -31,10 +31,11 @@ specification** defines the source-derived local X/Z mating profile and its
 mirrored spacing. A **minimal receiver + minimal snap** then serve as the
 reference implementation of that contract.
 
-The receiver uses that one X/Z profile unchanged over a straight 10 mm
-reference path. The 10 mm coupon length is an implementation choice, not a
-production-carrier requirement, and there is no receiver-owned Y fade, end
-blend or transition. The snap retains/flexes only on two opposite sides.
+The transverse X/Z receiver profile is established from the pinned source.
+The compact receiver still has one open design question: **how that profile
+terminates in Y inside the local footprint**. The current 10 mm receiver STL is
+therefore an implementation candidate under review, not the longitudinal
+interface contract. The snap retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
