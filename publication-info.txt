@@ -1,0 +1,27 @@
+Publication context : pull_request
+Publication kind    : build
+Publication branch  : dev/pr-7/bld
+
+Source
+------
+Repository          : brainboxemb/exp.2026-005.scad-detachable-clip-interface
+Ref type            : pull_request
+Ref                 : feature/pr-7-receiver-guidance
+Commit              : 9016a0e0597298bc1d480c5a2139a9ac200f3144
+Triggered by        : brainboxemb
+Workflow run        : https://github.com/brainboxemb/exp.2026-005.scad-detachable-clip-interface/actions/runs/35460588362
+
+Tooling
+-------
+SCAD toolchain image: ghcr.io/brainboxemb/scad-toolchain-drawing:v0.6.1
+SCAD toolchain ver. : v0.6.1
+tool.scad-project   : v0.15.1
+
+Git submodules
+--------------
+dsg/openscad/ext/lib.scad.util : d1c100148e22a6464f1448da226179a02e6ddaf2
+dsg/openscad/ext/lib.scad.util/tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+dsg/openscad/ext/lib.scad.util/tools/tool.scad-project : 78e26949c6f2397ed90bb7888c1386d3dd423312
+dsg/openscad/ext/quackworks : e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+tools/tool.git-project : 7c43f37e7b07cfb57638a1d1dad2501de09ba7eb
+tools/tool.scad-project : ba90f0df7b82900ceafc2ea54d8dc1e323e53c07

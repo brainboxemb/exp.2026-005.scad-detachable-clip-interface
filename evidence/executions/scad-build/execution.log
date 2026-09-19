@@ -1,0 +1,89 @@
+SCAD producer execution
+=======================
+
+Capability: scad.build
+Action: build
+Source revision: 9016a0e0597298bc1d480c5a2139a9ac200f3144
+Owner: brainboxemb/tool.scad-project
+Owner revision: ba90f0df7b82900ceafc2ea54d8dc1e323e53c07
+tool.scad-project version: 0.15.1
+Status: success
+Producer started (UTC): 2026-09-19T18:16:23Z
+Producer finished (UTC): 2026-09-19T18:16:58Z
+Producer duration: 35212 ms
+
+Domain evidence: ../../domain/last-build.json
+
+Decision report kind: build
+Build engine: scons
+Targets: 67
+Outcomes: BUILT=34, CACHE_RESTORED=33, CURRENT=0, ERROR=0
+
+Target decisions:
+- CACHE_RESTORED: bld/png/01-opengrid-lite-receiver.png
+- CACHE_RESTORED: bld/png/02-opengrid-lite-snap.png
+- BUILT: bld/png/03-node-receiver.png
+- BUILT: bld/png/04-node-snap.png
+- BUILT: bld/png/05-node-receiver-top.png
+- BUILT: bld/png/06-node-receiver-side.png
+- BUILT: bld/png/07-node-snap-retention-profile.png
+- BUILT: bld/png/10-example-receiver-rail.png
+- BUILT: bld/png/11-example-receiver-plate.png
+- BUILT: bld/png/12-example-rail-assembled.png
+- BUILT: bld/png/13-example-plate-assembled.png
+- BUILT: bld/png/20-node-rail-exploded.png
+- BUILT: bld/png/21-node-plate-exploded.png
+- BUILT: bld/png/22-node-snap-vs-reference.png
+- BUILT: bld/png/23-node-receiver-top-comparison.png
+- BUILT: bld/png/24-node-rail-vs-plate.png
+- BUILT: bld/png/30-node-rail-retention-section.png
+- BUILT: bld/png/31-node-plate-retention-section.png
+- BUILT: bld/png/32-node-rail-transition-section.png
+- BUILT: bld/png/33-node-plate-transition-section.png
+- CACHE_RESTORED: bld/png/40-opengrid-lite-section.png
+- CACHE_RESTORED: bld/png/41-opengrid-lite-flex-section.png
+- CACHE_RESTORED: bld/png/42-opengrid-lite-receiver-flex-profile.png
+- CACHE_RESTORED: bld/png/43-opengrid-lite-snap-flex-profile.png
+- CACHE_RESTORED: bld/png/44-opengrid-lite-receiver-solid-profile.png
+- CACHE_RESTORED: bld/png/45-opengrid-lite-snap-solid-profile.png
+- CACHE_RESTORED: bld/png/50-reference-full-baseline-assembled.png
+- CACHE_RESTORED: bld/png/51-reference-full-baseline-exploded.png
+- CACHE_RESTORED: bld/png/52-reference-full-baseline-section.png
+- CACHE_RESTORED: bld/png/53-reference-full-section.png
+- CACHE_RESTORED: bld/png/54-reference-full-flex-section.png
+- CACHE_RESTORED: bld/png/55-reference-full-receiver-flex-profile.png
+- CACHE_RESTORED: bld/png/56-reference-full-snap-flex-profile.png
+- CACHE_RESTORED: bld/png/57-reference-full-receiver-solid-profile.png
+- CACHE_RESTORED: bld/png/58-reference-full-snap-solid-profile.png
+- CACHE_RESTORED: bld/png/60-reference-full-vs-lite-assembled.png
+- CACHE_RESTORED: bld/png/61-reference-full-vs-lite-exploded.png
+- CACHE_RESTORED: bld/png/62-reference-full-vs-lite-section.png
+- CACHE_RESTORED: bld/png/63-reference-full-vs-lite-flex-section.png
+- BUILT: bld/svg/01-node-fixed-tongue-profile-a4.svg
+- BUILT: bld/svg/10-reference-pair-section.svg
+- BUILT: bld/svg/11-width-reduction-context.svg
+- BUILT: bld/svg/12-reference-implementation.svg
+- BUILT: bld/svg/20-node-receiver-detail.svg
+- BUILT: bld/svg/21-node-snap-detail.svg
+- CACHE_RESTORED: bld/stl/01-opengrid-lite-receiver.stl
+- CACHE_RESTORED: bld/stl/02-opengrid-lite-snap.stl
+- BUILT: bld/stl/03-node-receiver.stl
+- BUILT: bld/stl/04-node-snap.stl
+- BUILT: bld/stl/10-example-receiver-rail.stl
+- BUILT: bld/stl/11-example-receiver-plate.stl
+- BUILT: bld/stl/30-node-rail-retention-profile.stl
+- BUILT: bld/stl/31-node-plate-retention-profile.stl
+- BUILT: bld/stl/32-node-rail-transition-profile.stl
+- BUILT: bld/stl/33-node-plate-transition-profile.stl
+- BUILT: bld/stl/34-node-snap-retention-profile.stl
+- CACHE_RESTORED: bld/stl/40-opengrid-lite-receiver-flex-profile.stl
+- CACHE_RESTORED: bld/stl/41-opengrid-lite-snap-flex-profile.stl
+- CACHE_RESTORED: bld/stl/42-opengrid-lite-receiver-solid-profile.stl
+- CACHE_RESTORED: bld/stl/43-opengrid-lite-snap-solid-profile.stl
+- CACHE_RESTORED: bld/stl/50-reference-full-receiver.stl
+- CACHE_RESTORED: bld/stl/51-reference-full-snap.stl
+- CACHE_RESTORED: bld/stl/60-reference-full-receiver-flex-profile.stl
+- CACHE_RESTORED: bld/stl/61-reference-full-snap-flex-profile.stl
+- CACHE_RESTORED: bld/stl/62-reference-full-receiver-solid-profile.stl
+- CACHE_RESTORED: bld/stl/63-reference-full-snap-solid-profile.stl
+- BUILT: bld/drawing/00-opengrid-python.svg

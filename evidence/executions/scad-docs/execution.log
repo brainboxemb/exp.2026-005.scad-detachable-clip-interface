@@ -1,0 +1,75 @@
+SCAD producer execution
+=======================
+
+Capability: scad.docs
+Action: design-build
+Source revision: 9016a0e0597298bc1d480c5a2139a9ac200f3144
+Owner: brainboxemb/tool.scad-project
+Owner revision: ba90f0df7b82900ceafc2ea54d8dc1e323e53c07
+tool.scad-project version: 0.15.1
+Status: success
+Producer started (UTC): 2026-09-19T18:15:58Z
+Producer finished (UTC): 2026-09-19T18:16:23Z
+Producer duration: 24749 ms
+
+Domain evidence: ../../domain/last-design-build.json
+
+Decision report kind: design
+Build engine: scons
+Targets: 53
+Outcomes: BUILT=27, CACHE_RESTORED=26, CURRENT=0, ERROR=0
+
+Target decisions:
+- BUILT: .cache/scad-project/design-stage/project/openscad/specification/img/01-node-fixed-tongue-profile-a4.svg
+- BUILT: .cache/scad-project/design-stage/project/openscad/specification/img/00-reference-implementation-overview.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/specification/img/10-reference-pair-section.svg
+- BUILT: .cache/scad-project/design-stage/project/openscad/specification/img/11-width-reduction-context.svg
+- BUILT: .cache/scad-project/design-stage/project/openscad/specification/img/12-reference-implementation.svg
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/01-profile.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/02-profile-vs-extrusion.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/03-plain.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/04-pattern-cutters.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/05-final.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-receiver/node_receiver/design/img/06-dimensioned-retention-profile.svg
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/01-core-envelope.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/02-positive-wall.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/03-side-walls.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/04-nub-box.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/05-nub-wedge-shaped.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/06-nub-final-one-side.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/07-nubs.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/08-top.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/09-main-click-slot-cutters.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/10-after-main-click-slots.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/11-top-slot-cutters.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/12-plain.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/13-profile.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/14-pattern-cutters.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/15-final.png
+- BUILT: .cache/scad-project/design-stage/project/openscad/components/node-snap/node_snap/design/img/20-dimensioned-retention-profile.svg
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/01-full-source.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/02-retained-top.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/03-retained-top-only.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/04-recentering-compare.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/05-recentered-compare.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/06-lite-result.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/07-solid-profile.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/08-profile-zones.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/img/09-flex-profile.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/01-core.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/02-core-plus-top.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/03-top-nub.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/04-nub-box.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/05-nub-wedge-shaped.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/06-nub-final-one-side.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/07-bottom-nubs.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/08-body-before-slots.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/09-click-slot-cutters.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/10-click-slot-section-removed.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/11-click-slot-section-before-after.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/12-wall-slot-cutters.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/13-reconstructed.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/14-reconstruction-compare.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/15-source-layers.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/16-solid-profile.png
+- CACHE_RESTORED: .cache/scad-project/design-stage/project/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/img/17-flex-profile.png

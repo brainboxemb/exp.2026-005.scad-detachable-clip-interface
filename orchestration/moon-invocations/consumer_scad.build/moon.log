@@ -1,0 +1,609 @@
+[ WARN 2026-09-19 18:16:23.540] moon_app::queries::changed_files  Detected a shallow checkout, unable to run Git commands to determine changed files. 
+[ WARN 18:16:23.540] moon_app::queries::changed_files  A full Git history is required for affected checks, falling back to an empty files list. 
+▮▮▮▮ consumer:scad.build (85382e48)
+▮▮▮▮ consumer:scad.build (running for 30s)
+SCons build engine: 67 target(s), cache=/work/.cache/scad-project/scons
++ scons -Q -f /work/tools/tool.scad-project/src/scad_project/scons_driver.py SCAD_PROJECT_MANIFEST=/work/.cache/scad-project/state/build-manifest.json
+Retrieved `bld/png/01-opengrid-lite-receiver.png' from cache
+Retrieved `bld/png/02-opengrid-lite-snap.png' from cache
+_action(["bld/png/03-node-receiver.png"], ["dsg/openscad/render/03-node-receiver.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-receiver/node_receiver.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.03-node-receiver.unwatermarked.png /work/dsg/openscad/render/03-node-receiver.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 41
+Geometry cache size in bytes: 42368
+CGAL Polyhedrons in cache: 5
+CGAL cache size in bytes: 330750
+Total rendering time: 0:00:00.149
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      372
+   Facets:        740
++ scad-image-watermark /work/bld/png/.03-node-receiver.unwatermarked.png /work/bld/png/03-node-receiver.png --text © 2026 brainboxemb
+SCons built: bld/png/03-node-receiver.png
+_action(["bld/png/04-node-snap.png"], ["dsg/openscad/render/04-node-snap.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-snap/node_snap.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.04-node-snap.unwatermarked.png /work/dsg/openscad/render/04-node-snap.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 80
+Geometry cache size in bytes: 343328
+CGAL Polyhedrons in cache: 71
+CGAL cache size in bytes: 1562000
+Total rendering time: 0:00:00.180
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1151
+   Facets:       2298
++ scad-image-watermark /work/bld/png/.04-node-snap.unwatermarked.png /work/bld/png/04-node-snap.png --text © 2026 brainboxemb
+SCons built: bld/png/04-node-snap.png
+_action(["bld/png/05-node-receiver-top.png"], ["dsg/openscad/render/05-node-receiver-top.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-receiver/node_receiver.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.05-node-receiver-top.unwatermarked.png /work/dsg/openscad/render/05-node-receiver-top.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 13
+Geometry cache size in bytes: 20800
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.134
+Top level object is a 3D object (PolySet):
+   Convex:       no
+   Triangles:     36
++ scad-image-watermark /work/bld/png/.05-node-receiver-top.unwatermarked.png /work/bld/png/05-node-receiver-top.png --text © 2026 brainboxemb
+SCons built: bld/png/05-node-receiver-top.png
+_action(["bld/png/06-node-receiver-side.png"], ["dsg/openscad/render/06-node-receiver-side.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-receiver/node_receiver.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.06-node-receiver-side.unwatermarked.png /work/dsg/openscad/render/06-node-receiver-side.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 13
+Geometry cache size in bytes: 20800
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.134
+Top level object is a 3D object (PolySet):
+   Convex:       no
+   Triangles:     36
++ scad-image-watermark /work/bld/png/.06-node-receiver-side.unwatermarked.png /work/bld/png/06-node-receiver-side.png --text © 2026 brainboxemb
+SCons built: bld/png/06-node-receiver-side.png
+_action(["bld/png/07-node-snap-retention-profile.png"], ["dsg/openscad/render/07-node-snap-retention-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.07-node-snap-retention-profile.unwatermarked.png /work/dsg/openscad/render/07-node-snap-retention-profile.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 49
+Geometry cache size in bytes: 222712
+CGAL Polyhedrons in cache: 69
+CGAL cache size in bytes: 377500
+Total rendering time: 0:00:00.153
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       84
+   Facets:        164
++ scad-image-watermark /work/bld/png/.07-node-snap-retention-profile.unwatermarked.png /work/bld/png/07-node-snap-retention-profile.png --text © 2026 brainboxemb
+SCons built: bld/png/07-node-snap-retention-profile.png
+_action(["bld/png/10-example-receiver-rail.png"], ["dsg/openscad/render/10-example-receiver-rail.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-rail/receiver_rail_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.10-example-receiver-rail.unwatermarked.png /work/dsg/openscad/render/10-example-receiver-rail.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 87
+Geometry cache size in bytes: 81744
+CGAL Polyhedrons in cache: 7
+CGAL cache size in bytes: 1034750
+Total rendering time: 0:00:00.161
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1148
+   Facets:       2292
++ scad-image-watermark /work/bld/png/.10-example-receiver-rail.unwatermarked.png /work/bld/png/10-example-receiver-rail.png --text © 2026 brainboxemb
+SCons built: bld/png/10-example-receiver-rail.png
+_action(["bld/png/11-example-receiver-plate.png"], ["dsg/openscad/render/11-example-receiver-plate.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-plate/receiver_plate_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.11-example-receiver-plate.unwatermarked.png /work/dsg/openscad/render/11-example-receiver-plate.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 45
+Geometry cache size in bytes: 46992
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 341750
+Total rendering time: 0:00:00.147
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      380
+   Facets:        756
++ scad-image-watermark /work/bld/png/.11-example-receiver-plate.unwatermarked.png /work/bld/png/11-example-receiver-plate.png --text © 2026 brainboxemb
+SCons built: bld/png/11-example-receiver-plate.png
+_action(["bld/png/12-example-rail-assembled.png"], ["dsg/openscad/render/12-example-rail-assembled.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-rail/receiver_rail_assembled_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.12-example-rail-assembled.unwatermarked.png /work/dsg/openscad/render/12-example-rail-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 163
+Geometry cache size in bytes: 421648
+CGAL Polyhedrons in cache: 80
+CGAL cache size in bytes: 3374500
+Total rendering time: 0:00:00.208
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1960
+   Facets:       3916
++ scad-image-watermark /work/bld/png/.12-example-rail-assembled.unwatermarked.png /work/bld/png/12-example-rail-assembled.png --text © 2026 brainboxemb
+SCons built: bld/png/12-example-rail-assembled.png
+_action(["bld/png/13-example-plate-assembled.png"], ["dsg/openscad/render/13-example-plate-assembled.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-plate/receiver_plate_assembled_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.13-example-plate-assembled.unwatermarked.png /work/dsg/openscad/render/13-example-plate-assembled.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 119
+Geometry cache size in bytes: 385184
+CGAL Polyhedrons in cache: 79
+CGAL cache size in bytes: 2485250
+Total rendering time: 0:00:00.192
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1175
+   Facets:       2346
++ scad-image-watermark /work/bld/png/.13-example-plate-assembled.unwatermarked.png /work/bld/png/13-example-plate-assembled.png --text © 2026 brainboxemb
+SCons built: bld/png/13-example-plate-assembled.png
+_action(["bld/png/20-node-rail-exploded.png"], ["dsg/openscad/render/20-node-rail-exploded.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.20-node-rail-exploded.unwatermarked.png /work/dsg/openscad/render/20-node-rail-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 163
+Geometry cache size in bytes: 327568
+CGAL Polyhedrons in cache: 80
+CGAL cache size in bytes: 2459250
+Total rendering time: 0:00:00.192
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     1819
+   Facets:       3630
++ scad-image-watermark /work/bld/png/.20-node-rail-exploded.unwatermarked.png /work/bld/png/20-node-rail-exploded.png --text © 2026 brainboxemb
+SCons built: bld/png/20-node-rail-exploded.png
+_action(["bld/png/21-node-plate-exploded.png"], ["dsg/openscad/render/21-node-plate-exploded.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.21-node-plate-exploded.unwatermarked.png /work/dsg/openscad/render/21-node-plate-exploded.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 119
+Geometry cache size in bytes: 291104
+CGAL Polyhedrons in cache: 79
+CGAL cache size in bytes: 1574250
+Total rendering time: 0:00:00.176
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     1051
+   Facets:       2094
++ scad-image-watermark /work/bld/png/.21-node-plate-exploded.unwatermarked.png /work/bld/png/21-node-plate-exploded.png --text © 2026 brainboxemb
+SCons built: bld/png/21-node-plate-exploded.png
+_action(["bld/png/22-node-snap-vs-reference.png"], ["dsg/openscad/render/22-node-snap-vs-reference.scad", "dsg/openscad/lib/opengrid_reference.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/ext/quackworks/openGrid/openGrid.scad", "dsg/openscad/ext/quackworks/openGrid/opengrid-snap.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.22-node-snap-vs-reference.unwatermarked.png /work/dsg/openscad/render/22-node-snap-vs-reference.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 131
+Geometry cache size in bytes: 972928
+CGAL Polyhedrons in cache: 192
+CGAL cache size in bytes: 3722750
+Total rendering time: 0:00:00.205
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:       91
+   Facets:        174
++ scad-image-watermark /work/bld/png/.22-node-snap-vs-reference.unwatermarked.png /work/bld/png/22-node-snap-vs-reference.png --text © 2026 brainboxemb
+SCons built: bld/png/22-node-snap-vs-reference.png
+_action(["bld/png/23-node-receiver-top-comparison.png"], ["dsg/openscad/render/23-node-receiver-top-comparison.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.23-node-receiver-top-comparison.unwatermarked.png /work/dsg/openscad/render/23-node-receiver-top-comparison.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 115
+Geometry cache size in bytes: 106912
+CGAL Polyhedrons in cache: 16
+CGAL cache size in bytes: 2140500
+Total rendering time: 0:00:00.171
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     1528
+   Facets:       3048
++ scad-image-watermark /work/bld/png/.23-node-receiver-top-comparison.unwatermarked.png /work/bld/png/23-node-receiver-top-comparison.png --text © 2026 brainboxemb
+SCons built: bld/png/23-node-receiver-top-comparison.png
+_action(["bld/png/24-node-rail-vs-plate.png"], ["dsg/openscad/render/24-node-rail-vs-plate.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.24-node-rail-vs-plate.unwatermarked.png /work/dsg/openscad/render/24-node-rail-vs-plate.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 189
+Geometry cache size in bytes: 351024
+CGAL Polyhedrons in cache: 91
+CGAL cache size in bytes: 4145250
+Total rendering time: 0:00:00.224
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      -1
+   Vertices:     2175
+   Facets:       4342
++ scad-image-watermark /work/bld/png/.24-node-rail-vs-plate.unwatermarked.png /work/bld/png/24-node-rail-vs-plate.png --text © 2026 brainboxemb
+SCons built: bld/png/24-node-rail-vs-plate.png
+_action(["bld/png/30-node-rail-retention-section.png"], ["dsg/openscad/render/30-node-rail-retention-section.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.30-node-rail-retention-section.unwatermarked.png /work/dsg/openscad/render/30-node-rail-retention-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 66
+Geometry cache size in bytes: 244536
+CGAL Polyhedrons in cache: 76
+CGAL cache size in bytes: 458500
+Total rendering time: 0:00:00.156
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      100
+   Facets:        196
++ scad-image-watermark /work/bld/png/.30-node-rail-retention-section.unwatermarked.png /work/bld/png/30-node-rail-retention-section.png --text © 2026 brainboxemb
+SCons built: bld/png/30-node-rail-retention-section.png
+_action(["bld/png/31-node-plate-retention-section.png"], ["dsg/openscad/render/31-node-plate-retention-section.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.31-node-plate-retention-section.unwatermarked.png /work/dsg/openscad/render/31-node-plate-retention-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 64
+Geometry cache size in bytes: 244024
+CGAL Polyhedrons in cache: 75
+CGAL cache size in bytes: 453500
+Total rendering time: 0:00:00.156
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      4
+   Vertices:      108
+   Facets:        228
++ scad-image-watermark /work/bld/png/.31-node-plate-retention-section.unwatermarked.png /work/bld/png/31-node-plate-retention-section.png --text © 2026 brainboxemb
+SCons built: bld/png/31-node-plate-retention-section.png
+_action(["bld/png/32-node-rail-transition-section.png"], ["dsg/openscad/render/32-node-rail-transition-section.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.32-node-rail-transition-section.unwatermarked.png /work/dsg/openscad/render/32-node-rail-transition-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 20
+Geometry cache size in bytes: 24392
+CGAL Polyhedrons in cache: 5
+CGAL cache size in bytes: 37000
+Total rendering time: 0:00:00.135
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       24
+   Facets:         44
++ scad-image-watermark /work/bld/png/.32-node-rail-transition-section.unwatermarked.png /work/bld/png/32-node-rail-transition-section.png --text © 2026 brainboxemb
+SCons built: bld/png/32-node-rail-transition-section.png
+_action(["bld/png/33-node-plate-transition-section.png"], ["dsg/openscad/render/33-node-plate-transition-section.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ xvfb-run -a openscad --render --autocenter --viewall --imgsize=1600,1000 -o /work/bld/png/.33-node-plate-transition-section.unwatermarked.png /work/dsg/openscad/render/33-node-plate-transition-section.scad
+WARNING: Viewall and autocenter disabled in favor of $vp*
+Geometries in cache: 18
+Geometry cache size in bytes: 23880
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 18000
+Total rendering time: 0:00:00.135
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
++ scad-image-watermark /work/bld/png/.33-node-plate-transition-section.unwatermarked.png /work/bld/png/33-node-plate-transition-section.png --text © 2026 brainboxemb
+SCons built: bld/png/33-node-plate-transition-section.png
+Retrieved `bld/png/40-opengrid-lite-section.png' from cache
+Retrieved `bld/png/41-opengrid-lite-flex-section.png' from cache
+Retrieved `bld/png/42-opengrid-lite-receiver-flex-profile.png' from cache
+Retrieved `bld/png/43-opengrid-lite-snap-flex-profile.png' from cache
+Retrieved `bld/png/44-opengrid-lite-receiver-solid-profile.png' from cache
+Retrieved `bld/png/45-opengrid-lite-snap-solid-profile.png' from cache
+Retrieved `bld/png/50-reference-full-baseline-assembled.png' from cache
+Retrieved `bld/png/51-reference-full-baseline-exploded.png' from cache
+Retrieved `bld/png/52-reference-full-baseline-section.png' from cache
+Retrieved `bld/png/53-reference-full-section.png' from cache
+Retrieved `bld/png/54-reference-full-flex-section.png' from cache
+Retrieved `bld/png/55-reference-full-receiver-flex-profile.png' from cache
+Retrieved `bld/png/56-reference-full-snap-flex-profile.png' from cache
+Retrieved `bld/png/57-reference-full-receiver-solid-profile.png' from cache
+Retrieved `bld/png/58-reference-full-snap-solid-profile.png' from cache
+Retrieved `bld/png/60-reference-full-vs-lite-assembled.png' from cache
+Retrieved `bld/png/61-reference-full-vs-lite-exploded.png' from cache
+Retrieved `bld/png/62-reference-full-vs-lite-section.png' from cache
+Retrieved `bld/png/63-reference-full-vs-lite-flex-section.png' from cache
+_action(["bld/svg/01-node-fixed-tongue-profile-a4.svg"], ["dsg/openscad/render2d/01-node-fixed-tongue-profile-a4.scad", "dsg/openscad/specification/mating_profiles.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad", "dsg/openscad/lib/opengrid_reference.scad", "dsg/openscad/ext/quackworks/openGrid/openGrid.scad", "dsg/openscad/ext/quackworks/openGrid/opengrid-snap.scad"])
++ openscad -o /work/bld/svg/01-node-fixed-tongue-profile-a4.svg /work/dsg/openscad/render2d/01-node-fixed-tongue-profile-a4.scad
+Geometries in cache: 110
+Geometry cache size in bytes: 704296
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 37000
+Total rendering time: 0:00:00.038
+Top level object is a 2D object:
+   Contours:      438
+SCons built: bld/svg/01-node-fixed-tongue-profile-a4.svg
+_action(["bld/svg/10-reference-pair-section.svg"], ["dsg/openscad/render2d/10-reference-pair-section.scad", "dsg/openscad/specification/interface_specification.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad"])
++ openscad -o /work/bld/svg/10-reference-pair-section.svg /work/dsg/openscad/render2d/10-reference-pair-section.scad
+Geometries in cache: 150
+Geometry cache size in bytes: 873064
+CGAL Polyhedrons in cache: 69
+CGAL cache size in bytes: 377500
+Total rendering time: 0:00:00.060
+Top level object is a 2D object:
+   Contours:      418
+SCons built: bld/svg/10-reference-pair-section.svg
+_action(["bld/svg/11-width-reduction-context.svg"], ["dsg/openscad/render2d/11-width-reduction-context.scad", "dsg/openscad/specification/interface_specification.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad"])
++ openscad -o /work/bld/svg/11-width-reduction-context.svg /work/dsg/openscad/render2d/11-width-reduction-context.scad
+Geometries in cache: 104
+Geometry cache size in bytes: 715152
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.033
+Top level object is a 2D object:
+   Contours:      456
+SCons built: bld/svg/11-width-reduction-context.svg
+_action(["bld/svg/12-reference-implementation.svg"], ["dsg/openscad/render2d/12-reference-implementation.scad", "dsg/openscad/specification/interface_specification.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad"])
++ openscad -o /work/bld/svg/12-reference-implementation.svg /work/dsg/openscad/render2d/12-reference-implementation.scad
+Geometries in cache: 116
+Geometry cache size in bytes: 664888
+CGAL Polyhedrons in cache: 69
+CGAL cache size in bytes: 377500
+Total rendering time: 0:00:00.054
+Top level object is a 2D object:
+   Contours:      306
+SCons built: bld/svg/12-reference-implementation.svg
+_action(["bld/svg/20-node-receiver-detail.svg"], ["dsg/openscad/render2d/20-node-receiver-detail.scad", "dsg/openscad/components/node-receiver/node_receiver/node_receiver_drawing.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad"])
++ openscad -o /work/bld/svg/20-node-receiver-detail.svg /work/dsg/openscad/render2d/20-node-receiver-detail.scad
+Geometries in cache: 85
+Geometry cache size in bytes: 316368
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.016
+Top level object is a 2D object:
+   Contours:      242
+SCons built: bld/svg/20-node-receiver-detail.svg
+_action(["bld/svg/21-node-snap-detail.svg"], ["dsg/openscad/render2d/21-node-snap-detail.scad", "dsg/openscad/components/node-snap/node_snap/node_snap_drawing.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad", "dsg/openscad/lib/technical_drawing.scad", "dsg/openscad/design_support.scad"])
++ openscad -o /work/bld/svg/21-node-snap-detail.svg /work/dsg/openscad/render2d/21-node-snap-detail.scad
+Geometries in cache: 134
+Geometry cache size in bytes: 580168
+CGAL Polyhedrons in cache: 69
+CGAL cache size in bytes: 377500
+Total rendering time: 0:00:00.049
+Top level object is a 2D object:
+   Contours:      263
+SCons built: bld/svg/21-node-snap-detail.svg
+Retrieved `bld/stl/01-opengrid-lite-receiver.stl' from cache
+Retrieved `bld/stl/02-opengrid-lite-snap.stl' from cache
+_action(["bld/stl/03-node-receiver.stl"], ["dsg/openscad/export/03-node-receiver.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-receiver/node_receiver.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/03-node-receiver.stl /work/dsg/openscad/export/03-node-receiver.scad
+Geometries in cache: 12
+Geometry cache size in bytes: 18744
+CGAL Polyhedrons in cache: 0
+CGAL cache size in bytes: 0
+Total rendering time: 0:00:00.000
+Top level object is a 3D object (PolySet):
+   Convex:       no
+   Triangles:     36
+SCons built: bld/stl/03-node-receiver.stl
+_action(["bld/stl/04-node-snap.stl"], ["dsg/openscad/export/04-node-snap.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/components/node-snap/node_snap.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/04-node-snap.stl /work/dsg/openscad/export/04-node-snap.scad
+Geometries in cache: 80
+Geometry cache size in bytes: 343328
+CGAL Polyhedrons in cache: 70
+CGAL cache size in bytes: 1274250
+Total rendering time: 0:00:00.042
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1151
+   Facets:       2298
+SCons built: bld/stl/04-node-snap.stl
+_action(["bld/stl/10-example-receiver-rail.stl"], ["dsg/openscad/export/10-example-receiver-rail.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-rail/receiver_rail_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/10-example-receiver-rail.stl /work/dsg/openscad/export/10-example-receiver-rail.scad
+Geometries in cache: 87
+Geometry cache size in bytes: 81744
+CGAL Polyhedrons in cache: 6
+CGAL cache size in bytes: 747750
+Total rendering time: 0:00:00.026
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:     1148
+   Facets:       2292
+SCons built: bld/stl/10-example-receiver-rail.stl
+_action(["bld/stl/11-example-receiver-plate.stl"], ["dsg/openscad/export/11-example-receiver-plate.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/examples/receiver-plate/receiver_plate_example.scad", "dsg/openscad/lib/node_interface.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/11-example-receiver-plate.stl /work/dsg/openscad/export/11-example-receiver-plate.scad
+Geometries in cache: 45
+Geometry cache size in bytes: 46992
+CGAL Polyhedrons in cache: 5
+CGAL cache size in bytes: 246750
+Total rendering time: 0:00:00.011
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:      380
+   Facets:        756
+SCons built: bld/stl/11-example-receiver-plate.stl
+_action(["bld/stl/30-node-rail-retention-profile.stl"], ["dsg/openscad/export/30-node-rail-retention-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/30-node-rail-retention-profile.stl /work/dsg/openscad/export/30-node-rail-retention-profile.scad
+Geometries in cache: 20
+Geometry cache size in bytes: 24392
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 30000
+Total rendering time: 0:00:00.004
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       20
+   Facets:         36
+SCons built: bld/stl/30-node-rail-retention-profile.stl
+_action(["bld/stl/31-node-plate-retention-profile.stl"], ["dsg/openscad/export/31-node-plate-retention-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/31-node-plate-retention-profile.stl /work/dsg/openscad/export/31-node-plate-retention-profile.scad
+Geometries in cache: 18
+Geometry cache size in bytes: 23880
+CGAL Polyhedrons in cache: 3
+CGAL cache size in bytes: 21000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       28
+   Facets:         52
+SCons built: bld/stl/31-node-plate-retention-profile.stl
+_action(["bld/stl/32-node-rail-transition-profile.stl"], ["dsg/openscad/export/32-node-rail-transition-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/32-node-rail-transition-profile.stl /work/dsg/openscad/export/32-node-rail-transition-profile.scad
+Geometries in cache: 20
+Geometry cache size in bytes: 24392
+CGAL Polyhedrons in cache: 4
+CGAL cache size in bytes: 31000
+Total rendering time: 0:00:00.004
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       24
+   Facets:         44
+SCons built: bld/stl/32-node-rail-transition-profile.stl
+_action(["bld/stl/33-node-plate-transition-profile.stl"], ["dsg/openscad/export/33-node-plate-transition-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/33-node-plate-transition-profile.stl /work/dsg/openscad/export/33-node-plate-transition-profile.scad
+Geometries in cache: 18
+Geometry cache size in bytes: 23880
+CGAL Polyhedrons in cache: 3
+CGAL cache size in bytes: 16000
+Total rendering time: 0:00:00.003
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:        8
+   Facets:         12
+SCons built: bld/stl/33-node-plate-transition-profile.stl
+_action(["bld/stl/34-node-snap-retention-profile.stl"], ["dsg/openscad/export/34-node-snap-retention-profile.scad", "dsg/openscad/lib/node_interface.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/lib/detachable_interface_spec.scad"])
++ openscad -o /work/bld/stl/34-node-snap-retention-profile.stl /work/dsg/openscad/export/34-node-snap-retention-profile.scad
+Geometries in cache: 49
+Geometry cache size in bytes: 222712
+CGAL Polyhedrons in cache: 68
+CGAL cache size in bytes: 356500
+Total rendering time: 0:00:00.022
+   Top level object is a 3D object (manifold):
+   Status:     NoError
+   Genus:      0
+   Vertices:       84
+   Facets:        164
+SCons built: bld/stl/34-node-snap-retention-profile.stl
+Retrieved `bld/stl/40-opengrid-lite-receiver-flex-profile.stl' from cache
+Retrieved `bld/stl/41-opengrid-lite-snap-flex-profile.stl' from cache
+Retrieved `bld/stl/42-opengrid-lite-receiver-solid-profile.stl' from cache
+Retrieved `bld/stl/43-opengrid-lite-snap-solid-profile.stl' from cache
+Retrieved `bld/stl/50-reference-full-receiver.stl' from cache
+Retrieved `bld/stl/51-reference-full-snap.stl' from cache
+Retrieved `bld/stl/60-reference-full-receiver-flex-profile.stl' from cache
+Retrieved `bld/stl/61-reference-full-snap-flex-profile.stl' from cache
+Retrieved `bld/stl/62-reference-full-receiver-solid-profile.stl' from cache
+Retrieved `bld/stl/63-reference-full-snap-solid-profile.stl' from cache
+_action(["bld/drawing/00-opengrid-python.svg", "bld/drawing/00-opengrid-python.png", "bld/drawing/01-opengrid-openscad-reference.svg", "bld/drawing/01-opengrid-openscad-reference.png", "bld/drawing/02-opengrid-overlay.svg", "bld/drawing/02-opengrid-overlay.png", "bld/drawing/03-opengrid-straight-crop-proof.svg", "bld/drawing/03-opengrid-straight-crop-proof.png"], ["dsg/drawing/build_opengrid_profile.py", "dsg/drawing/opengrid_profile_geometry.py", "dsg/drawing/opengrid_profile_render.py", "dsg/drawing/opengrid_lite_plan_slice_reference.scad", "dsg/openscad/lib/opengrid_reference.scad", "/opt/openscad-libraries/BOSL2/std.scad", "/opt/openscad-libraries/BOSL2/version.scad", "/opt/openscad-libraries/BOSL2/constants.scad", "/opt/openscad-libraries/BOSL2/transforms.scad", "/opt/openscad-libraries/BOSL2/distributors.scad", "/opt/openscad-libraries/BOSL2/miscellaneous.scad", "/opt/openscad-libraries/BOSL2/color.scad", "/opt/openscad-libraries/BOSL2/builtins.scad", "/opt/openscad-libraries/BOSL2/attachments.scad", "/opt/openscad-libraries/BOSL2/beziers.scad", "/opt/openscad-libraries/BOSL2/shapes3d.scad", "/opt/openscad-libraries/BOSL2/shapes2d.scad", "/opt/openscad-libraries/BOSL2/drawing.scad", "/opt/openscad-libraries/BOSL2/masks.scad", "/opt/openscad-libraries/BOSL2/math.scad", "/opt/openscad-libraries/BOSL2/paths.scad", "/opt/openscad-libraries/BOSL2/lists.scad", "/opt/openscad-libraries/BOSL2/comparisons.scad", "/opt/openscad-libraries/BOSL2/linalg.scad", "/opt/openscad-libraries/BOSL2/trigonometry.scad", "/opt/openscad-libraries/BOSL2/vectors.scad", "/opt/openscad-libraries/BOSL2/affine.scad", "/opt/openscad-libraries/BOSL2/coords.scad", "/opt/openscad-libraries/BOSL2/geometry.scad", "/opt/openscad-libraries/BOSL2/regions.scad", "/opt/openscad-libraries/BOSL2/strings.scad", "/opt/openscad-libraries/BOSL2/vnf.scad", "/opt/openscad-libraries/BOSL2/structs.scad", "/opt/openscad-libraries/BOSL2/rounding.scad", "/opt/openscad-libraries/BOSL2/skin.scad", "/opt/openscad-libraries/BOSL2/utility.scad", "/opt/openscad-libraries/BOSL2/partitions.scad", "dsg/openscad/ext/quackworks/openGrid/openGrid.scad", "dsg/openscad/ext/quackworks/openGrid/opengrid-snap.scad"])
++ python3 dsg/drawing/build_opengrid_profile.py
+Geometries in cache: 40
+Geometry cache size in bytes: 44536
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 783000
+Total rendering time: 0:00:00.011
+Top level object is a 2D object:
+   Contours:        2
+Geometries in cache: 40
+Geometry cache size in bytes: 44536
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 783000
+Total rendering time: 0:00:00.011
+Top level object is a 2D object:
+   Contours:        2
+Geometries in cache: 40
+Geometry cache size in bytes: 44536
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 783000
+Total rendering time: 0:00:00.010
+Top level object is a 2D object:
+   Contours:        2
+Geometries in cache: 40
+Geometry cache size in bytes: 44536
+CGAL Polyhedrons in cache: 34
+CGAL cache size in bytes: 783000
+Total rendering time: 0:00:00.010
+Top level object is a 2D object:
+   Contours:        2
+
+** (inkscape:1835): WARNING **: 18:16:58.193: Failed to wrap object of type 'GtkRecentManager'. Hint: this error is commonly caused by failing to call a library init() function.
+
+** (inkscape:1843): WARNING **: 18:16:58.383: Failed to wrap object of type 'GtkRecentManager'. Hint: this error is commonly caused by failing to call a library init() function.
+
+** (inkscape:1851): WARNING **: 18:16:58.576: Failed to wrap object of type 'GtkRecentManager'. Hint: this error is commonly caused by failing to call a library init() function.
+
+** (inkscape:1859): WARNING **: 18:16:58.764: Failed to wrap object of type 'GtkRecentManager'. Hint: this error is commonly caused by failing to call a library init() function.
+OpenGrid Lite top-view contour planes: 1.6 mm, 2.6 mm, 3.6 mm, 4 mm
+Z=0.0 mm is geometrically identical to Z=1.6 mm and is represented once
+Z=1.6 mm: side inset=0.800000 mm, corner extent=5.569848 mm, visible segments=0
+Z=2.6 mm: side inset=1.500000 mm, corner extent=5.569848 mm, visible segments=4
+Z=3.6 mm: side inset=1.500000 mm, corner extent=4.569848 mm, visible segments=8
+Z=4 mm: side inset=1.100000 mm, corner extent=4.169848 mm, visible segments=8
+geometry validation: raw section max delta=0.000004738 mm, visible-edge max delta=0.000004738 mm (limit=0.001000000 mm)
+straight crop proof: minimum source half-span=6.923044738 mm, crop half-length=5.000000000 mm, margin=1.923044738 mm per end
+drawing: bld/drawing/00-opengrid-python.svg
+drawing: bld/drawing/00-opengrid-python.png
+drawing: bld/drawing/01-opengrid-openscad-reference.svg
+drawing: bld/drawing/01-opengrid-openscad-reference.png
+drawing: bld/drawing/02-opengrid-overlay.svg
+drawing: bld/drawing/02-opengrid-overlay.png
+drawing: bld/drawing/03-opengrid-straight-crop-proof.svg
+drawing: bld/drawing/03-opengrid-straight-crop-proof.png
+SCons built: bld/drawing/00-opengrid-python.svg
+SCons summary: targets=67 built=34 cache-restored=33 current=0 error=0
+  cache_restored: bld/png/01-opengrid-lite-receiver.png
+  cache_restored: bld/png/02-opengrid-lite-snap.png
+  built: bld/png/03-node-receiver.png
+  built: bld/png/04-node-snap.png
+  built: bld/png/05-node-receiver-top.png
+  built: bld/png/06-node-receiver-side.png
+  built: bld/png/07-node-snap-retention-profile.png
+  built: bld/png/10-example-receiver-rail.png
+  built: bld/png/11-example-receiver-plate.png
+  built: bld/png/12-example-rail-assembled.png
+  built: bld/png/13-example-plate-assembled.png
+  built: bld/png/20-node-rail-exploded.png
+  built: bld/png/21-node-plate-exploded.png
+  built: bld/png/22-node-snap-vs-reference.png
+  built: bld/png/23-node-receiver-top-comparison.png
+  built: bld/png/24-node-rail-vs-plate.png
+  built: bld/png/30-node-rail-retention-section.png
+  built: bld/png/31-node-plate-retention-section.png
+  built: bld/png/32-node-rail-transition-section.png
+  built: bld/png/33-node-plate-transition-section.png
+  cache_restored: bld/png/40-opengrid-lite-section.png
+  cache_restored: bld/png/41-opengrid-lite-flex-section.png
+  cache_restored: bld/png/42-opengrid-lite-receiver-flex-profile.png
+  cache_restored: bld/png/43-opengrid-lite-snap-flex-profile.png
+  cache_restored: bld/png/44-opengrid-lite-receiver-solid-profile.png
+  cache_restored: bld/png/45-opengrid-lite-snap-solid-profile.png
+  cache_restored: bld/png/50-reference-full-baseline-assembled.png
+  cache_restored: bld/png/51-reference-full-baseline-exploded.png
+  cache_restored: bld/png/52-reference-full-baseline-section.png
+  cache_restored: bld/png/53-reference-full-section.png
+  cache_restored: bld/png/54-reference-full-flex-section.png
+  cache_restored: bld/png/55-reference-full-receiver-flex-profile.png
+  cache_restored: bld/png/56-reference-full-snap-flex-profile.png
+  cache_restored: bld/png/57-reference-full-receiver-solid-profile.png
+  cache_restored: bld/png/58-reference-full-snap-solid-profile.png
+  cache_restored: bld/png/60-reference-full-vs-lite-assembled.png
+  cache_restored: bld/png/61-reference-full-vs-lite-exploded.png
+  cache_restored: bld/png/62-reference-full-vs-lite-section.png
+  cache_restored: bld/png/63-reference-full-vs-lite-flex-section.png
+  built: bld/svg/01-node-fixed-tongue-profile-a4.svg
+  built: bld/svg/10-reference-pair-section.svg
+  built: bld/svg/11-width-reduction-context.svg
+  built: bld/svg/12-reference-implementation.svg
+  built: bld/svg/20-node-receiver-detail.svg
+  built: bld/svg/21-node-snap-detail.svg
+  cache_restored: bld/stl/01-opengrid-lite-receiver.stl
+  cache_restored: bld/stl/02-opengrid-lite-snap.stl
+  built: bld/stl/03-node-receiver.stl
+  built: bld/stl/04-node-snap.stl
+  built: bld/stl/10-example-receiver-rail.stl
+  built: bld/stl/11-example-receiver-plate.stl
+  built: bld/stl/30-node-rail-retention-profile.stl
+  built: bld/stl/31-node-plate-retention-profile.stl
+  built: bld/stl/32-node-rail-transition-profile.stl
+  built: bld/stl/33-node-plate-transition-profile.stl
+  built: bld/stl/34-node-snap-retention-profile.stl
+  cache_restored: bld/stl/40-opengrid-lite-receiver-flex-profile.stl
+  cache_restored: bld/stl/41-opengrid-lite-snap-flex-profile.stl
+  cache_restored: bld/stl/42-opengrid-lite-receiver-solid-profile.stl
+  cache_restored: bld/stl/43-opengrid-lite-snap-solid-profile.stl
+  cache_restored: bld/stl/50-reference-full-receiver.stl
+  cache_restored: bld/stl/51-reference-full-snap.stl
+  cache_restored: bld/stl/60-reference-full-receiver-flex-profile.stl
+  cache_restored: bld/stl/61-reference-full-snap-flex-profile.stl
+  cache_restored: bld/stl/62-reference-full-receiver-solid-profile.stl
+  cache_restored: bld/stl/63-reference-full-snap-solid-profile.stl
+  built: bld/drawing/00-opengrid-python.svg
+build: OK
+▮▮▮▮ consumer:scad.build (35s 245ms, 85382e48)
+
+Tasks: 1 completed
+ Time: 35s 359ms
+
