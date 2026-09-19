@@ -41,6 +41,7 @@ class SectionGeometry:
     inner: Polygon
     side_inset_mm: float
     corner_extent_mm: float
+    straight_half_span_mm: float
 
 
 def inside_extrusion_mm() -> float:
@@ -181,6 +182,7 @@ def section_geometry(local_z_mm: float) -> SectionGeometry:
         inner=inner,
         side_inset_mm=inset_mm,
         corner_extent_mm=corner_mm,
+        straight_half_span_mm=inner_short_mm,
     )
 
 
@@ -198,6 +200,25 @@ def unique_lite_sections() -> tuple[SectionGeometry, ...]:
     assert bottom.inner == sections[0].inner
 
     return sections
+
+
+def minimum_straight_half_span_mm() -> float:
+    """Minimum centre-to-corner-start distance over the Lite height."""
+
+    limiting = section_geometry(0.0).straight_half_span_mm
+
+    assert all(
+        section.straight_half_span_mm >= limiting - _GEOMETRY_EPSILON_MM
+        for section in unique_lite_sections()
+    )
+
+    return limiting
+
+
+def straight_crop_margin_mm(length_mm: float) -> float:
+    """Per-end margin between a centred straight crop and source corners."""
+
+    return minimum_straight_half_span_mm() - length_mm / 2.0
 
 
 def polygon_signed_area(polygon: Polygon) -> float:

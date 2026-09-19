@@ -32,10 +32,12 @@ mirrored spacing. A **minimal receiver + minimal snap** then serve as the
 reference implementation of that contract.
 
 The transverse X/Z receiver profile is established from the pinned source.
-The compact receiver still has one open design question: **how that profile
-terminates in Y inside the local footprint**. The current 10 mm receiver STL is
-therefore an implementation candidate under review, not the longitudinal
-interface contract. The snap retains/flexes only on two opposite sides.
+The compact stage-2 receiver is a **centred 10 mm crop from one OpenGrid
+straight-edge region**. The minimum source straight half-span is 6.923045 mm,
+leaving 1.923045 mm before the separate source corner construction at each crop
+end. The 10 mm length remains a reference-implementation choice rather than
+part of the interface contract. The snap retains/flexes only on two opposite
+sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
@@ -70,6 +72,8 @@ bld/drawing/01-opengrid-openscad-reference.svg
 bld/drawing/01-opengrid-openscad-reference.png
 bld/drawing/02-opengrid-overlay.svg
 bld/drawing/02-opengrid-overlay.png
+bld/drawing/03-opengrid-straight-crop-proof.svg
+bld/drawing/03-opengrid-straight-crop-proof.png
 ```
 
 The first SVG is the independent Python reconstruction. It keeps the model in
@@ -89,6 +93,10 @@ The same visibility rule is applied separately to the Python reconstruction and
 the validated OpenSCAD section polygons. The overlay then compares the visible
 edge endpoints as well as the raw section vertices. OpenSCAD output is never
 fed back into the Python source-profile construction.
+
+The fourth artifact shows the limiting source section together with the 10 mm
+stage-2 crop. Its numeric gate requires a positive end margin; the current
+source-derived margin is 1.923045 mm per end.
 
 No A4 sheet, A-A section, B/C/D detail circles, dimensions or title block belong
 to this checkpoint.

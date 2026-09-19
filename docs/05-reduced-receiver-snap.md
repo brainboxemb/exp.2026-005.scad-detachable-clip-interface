@@ -124,9 +124,9 @@ The node assembly therefore now uses the same-origin reference as its default:
 separate qualification evidence instead of being inferred from the height
 difference.
 
-## Current receiver design question
+## Receiver longitudinal decision
 
-The transverse receiver profile is established:
+The transverse receiver profile remains:
 
 ```text
 Z 0.0 .. 1.6     width 8.6 mm
@@ -135,28 +135,39 @@ Z 2.6 .. 3.6     width 10.0 mm
 Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
 ```
 
-The **longitudinal Y termination is reopened**. The pinned OpenGrid source
-builds a straight edge with `path_extrude2d()` and then adds separate
-corner-profile geometry. Therefore neither of the node simplifications tested
-so far is source-authoritative:
+The stage-2 longitudinal construction is now resolved. Source-derived sections
+give:
 
-- the earlier 8+1+1 smooth/end-blend variant;
-- the current unchanged straight 10 mm extrusion.
+```text
+minimum straight half-span          6.923045 mm
+minimum straight full span         13.846089 mm
+stage-2 crop half-length            5.000000 mm
+margin before each source corner    1.923045 mm
+```
 
-The current straight STL remains useful comparison evidence, but it must not be
-described as the qualified receiver baseline. The next design work must derive
-or explicitly choose the compact termination before accepting the receiver.
+A centred 10 mm receiver therefore never reaches the separate source corner
+construction over the retained Lite height. It uses the straight
+`path_extrude2d()` mechanism and terminates at Y = +/-5 mm as explicit crop
+planes.
 
-Current acceptance criteria for this sub-question:
+This does not claim OpenGrid itself has a straight 10 mm termination. OpenGrid
+still has separate corners; the node extracts a sufficiently small middle
+region that those corners remain outside the crop.
 
-- retain the established X/Z profile and left/right symmetry;
-- make the Y-end geometry explicit in drawings and STL evidence;
-- compare that termination against the pinned straight-edge **and** corner
-  construction;
-- do not hide a new transition inside implementation code without documenting
-  the design decision.
+The rejected 8+1+1 smooth/end-blend remains rejected. No new taper, blend or
+scaled corner is introduced.
 
-The exact candidate construction belongs in the node receiver design document.
+Evidence:
+
+```text
+drawing/00-opengrid-python.svg
+drawing/01-opengrid-openscad-reference.svg
+drawing/02-opengrid-overlay.svg
+drawing/03-opengrid-straight-crop-proof.svg
+```
+
+The 10 mm length remains a stage-2 reference-implementation choice, not an
+additional stage-1 interface requirement.
 
 ## Current snap design question
 

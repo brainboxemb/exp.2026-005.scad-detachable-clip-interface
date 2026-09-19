@@ -21,21 +21,18 @@ vpr: [68, 0, 28]
 The receiver is the fixed half of the reduced node interface. It is evaluated
 as a standalone object before rail or plate integration.
 
-The pinned OpenGrid source establishes the transverse mating profile, but it
-does **not** reduce to one longitudinal construction rule. In
-`openGridTileAp1()` the straight edge is generated with
-`path_extrude2d()`, while the corner/termination region is separate geometry
-from `full_tile_corners_profile`.
+The pinned OpenGrid source establishes the transverse mating profile and keeps
+its straight edge separate from the corner construction:
+`path_extrude2d()` builds the edge while `full_tile_corners_profile` adds the
+corners.
 
-For the node receiver we therefore know the X/Z profile, but we have not yet
-established how that profile should terminate inside the compact Y footprint.
-Both previously tried interpretations are non-authoritative:
+Across the complete retained Lite height, the source straight edge has a
+minimum half-span of **6.923045 mm** before corner material begins. A centred
+10 mm receiver uses 5.000000 mm per side, so its crop planes remain
+**1.923045 mm inside the straight source region at both ends**.
 
-- 8+1+1 mm / smooth radial-depth blending;
-- unchanged straight 10 mm profile extrusion.
-
-The current code still contains the straight-extrusion candidate so it can be
-inspected, but it is **not accepted design authority**.
+The stage-2 receiver is therefore a finite crop of the source straight edge.
+It does not reproduce, scale or blend the source corners.
 
 ## Geometry provenance
 
@@ -50,8 +47,8 @@ inspected, but it is **not accepted design authority**.
 | lower ramp Z band | 1.6 .. 2.6 mm | 1.6 .. 2.6 mm | upstream retained |
 | capture Z band | 2.6 .. 3.6 mm | 2.6 .. 3.6 mm | upstream retained |
 | top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | upstream retained |
-| local Y footprint | edge + separate corner construction | 10.0 mm candidate | **experiment choice under review** |
-| Y termination | separate source corner geometry | unresolved | **open design question** |
+| local Y footprint | edge + separate corner construction | centred 10.0 mm straight-edge crop | **validated stage-2 choice** |
+| Y termination | source corner starts outside crop | crop planes at Y = +/-5.0 mm | **stage-2 implementation choice** |
 
 The radial mirror is:
 
@@ -63,9 +60,9 @@ mirror sum = source capture width + target capture width
 node width = 35.0 - upstream opening width
 ```
 
-Only the radial widths and Z bands above are currently established. The source
-straight-edge and corner constructions must still be translated deliberately
-into the compact node termination.
+The radial widths and Z bands are contract-facing. The finite Y construction
+is stage-2-only: the reference receiver takes the middle 10 mm of the validated
+straight source region and ends it at two explicit crop planes.
 
 ## Step 1 — inspect the complete derived X/Z profile
 
@@ -89,20 +86,31 @@ Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
 The lower 1.6..2.6 ramp and upper 3.6..4.0 chamfer are both part of **one
 profile**. The upper chamfer is not a separate Y-dependent guide operation.
 
-## Step 2 — inspect the current longitudinal candidate
+## Step 2 — validate the finite straight-edge crop
 
-The current implementation uses a 10 mm straight `path_extrude2d()` only as
-a **candidate**. This view is useful precisely because it makes that assumption
-visible for review:
+The 10 mm `path_extrude2d()` is accepted for a source-derived reason:
+
+```text
+minimum source straight half-span   6.923045 mm
+required crop half-length           5.000000 mm
+margin to source corner start       1.923045 mm per end
+```
+
+The limiting source band is Lite-local Z=0.0..1.6 mm. Every later profile band
+increases the available straight span.
+
+```text
+drawing/03-opengrid-straight-crop-proof.svg
+drawing/03-opengrid-straight-crop-proof.png
+```
 
 <!-- scad-render
 view: profile-vs-extrusion
 -->
 
-Do not infer acceptance from this render. Upstream OpenGrid uses this mechanism
-for a straight edge but adds separate corner geometry at the edge ends. The
-node PoP still needs an explicit decision about what the compact equivalent of
-that termination should be.
+The node uses a local middle crop from one OpenGrid straight edge and ends it at
+two crop planes. No scaled source corner or invented Y blend is part of this
+reference implementation.
 
 ## Step 3 — inspect the functional receiver
 
@@ -110,9 +118,9 @@ that termination should be.
 view: plain
 -->
 
-This is the current candidate geometry without the optional scale marks. It is
-useful comparison evidence, but its Y-end treatment is not yet accepted as the
-final receiver definition.
+This is the accepted digital stage-2 geometry without the optional scale
+marks. Its Y-end treatment is the validated centred straight-edge crop.
+Physical fit and retention remain separate qualification questions.
 
 ## Step 4 — optional 1 mm reference grooves
 
@@ -131,14 +139,15 @@ The pattern does not define any mating dimension.
 view: final
 -->
 
-This standalone object is the current stage-2 fixed-side **candidate**. Its X/Z
-profile is contract-facing; its Y termination remains under review.
+This standalone object is the stage-2 fixed-side reference implementation. Its
+X/Z profile is contract-facing; its finite 10 mm Y crop is implementation-facing
+and does not become a shared interface requirement.
 
 ## Integration boundary
 
-Consumers must preserve the established X/Z mating profile. No consumer should
-copy the current straight Y termination as if it were normative until this
-experiment has explicitly resolved the local end geometry.
+Consumers must preserve the established X/Z mating profile. The 10 mm crop is
+a validated reference-implementation choice, not a normative requirement for
+all consumers.
 
 
 ## Reference implementation drawing

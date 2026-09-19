@@ -53,6 +53,25 @@ OPENGRID_RECEIVER_TOP_WIDTH = DETACHABLE_SOURCE_TOP_WIDTH;
 OPENGRID_SNAP_BODY_WIDTH = DETACHABLE_SOURCE_SNAP_BODY_WIDTH;
 OPENGRID_SNAP_NUB_OUTER_WIDTH = DETACHABLE_SOURCE_SNAP_NUB_OUTER_WIDTH;
 
+// Pinned plan/corner values used only to qualify the finite stage-2 crop.
+OPENGRID_SOURCE_TILE_SIZE = 28.0;
+OPENGRID_SOURCE_CORNER_SQUARE_THICKNESS = 2.6;
+OPENGRID_SOURCE_INTERSECTION_DISTANCE = 4.2;
+
+function node_source_corner_offset() =
+    sqrt(OPENGRID_SOURCE_INTERSECTION_DISTANCE ^ 2 / 2)
+    + OPENGRID_SOURCE_CORNER_SQUARE_THICKNESS;
+
+function node_source_min_straight_half_span() =
+    OPENGRID_SOURCE_TILE_SIZE / 2
+    - node_source_corner_offset() * sqrt(2)
+    + DETACHABLE_SOURCE_OUTSIDE_EXTRUSION;
+
+function node_receiver_straight_crop_margin(
+    length = DETACHABLE_INTERFACE_REFERENCE_LENGTH
+) =
+    node_source_min_straight_half_span() - length / 2;
+
 NODE_RADIAL_MIRROR_SUM = detachable_interface_mirror_sum();
 NODE_RECEIVER_LOWER_WIDTH = detachable_interface_receiver_lower_width();
 NODE_RECEIVER_TOP_WIDTH = detachable_interface_receiver_top_width();
@@ -172,6 +191,8 @@ assert(abs(NODE_SNAP_CORNER_CHAMFER - NODE_SNAP_WALL_THICKNESS / 2) < 0.0001);
 assert(NODE_SNAP_CORNER_CHAMFER < NODE_SNAP_LENGTH / 2);
 assert(abs(NODE_RECEIVER_FUNCTIONAL_LENGTH - 10.0) < 0.0001);
 assert(abs(NODE_RECEIVER_BLOCK_LENGTH - 10.0) < 0.0001);
+assert(abs(node_source_min_straight_half_span() - 6.9230447378) < 0.0001);
+assert(node_receiver_straight_crop_margin() > 1.9230);
 assert(abs(NODE_SNAP_SEATED_Z) < 0.0001);
 assert(abs(NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE - 0.6) < 0.0001);
 
@@ -196,18 +217,19 @@ function node_snap_total_height() = NODE_SNAP_TOTAL_HEIGHT;
 // BOSL2 path_extrude2d(), while its corner regions are separate geometry.
 // OpenGrid Lite keeps the upper 4.0 mm of that source relationship.
 //
-// The radial mirror below establishes the node X/Z section. The current
-// straight extrusion remains a candidate implementation only; it does not
-// settle the still-open Y termination question. The retained Z bands are:
+// The radial mirror below establishes the node X/Z section. Source-plan
+// reconstruction shows at least 6.923045 mm of straight edge from the centre
+// to the corner construction. A centred 10 mm receiver therefore ends
+// 1.923045 mm before that region at both ends. The retained Z bands are:
 //
 //   z 0.0 .. 1.6   width 8.6
 //   z 1.6 .. 2.6   ramp 8.6 -> 10.0
 //   z 2.6 .. 3.6   width 10.0
 //   z 3.6 .. 4.0   ramp 10.0 -> 9.2
 //
-// Do not treat the current 10 mm straight path as design authority. The node
-// longitudinal termination must still be resolved against both the source
-// straight-edge and source corner construction.
+// The 10 mm path is accepted stage-2 implementation geometry as a centred
+// crop of the source straight-edge region. Its finite length is not promoted
+// into the shared stage-1 X/Z mating contract.
 
 function _node_receiver_profile_points() =
     detachable_interface_receiver_profile_points();
@@ -217,10 +239,10 @@ module _node_receiver_profile_2d() {
 }
 
 module _node_receiver_profile_extrusion(length = NODE_RECEIVER_BLOCK_LENGTH) {
-    // Current comparison candidate only. With the path running BACK (-Y),
+    // Accepted stage-2 construction: a finite centred crop of the pinned
+    // source straight-edge mechanism. With the path running BACK (-Y),
     // path_extrude2d maps the profile's first coordinate to X and second to Z.
-    // This reproduces the source straight-edge mechanism, not its separate
-    // corner/termination geometry.
+    // The crop ends before the source corner construction begins.
     path = [
         [0,  length / 2],
         [0, -length / 2]
@@ -299,9 +321,9 @@ module _node_mm_reference_cuts_at_top(top_z, x_length, y_length) {
 
 // --- Standalone receiver block ---------------------------------------------
 //
-// Current fixed-side candidate. Its X/Z profile is source-derived; its current
-// straight 10 mm Y construction remains under review. Rail and plate carriers
-// are integration examples around this candidate geometry.
+// Fixed-side stage-2 reference implementation. Its X/Z profile is
+// source-derived and its 10 mm Y length is a validated centred crop of the
+// source straight segment. Rail and plate carriers remain integration examples.
 
 module _node_receiver_geometry() {
     _node_receiver_profile_extrusion();
@@ -320,8 +342,8 @@ module node_receiver(mm_pattern = false) {
     }
 }
 
-// Stage-2 candidate name. Only the X/Z mating section is currently
-// contract-facing; the Y termination is still under review.
+// Stage-2 reference implementation name. Only the X/Z mating section is
+// contract-facing; the finite 10 mm crop remains an implementation choice.
 module detachable_interface_reference_receiver(mm_pattern = false) {
     node_receiver(mm_pattern);
 }

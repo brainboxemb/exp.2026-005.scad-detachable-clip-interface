@@ -16,6 +16,7 @@ import drawsvg as draw
 from opengrid_profile_geometry import (
     Point,
     Polygon,
+    SectionGeometry,
     SegmentLayer,
     TILE_SIZE_MM,
 )
@@ -76,6 +77,82 @@ def compose_top_view_svg(
                     stroke_width=MODEL_STROKE_MM,
                 )
             )
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    drawing.save_svg(str(path))
+
+
+def compose_crop_proof_svg(
+    path: Path,
+    limiting_section: SectionGeometry,
+    crop_length_mm: float,
+) -> None:
+    """Render the limiting source section with the centred stage-2 crop."""
+
+    page_size_mm, page_half_mm = _page_geometry()
+    drawing = draw.Drawing(
+        page_size_mm,
+        page_size_mm,
+        origin=(-page_half_mm, -page_half_mm),
+    )
+    drawing.set_render_size(
+        w=f"{page_size_mm * DRAWING_SCALE:g}mm",
+        h=f"{page_size_mm * DRAWING_SCALE:g}mm",
+    )
+
+    drawing.append(
+        draw.Rectangle(
+            -page_half_mm,
+            -page_half_mm,
+            page_size_mm,
+            page_size_mm,
+            fill="white",
+        )
+    )
+
+    half_tile_mm = TILE_SIZE_MM / 2.0
+    crop_half_mm = crop_length_mm / 2.0
+    inner_y_mm = -half_tile_mm + limiting_section.side_inset_mm
+
+    drawing.append(
+        draw.Rectangle(
+            -crop_half_mm,
+            -half_tile_mm,
+            crop_length_mm,
+            limiting_section.side_inset_mm,
+            fill="#e6e6e6",
+            stroke="none",
+        )
+    )
+
+    drawing.append(_closed_lines(limiting_section.outer))
+    drawing.append(_closed_lines(limiting_section.inner))
+
+    for x_mm in (-crop_half_mm, crop_half_mm):
+        drawing.append(
+            draw.Line(
+                x_mm,
+                -half_tile_mm - 0.25,
+                x_mm,
+                inner_y_mm + 0.25,
+                stroke="black",
+                stroke_width=0.07,
+                stroke_dasharray="0.25 0.18",
+            )
+        )
+
+    for x_mm in (
+        -limiting_section.straight_half_span_mm,
+        limiting_section.straight_half_span_mm,
+    ):
+        drawing.append(
+            draw.Circle(
+                x_mm,
+                inner_y_mm,
+                0.10,
+                fill="black",
+            )
+        )
 
     path.parent.mkdir(parents=True, exist_ok=True)
     drawing.save_svg(str(path))

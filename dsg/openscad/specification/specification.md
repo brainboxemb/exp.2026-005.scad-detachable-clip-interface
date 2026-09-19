@@ -25,30 +25,43 @@ module: interface_specification_design
 
 ## OpenGrid Lite fixed-side profile
 
-The drawing migration is intentionally starting with one simple visual test,
-not a complete engineering sheet. The current generated drawing checks only the
-basic line language: a square outside boundary and a clipped-corner inner frame.
+The drawing producer reconstructs the horizontal edge planes at Lite-local
+Z=1.6, 2.6, 3.6 and 4.0 mm. Python derives them from source millimetre
+relationships; OpenSCAD cuts the actual pinned 3D model at the same heights as
+an independent oracle.
 
-There are deliberately no section lines, detail circles, dimensions, labels or
-title block yet.
+Lower segments hidden by higher material are removed before publishing the
+top-view edge set. Raw section vertices and final visible-edge endpoints are
+checked with a 0.001 mm tolerance.
 
-![OpenGrid outline test](../../../../drawing/00-opengrid-outline-test.png)
+![OpenGrid top-view reconstruction](../../../../drawing/00-opengrid-python.png)
 
-[Canonical SVG](../../../../drawing/00-opengrid-outline-test.svg)
+[Canonical Python SVG](../../../../drawing/00-opengrid-python.svg)
 
-This visual test is experiment-owned and is not an upstream OpenGrid
-manufacturing drawing.
+The same source analysis qualifies the stage-2 10 mm crop:
+
+```text
+minimum straight half-span   6.923045 mm
+crop half-length             5.000000 mm
+margin per end               1.923045 mm
+```
+
+![OpenGrid straight crop proof](../../../../drawing/03-opengrid-straight-crop-proof.png)
+
+[Canonical crop-proof SVG](../../../../drawing/03-opengrid-straight-crop-proof.svg)
+
+These are experiment-owned source interpretations, not upstream OpenGrid
+manufacturing drawings.
 
 ## Node fixed tongue profile
 
-The node translation has an established transverse X/Z profile, but its
-longitudinal Y termination is **not yet normative**. The current implementation
-still provides a 10 mm candidate footprint so it can be rendered and compared,
-but that plan geometry must not be read as the interface contract.
+The node translation has an established transverse X/Z profile. The stage-2
+reference implementation also has an explicit finite construction: a centred
+10 mm crop from the source straight-edge region.
 
-The second A4 sheet therefore separates the two: A-A shows the established
-transverse profile; the plan view is explicitly marked as a current candidate
-whose Y termination remains under review.
+That finite length is deliberately **not normative contract geometry**. The
+transverse profile defines the shared mating relation; the 10 mm plan length is
+one accepted reference implementation of it.
 
 <!-- scad-render
 engine: openscad
@@ -59,11 +72,11 @@ format: svg
 image: 01-node-fixed-tongue-profile-a4.svg
 -->
 
-The pinned OpenGrid source does not justify either currently tested node
-termination by itself. Its straight edges use `path_extrude2d()`, while its
-corners are constructed separately from `full_tile_corners_profile`. The node
-PoP must therefore resolve its local Y termination explicitly rather than
-assuming either a smooth end blend or a fully straight-through extrusion.
+The pinned OpenGrid source uses `path_extrude2d()` for straight edges and
+constructs corners separately from `full_tile_corners_profile`. The validated
+sections show that a centred 10 mm crop ends 1.923045 mm before those corner
+regions begin in the limiting Lite section, so the node can use a finite
+straight-edge crop without inventing a corner translation.
 
 ## Overview
 
@@ -162,7 +175,9 @@ format: svg
 image: 12-reference-implementation.svg
 -->
 
-The minimal pair uses a 10 mm straight reference length. That length,
+The minimal pair uses a 10 mm straight reference length. For the receiver this
+is a validated centred crop from the source straight edge, not a scaled source
+corner. That length,
 carrier material outside it, mounting geometry and any larger production-part
 envelope remain reference-implementation/integration choices.
 

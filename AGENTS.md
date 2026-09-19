@@ -92,36 +92,27 @@ In particular:
   derivation, implementation, STL/profile evidence and documentation for the
   same construction principle.
 
-For the current node receiver, distinguish **established geometry** from the
-still-open longitudinal construction question.
+For the current node receiver, keep the shared mating contract separate from
+the finite stage-2 reference implementation.
 
 Established:
 
 - the local transverse X/Z mating profile is derived from the pinned OpenGrid
   Lite fixed-side profile;
 - its retained Z bands and derived radial widths are source/provenance facts;
-- the reduced receiver uses only the intended opposite retaining sides.
+- the reduced receiver uses only the intended opposite retaining sides;
+- the 10 mm stage-2 receiver is a centred crop from the source straight-edge
+  region, with a source-derived minimum 1.923045 mm margin to the separate
+  corner construction at each end.
 
-Not yet established:
+The pinned OpenGrid source still uses a straight-edge `path_extrude2d()`
+**plus separate corner-profile geometry**. The node does not claim those source
+corners disappeared; it deliberately crops a middle segment before they begin.
 
-- how that local profile terminates or transitions in Y inside the compact
-  receiver footprint;
-- whether the final construction should reproduce/crop source corner behaviour,
-  use a straight local segment, or use another explicitly justified
-  translation.
-
-The pinned OpenGrid source itself uses a straight-edge `path_extrude2d()`
-**plus separate corner-profile geometry**. Therefore `path_extrude2d()` is not
-design authority for the node receiver by itself.
-
-Until the longitudinal termination is explicitly resolved, do **not** promote
-either of these into the contract:
-
-- an 8+1+1 smooth/end-blend construction;
-- an unchanged straight 10 mm profile extrusion.
-
-Implementation methods belong in the component design only after the geometry
-they implement has been agreed.
+Do not promote the 10 mm crop length into the shared stage-1 X/Z interface
+contract. Do not reintroduce the rejected 8+1+1 smooth/end-blend or invent a
+scaled corner transition without making that a new explicit experiment
+question.
 
 ## Upstream Full reference boundary
 

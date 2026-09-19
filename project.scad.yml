@@ -37,6 +37,8 @@ drawing:
     - bld/drawing/01-opengrid-openscad-reference.png
     - bld/drawing/02-opengrid-overlay.svg
     - bld/drawing/02-opengrid-overlay.png
+    - bld/drawing/03-opengrid-straight-crop-proof.svg
+    - bld/drawing/03-opengrid-straight-crop-proof.png
 
 rendering:
   watermark:

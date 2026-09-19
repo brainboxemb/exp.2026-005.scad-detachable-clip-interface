@@ -18,12 +18,15 @@ from opengrid_profile_geometry import (
     Polygon,
     SectionGeometry,
     maximum_point_set_delta_mm,
+    minimum_straight_half_span_mm,
     polygon_signed_area,
     segment_endpoints,
+    straight_crop_margin_mm,
     unique_lite_sections,
     visible_contour_layers,
 )
 from opengrid_profile_render import (
+    compose_crop_proof_svg,
     compose_overlay,
     compose_top_view_svg,
     export_png,
@@ -43,8 +46,11 @@ OPENSCAD_SVG = OUTPUT_ROOT / "01-opengrid-openscad-reference.svg"
 OPENSCAD_PNG = OUTPUT_ROOT / "01-opengrid-openscad-reference.png"
 OVERLAY_SVG = OUTPUT_ROOT / "02-opengrid-overlay.svg"
 OVERLAY_PNG = OUTPUT_ROOT / "02-opengrid-overlay.png"
+CROP_PROOF_SVG = OUTPUT_ROOT / "03-opengrid-straight-crop-proof.svg"
+CROP_PROOF_PNG = OUTPUT_ROOT / "03-opengrid-straight-crop-proof.png"
 
 GEOMETRY_TOLERANCE_MM = 0.001
+REFERENCE_CROP_LENGTH_MM = 10.0
 
 
 def _run(args: list[str]) -> None:
@@ -178,9 +184,26 @@ def main() -> None:
         openscad_layers,
     )
 
+    limiting_section = sections[0]
+    minimum_half_span_mm = minimum_straight_half_span_mm()
+    crop_margin_mm = straight_crop_margin_mm(REFERENCE_CROP_LENGTH_MM)
+
+    if crop_margin_mm <= 0:
+        raise RuntimeError(
+            "reference receiver crop reaches source corner construction: "
+            f"margin={crop_margin_mm:.9f} mm"
+        )
+
+    compose_crop_proof_svg(
+        CROP_PROOF_SVG,
+        limiting_section,
+        REFERENCE_CROP_LENGTH_MM,
+    )
+
     export_png(PYTHON_SVG, PYTHON_PNG)
     export_png(OPENSCAD_SVG, OPENSCAD_PNG)
     export_png(OVERLAY_SVG, OVERLAY_PNG)
+    export_png(CROP_PROOF_SVG, CROP_PROOF_PNG)
 
     outputs = (
         PYTHON_SVG,
@@ -189,6 +212,8 @@ def main() -> None:
         OPENSCAD_PNG,
         OVERLAY_SVG,
         OVERLAY_PNG,
+        CROP_PROOF_SVG,
+        CROP_PROOF_PNG,
     )
     for output in outputs:
         if not output.is_file() or output.stat().st_size == 0:
@@ -219,6 +244,12 @@ def main() -> None:
         f"raw section max delta={raw_delta_mm:.9f} mm, "
         f"visible-edge max delta={visible_delta_mm:.9f} mm "
         f"(limit={GEOMETRY_TOLERANCE_MM:.9f} mm)"
+    )
+    print(
+        "straight crop proof: "
+        f"minimum source half-span={minimum_half_span_mm:.9f} mm, "
+        f"crop half-length={REFERENCE_CROP_LENGTH_MM / 2.0:.9f} mm, "
+        f"margin={crop_margin_mm:.9f} mm per end"
     )
 
     assert sections[-1].local_z_mm == LITE_TILE_THICKNESS_MM

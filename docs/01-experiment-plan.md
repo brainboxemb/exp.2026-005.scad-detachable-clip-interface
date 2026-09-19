@@ -102,12 +102,18 @@ assembly Z offset until the regenerated evidence supports an assembly relation.
 
 ## Reduced receiver + snap — two carrier concepts
 
-**Status:** active — receiver/snap geometry and generated evidence are under refinement.
+**Status:** active — digital receiver Y termination is resolved; physical receiver/snap qualification remains.
 
 **Design record:** [Reduced receiver + snap](05-reduced-receiver-snap.md)
 
 Goal: preserve a recognisable OpenGrid-Lite-derived mating profile while
 inverting the roles and comparing two ways to carry the fixed receiver.
+
+The stage-2 receiver uses a validated centred 10 mm crop from the source's
+straight-edge region. The minimum source half-span is 6.923045 mm, leaving
+1.923045 mm before the source corner construction at each end. This resolves
+the digital Y termination without adding the 10 mm length to the shared X/Z
+contract.
 
 Shared local interface:
 
@@ -122,26 +128,23 @@ Shared local interface:
 Carrier A — **rail**:
 
 ```text
-carrier            50 × 10 × 4 mm
-receiver zone      one local 10 × 10 mm position
-active profile     8 mm
-transition         1 mm at each Y end
+carrier             50 × 10 × 4 mm
+receiver zone       centred 10 × 10 × 4 mm
+receiver Y form     straight source-edge crop
+zone boundaries     explicit planes at Y = +/-5 mm
 ```
 
-The remainder of the 50 mm carrier stays rectangular.
+Outside that zone the carrier remains rectangular. No 8+1+1 longitudinal
+blend is part of the accepted receiver.
 
 Carrier B — **plate**:
 
 ```text
 base plate          50 × 20 × 6 mm
-support boss        10 × 10 × 4 mm
+support boss        centred 10 × 10 × 4 mm
 receiver zone       full 10 mm support footprint
-lower active profile 8 mm
-lower transition     1 mm at each Y end
-top guide envelope  10 mm
-full chamfer          8 mm
-depth transition      1 mm at each Y end
-top X/Z narrowing    10.0 -> 9.2 mm over 0.4 mm Z
+receiver Y form     same straight source-edge crop
+top X/Z narrowing   10.0 -> 9.2 mm over 0.4 mm Z
 ```
 
 The exact same removable snap must fit both.
