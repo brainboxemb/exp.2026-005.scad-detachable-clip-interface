@@ -18,17 +18,21 @@ openscad:
   image_size: [1600, 1000]
   design_image_size: [640, 480]
 
-# First drawing-language test: one simple OpenGrid-style outline only.
-# Keep this intentionally small until the visual convention is accepted.
+# Geometry-learning drawing test.  Python reconstructs the pinned source in
+# model millimetres; OpenSCAD is an independent reference used only for overlay
+# validation.
 drawing:
   command:
     - python3
     - dsg/drawing/build_opengrid_profile.py
   inputs:
     - dsg/drawing/build_opengrid_profile.py
+    - dsg/drawing/opengrid_lite_plan_reference.scad
   outputs:
-    - bld/drawing/00-opengrid-outline-test.svg
-    - bld/drawing/00-opengrid-outline-test.png
+    - bld/drawing/00-opengrid-python.svg
+    - bld/drawing/01-opengrid-openscad-reference.svg
+    - bld/drawing/02-opengrid-overlay.svg
+    - bld/drawing/02-opengrid-overlay.png
 
 rendering:
   watermark:
