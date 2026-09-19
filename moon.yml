@@ -17,3 +17,4 @@ tasks:
       - 'dsg/openscad/**/render.yml'
       - 'dsg/openscad/**/export.yml'
       - 'dsg/openscad/ext/**'
+      - 'dsg/drawing/**'

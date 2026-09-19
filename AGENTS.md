@@ -153,8 +153,21 @@ source.
 
 ## Project tooling
 
-This repository intentionally uses an OpenSCAD-only direct build. Do not switch
-to SCons or add PythonSCAD unless the experiment exposes a concrete need.
+This repository uses the shared SCons build engine for selective target/cache
+handling. Normal geometry remains OpenSCAD-owned. Composed technical drawings
+use the dedicated drawing runtime selected by `tool.scad-project` and a
+project-owned Python/drawsvg producer; that producer may invoke OpenSCAD for
+source geometry and Inkscape for PNG/PDF publication.
+
+Keep the canonical technical-drawing artifact as ordinary SVG. Do not move
+drawing templates or experiment-specific layout rules into the Docker runtime.
+Do not add PythonSCAD unless the experiment exposes a separate concrete need;
+the current shared runtime deliberately treats PythonSCAD and drawing as
+separate profiles.
+
+Migrate drawing sheets incrementally. First make one sheet visually and
+technically useful, inspect its generated PNG/PDF/SVG evidence, and only then
+apply the pattern to later sheets.
 
 Before changing workflow/publication behaviour, read the pinned
 `tools/tool.scad-project/AGENTS.md`.
