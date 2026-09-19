@@ -3,7 +3,7 @@
 // A4 fixed-side profile drawings.
 //
 // Each sheet deliberately contains orthogonal descriptions of the geometry.
-// The OpenGrid sheet uses one small orientation view, one primary transverse
+// The OpenGrid sheet uses one oriented object view, one primary transverse
 // section and one enlarged local detail. This keeps the sheet readable while
 // still exposing the source geometry that matters to the reduction.
 //
@@ -20,16 +20,13 @@ module _drawing_outline(width = 0.045) {
         children();
 }
 
-module _opengrid_plan_slice_2d() {
-    // Exact pinned source, sliced near the top capture surface.
+module _opengrid_orientation_2d() {
+    // Use the actual pinned 3D receiver as the orientation view. Projection
+    // after an oblique rotation gives the sheet a readable object overview
+    // without introducing a hand-drawn approximation.
     projection(cut = false)
-        intersection() {
+        rotate([62, 0, 42])
             opengrid_lite_receiver();
-            // Local Lite Z=0.8 maps to centered source Z=-1.2.
-            // This lower constant-width band makes the edge/corner path clear.
-            translate([-20, -20, -1.22])
-                cube([40, 40, 0.04]);
-        }
 }
 
 module _opengrid_section_2d() {
@@ -155,44 +152,43 @@ module opengrid_profile_a4() {
             "OG-LITE-PROFILE",
             "AS SHOWN"
         ) {
-            // View 1: small orientation/context view. Its job is only to make
-            // clear where the straight edge and corner transition live.
-            translate([58, 147])
-                scale([2.3, 2.3])
+            // View 1: large oblique orientation view made from the actual
+            // pinned 3D receiver. Its role is to make the geometry and the
+            // straight-edge/corner relationship immediately recognizable.
+            translate([69, 146])
+                scale([2.35, 2.35])
                     _drawing_outline()
-                        _opengrid_plan_slice_2d();
+                        _opengrid_orientation_2d();
 
-            translate([23, 190])
-                text("VIEW A - PLAN / CORNER CONTEXT", size = 3.4);
-            translate([23, 184])
-                text("SCALE 2.3:1", size = 2.3);
-
-            td_section_mark(58, 116, 177, "A");
+            translate([21, 190])
+                text("VIEW A - ORIENTED RECEIVER", size = 3.5);
+            translate([21, 184])
+                text("ACTUAL PINNED GEOMETRY / PROJECTED VIEW", size = 2.3);
 
             // View 2: primary information view. This receives most of the sheet
             // because the X/Z capture profile is what the node reduction uses.
-            translate([148, 75])
+            translate([145, 73])
                 scale([6.0, 6.0]) {
                     _drawing_outline()
                         _opengrid_section_2d();
                     _opengrid_main_section_dimensions();
                 }
 
-            translate([88, 114])
+            translate([84, 113])
                 text("SECTION A-A - TRANSVERSE FIXED PROFILE", size = 3.6);
-            translate([88, 108])
+            translate([84, 107])
                 text("SCALE 6:1", size = 2.3);
 
             // Mark the right-hand capture edge as the source of detail B.
-            translate([226, 75])
+            translate([223, 73])
                 _drawing_outline(0.20)
                     circle(r = 9);
-            translate([233, 83])
+            translate([230, 81])
                 text("B", size = 2.8);
 
             // View 3: enlarged crop of the exact source section. This is where
             // the small radial offsets and Z bands become readable.
-            translate([246, 150])
+            translate([245, 150])
                 scale([14.0, 14.0]) {
                     translate([-DETACHABLE_SOURCE_CAPTURE_WIDTH / 2, 0])
                         _drawing_outline()
@@ -200,9 +196,9 @@ module opengrid_profile_a4() {
                     _opengrid_local_detail_dimensions();
                 }
 
-            translate([211, 190])
+            translate([207, 190])
                 text("DETAIL B - CAPTURE PROFILE", size = 3.2);
-            translate([211, 184])
+            translate([207, 184])
                 text("SCALE 14:1", size = 2.3);
 
             translate([20, 39])
@@ -255,5 +251,5 @@ module mating_profile_design(view = "opengrid") {
     else if (view == "node")
         node_profile_a4();
     else
-        assert(false, str("unknown mating-profile view: ", view));
+        assert(false, str("unknown specification view: ", view));
 }
