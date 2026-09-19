@@ -13,6 +13,12 @@ node_show_mm_pattern = true;
 /* [Profile] */
 profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 
+/* [Section inspection] */
+section_axis = "None"; // [None,X,Y,Z]
+section_position_mm = 0; // [-100:0.5:100]
+section_depth_mm = 100; // [0.5:0.5:200]
+section_direction = "Positive"; // [Positive,Negative]
+
 /* [Quality] */
 render_fn = 96;
 $fn = render_fn;
@@ -68,6 +74,41 @@ $vpd =
             : _main_comparison_view(design_view)
                 ? (_main_exploded_view(design_view) ? 142 : 122)
                 : 82;
+
+SECTION_CUTTER_SPAN_MM = 1000;
+
+module _main_section_cutter(
+    axis = "None",
+    position = 0,
+    depth = 100,
+    direction = "Positive"
+) {
+    d = max(depth, 0.001);
+    s = SECTION_CUTTER_SPAN_MM;
+    positive = direction == "Positive";
+
+    if (axis == "X")
+        translate([
+            positive ? position : position - d,
+            -s / 2,
+            -s / 2
+        ])
+            cube([d, s, s]);
+    else if (axis == "Y")
+        translate([
+            -s / 2,
+            positive ? position : position - d,
+            -s / 2
+        ])
+            cube([s, d, s]);
+    else if (axis == "Z")
+        translate([
+            -s / 2,
+            -s / 2,
+            positive ? position : position - d
+        ])
+            cube([s, s, d]);
+}
 
 module _main_selected_view(view) {
     if (view == 0)
@@ -148,4 +189,19 @@ module _main_selected_view(view) {
         assert(false, str("Unsupported design_view: ", view));
 }
 
-_main_selected_view(design_view);
+module _main_inspected_view() {
+    if (section_axis == "None")
+        _main_selected_view(design_view);
+    else
+        difference() {
+            _main_selected_view(design_view);
+            _main_section_cutter(
+                axis = section_axis,
+                position = section_position_mm,
+                depth = section_depth_mm,
+                direction = section_direction
+            );
+        }
+}
+
+_main_inspected_view();
