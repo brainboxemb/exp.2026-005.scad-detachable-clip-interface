@@ -27,4 +27,4 @@ dependencies:
     type: git-submodule
     url: https://github.com/brainboxemb/lib.scad.util.git
     path: dsg/openscad/ext/lib.scad.util
-    ref: c3ba3bb9e9ee8bae38365906843f6ceab6cb4a80
+    ref: d1c100148e22a6464f1448da226179a02e6ddaf2
