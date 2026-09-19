@@ -57,6 +57,33 @@ module node_receiver_design_lower_removed_material() {
     }
 }
 
+module _node_receiver_design_center_y_slice() {
+    translate([
+        -node_receiver_width(),
+        -0.5,
+        -1
+    ])
+        cube([
+            2 * node_receiver_width(),
+            1.0,
+            node_receiver_height() + 2
+        ]);
+}
+
+module node_receiver_design_lower_removed_profile() {
+    intersection() {
+        node_receiver_design_lower_removed_material();
+        _node_receiver_design_center_y_slice();
+    }
+}
+
+module node_receiver_design_lower_after_profile() {
+    intersection() {
+        node_receiver_design_after_lower();
+        _node_receiver_design_center_y_slice();
+    }
+}
+
 module node_receiver_design_top_guide_cutters() {
     union() {
         _node_positive_x_top_guide_cut();

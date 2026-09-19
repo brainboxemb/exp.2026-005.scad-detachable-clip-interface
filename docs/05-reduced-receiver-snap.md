@@ -79,6 +79,45 @@ reduced removable snap
 The reduced interface intentionally uses only +/-X retention. The Y ends remain
 open.
 
+## Geometry provenance snapshot
+
+The PoP must not mix source dimensions and experiment choices without saying so.
+
+### Receiver
+
+| Item | OpenGrid Lite | Reduced node | Class |
+| --- | ---: | ---: | --- |
+| receiver height | 4.0 mm | 4.0 mm | upstream retained |
+| capture width | 25.0 mm | 10.0 mm | experiment target |
+| lower width | 26.4 mm | 8.6 mm | derived radial mirror |
+| top width | 25.8 mm | 9.2 mm | derived radial mirror |
+| Z profile bands | 0/1.6/2.6/3.6/4.0 mm | same | upstream retained |
+| local Y length | no local end | 10.0 mm | experiment choice |
+| Y end treatment | no local equivalent | current PoP transition | experiment choice |
+
+### Snap
+
+| Item | OpenGrid normal Lite snap | Reduced node snap | Class |
+| --- | ---: | ---: | --- |
+| body width | 24.8 mm | 10.2 mm inner width | derived radial mirror |
+| nub radial depth | 0.4 mm | 0.4 mm | upstream retained |
+| nub tangential width | 11.0 mm | 4.4 mm | derived ×0.4 |
+| nub base height | 0.2 mm | 0.2 mm | upstream retained |
+| upper/lower wedge | 0.6 / 0.6 mm | same | upstream retained |
+| rounding radius / Y scale | 13.025 / 1.36 | same radial construction | upstream retained |
+| click-slot width | 0.6 mm | 0.6 mm | upstream retained |
+| click-slot length | 12.4 mm | 4.96 mm | derived ×0.4 |
+| flex tongue | 0.7 mm | 0.7 mm | derived from source slot/body geometry |
+| outer support beyond slot | n/a | 0.7 mm | **experiment choice** |
+| node top thickness | n/a | 1.2 mm | **experiment choice** |
+| local snap length | no reduced local equivalent | 10.0 mm | **experiment choice** |
+
+The old `0.6 mm` “seated offset” is **not** an upstream dimension. The pinned
+reference assembles receiver and snap at the same CENTER anchor; the 0.6 mm is
+only the arithmetic difference between 4.0 mm receiver height and 3.4 mm Lite
+snap height. Any node assembly offset must therefore be qualified separately
+instead of being described as source-derived.
+
 ## Current receiver design question
 
 The receiver is now a standalone 10 × 10 × 4 mm object.

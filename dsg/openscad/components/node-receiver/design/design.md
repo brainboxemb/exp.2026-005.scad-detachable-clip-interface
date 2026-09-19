@@ -30,6 +30,44 @@ full X/Z chamfer is active over the central 8 mm. During the final 1 mm at each
 Y end, only the radial chamfer depth tapers back to zero. The top plane remains
 flat in Y; the transition only returns the part to its ordinary 10 mm width.
 
+## Geometry provenance
+
+The receiver dimensions are deliberately separated into three categories:
+
+- **Upstream** — directly present in the pinned QuackWorks/OpenGrid source.
+- **Derived** — arithmetic transformation of those upstream dimensions.
+- **Experiment choice** — local geometry introduced only for this 10 mm PoP.
+
+| Geometry | Pinned OpenGrid Lite | Node receiver | Provenance |
+| --- | ---: | ---: | --- |
+| receiver height | 4.0 mm | 4.0 mm | Upstream retained |
+| capture width | 25.0 mm | 10.0 mm | 10.0 mm is experiment target |
+| lower outer width | 26.4 mm | 8.6 mm | Derived: `35.0 - 26.4` |
+| central capture width | 25.0 mm | 10.0 mm | Derived around chosen 10.0 mm target |
+| top width | 25.8 mm | 9.2 mm | Derived: `35.0 - 25.8` |
+| lower constant Z band | 0.0 .. 1.6 mm | 0.0 .. 1.6 mm | Upstream retained |
+| lower ramp Z band | 1.6 .. 2.6 mm | 1.6 .. 2.6 mm | Upstream retained |
+| capture Z band | 2.6 .. 3.6 mm | 2.6 .. 3.6 mm | Upstream retained |
+| top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | Upstream retained |
+| local Y length | continuous tile edge | 10.0 mm | **Experiment choice** |
+| local full-profile Y span | continuous tile edge | 8.0 mm | **Experiment choice** |
+| local Y end transition | no equivalent local end | 1.0 mm per end | **Experiment choice** |
+
+The radial transform used for the X/Z widths is:
+
+```text
+mirror sum = source capture width + target capture width
+           = 25.0 + 10.0
+           = 35.0 mm
+
+node width = 35.0 - upstream width
+```
+
+This means the **X/Z profile is source-derived**, while the way that profile
+starts and stops along Y is not. A local end treatment must therefore be judged
+as an explicit PoP design choice instead of being presented as OpenGrid
+geometry.
+
 ## Step 1 — start from the neutral block
 
 <!-- scad-render
@@ -108,7 +146,21 @@ module node_receiver_design_lower_cutters() {
 }
 ```
 
-After the cut:
+The 3D view above answers *where* material is removed, but it is not a good
+profile check. The next image is a straight X/Z section through the centre of
+the receiver. **Red on the left is the exact removed profile; grey on the right
+is the resulting receiver section:**
+
+<!-- scad-render
+view: lower-profile
+vpr: [90, 0, 0]
+-->
+
+In this section the lower profile must visibly contain the 1.6 .. 2.6 mm ramp.
+If the result looks like a simple rectangular slot, the implementation or the
+evidence is wrong and this step is not accepted.
+
+After the full 3D cut:
 
 <!-- scad-render
 view: after-lower

@@ -27,6 +27,15 @@ module node_receiver_design(view = "final") {
                 color(current)
                     node_receiver_design_lower_removed_material();
 
+        } else if (view == "lower-profile") {
+            translate([-7, 0, 0])
+                color(current)
+                    node_receiver_design_lower_removed_profile();
+
+            translate([7, 0, 0])
+                color(existing)
+                    node_receiver_design_lower_after_profile();
+
         } else if (view == "after-lower") {
             color(current)
                 node_receiver_design_after_lower();
