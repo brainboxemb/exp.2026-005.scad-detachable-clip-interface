@@ -351,40 +351,53 @@ def _compose(
 
     # View A: actual pinned receiver projected obliquely for orientation.
     _text(sheet, "VIEW A — ORIENTED RECEIVER", 3.6, 18, 20, weight="bold")
-    _text(sheet, "actual pinned geometry / projected view", 2.3, 18, 25)
+    _text(sheet, "actual pinned geometry • scale 2.0:1", 2.3, 18, 25)
     _embedded_svg(sheet, orientation, 18, 29, 84, 65)
 
     # Main information view: exact transverse profile from the pinned receiver.
     _text(sheet, "SECTION A-A — TRANSVERSE FIXED PROFILE", 3.6, 88, 78, weight="bold")
-    _text(sheet, "source geometry • nominal dimensions", 2.3, 88, 83)
+    _text(sheet, "source geometry • nominal dimensions • scale 4.2:1", 2.3, 88, 83)
     _embedded_svg(sheet, section, 92, 89, 126, 38)
 
-    # Dimension lines deliberately stay outside the geometry view.
+    # This OpenSCAD SVG has viewBox -15 -3 30 6. The 126 mm-wide target
+    # therefore maps source coordinates at exactly 4.2:1. Anchor nominal
+    # dimensions to their actual source-coordinate datums instead of drawing
+    # arbitrary-length annotation lines.
+    section_cx = 155.0
+    section_cy = 108.0
+    section_scale = 4.2
+
+    def sx(value: float) -> float:
+        return section_cx + value * section_scale
+
+    def sy(value: float) -> float:
+        return section_cy + value * section_scale
+
     _dimension_h(
         sheet,
         arrow,
-        96,
-        214,
+        sx(-meta.lower_width / 2),
+        sx(meta.lower_width / 2),
         135,
-        125,
+        sy(2.0),
         f"{meta.lower_width:.1f}",
     )
     _dimension_h(
         sheet,
         arrow,
-        101,
-        209,
+        sx(-meta.capture_width / 2),
+        sx(meta.capture_width / 2),
         87,
-        92,
+        sy(-2.0),
         f"{meta.capture_width:.1f}",
     )
     _dimension_v(
         sheet,
         arrow,
-        96,
-        120,
+        sy(-meta.height / 2),
+        sy(meta.height / 2),
         223,
-        215,
+        sx(14.0),
         f"{meta.height:.1f}",
     )
 
@@ -400,11 +413,10 @@ def _compose(
         )
     )
     _text(sheet, "B", 2.8, 217, 99, weight="bold")
-    _text(sheet, "SCALE: ENLARGED", 2.2, 88, 143)
 
     # Detail B: exact crop of the right-hand capture profile.
     _text(sheet, "DETAIL B — CAPTURE PROFILE", 3.4, 228, 20, weight="bold")
-    _text(sheet, "exact source crop", 2.3, 228, 25)
+    _text(sheet, "exact source crop • scale 11.3:1", 2.3, 228, 25)
     _embedded_svg(sheet, detail, 231, 30, 35, 68)
 
     # Source-derived local dimensions are grouped beside the exact crop so the
