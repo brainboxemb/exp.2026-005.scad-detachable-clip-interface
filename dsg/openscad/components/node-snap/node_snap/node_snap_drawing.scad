@@ -4,6 +4,7 @@
 include <openscad-new-dimensions/constants.scad>
 include <openscad-new-dimensions/dimensions.scad>
 include <../../../lib/node_interface.scad>
+use <../../../design_support.scad>
 
 DIMENSION_RENDER_MODE = DIMENSION_RENDER_MODE_2D;
 DIMENSION_COLOR = "black";
@@ -57,10 +58,11 @@ module _snap_retention_profile_2d() {
 }
 
 module node_snap_profile_drawing() {
-    _outline_2d()
-        _snap_retention_profile_2d();
+    design_bosl2_context() {
+        _outline_2d()
+            _snap_retention_profile_2d();
 
-    // Outer envelope, inner body clearance and retained nub opening.
+        // Outer envelope, inner body clearance and retained nub opening.
     _horizontal_dimension(
         -NODE_SNAP_OUTER_WIDTH / 2,
          NODE_SNAP_OUTER_WIDTH / 2,
@@ -100,6 +102,7 @@ module node_snap_profile_drawing() {
     translate([-9.0, 11.0])
         text("NODE SNAP - X/Z RETENTION SECTION", size = 1.35);
 
-    translate([-9.0, 9.0])
-        text("dimensions in mm", size = 0.9);
+        translate([-9.0, 9.0])
+            text("dimensions in mm", size = 0.9);
+    }
 }

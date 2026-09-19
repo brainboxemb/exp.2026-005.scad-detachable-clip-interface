@@ -4,6 +4,7 @@
 include <openscad-new-dimensions/constants.scad>
 include <openscad-new-dimensions/dimensions.scad>
 include <../../../lib/node_interface.scad>
+use <../../../design_support.scad>
 
 DIMENSION_RENDER_MODE = DIMENSION_RENDER_MODE_2D;
 DIMENSION_COLOR = "black";
@@ -55,10 +56,11 @@ module _receiver_profile() {
 }
 
 module node_receiver_profile_drawing() {
-    _outline_2d()
-        _receiver_profile();
+    design_bosl2_context() {
+        _outline_2d()
+            _receiver_profile();
 
-    // Main functional widths.
+        // Main functional widths.
     _horizontal_dimension(
         -NODE_RECEIVER_WIDTH / 2,
          NODE_RECEIVER_WIDTH / 2,
@@ -91,6 +93,7 @@ module node_receiver_profile_drawing() {
     translate([-7.5, 10.0])
         text("NODE RECEIVER - X/Z RETENTION PROFILE", size = 1.35);
 
-    translate([-7.5, 8.0])
-        text("dimensions in mm", size = 0.9);
+        translate([-7.5, 8.0])
+            text("dimensions in mm", size = 0.9);
+    }
 }
