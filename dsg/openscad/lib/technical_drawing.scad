@@ -103,3 +103,23 @@ module td_dimension_v(y0, y1, x, extension_from_x) {
         rotate([0, 0, 90])
             Dimension(length = y1 - y0);
 }
+
+module td_angle(
+    origin,
+    start_rotation,
+    angle,
+    radius = 0.75,
+    label_rotation = 0,
+    label_offset = 0.35
+) {
+    translate(origin)
+        rotate([0, 0, start_rotation])
+            Angle(
+                angle = angle,
+                radius = radius,
+                label_angle = label_rotation - start_rotation,
+                label_offset = label_offset,
+                show_spokes = true,
+                spokes_overflow = 0.15
+            );
+}

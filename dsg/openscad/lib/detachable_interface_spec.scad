@@ -16,6 +16,79 @@ DETACHABLE_INTERFACE_WIDTH = 10.0;
 DETACHABLE_INTERFACE_HEIGHT = 4.0;
 DETACHABLE_INTERFACE_REFERENCE_LENGTH = 10.0;
 
+// Local one-side profile construction copied/derived from the pinned
+// openGridTileAp1() and openGridSnap() source. These values are what the first
+// profile drawings dimension.
+DETACHABLE_SOURCE_TILE_THICKNESS = 6.8;
+DETACHABLE_SOURCE_LITE_THICKNESS = 4.0;
+DETACHABLE_SOURCE_OUTSIDE_EXTRUSION = 0.8;
+DETACHABLE_SOURCE_INSIDE_EXTRUSION = 0.7;
+DETACHABLE_SOURCE_TOP_CHAMFER = 0.4;
+DETACHABLE_SOURCE_MIDDLE_CHAMFER = 1.0;
+DETACHABLE_SOURCE_CAPTURE_INSET = 2.4;
+
+DETACHABLE_SOURCE_SNAP_BODY_CLEARANCE = 0.1; // (25.0 - 24.8) / 2
+DETACHABLE_SOURCE_NUB_HEIGHT = 0.2;
+DETACHABLE_SOURCE_NUB_DEPTH = 0.4;
+DETACHABLE_SOURCE_NUB_TOP_WEDGE_HEIGHT = 0.6;
+DETACHABLE_SOURCE_NUB_BOTTOM_WEDGE_HEIGHT = 0.6;
+
+function detachable_side_middle_angle_from_horizontal() =
+    atan(
+        DETACHABLE_SOURCE_MIDDLE_CHAMFER
+        / DETACHABLE_SOURCE_INSIDE_EXTRUSION
+    );
+function detachable_side_middle_angle_from_vertical() =
+    90 - detachable_side_middle_angle_from_horizontal();
+function detachable_side_top_angle() = 45.0;
+function detachable_nub_wedge_angle_from_horizontal() =
+    atan(
+        DETACHABLE_SOURCE_NUB_TOP_WEDGE_HEIGHT
+        / DETACHABLE_SOURCE_NUB_DEPTH
+    );
+
+// Local fixed-side mating surface, with X=0 as the capture-face datum.
+// Z=0 is the bottom of the retained Lite interface. This is ONE SIDE only.
+function detachable_local_fixed_surface_points(
+    height = DETACHABLE_INTERFACE_HEIGHT
+) = [
+    [-DETACHABLE_SOURCE_INSIDE_EXTRUSION, 0],
+    [
+        -DETACHABLE_SOURCE_INSIDE_EXTRUSION,
+        detachable_interface_lower_z(height)
+    ],
+    [0, detachable_interface_ramp_top_z(height)],
+    [0, detachable_interface_capture_top_z(height)],
+    [-DETACHABLE_SOURCE_TOP_CHAMFER, height]
+];
+
+// Material polygon for the OpenGrid fixed wall: opening is to the left and
+// wall material extends to the right of the local surface.
+function detachable_opengrid_fixed_side_material_points(
+    backing = 2.2,
+    height = DETACHABLE_INTERFACE_HEIGHT
+) = concat(
+    [[backing, 0]],
+    detachable_local_fixed_surface_points(height),
+    [[backing, height]]
+);
+
+// Material polygon for the node fixed tongue/ridge: carrier material extends
+// to the left of the same local surface. This is the radial-role inversion.
+function detachable_node_fixed_side_material_points(
+    backing = 2.2,
+    height = DETACHABLE_INTERFACE_HEIGHT
+) = concat(
+    [[-backing, 0]],
+    detachable_local_fixed_surface_points(height),
+    [[-backing, height]]
+);
+
+function detachable_nominal_side_clearance() =
+    DETACHABLE_SOURCE_SNAP_BODY_CLEARANCE;
+function detachable_nominal_nub_overlap() =
+    DETACHABLE_SOURCE_NUB_DEPTH - DETACHABLE_SOURCE_SNAP_BODY_CLEARANCE;
+
 // Pinned OpenGrid Lite source dimensions used by the reduction.
 DETACHABLE_SOURCE_CAPTURE_WIDTH = 25.0;
 DETACHABLE_SOURCE_LOWER_WIDTH = 26.4;
@@ -150,3 +223,12 @@ assert(abs(detachable_interface_snap_inner_width() - 10.2) < 0.0001);
 assert(abs(detachable_interface_snap_nub_opening() - 9.4) < 0.0001);
 assert(abs(detachable_interface_snap_nub_protrusion() - 0.4) < 0.0001);
 assert(abs(detachable_interface_snap_engagement_height() - 3.4) < 0.0001);
+
+
+// Local-profile invariants used by specification drawings.
+assert(abs(detachable_side_middle_angle_from_horizontal() - 55.0079798) < 0.001);
+assert(abs(detachable_side_middle_angle_from_vertical() - 34.9920202) < 0.001);
+assert(abs(detachable_side_top_angle() - 45.0) < 0.0001);
+assert(abs(detachable_nub_wedge_angle_from_horizontal() - 56.3099325) < 0.001);
+assert(abs(detachable_nominal_side_clearance() - 0.1) < 0.0001);
+assert(abs(detachable_nominal_nub_overlap() - 0.3) < 0.0001);

@@ -61,11 +61,11 @@ module _contract_section_model() {
     );
 }
 
-module interface_contract_sheet() {
+module reference_pair_section_sheet() {
     design_bosl2_context()
         td_frame(
-        "DETACHABLE INTERFACE CONTRACT",
-        "stage 1 - nominal mating geometry; reference implementation overlaid",
+        "SYMMETRIC REFERENCE PAIR SECTION",
+        "context view only - the interface contract is one local mating side",
         "6:1"
     ) {
         translate([57, 55])
@@ -221,8 +221,8 @@ module reference_implementation_sheet() {
 module interface_specification_design(view = "overview") {
     if (view == "overview")
         reference_implementation_overview();
-    else if (view == "interface-contract")
-        interface_contract_sheet();
+    else if (view == "reference-pair-section")
+        reference_pair_section_sheet();
     else if (view == "opengrid-translation")
         opengrid_translation_sheet();
     else if (view == "reference-implementation")

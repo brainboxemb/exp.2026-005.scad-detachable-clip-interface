@@ -21,6 +21,55 @@ source: specification/interface_specification.scad
 module: interface_specification_design
 -->
 
+## Local mating profile — OpenGrid Lite source interpretation
+
+The first interface view is deliberately **one local side**, not the complete
+symmetric cell. It shows the fixed opening-wall profile and the matching normal
+snap nub as separate technical profiles.
+
+The drawing is reconstructed from the pinned QuackWorks source and is labelled
+as this experiment's interpretation; it is not an upstream manufacturing
+drawing.
+
+<!-- scad-render
+engine: openscad
+source: specification/mating_profiles.scad
+module: mating_profile_design
+view: opengrid
+format: svg
+image: 00-opengrid-local-mating-profile.svg
+-->
+
+Important source construction visible in the drawing:
+
+- retained Lite interface height: 4.0 mm;
+- local fixed-side lower relief: 0.7 mm;
+- middle ramp: 0.7 mm radial over 1.0 mm vertical, about 55.0° from horizontal;
+- upper chamfer: 0.4 × 0.4 mm, 45°;
+- snap-body side clearance: 0.1 mm;
+- normal snap nub depth: 0.4 mm, leaving about 0.3 mm nominal local overlap.
+
+## Local mating profile — node translation
+
+The node profile uses the same local shape language with the **radial roles
+inverted**. The fixed node side is a small tongue/ridge; the removable snap
+provides the surrounding groove/latch and its nub points inward.
+
+<!-- scad-render
+engine: openscad
+source: specification/mating_profiles.scad
+module: mating_profile_design
+view: node
+format: svg
+image: 01-node-local-mating-profile.svg
+-->
+
+The nominal 10 mm node width is the spacing between two mirrored local sides.
+It is therefore a higher-level placement parameter, not the definition of one
+interface side.
+
+
+
 ## Overview
 
 The first picture shows only the two minimal reference parts, separated so the
@@ -34,16 +83,16 @@ vpr: [70, 0, 30]
 size: [1200, 700]
 -->
 
-## Interface contract
+## Symmetric reference-pair context
 
-The dimensioned section below is the primary interface drawing. The receiver
-contract boundary and minimal snap section are shown together so clearance and
-retention are visible in one view.
+The complete symmetric section below is retained only as context for the
+reference pair. It is **not** the primary interface definition; the primary
+contract is one local mating side as drawn above.
 
 <!-- scad-render
-view: interface-contract
+view: reference-pair-section
 format: svg
-image: 01-interface-contract.svg
+image: 10-reference-pair-section.svg
 -->
 
 Nominal mating dimensions:
@@ -81,7 +130,7 @@ manufacturing drawing**. The right profile is our reduced contract.
 <!-- scad-render
 view: opengrid-translation
 format: svg
-image: 02-opengrid-to-interface-translation.svg
+image: 11-width-reduction-context.svg
 -->
 
 The radial relation used by this PoP is:
@@ -115,7 +164,7 @@ implementation.
 <!-- scad-render
 view: reference-implementation
 format: svg
-image: 03-reference-implementation.svg
+image: 12-reference-implementation.svg
 -->
 
 The 10 mm Y length used by these coupons is a reference-implementation choice;
