@@ -115,8 +115,12 @@ The PoP must not mix source dimensions and experiment choices without saying so.
 The old `0.6 mm` “seated offset” is **not** an upstream dimension. The pinned
 reference assembles receiver and snap at the same CENTER anchor; the 0.6 mm is
 only the arithmetic difference between 4.0 mm receiver height and 3.4 mm Lite
-snap height. Any node assembly offset must therefore be qualified separately
-instead of being described as source-derived.
+snap height.
+
+The node assembly therefore now uses the same-origin reference as its default:
+`NODE_SNAP_SEATED_Z = 0.0`. A non-zero node assembly offset would require
+separate qualification evidence instead of being inferred from the height
+difference.
 
 ## Current receiver design question
 

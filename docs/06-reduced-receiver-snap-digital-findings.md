@@ -197,6 +197,10 @@ fixture and determine:
 Those are follow-up qualification questions, not prerequisites for merging a
 coherent digital design/evidence checkpoint.
 
+The assembled digital reference uses `NODE_SNAP_SEATED_Z = 0.0`, matching the
+pinned Lite reference's same-origin CENTER assembly. The 0.6 mm receiver/snap
+height difference is retained only as an observation, not as a seating rule.
+
 ## Physical boundary
 
 CAD and CI establish geometry, reproducibility and provenance. They do not

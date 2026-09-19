@@ -100,9 +100,13 @@ NODE_RECEIVER_LOWER_Z = 1.6;
 NODE_RECEIVER_RAMP_TOP_Z = 2.6;
 NODE_RECEIVER_CAPTURE_TOP_Z = 3.6;
 
-// Lite snap seated top-flush against the 4 mm receiver.
-NODE_SNAP_SEATED_Z = 0.6;
+// The pinned Lite reference assembles receiver and snap at the same CENTER
+// origin. The 0.6 mm difference between 4.0 mm receiver height and 3.4 mm
+// engagement height is arithmetic only; it is not a proven seated Z offset.
+NODE_SNAP_SEATED_Z = 0.0;
 NODE_SNAP_ENGAGEMENT_HEIGHT = 3.4;
+NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE =
+    NODE_RECEIVER_HEIGHT - NODE_SNAP_ENGAGEMENT_HEIGHT; // 0.6 mm
 
 // Radial flex-wall decomposition.
 //
@@ -211,7 +215,8 @@ assert(abs(NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH - 8.0) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - 10.0) < 0.0001);
 assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - NODE_RECEIVER_BLOCK_LENGTH) < 0.0001);
 assert(abs(NODE_RECEIVER_BLOCK_LENGTH - 10.0) < 0.0001);
-assert(abs(NODE_SNAP_SEATED_Z + NODE_SNAP_ENGAGEMENT_HEIGHT - NODE_RECEIVER_HEIGHT) < 0.0001);
+assert(abs(NODE_SNAP_SEATED_Z) < 0.0001);
+assert(abs(NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE - 0.6) < 0.0001);
 
 // --- Public dimension API for component/design wrappers ----------------------
 //
