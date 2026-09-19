@@ -215,10 +215,10 @@ selector exposes the stable Full/Lite experiment views directly:
 - node rail/plate assembled and exploded views, retention sections, individual
   receiver/snap views, a rail-vs-plate comparison and a generated top-view
   comparison for the centring lead-in / 1 mm reference grooves;
-- an optional interactive X/Y/Z cutaway around any selected main view, with
-  sliders for the first cut-plane position and retained section depth plus
-  positive/negative cut direction. The depth is the thickness kept from the
-  first cut plane; everything beyond that retained slab is removed.
+- an optional interactive X/Y/Z slice around any selected main view, with
+  sliders for the section-plane position and retained slice thickness plus
+  positive/negative direction. Only the requested slab is retained: for
+  example, Z=0 with depth 0.1 mm and Positive keeps Z=0.0..0.1 mm.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same

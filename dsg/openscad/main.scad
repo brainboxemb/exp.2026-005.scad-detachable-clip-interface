@@ -16,7 +16,7 @@ profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 /* [Section inspection] */
 section_axis = "None"; // [None,X,Y,Z]
 section_position_mm = 0; // [-100:0.5:100]
-section_depth_mm = 1; // [0.1:0.1:200]
+section_depth_mm = 10; // [0.1:0.1:200]
 section_direction = "Positive"; // [Positive,Negative]
 
 /* [Quality] */
@@ -77,51 +77,38 @@ $vpd =
 
 SECTION_CUTTER_SPAN_MM = 1000;
 
-module _main_section_cutter(
+module _main_section_slice(
     axis = "None",
     position = 0,
-    depth = 1,
+    depth = 10,
     direction = "Positive"
 ) {
-    // "depth" is the retained section thickness from the first cut plane.
-    // Everything beyond that retained slab is removed.
+    // "depth" is the exact retained slice thickness from the section plane.
     d = max(depth, 0.1);
     s = SECTION_CUTTER_SPAN_MM;
     positive = direction == "Positive";
 
     if (axis == "X")
         translate([
-            positive ? position + d : -s / 2,
+            positive ? position : position - d,
             -s / 2,
             -s / 2
         ])
-            cube([
-                positive ? s / 2 - (position + d) : position - d + s / 2,
-                s,
-                s
-            ]);
+            cube([d, s, s]);
     else if (axis == "Y")
         translate([
             -s / 2,
-            positive ? position + d : -s / 2,
+            positive ? position : position - d,
             -s / 2
         ])
-            cube([
-                s,
-                positive ? s / 2 - (position + d) : position - d + s / 2,
-                s
-            ]);
+            cube([s, d, s]);
     else if (axis == "Z")
         translate([
             -s / 2,
             -s / 2,
-            positive ? position + d : -s / 2
+            positive ? position : position - d
         ])
-            cube([
-                s,
-                s,
-                positive ? s / 2 - (position + d) : position - d + s / 2
-            ]);
+            cube([s, s, d]);
 }
 
 module _main_selected_view(view) {
@@ -207,9 +194,9 @@ module _main_inspected_view() {
     if (section_axis == "None")
         _main_selected_view(design_view);
     else
-        difference() {
+        intersection() {
             _main_selected_view(design_view);
-            _main_section_cutter(
+            _main_section_slice(
                 axis = section_axis,
                 position = section_position_mm,
                 depth = section_depth_mm,
