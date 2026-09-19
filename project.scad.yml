@@ -37,6 +37,8 @@ rendering:
 externals:
   - name: quackworks
     required_file: openGrid/opengrid-snap.scad
+  - name: lib.scad.util
+    required_file: openscad/inspection.scad
 
 publication:
   production:

@@ -7,3 +7,6 @@
 [submodule "dsg/openscad/ext/quackworks"]
 	path = dsg/openscad/ext/quackworks
 	url = https://github.com/brainboxemb/fork.andylevesque.quackworks.git
+[submodule "dsg/openscad/ext/lib.scad.util"]
+	path = dsg/openscad/ext/lib.scad.util
+	url = https://github.com/brainboxemb/lib.scad.util.git

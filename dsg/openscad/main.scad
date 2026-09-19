@@ -25,6 +25,7 @@ $fn = render_fn;
 
 include <lib/opengrid_reference.scad>
 include <lib/node_interface.scad>
+use <ext/lib.scad.util/openscad/inspection.scad>
 
 function _main_profile_view(view) =
     view == 3 || view == 4 || view == 8 || view == 9;
@@ -74,42 +75,6 @@ $vpd =
             : _main_comparison_view(design_view)
                 ? (_main_exploded_view(design_view) ? 142 : 122)
                 : 82;
-
-SECTION_CUTTER_SPAN_MM = 1000;
-
-module _main_section_slice(
-    axis = "None",
-    position = 0,
-    depth = 10,
-    direction = "Positive"
-) {
-    // "depth" is the exact retained slice thickness from the section plane.
-    d = max(depth, 0.1);
-    s = SECTION_CUTTER_SPAN_MM;
-    positive = direction == "Positive";
-
-    if (axis == "X")
-        translate([
-            positive ? position : position - d,
-            -s / 2,
-            -s / 2
-        ])
-            cube([d, s, s]);
-    else if (axis == "Y")
-        translate([
-            -s / 2,
-            positive ? position : position - d,
-            -s / 2
-        ])
-            cube([s, d, s]);
-    else if (axis == "Z")
-        translate([
-            -s / 2,
-            -s / 2,
-            positive ? position : position - d
-        ])
-            cube([s, s, d]);
-}
 
 module _main_selected_view(view) {
     if (view == 0)
@@ -190,19 +155,10 @@ module _main_selected_view(view) {
         assert(false, str("Unsupported design_view: ", view));
 }
 
-module _main_inspected_view() {
-    if (section_axis == "None")
-        _main_selected_view(design_view);
-    else
-        intersection() {
-            _main_selected_view(design_view);
-            _main_section_slice(
-                axis = section_axis,
-                position = section_position_mm,
-                depth = section_depth_mm,
-                direction = section_direction
-            );
-        }
-}
-
-_main_inspected_view();
+util_section_inspect(
+    axis = section_axis,
+    position = section_position_mm,
+    depth = section_depth_mm,
+    direction = section_direction
+)
+    _main_selected_view(design_view);
