@@ -216,12 +216,13 @@ def visible_contour_layers(
     """Return top-visible edge segments for horizontal opening contours.
 
     Each source section describes material outside its inner opening. A lower
-    edge is visible from +Z only where its XY position remains inside every
-    higher opening. Therefore each lower contour edge is clipped against all
-    higher inner polygons.
+    edge is visible from +Z only where its XY position lies strictly inside
+    every higher opening. Therefore each lower contour edge is clipped against
+    all higher inner polygons; a segment coincident with a higher boundary is
+    hidden by that higher edge.
 
     This is the geometric equivalent of stacking the horizontal section
-    drawings while removing lines hidden by material above them.
+    drawings while removing lines hidden by material or edges above them.
     """
 
     polygons = tuple(
@@ -242,10 +243,22 @@ def visible_contour_layers(
             for opening in higher_openings:
                 if segment is None:
                     break
+
                 segment = _clip_segment_inside_convex_polygon(
                     segment,
                     opening,
                 )
+
+                if (
+                    segment is not None
+                    and not _segment_midpoint_strictly_inside_polygon(
+                        segment,
+                        opening,
+                    )
+                ):
+                    # A lower edge that projects exactly onto a higher edge is
+                    # hidden by that higher edge in the top view.
+                    segment = None
 
             if (
                 segment is not None
@@ -356,6 +369,32 @@ def _clip_segment_inside_convex_polygon(
             start[1] + upper_t * delta_y,
         ),
     )
+
+
+def _segment_midpoint_strictly_inside_polygon(
+    segment: Segment,
+    polygon: Polygon,
+) -> bool:
+    start, end = segment
+    midpoint = (
+        (start[0] + end[0]) / 2.0,
+        (start[1] + end[1]) / 2.0,
+    )
+
+    for index, edge_start in enumerate(polygon):
+        edge_end = polygon[(index + 1) % len(polygon)]
+        edge_x = edge_end[0] - edge_start[0]
+        edge_y = edge_end[1] - edge_start[1]
+
+        side = (
+            edge_x * (midpoint[1] - edge_start[1])
+            - edge_y * (midpoint[0] - edge_start[0])
+        )
+
+        if side <= _GEOMETRY_EPSILON_MM:
+            return False
+
+    return True
 
 
 def _segment_length_squared(segment: Segment) -> float:
