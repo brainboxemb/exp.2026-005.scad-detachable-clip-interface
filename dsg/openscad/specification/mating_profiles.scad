@@ -78,7 +78,7 @@ module opengrid_profile_a4() {
         td_a4_landscape(
             "OPENGRID LITE FIXED-SIDE PROFILE",
             "OG-LITE-PROFILE",
-            "4:1 / 5.8:1"
+            "4:1 / 5:1"
         ) {
             translate([76, 122])
                 scale([4, 4])
@@ -90,16 +90,16 @@ module opengrid_profile_a4() {
 
             td_section_mark(76, 75, 169, "A");
 
-            translate([208, 101])
-                scale([5.8, 5.8])
+            translate([190, 101])
+                scale([5.0, 5.0])
                     _drawing_outline()
                         _opengrid_section_2d();
 
-            translate([196, 169])
+            translate([180, 169])
                 text("A-A", size = 4.0);
 
-            translate([208, 101])
-                scale([5.8, 5.8]) {
+            translate([190, 101])
+                scale([5.0, 5.0]) {
                     td_dimension_v(-2, 2, 17.0, 14.0);
                     td_dimension_h(-12.5, 12.5, -4.4, -2.0);
                 }
@@ -114,29 +114,29 @@ module node_profile_a4() {
         td_a4_landscape(
             "NODE FIXED TONGUE PROFILE",
             "NODE-TONGUE-PROFILE",
-            "8:1 / 8.5:1"
+            "8:1 / 8:1"
         ) {
             translate([78, 125])
-                scale([8, 8])
-                    rotate([0, 0, 90]) {
+                scale([8, 8]) {
+                    rotate([0, 0, 90])
                         _drawing_outline()
                             _node_plan_slice_2d();
-                        _node_plan_dimensions();
-                    }
+                    _node_plan_dimensions();
+                }
 
             translate([36, 188])
                 text("PLAN - COMPLETE 10 mm LOCAL TONGUE", size = 4.0);
 
             td_section_mark(78, 77, 170, "A");
 
-            translate([218, 102])
-                scale([8.5, 8.5]) {
+            translate([210, 102])
+                scale([8.0, 8.0]) {
                     _drawing_outline()
                         _node_section_2d();
                     _node_section_dimensions();
                 }
 
-            translate([190, 169])
+            translate([180, 169])
                 text("A-A - ACTIVE CENTER SECTION", size = 4.0);
 
             translate([20, 42])
