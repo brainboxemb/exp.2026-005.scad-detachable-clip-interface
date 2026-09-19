@@ -1,7 +1,9 @@
 paths:
   design_root: dsg
   build_root: bld
-  render_root: dsg/openscad/render
+  render_roots:
+    - dsg/openscad/render
+    - dsg/openscad/render2d
   export_root: dsg/openscad/export
 
 design:

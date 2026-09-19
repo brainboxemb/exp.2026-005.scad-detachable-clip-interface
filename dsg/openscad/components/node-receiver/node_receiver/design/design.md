@@ -146,3 +146,18 @@ Consumers may place the receiver on a rail, plate, HUB75 coupler or another
 carrier, but integration must preserve this X/Z mating profile. Any carrier-side
 transition at the two ends of the 10 mm coupon is an explicit later design
 choice, not part of the OpenGrid-derived receiver baseline.
+
+
+## Dimensioned 2D retention profile
+
+The same receiver profile is also exported as a true 2D SVG drawing. The
+drawing uses the installed `openscad-new-dimensions` library for dimension
+lines and takes its geometry directly from the production receiver profile.
+
+<!-- scad-render
+source: node_receiver_drawing.scad
+module: node_receiver_profile_drawing
+format: svg
+image: 06-dimensioned-retention-profile.svg
+vpr: null
+-->
