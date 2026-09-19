@@ -93,7 +93,7 @@ The PoP must not mix source dimensions and experiment choices without saying so.
 | top width | 25.8 mm | 9.2 mm | derived radial mirror |
 | Z profile bands | 0/1.6/2.6/3.6/4.0 mm | same | upstream retained |
 | local Y length | no local end | 10.0 mm | experiment choice |
-| Y end treatment | no local equivalent | current PoP transition | experiment choice |
+| Y end treatment | no local equivalent | 1 mm smooth depth fade | experiment choice |
 
 ### Snap
 
@@ -125,7 +125,7 @@ The receiver is now a standalone 10 × 10 × 4 mm object.
 Its lower source-derived mating profile occupies the same 10 mm footprint.
 The upper insertion guide is treated separately: the full X/Z chamfer runs
 over the central 8 mm. During the final 1 mm at each Y end only the chamfer
-depth tapers back to zero; the top Z stays level.
+depth fades back to zero with a smoothstep curve; the top Z stays level.
 
 Current visual acceptance criterion:
 

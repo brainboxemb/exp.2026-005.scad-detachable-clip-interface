@@ -51,7 +51,7 @@ The receiver dimensions are deliberately separated into three categories:
 | top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | Upstream retained |
 | local Y length | continuous tile edge | 10.0 mm | **Experiment choice** |
 | local full-profile Y span | continuous tile edge | 8.0 mm | **Experiment choice** |
-| local Y end transition | no equivalent local end | 1.0 mm per end | **Experiment choice** |
+| local Y end transition | no equivalent local end | 1.0 mm smooth depth fade per end | **Experiment choice** |
 
 The radial transform used for the X/Z widths is:
 
@@ -113,8 +113,9 @@ Z 1.6 .. 2.6     8.6 -> 10.0 mm
 Z 2.6 .. 3.6     width 10.0 mm
 ```
 
-Along Y the lower profile is 8 mm active and returns to the untouched block over
-1 mm on both sides.
+Along Y the lower profile is 8 mm active. Over the final 1 mm on each side only
+the radial cut depth fades to zero using a smoothstep curve. The X/Z source
+profile itself is not replaced by a straight slot.
 
 The red object is derived from the production cutters, clipped to the actual
 receiver block:
@@ -195,9 +196,10 @@ profile separately.
 ## Step 4 — keep the full chamfer for 8 mm, then return to normal width
 
 The central 8 mm uses the same triangular X/Z section. Over the final 1 mm at
-each Y end, the inner edge of the cutter moves radially outward until the cut
-depth is zero. The Z coordinates do not move, so the top surface does not form
-a V in side view:
+each Y end, only the radial cut depth fades to zero. That fade uses smoothstep
+rather than one linear wedge, so its slope is zero where it leaves the central
+zone and where it reaches the normal receiver width. The Z coordinates do not
+move, so the top surface does not form a V in side view:
 
 <!-- scad-render
 view: top-guide-cutter
@@ -213,17 +215,31 @@ union() {
 ```
 
 The transition is not allowed to collapse the complete X/Z triangle to one top
-point. That older construction pulled the top surface downward and created
-V-shaped side geometry and thin end fins. Here only the X-depth disappears;
-the top Z remains level.
+point or to end as one linear cut plane. Older constructions produced either a
+V-shaped top/end fin or a visible straight termination. Here only X-depth fades;
+the top Z remains level and the depth fade has zero slope at both ends.
 
-### 4a — before the top-guide subtraction
+### 4a — top-plan transition check
+
+This orthographic plan view is deliberately redundant: it exists to catch the
+failure mode where an otherwise plausible isometric render still contains one
+straight termination line.
+
+<!-- scad-render
+view: top-guide-after
+vpr: [0, 0, 0]
+-->
+
+The central narrowed region should blend into the full 10 mm end width without
+one dominant straight cut boundary.
+
+### 4b — before the top-guide subtraction
 
 <!-- scad-render
 view: top-guide-before
 -->
 
-### 4b — exact material removed by the top guide
+### 4c — exact material removed by the top guide
 
 The grey receiver is shown on the left. On the right, red is **only the exact
 intersection of the real top-guide cutter with that receiver**:
@@ -236,7 +252,7 @@ The objects are separated only for readability; overlaying a 0.4 mm removed
 volume on the same surface caused z-fighting/occlusion and made the old image
 misleading.
 
-### 4c — result after one subtraction
+### 4d — result after one subtraction
 
 <!-- scad-render
 view: top-guide-after
@@ -251,10 +267,10 @@ view: top-guide-before-after
 Acceptance conditions:
 
 - the full X/Z guide is active over the central 8 mm;
-- the final 1 mm at each Y end only returns the chamfer depth to zero;
+- the final 1 mm at each Y end smoothly returns the chamfer depth to zero;
 - the top width in the active guide is 9.2 mm and the capture width below it remains 10.0 mm;
 - the Y side view stays level: no V-shaped top and no thin end fins;
-- the part returns to the ordinary 10 mm width at both Y ends;
+- the part returns to the ordinary 10 mm width at both Y ends without one hard straight termination line;
 - no separate +/-Y capture chamfer is introduced.
 
 ## Step 5 — inspect the functional receiver without scale marks
