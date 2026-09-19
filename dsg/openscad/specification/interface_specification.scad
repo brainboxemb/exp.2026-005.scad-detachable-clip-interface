@@ -62,7 +62,8 @@ module _contract_section_model() {
 }
 
 module interface_contract_sheet() {
-    td_frame(
+    design_bosl2_context()
+        td_frame(
         "DETACHABLE INTERFACE CONTRACT",
         "stage 1 - nominal mating geometry; reference implementation overlaid",
         "6:1"
@@ -128,7 +129,8 @@ module _reduced_contract_model() {
 }
 
 module opengrid_translation_sheet() {
-    td_frame(
+    design_bosl2_context()
+        td_frame(
         "OPENGRID -> DETACHABLE INTERFACE",
         "experiment interpretation of pinned source dimensions - not an upstream drawing",
         "mixed"
@@ -177,7 +179,8 @@ module reference_implementation_overview() {
 }
 
 module reference_implementation_sheet() {
-    td_frame(
+    design_bosl2_context()
+        td_frame(
         "MINIMAL REFERENCE IMPLEMENTATION",
         "stage 2 - one receiver + one snap implementing the stage-1 contract",
         "5:1"
