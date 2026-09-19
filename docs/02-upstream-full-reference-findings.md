@@ -1,4 +1,4 @@
-# OG-01 findings — upstream OpenGrid reference
+# Upstream Full reference findings
 
 Status: **accepted as the upstream reference baseline**
 
@@ -22,19 +22,19 @@ same QuackWorks gitlink.
 
 PNG:
 
-- `og-01-reference-assembled.png`
-- `og-01-reference-exploded.png`
-- `og-01-reference-section.png`
+- `50-reference-full-baseline-assembled.png`
+- `51-reference-full-baseline-exploded.png`
+- `52-reference-full-baseline-section.png`
 
 STL:
 
-- `og-01-fixed-receiver.stl`
-- `og-01-removable-snap.stl`
+- `50-reference-full-receiver.stl`
+- `51-reference-full-snap.stl`
 
 All five OpenSCAD targets report `Status: NoError`. Both STL targets report a
 manifold top-level 3D object.
 
-## What OG-01 establishes
+## What the upstream Full reference establishes
 
 The source geometry supports the following engineering description:
 
@@ -51,9 +51,9 @@ The source geometry supports the following engineering description:
 The exploded render confirms the insertion relationship without receiver
 occlusion. The section render exposes the receiver/snap mating region locally.
 
-## What OG-01 does not establish
+## What the upstream Full reference does not establish
 
-OG-01 does not prove:
+The upstream Full reference does not prove:
 
 - insertion force;
 - pull-out force;
@@ -68,9 +68,10 @@ Those are later PoP questions.
 
 ## Design consequence
 
-The next useful step is **AT-01**, not a tube clip yet.
+The next useful step is the **reduced receiver + snap** phase, not a tube clip yet.
 
-AT-01 should retain the functional decomposition visible in OG-01 while reducing
+The reduced receiver + snap phase should retain the functional decomposition
+visible in the upstream Full reference while reducing
 the complete OpenGrid cell context to a neutral attachment coupon:
 
 ```text

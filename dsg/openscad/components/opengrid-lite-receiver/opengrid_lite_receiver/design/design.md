@@ -89,14 +89,57 @@ down(Lite_Tile_Thickness / 2)
 That is the important design relationship: Lite is the top slice of the Full
 receiver, not a separately invented mating profile.
 
-## Step 3 — inspect the re-centered Lite result
+## Step 3 — isolate the retained 4.0 mm slice
+
+The overlay above explains which region survives. The next view shows only that
+exact retained intersection, still in the Full receiver's original coordinates:
+
+<!-- scad-render
+view: retained-top-only
+-->
+
+Nothing is redrawn here; it is the same intersection from Step 2 without the
+grey Full receiver around it.
+
+## Step 4 — re-center the retained slice
+
+The retained region spans `Z=-0.6..+3.4`, so its centre is at `Z=+1.4`.
+Moving it down by 1.4 mm makes the Lite extraction itself centred around Z=0.
+A standalone render would hide that translation through auto-centering, so the
+design evidence deliberately shows **raw on the left and re-centered on the
+right in one shared scene**:
+
+<!-- scad-render
+view: recentering-compare
+-->
+
+The explanatory operation itself is simply:
+
+```openscad
+translate([0, 0, -1.4])
+    opengrid_lite_receiver_design_retained_top_raw();
+```
+
+The relative vertical shift in the shared scene is the evidence for this step;
+two separately auto-centered PNGs are not.
+
+## Step 5 — compare the extraction with the exact upstream Lite result
+
+The extracted/re-centered source region is shown on the left and the exact
+pinned `openGridLite()` result on the right:
+
+<!-- scad-render
+view: recentered-compare
+-->
+
+This comparison is the check that the explanatory extraction still represents
+the source relationship rather than an invented replacement implementation.
+
+The authoritative final state remains the exact pinned module:
 
 <!-- scad-render
 view: lite-result
 -->
-
-The final state above is the exact pinned `openGridLite()` result, not our own
-approximation:
 
 ```openscad
 module opengrid_lite_receiver_build() {
@@ -104,10 +147,7 @@ module opengrid_lite_receiver_build() {
 }
 ```
 
-The wrapper exists only so the design tooling can render and analyze the source
-object consistently.
-
-## Step 4 — inspect the continuous wall profile
+## Step 6 — inspect the continuous wall profile
 
 <!-- scad-render
 view: solid-profile
@@ -141,7 +181,7 @@ The exact upstream profile is longer than the short fragment above, but these
 are the dimensions that create the Lite mating zones used by the node
 derivation.
 
-## Step 5 — make the four Lite profile zones visible
+## Step 7 — make the four Lite profile zones visible
 
 The exact Lite section is now split into four colored Z bands. No geometry is
 changed; this is only an explanatory view.
@@ -172,7 +212,7 @@ module _opengrid_lite_receiver_profile_band(z0, z1) {
 
 So the colored bands are not redrawn approximations.
 
-## Step 6 — inspect the centre-plane section as technical evidence
+## Step 8 — inspect the centre-plane section as technical evidence
 
 <!-- scad-render
 view: flex-profile

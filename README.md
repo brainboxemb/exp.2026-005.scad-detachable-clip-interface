@@ -26,20 +26,88 @@ examples/
   receiver-plate          carrier integration example
 ```
 
-The standalone reduced receiver is a 10 × 14 × 4 mm object: a central 10 mm
-functional receiver plus 2 mm top-guide/support transition at each end. The
-removable snap is 10 mm long and retains/flexes only on two opposite sides.
+The engineering model is deliberately split in two stages. The **interface
+specification** defines the source-derived local X/Z mating profile and its
+mirrored spacing. A **minimal receiver + minimal snap** then serve as the
+reference implementation of that contract.
+
+The transverse X/Z receiver profile is established from the pinned source.
+The compact stage-2 receiver is a **centred 10 mm crop from one OpenGrid
+straight-edge region**. The minimum source straight half-span is 6.923045 mm,
+leaving 1.923045 mm before the separate source corner construction at each crop
+end. The 10 mm length remains a reference-implementation choice rather than
+part of the interface contract. The snap retains/flexes only on two opposite
+sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
 See the [reduced receiver + snap experiment record](docs/05-reduced-receiver-snap.md).
 
-## Previous reference phase
+## Two-stage specification and reference design
 
-**OG-02 — Full versus Lite upstream comparison**
+The authoritative reading order is:
 
-OG-01 established the Full reference pair. OG-02 compares that pair against the
-upstream Lite receiver/snap before the mechanism is reduced to a neutral coupon.
+1. [Detachable interface specification](dsg/openscad/specification/specification.md)
+   — what the two parts must mate with;
+2. [Minimal receiver design](dsg/openscad/components/node-receiver/node_receiver/design/design.md)
+   and [minimal snap design](dsg/openscad/components/node-snap/node_snap/design/design.md)
+   — one small reference implementation of that contract.
+
+The specification includes a combined contract drawing and a separate
+OpenGrid-to-node comparison sheet. The OpenGrid side is explicitly an
+experiment interpretation of the pinned source dimensions, **not** an upstream
+manufacturing drawing.
+
+The technical-drawing work is currently held at a deliberately small
+**geometry reconstruction** checkpoint.  Before dimensions, sections, detail
+bubbles or a title block are reintroduced, Python must reproduce the pinned
+OpenGrid Lite plan geometry from the same source millimetre dimensions.
+
+The drawing producer now emits:
+
+```text
+bld/drawing/00-opengrid-python.svg
+bld/drawing/00-opengrid-python.png
+bld/drawing/01-opengrid-openscad-reference.svg
+bld/drawing/01-opengrid-openscad-reference.png
+bld/drawing/02-opengrid-overlay.svg
+bld/drawing/02-opengrid-overlay.png
+bld/drawing/03-opengrid-straight-crop-proof.svg
+bld/drawing/03-opengrid-straight-crop-proof.png
+```
+
+The first SVG is the independent Python reconstruction. It keeps the model in
+real millimetres and merges the unique horizontal contours at the
+source-derived Lite profile edges (1.6, 2.6, 3.6 and 4.0 mm). The 0.0 and
+1.6 mm sections are identical and therefore draw the same line only once.
+
+The Python and OpenSCAD SVGs each also get a direct black-and-white PNG review
+image. The second SVG cuts the actual pinned OpenGrid Lite model at those same
+source-derived heights and validates every raw OpenSCAD section independently.
+The final top-view merge is visibility-aware: a lower contour segment is drawn
+only where its XY location remains inside every higher opening, so material
+above it cannot hide that edge. This removes the artificial line crossings
+created by simply stacking complete closed section contours.
+
+The same visibility rule is applied separately to the Python reconstruction and
+the validated OpenSCAD section polygons. The overlay then compares the visible
+edge endpoints as well as the raw section vertices. OpenSCAD output is never
+fed back into the Python source-profile construction.
+
+The fourth artifact shows the limiting source section together with the 10 mm
+stage-2 crop. Its numeric gate requires a positive end margin; the current
+source-derived margin is 1.923045 mm per end.
+
+No A4 sheet, A-A section, B/C/D detail circles, dimensions or title block belong
+to this checkpoint.
+
+## Previous reference work
+
+**Full versus Lite upstream comparison**
+
+The upstream Full reference established the source pair. The subsequent
+Full-versus-Lite comparison established which low-profile source relationship
+to reduce before creating the neutral receiver/snap coupon.
 
 Full:
 
@@ -76,9 +144,6 @@ The primary reference/design objects therefore appear before carrier examples.
 Exploded/comparison views follow in the `20-...` range, node
 sections/profiles in the `30-...` range, and reference/detail evidence
 afterwards.
-
-Historical OpenGrid reference labels such as OG-01 and OG-02 remain in their
-reference findings, but the active experiment phases use descriptive names.
 
 After merge, normal production output is published under:
 
@@ -127,8 +192,8 @@ See [source provenance](docs/00-source-provenance.md).
 
 ## Experiment sequence
 
-1. **OG-01** — reproduce and understand the upstream Full receiver + snap.
-2. **OG-02** — compare upstream Full and Lite receiver/snap variants.
+1. **Upstream Full reference** — reproduce and understand the upstream Full receiver + snap.
+2. **Full versus Lite comparison** — compare upstream Full and Lite receiver/snap variants.
 3. **Reduced receiver + snap** — reduce the relationship to a neutral fixed/removable coupon.
 4. **Retention and flex geometry** — expose retention/flex geometry and critical dimensions.
 5. **Tolerance qualification** — compare only the critical tolerance variants.
@@ -137,18 +202,26 @@ See [source provenance](docs/00-source-provenance.md).
 
 See [experiment plan](docs/01-experiment-plan.md).
 
-## Component design documentation
+## Specification and reference implementation
 
-The component-local design documents are the geometry authority for their
-respective objects:
+The interface contract is authoritative for shared mating geometry:
 
-- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/design/design.md)
-- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/design/design.md)
-- [Node receiver](dsg/openscad/components/node-receiver/design/design.md)
-- [Node snap](dsg/openscad/components/node-snap/design/design.md)
+- [Interface specification](dsg/openscad/specification/specification.md)
+
+The minimal stage-2 implementation is documented separately:
+
+- [Node receiver](dsg/openscad/components/node-receiver/node_receiver/design/design.md)
+- [Node snap](dsg/openscad/components/node-snap/node_snap/design/design.md)
+
+Pinned-source analysis remains useful provenance/evidence rather than the local
+interface contract:
+
+- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/design.md)
+- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/design.md)
 
 Carrier usage lives separately under `dsg/openscad/examples/`. The rail and
-plate examples are consumers of the node design, not definitions of it.
+plate examples are consumers of the reference implementation, not definitions
+of the interface.
 
 ## Interactive OpenSCAD view
 
@@ -164,7 +237,15 @@ selector exposes the stable Full/Lite experiment views directly:
 - Full-versus-Lite assembled, exploded and section comparisons;
 - node rail/plate assembled and exploded views, retention sections, individual
   receiver/snap views, a rail-vs-plate comparison and a generated top-view
-  comparison for the centring lead-in / 1 mm reference grooves.
+  comparison for the centring lead-in / 1 mm reference grooves;
+- an optional interactive X/Y/Z slice around any selected main view, provided
+  by the shared `lib.scad.util` `util_section_inspect()` helper, with sliders
+  for the section-plane position and retained slice thickness plus
+  positive/negative direction. Only the requested slab is retained: for
+  example, Z=0 with depth 0.1 mm and Positive keeps Z=0.0..0.1 mm. The
+  Customizer block is library-managed and can be refreshed with
+  `dsg/openscad/ext/lib.scad.util/consumer/sync-section-inspection.sh
+  dsg/openscad/main.scad`.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same
@@ -172,15 +253,42 @@ experiment geometry.
 
 ## Build model
 
-This is an OpenSCAD-only consumer of the current shared SCAD project tooling. It
-uses the direct build engine because the PoP is intentionally small.
+Geometry remains OpenSCAD-first, with the shared SCons backend handling
+selective rebuild/cache behavior. The first composed technical drawing uses the
+dedicated drawing runtime from `tool.scad-project v0.15.1`:
 
-Normal entrypoint discovery is:
+```text
+OpenSCAD pinned/source geometry
+    -> project Python + drawsvg
+    -> canonical SVG
+    -> Python invokes Inkscape
+    -> PNG / PDF
+```
+
+Normal geometry entrypoint discovery remains:
 
 ```text
 dsg/openscad/render/*.scad  -> bld/png/*.png
 dsg/openscad/export/*.scad  -> bld/stl/*.stl
+
+dsg/drawing/opengrid_profile_geometry.py
+    -> source/profile geometry in real millimetres
+
+dsg/drawing/opengrid_profile_render.py
+    -> SVG/PNG presentation only
+
+dsg/drawing/build_opengrid_profile.py
+    -> OpenSCAD oracle + validation/orchestration
+    -> bld/drawing/00-opengrid-python.svg
+    -> bld/drawing/01-opengrid-openscad-reference.svg
+    -> bld/drawing/02-opengrid-overlay.{svg,png}
 ```
+
+The drawing migration is currently validating one source-derived OpenGrid Lite
+plan outline.  Python reconstructs the footprint from the pinned millimetre
+parameters and source construction; a separately generated OpenSCAD projection
+is overlaid only as a check.  Engineering-sheet content remains intentionally
+out of scope until those two geometries coincide.
 
 Bootstrap a checkout with:
 

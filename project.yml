@@ -13,7 +13,7 @@ dependencies:
     type: git-submodule
     url: https://github.com/brainboxemb/tool.scad-project.git
     path: tools/tool.scad-project
-    ref: v0.14.10
+    ref: v0.15.1
 
   - name: quackworks
     role: external
@@ -21,3 +21,10 @@ dependencies:
     url: https://github.com/brainboxemb/fork.andylevesque.quackworks.git
     path: dsg/openscad/ext/quackworks
     ref: e0c1cb7ec78dd9e9a8476ed739bd3402074354f3
+
+  - name: lib.scad.util
+    role: external
+    type: git-submodule
+    url: https://github.com/brainboxemb/lib.scad.util.git
+    path: dsg/openscad/ext/lib.scad.util
+    ref: d1c100148e22a6464f1448da226179a02e6ddaf2

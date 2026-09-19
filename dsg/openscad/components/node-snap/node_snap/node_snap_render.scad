@@ -5,8 +5,11 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../design_support.scad>
-use <node_snap.scad>
+/* [Design view] */
+view = "final"; // [final,core-envelope,positive-wall,side-walls,nub-box,nub-wedge-shaped,nub-final-one-side,nubs,top,main-click-slot-cutters,after-main-click-slots,top-slot-cutters,plain,pattern-cutters,profile]
+
+use <../../../design_support.scad>
+use <../node_snap.scad>
 
 module node_snap_design(view = "final") {
     design_bosl2_context() {
@@ -55,7 +58,7 @@ module node_snap_design(view = "final") {
             color(existing)
                 node_snap_design_walls_and_nubs();
             color(current)
-                _node_snap_top();
+                node_snap_design_top();
 
         } else if (view == "main-click-slot-cutters") {
             color(existing)
@@ -92,4 +95,4 @@ module node_snap_design(view = "final") {
     }
 }
 
-node_snap_design();
+node_snap_design(view = view);

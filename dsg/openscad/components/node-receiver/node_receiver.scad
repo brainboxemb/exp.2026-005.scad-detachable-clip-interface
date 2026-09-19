@@ -8,7 +8,7 @@ $fn = 120;
 
 use <../../lib/node_interface.scad>
 
-module node_receiver_build(mm_pattern = true) {
+module node_receiver_build(mm_pattern = false) {
     node_receiver(mm_pattern);
 }
 
@@ -17,93 +17,39 @@ module node_receiver_build(mm_pattern = true) {
 // -----------------------------------------------------------------------------
 // Design-documentation construction states
 // -----------------------------------------------------------------------------
-// These modules deliberately expose the construction sequence used by
-// design/design.md. They do not introduce a second production geometry path;
-// every cutter is the same cutter used by node_receiver().
+// The design evidence follows the same construction as production:
+// one source-derived X/Z profile, then one straight BOSL2 path extrusion.
 
-module node_receiver_design_base_block() {
+module _node_receiver_design_center_y_slice() {
     translate([
-        -node_receiver_width() / 2,
-        -node_receiver_length() / 2,
-        0
+        -node_receiver_width(),
+        -0.5,
+        -1
     ])
         cube([
-            node_receiver_width(),
-            node_receiver_length(),
-            node_receiver_height()
+            2 * node_receiver_width(),
+            1.0,
+            node_receiver_height() + 2
         ]);
 }
 
-module node_receiver_design_lower_cutters() {
-    union() {
-        _node_positive_x_lower_cut_active();
-        _node_positive_y_lower_cut_transition();
-        mirror([0, 1, 0])
-            _node_positive_y_lower_cut_transition();
-
-        mirror([1, 0, 0]) {
-            _node_positive_x_lower_cut_active();
-            _node_positive_y_lower_cut_transition();
-            mirror([0, 1, 0])
-                _node_positive_y_lower_cut_transition();
-        }
-    }
-}
-
-module node_receiver_design_top_guide_cutters() {
-    union() {
-        _node_positive_x_top_guide_cut();
-        mirror([1, 0, 0])
-            _node_positive_x_top_guide_cut();
-    }
-}
-
-module node_receiver_design_top_main_cutters() {
-    // Analysis-only view of the central 10 mm portion of the REAL production
-    // cutter. This explains the intended constant X/Z lead-in without creating
-    // a second geometry implementation.
+module node_receiver_design_profile() {
     intersection() {
-        node_receiver_design_top_guide_cutters();
-
-        translate([
-            -node_receiver_width(),
-            -node_receiver_functional_length() / 2,
-            -1
-        ])
-            cube([
-                2 * node_receiver_width(),
-                node_receiver_functional_length(),
-                node_receiver_height() + 2
-            ]);
+        node_receiver_build(false);
+        _node_receiver_design_center_y_slice();
     }
 }
 
-module node_receiver_design_after_lower() {
-    difference() {
-        node_receiver_design_base_block();
-        node_receiver_design_lower_cutters();
-    }
-}
+module node_receiver_design_profile_vs_extrusion() {
+    translate([-8, 0, 0])
+        node_receiver_design_profile();
 
-module node_receiver_design_top_removed_material() {
-    // Only show the part of the single production cutter that intersects the
-    // current receiver. Every red fragment in the design render must therefore
-    // disappear in the next state.
-    intersection() {
-        node_receiver_design_after_lower();
-        node_receiver_design_top_guide_cutters();
-    }
-}
-
-module node_receiver_design_after_top_guide() {
-    difference() {
-        node_receiver_design_after_lower();
-        node_receiver_design_top_guide_cutters();
-    }
+    translate([8, 0, 0])
+        node_receiver_build(false);
 }
 
 module node_receiver_design_plain() {
-    node_receiver_design_after_top_guide();
+    node_receiver_build(false);
 }
 
 module node_receiver_design_pattern_cutters() {

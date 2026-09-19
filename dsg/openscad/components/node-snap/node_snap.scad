@@ -69,6 +69,10 @@ module node_snap_design_walls_and_nubs() {
     }
 }
 
+module node_snap_design_top() {
+    _node_snap_top();
+}
+
 module node_snap_design_before_slots() {
     union() {
         node_snap_design_walls_and_nubs();

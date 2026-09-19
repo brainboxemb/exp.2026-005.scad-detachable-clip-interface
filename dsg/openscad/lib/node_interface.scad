@@ -24,10 +24,11 @@
 
 // BOSL2 is used for rounded click-slot cuts.
 include <BOSL2/std.scad>
+include <detachable_interface_spec.scad>
 
-// Primary node-receiver envelope.
-NODE_RECEIVER_WIDTH = 10.0;
-NODE_RECEIVER_HEIGHT = 4.0;
+// Stage-2 reference implementation consumes the stage-1 interface contract.
+NODE_RECEIVER_WIDTH = detachable_interface_receiver_width();
+NODE_RECEIVER_HEIGHT = DETACHABLE_INTERFACE_HEIGHT;
 
 // Example carrier dimensions. Examples consume the node dimensions rather than
 // defining them.
@@ -38,67 +39,56 @@ EXAMPLE_RAIL_HEIGHT = NODE_RECEIVER_HEIGHT;
 EXAMPLE_PLATE_WIDTH = 20.0;
 EXAMPLE_PLATE_HEIGHT = 6.0;
 
-// Local receiver footprint along the carrier.
-NODE_RECEIVER_FUNCTIONAL_LENGTH = 10.0;
-NODE_RECEIVER_LOWER_TRANSITION_LENGTH = 1.0;
-NODE_RECEIVER_LOWER_ACTIVE_LENGTH =
-    NODE_RECEIVER_FUNCTIONAL_LENGTH - 2 * NODE_RECEIVER_LOWER_TRANSITION_LENGTH; // 8 mm
+// Local reference-implementation footprint. Interface X/Z mating dimensions
+// come from detachable_interface_spec.scad; this finite Y length belongs to the
+// minimal reference implementation.
+NODE_RECEIVER_FUNCTIONAL_LENGTH = DETACHABLE_INTERFACE_REFERENCE_LENGTH;
+NODE_RECEIVER_BLOCK_LENGTH = NODE_RECEIVER_FUNCTIONAL_LENGTH;
+NODE_SNAP_LENGTH = DETACHABLE_INTERFACE_REFERENCE_LENGTH;
 
-// Keep the complete 10 mm functional top lead-in. The guide transitions are
-// EXTRA geometry outside that functional receiver zone; they must not steal
-// length from the main sloped face.
-NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH = NODE_RECEIVER_FUNCTIONAL_LENGTH; // 10 mm
-NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH = 2.0;
-NODE_RECEIVER_TOP_GUIDE_LENGTH =
-    NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH + 2 * NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH; // 14 mm
+// Keep source aliases available for the detailed reduction walkthrough.
+OPENGRID_RECEIVER_CAPTURE_WIDTH = DETACHABLE_SOURCE_CAPTURE_WIDTH;
+OPENGRID_RECEIVER_LOWER_WIDTH = DETACHABLE_SOURCE_LOWER_WIDTH;
+OPENGRID_RECEIVER_TOP_WIDTH = DETACHABLE_SOURCE_TOP_WIDTH;
+OPENGRID_SNAP_BODY_WIDTH = DETACHABLE_SOURCE_SNAP_BODY_WIDTH;
+OPENGRID_SNAP_NUB_OUTER_WIDTH = DETACHABLE_SOURCE_SNAP_NUB_OUTER_WIDTH;
 
-// Plate-only straight support around the same 10 mm functional receiver.
-// The extra 2 mm at each Y end is ordinary 10 x 4 mm material, not part of
-// the snap interface.
-NODE_RECEIVER_BLOCK_LENGTH = 14.0;
-NODE_RECEIVER_BLOCK_END_LENGTH = 2.0;
+// Pinned plan/corner values used only to qualify the finite stage-2 crop.
+OPENGRID_SOURCE_TILE_SIZE = 28.0;
+OPENGRID_SOURCE_CORNER_SQUARE_THICKNESS = 2.6;
+OPENGRID_SOURCE_INTERSECTION_DISTANCE = 4.2;
 
-// Removable snap length matches the local receiver footprint.
-NODE_SNAP_LENGTH = 10.0;
+function node_source_corner_offset() =
+    sqrt(OPENGRID_SOURCE_INTERSECTION_DISTANCE ^ 2 / 2)
+    + OPENGRID_SOURCE_CORNER_SQUARE_THICKNESS;
 
-// OpenGrid Lite source dimensions used by the radial mirror.
-OPENGRID_RECEIVER_CAPTURE_WIDTH = 25.0;
-OPENGRID_RECEIVER_LOWER_WIDTH = 26.4;
-OPENGRID_RECEIVER_TOP_WIDTH = 25.8;
-OPENGRID_SNAP_BODY_WIDTH = 24.8;
-OPENGRID_SNAP_NUB_OUTER_WIDTH = 25.6;
+function node_source_min_straight_half_span() =
+    OPENGRID_SOURCE_TILE_SIZE / 2
+    - node_source_corner_offset() * sqrt(2)
+    + DETACHABLE_SOURCE_OUTSIDE_EXTRUSION;
 
-// Mirror constant: original narrow 25 mm opening becomes 10 mm fixed capture.
-NODE_RADIAL_MIRROR_SUM =
-    OPENGRID_RECEIVER_CAPTURE_WIDTH + NODE_RECEIVER_WIDTH;
+function node_receiver_straight_crop_margin(
+    length = DETACHABLE_INTERFACE_REFERENCE_LENGTH
+) =
+    node_source_min_straight_half_span() - length / 2;
 
-// Mirrored fixed-receiver profile widths.
-NODE_RECEIVER_LOWER_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_LOWER_WIDTH; // 8.6
-NODE_RECEIVER_TOP_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_TOP_WIDTH;  // 9.2
+NODE_RADIAL_MIRROR_SUM = detachable_interface_mirror_sum();
+NODE_RECEIVER_LOWER_WIDTH = detachable_interface_receiver_lower_width();
+NODE_RECEIVER_TOP_WIDTH = detachable_interface_receiver_top_width();
+NODE_SNAP_INNER_WIDTH = detachable_interface_snap_inner_width();
+NODE_SNAP_NUB_OPENING = detachable_interface_snap_nub_opening();
+NODE_SNAP_NUB_PROTRUSION = detachable_interface_snap_nub_protrusion();
 
-// Mirrored snap inner widths.
-NODE_SNAP_INNER_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_SNAP_BODY_WIDTH;     // 10.2
-NODE_SNAP_NUB_OPENING =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_SNAP_NUB_OUTER_WIDTH;      // 9.4
-NODE_SNAP_NUB_PROTRUSION =
-    (NODE_SNAP_INNER_WIDTH - NODE_SNAP_NUB_OPENING) / 2; // 0.4
+NODE_RECEIVER_LOWER_Z = detachable_interface_lower_z();
+NODE_RECEIVER_RAMP_TOP_Z = detachable_interface_ramp_top_z();
+NODE_RECEIVER_CAPTURE_TOP_Z = detachable_interface_capture_top_z();
 
-// Lite receiver X/Z profile after taking the upper 4.0 mm of the Full board.
-// Radially mirrored fixed receiver:
-//   z 0.0 .. 1.6   width 8.6
-//   z 1.6 .. 2.6   ramp 8.6 -> 10.0
-//   z 2.6 .. 3.6   width 10.0
-//   z 3.6 .. 4.0   ramp 10.0 -> 9.2
-NODE_RECEIVER_LOWER_Z = 1.6;
-NODE_RECEIVER_RAMP_TOP_Z = 2.6;
-NODE_RECEIVER_CAPTURE_TOP_Z = 3.6;
-
-// Lite snap seated top-flush against the 4 mm receiver.
-NODE_SNAP_SEATED_Z = 0.6;
-NODE_SNAP_ENGAGEMENT_HEIGHT = 3.4;
+// The pinned Lite reference assembles receiver and snap at the same CENTER
+// origin. The 0.6 mm difference is arithmetic only, not a seated Z offset.
+NODE_SNAP_SEATED_Z = 0.0;
+NODE_SNAP_ENGAGEMENT_HEIGHT = detachable_interface_snap_engagement_height();
+NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE =
+    NODE_RECEIVER_HEIGHT - NODE_SNAP_ENGAGEMENT_HEIGHT;
 
 // Radial flex-wall decomposition.
 //
@@ -200,15 +190,11 @@ assert(abs(NODE_SNAP_WALL_THICKNESS - 2.0) < 0.0001);
 assert(abs(NODE_SNAP_CORNER_CHAMFER - NODE_SNAP_WALL_THICKNESS / 2) < 0.0001);
 assert(NODE_SNAP_CORNER_CHAMFER < NODE_SNAP_LENGTH / 2);
 assert(abs(NODE_RECEIVER_FUNCTIONAL_LENGTH - 10.0) < 0.0001);
-assert(abs(NODE_RECEIVER_LOWER_TRANSITION_LENGTH - 1.0) < 0.0001);
-assert(abs(NODE_RECEIVER_LOWER_ACTIVE_LENGTH - 8.0) < 0.0001);
-assert(abs(NODE_RECEIVER_TOP_GUIDE_TRANSITION_LENGTH - 2.0) < 0.0001);
-assert(abs(NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH - 10.0) < 0.0001);
-assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - 14.0) < 0.0001);
-assert(abs(NODE_RECEIVER_TOP_GUIDE_LENGTH - NODE_RECEIVER_BLOCK_LENGTH) < 0.0001);
-assert(abs(NODE_RECEIVER_BLOCK_LENGTH - 14.0) < 0.0001);
-assert(abs(NODE_RECEIVER_BLOCK_END_LENGTH - 2.0) < 0.0001);
-assert(abs(NODE_SNAP_SEATED_Z + NODE_SNAP_ENGAGEMENT_HEIGHT - NODE_RECEIVER_HEIGHT) < 0.0001);
+assert(abs(NODE_RECEIVER_BLOCK_LENGTH - 10.0) < 0.0001);
+assert(abs(node_source_min_straight_half_span() - 6.9230447378) < 0.0001);
+assert(node_receiver_straight_crop_margin() > 1.9230);
+assert(abs(NODE_SNAP_SEATED_Z) < 0.0001);
+assert(abs(NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE - 0.6) < 0.0001);
 
 // --- Public dimension API for component/design wrappers ----------------------
 //
@@ -220,135 +206,69 @@ function node_receiver_width() = NODE_RECEIVER_WIDTH;
 function node_receiver_length() = NODE_RECEIVER_BLOCK_LENGTH;
 function node_receiver_height() = NODE_RECEIVER_HEIGHT;
 function node_receiver_functional_length() = NODE_RECEIVER_FUNCTIONAL_LENGTH;
-function node_receiver_top_guide_length() = NODE_RECEIVER_TOP_GUIDE_LENGTH;
 
 function node_snap_length() = NODE_SNAP_LENGTH;
 function node_snap_outer_width() = NODE_SNAP_OUTER_WIDTH;
 function node_snap_total_height() = NODE_SNAP_TOTAL_HEIGHT;
 
-// --- Shared receiver profiling by subtractive side cuts ---------------------
+// --- Source-derived receiver profile ----------------------------------------
 //
-// Start from an ordinary straight 10 x 4 mm carrier/support. The receiver is
-// created only by removing the two source-derived side recesses:
+// OpenGrid's straight edge uses one 2D radial/Z profile with
+// BOSL2 path_extrude2d(), while its corner regions are separate geometry.
+// OpenGrid Lite keeps the upper 4.0 mm of that source relationship.
 //
-//   lower recess: x 4.3..5.0 over z 0..2.6 with the 1.6..2.6 ramp
-//   top recess:   triangular x 4.6..5.0 over z 3.6..4.0
+// The radial mirror below establishes the node X/Z section. Source-plan
+// reconstruction shows at least 6.923045 mm of straight edge from the centre
+// to the corner construction. A centred 10 mm receiver therefore ends
+// 1.923045 mm before that region at both ends. The retained Z bands are:
 //
-// The lower mating profile is 8 mm active + 1 mm transition per Y end.
-// The top guide is deliberately TWO-SIDED. One continuous polyhedron keeps
-// the full X/Z lead-in active for 10 mm on +/-X and tapers it back to the
-// ordinary top face over 2 mm per Y end. There is no separate +/-Y top chamfer
-// because the removable snap is open at those ends. Opposite X sides are
-// generated by mirror(), guaranteeing symmetry.
+//   z 0.0 .. 1.6   width 8.6
+//   z 1.6 .. 2.6   ramp 8.6 -> 10.0
+//   z 2.6 .. 3.6   width 10.0
+//   z 3.6 .. 4.0   ramp 10.0 -> 9.2
+//
+// The 10 mm path is accepted stage-2 implementation geometry as a centred
+// crop of the source straight-edge region. Its finite length is not promoted
+// into the shared stage-1 X/Z mating contract.
 
-module _node_positive_x_lower_cut_active() {
-    rotate([90, 0, 0])
-        linear_extrude(
-            height = NODE_RECEIVER_LOWER_ACTIVE_LENGTH,
-            center = true,
-            convexity = 10
-        )
-            polygon(points = [
-                [NODE_RECEIVER_LOWER_WIDTH / 2, 0],
-                [NODE_RECEIVER_WIDTH / 2 + 0.01, 0],
-                [NODE_RECEIVER_WIDTH / 2 + 0.01, NODE_RECEIVER_RAMP_TOP_Z],
-                [NODE_RECEIVER_LOWER_WIDTH / 2, NODE_RECEIVER_LOWER_Z]
-            ]);
+function _node_receiver_profile_points() =
+    detachable_interface_receiver_profile_points();
+
+module _node_receiver_profile_2d() {
+    polygon(points = _node_receiver_profile_points());
 }
 
-module _node_positive_x_top_guide_cut() {
-    ya = NODE_RECEIVER_TOP_GUIDE_ACTIVE_LENGTH / 2;
-    yb = NODE_RECEIVER_TOP_GUIDE_LENGTH / 2;
-    xi = NODE_RECEIVER_TOP_WIDTH / 2;
-    xo = NODE_RECEIVER_WIDTH / 2 + 0.01;
-    z0 = NODE_RECEIVER_CAPTURE_TOP_Z;
-    z1 = NODE_RECEIVER_HEIGHT + 0.01;
+module _node_receiver_profile_extrusion(length = NODE_RECEIVER_BLOCK_LENGTH) {
+    // Accepted stage-2 construction: a finite centred crop of the pinned
+    // source straight-edge mechanism. With the path running BACK (-Y),
+    // path_extrude2d maps the profile's first coordinate to X and second to Z.
+    // The crop ends before the source corner construction begins.
+    path = [
+        [0,  length / 2],
+        [0, -length / 2]
+    ];
 
-    // One continuous subtractive solid:
-    //
-    //   Y=-7      Y=-5                 Y=+5      Y=+7
-    //    point -> full triangular section ======> point
-    //
-    // The central 10 mm therefore remains the complete X/Z lead-in, while
-    // both 2 mm end regions taper into the ordinary outer/top corner.
-    // Critically, there are NO polyhedron faces at Y=+/-5, so the exported
-    // receiver cannot acquire a vertical seam/end wall at those positions.
-    polyhedron(
-        points = [
-            [xi, -ya, z1],
-            [xo, -ya, z1],
-            [xo, -ya, z0],
-
-            [xi,  ya, z1],
-            [xo,  ya, z1],
-            [xo,  ya, z0],
-
-            [xo, -yb, z1],
-            [xo,  yb, z1]
-        ],
-        faces = [
-            [0, 1, 4, 3],
-            [1, 2, 5, 4],
-            [2, 0, 3, 5],
-
-            [6, 1, 0],
-            [6, 2, 1],
-            [6, 0, 2],
-
-            [3, 4, 7],
-            [4, 5, 7],
-            [5, 3, 7]
-        ],
-        convexity = 10
-    );
+    path_extrude2d(path)
+        _node_receiver_profile_2d();
 }
 
-// Positive-Y lower cut taper.
-// At Y=active_half it has the full receiver cutout. At Y=zone_half it has
-// zero radial depth at X=5, so the carrier is exactly rectangular again.
-module _node_positive_y_lower_cut_transition() {
-    ya = NODE_RECEIVER_LOWER_ACTIVE_LENGTH / 2;
-    yb = NODE_RECEIVER_FUNCTIONAL_LENGTH / 2;
-    xi = NODE_RECEIVER_LOWER_WIDTH / 2;
-    xo = NODE_RECEIVER_WIDTH / 2 + 0.01;
-
-    polyhedron(
-        points = [
-            [xi, ya, 0],
-            [xo, ya, 0],
-            [xo, ya, NODE_RECEIVER_RAMP_TOP_Z],
-            [xi, ya, NODE_RECEIVER_LOWER_Z],
-            [xo, yb, 0],
-            [xo, yb, NODE_RECEIVER_RAMP_TOP_Z]
-        ],
-        faces = [
-            [0, 1, 2, 3],
-            [0, 4, 1],
-            [1, 4, 5, 2],
-            [2, 5, 3],
-            [3, 5, 4, 0]
-        ],
-        convexity = 10
-    );
-}
-
-module _node_positive_x_receiver_cuts() {
-    union() {
-        _node_positive_x_lower_cut_active();
-        _node_positive_x_top_guide_cut();
-
-        _node_positive_y_lower_cut_transition();
-        mirror([0, 1, 0])
-            _node_positive_y_lower_cut_transition();
-    }
-}
-
+// Integration helper only. Carrier examples subtract the exact complement of
+// the standalone receiver inside its 10 x 10 x 4 envelope, rather than
+// reimplementing the mating profile with a second cutter construction.
 module _node_receiver_cuts() {
-    union() {
-        _node_positive_x_receiver_cuts();
+    difference() {
+        translate([
+            -NODE_RECEIVER_WIDTH / 2,
+            -NODE_RECEIVER_BLOCK_LENGTH / 2,
+            0
+        ])
+            cube([
+                NODE_RECEIVER_WIDTH,
+                NODE_RECEIVER_BLOCK_LENGTH,
+                NODE_RECEIVER_HEIGHT
+            ]);
 
-        mirror([1, 0, 0])
-            _node_positive_x_receiver_cuts();
+        _node_receiver_profile_extrusion();
     }
 }
 
@@ -401,26 +321,12 @@ module _node_mm_reference_cuts_at_top(top_z, x_length, y_length) {
 
 // --- Standalone receiver block ---------------------------------------------
 //
-// Primary fixed-side design object. The 10 mm functional receiver remains
-// centred inside a 14 mm-long block so the 2 mm top-guide transitions on both
-// ends have real material to terminate into. Rail and plate carriers are
-// integration examples built around this same interface geometry.
+// Fixed-side stage-2 reference implementation. Its X/Z profile is
+// source-derived and its 10 mm Y length is a validated centred crop of the
+// source straight segment. Rail and plate carriers remain integration examples.
 
 module _node_receiver_geometry() {
-    difference() {
-        translate([
-            -NODE_RECEIVER_WIDTH / 2,
-            -NODE_RECEIVER_BLOCK_LENGTH / 2,
-            0
-        ])
-            cube([
-                NODE_RECEIVER_WIDTH,
-                NODE_RECEIVER_BLOCK_LENGTH,
-                NODE_RECEIVER_HEIGHT
-            ]);
-
-        _node_receiver_cuts();
-    }
+    _node_receiver_profile_extrusion();
 }
 
 module node_receiver(mm_pattern = false) {
@@ -434,6 +340,12 @@ module node_receiver(mm_pattern = false) {
                 NODE_RECEIVER_BLOCK_LENGTH
             );
     }
+}
+
+// Stage-2 reference implementation name. Only the X/Z mating section is
+// contract-facing; the finite 10 mm crop remains an implementation choice.
+module detachable_interface_reference_receiver(mm_pattern = false) {
+    node_receiver(mm_pattern);
 }
 
 // --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
@@ -468,7 +380,7 @@ module node_receiver_rail_example(mm_pattern = false) {
     }
 }
 
-// --- Carrier B: 50 x 20 x 6 plate + 10 x 14 x 4 support boss --------------
+// --- Carrier B: 50 x 20 x 6 plate + 10 x 10 x 4 support boss --------------
 
 module _node_receiver_plate_example_geometry() {
     union() {
@@ -723,6 +635,11 @@ module node_snap(mm_pattern = false) {
                 NODE_SNAP_LENGTH
             );
     }
+}
+
+// Contract-facing name for the minimal removable-side reference implementation.
+module detachable_interface_reference_snap(mm_pattern = false) {
+    node_snap(mm_pattern);
 }
 
 // --- Assemblies ------------------------------------------------------------

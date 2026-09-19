@@ -1,23 +1,28 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **current digital baseline; visual acceptance and physical qualification still open**
+Status: **receiver X/Z profile retained; longitudinal Y termination reopened in PR #7**
 
-Qualified source head:
-
-```text
-e4b3878aa0c2bf786781a02716fea77293cdcb61
-```
-
-Build run:
+Earlier straight-extrusion candidate source:
 
 ```text
-35356649821
+c950b21ed24b8bd5ba9abd78ff95cff2b49c62af
 ```
+
+Earlier candidate build run:
+
+```text
+35425438453
+```
+
+That run proves the straight-extrusion candidate builds as a manifold STL; it
+does **not** qualify that longitudinal construction as the correct receiver.
+The non-functional millimetre groove pattern remains separate from the mating
+geometry.
 
 Published preview:
 
 ```text
-dev/pr-4/bld
+dev/pr-7/bld
 ```
 
 Pinned QuackWorks source:
@@ -33,7 +38,7 @@ The experiment tests one local fixed/removable interface in two neutral carrier 
 ```text
 rail carrier       50 × 10 × 4 mm
 plate carrier      50 × 20 × 6 mm
-plate support      10 × 14 × 4 mm
+plate support      10 × 10 × 4 mm
 receiver position  one local 10 × 10 mm zone
 removable snap     one shared 10 mm-long part
 ```
@@ -43,23 +48,25 @@ removable snap. Carrier choice is not yet a separate mechanism choice.
 
 ## Receiver geometry
 
-The receiver is local rather than continuous along the 50 mm carrier.
-
-Its source-derived X/Z relation is:
+The node radial mirror establishes the transverse profile:
 
 ```text
 local Z 0.0 .. 1.6    width 8.6 mm
 local Z 1.6 .. 2.6    ramp 8.6 -> 10.0 mm
 local Z 2.6 .. 3.6    width 10.0 mm
-local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
+local Z 3.6 .. 4.0    ramp 10.0 -> 9.2 mm
 ```
 
-Along Y, the lower receiver profile is active over the central 8 mm and returns
-to the ordinary carrier over 1 mm at each end.
+The longitudinal construction is **not qualified**. Inspection of the pinned
+`openGridTileAp1()` shows two separate source mechanisms:
 
-The final 0.4 mm top region also narrows in plan. This is intentional centring
-geometry: a part pressed down from above should be guided toward the local
-receiver centre rather than pushed outward.
+1. `path_extrude2d(path_tile)` for each straight edge;
+2. a separate `full_tile_corners_profile` extrusion for the corner regions.
+
+The current node STL keeps only the first mechanism as a 10 mm candidate. The
+earlier 8+1+1/smoothstep version invented a different end transition. Neither
+candidate may be promoted to the interface contract until the compact
+straight-edge/corner translation is explicitly resolved.
 
 ## Removable snap correction
 
@@ -124,13 +131,14 @@ STL includes:
 - receiver/profile slices;
 - OpenGrid reference parts and profile slices.
 
-The receiver coupons may include the optional compact 1 mm physical reference
-groove cross. It remains outside the mating edges and is not functional geometry.
+The receiver and snap may include the optional compact 1 mm physical reference
+grooves. They are shallow, top-surface scale references and do not replace or
+define the side mating/retention geometry.
 
 ## CI result
 
-Run `35356649821` completed successfully from exact source
-`e4b3878aa0c2bf786781a02716fea77293cdcb61`.
+Run `35425438453` completed successfully from exact source
+`c950b21ed24b8bd5ba9abd78ff95cff2b49c62af`.
 
 For all reduced-interface PNG renders and STL exports used by this baseline:
 
@@ -148,34 +156,53 @@ The current digital evidence establishes that:
 
 - the receiver is local rather than a 50 mm continuous attachment profile;
 - rail and plate variants use one shared mating interface;
-- receiver top geometry centres inward;
+- receiver X/Z geometry preserves the mirrored OpenGrid Lite ramps/chamfer in the reviewed transverse section;
 - the removable nub now retains the source OpenGrid wedge/rounding principle
   rather than the superseded straight trapezoid;
 - the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
   snap without an invented seated offset;
 - solid and flex-slot sections are intentionally distinguished;
-- all generated reduced-interface outputs build as manifold geometry.
+- all generated reduced-interface outputs build as manifold geometry;
+- the current plain receiver candidate is a manifold 36-triangle straight
+  extrusion before optional millimetre grooves; this is build evidence, not
+  longitudinal design acceptance.
 
-## Still open before acceptance
+## Still open for digital design acceptance
 
-Digital success is not yet final acceptance.
+The current receiver geometry is **not yet coherent enough to close the digital
+step**. The next checkpoint is the longitudinal termination decision, followed
+by regenerated receiver/snap and assembled evidence.
 
-Still required:
+The detailed design walkthrough now makes the source reduction auditable rather
+than relying on coarse before/after images:
 
-1. visual inspection of the corrected receiver top, snap profile and assembled
-   rail/plate renders;
-2. confirm that the reduced snap still looks mechanically coherent relative to
-   the pinned OpenGrid profile;
-3. print neutral coupons;
-4. establish insertion/removal behaviour and whether the flex region survives
-   repeated use;
-5. determine whether the nominal interference/clearance needs explicit tolerance
-   variants;
-6. decide whether rail or plate carrier context is preferable for later HUB75
-   integration.
+- Lite receiver: source → retained slice → shared-scene recentering comparison
+  → exact Lite result → profile zones;
+- Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
+- click slots: actual removed material plus a center-section before/after view;
+- node receiver: source-derived X/Z profile → compare pinned straight-edge and
+  corner construction → resolve compact Y termination → final receiver.
 
-Do not move on to tolerance or carrier qualification to bypass an unresolved
-base receiver/snap geometry problem.
+Do not move on to later qualification to hide an unresolved base receiver/snap
+geometry problem.
+
+## Later physical qualification
+
+After digital design acceptance, retain the neutral coupon as the qualification
+fixture and determine:
+
+- insertion/removal behaviour;
+- flex survival under repeated use;
+- whether the nominal interference/clearance needs explicit tolerance variants;
+- whether rail or plate carrier context is preferable for later HUB75
+  integration.
+
+Those are follow-up qualification questions, not prerequisites for merging a
+coherent digital design/evidence checkpoint.
+
+The assembled digital reference uses `NODE_SNAP_SEATED_Z = 0.0`, matching the
+pinned Lite reference's same-origin CENTER assembly. The 0.6 mm receiver/snap
+height difference is retained only as an observation, not as a seating rule.
 
 ## Physical boundary
 

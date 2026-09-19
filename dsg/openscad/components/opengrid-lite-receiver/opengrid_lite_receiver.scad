@@ -54,6 +54,35 @@ module opengrid_lite_receiver_design_full_with_retained_top() {
         opengrid_lite_receiver_design_retained_top_raw();
 }
 
+module opengrid_lite_receiver_design_retained_top_only() {
+    opengrid_lite_receiver_design_retained_top_raw();
+}
+
+module opengrid_lite_receiver_design_recentered_extraction() {
+    // Raw retained region spans Z=-0.6..+3.4, so its centre is +1.4 mm.
+    // Move it down by that amount to expose the recentering step explicitly.
+    translate([0, 0, -1.4])
+        opengrid_lite_receiver_design_retained_top_raw();
+}
+
+module opengrid_lite_receiver_design_recentering_compare() {
+    // Keep raw and recentered geometry in one scene. Rendering either object
+    // alone would auto-center it and hide the translation we are explaining.
+    translate([-16, 0, 0])
+        opengrid_lite_receiver_design_retained_top_raw();
+
+    translate([16, 0, 0])
+        opengrid_lite_receiver_design_recentered_extraction();
+}
+
+module opengrid_lite_receiver_design_recentered_compare() {
+    translate([-16, 0, 0])
+        opengrid_lite_receiver_design_recentered_extraction();
+
+    translate([16, 0, 0])
+        opengrid_lite_receiver_build();
+}
+
 module opengrid_lite_receiver_design_recentered_result() {
     // Use the exact upstream Lite module for the final state. The preceding
     // views explain the extraction that openGridLite performs internally.

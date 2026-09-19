@@ -66,11 +66,57 @@ For each meaningful step:
 - add variants only when an earlier result exposes a concrete unresolved
   question.
 
-Do not jump from OG-01 directly to a HUB75 production coupler.
+Do not jump from the upstream reference work directly to a HUB75 production coupler.
 
-## OG-01 boundary
 
-OG-01 reproduces the selected upstream OpenGrid receiver + snap as a reference.
+## Geometry authority and no-invention rule
+
+Treat an agreed or source-derived geometry baseline as **design authority**, not
+as a sketch that may be aesthetically or mechanically "improved" while doing
+other work.
+
+In particular:
+
+- do not introduce a new blend, fade, taper, wedge, chamfer, rounding,
+  smoothstep, transition zone, support extension or other geometric behaviour
+  unless that behaviour is itself the explicit experiment question;
+- do not change normative geometry merely because a render, STL or drawing
+  looks unusual; first check the authoritative profile/source and fix the
+  representation if the geometry is already correct;
+- do not promote an implementation convenience or carrier-integration detail
+  into the shared interface contract without an explicit design decision;
+- when a geometry variant has been rejected or superseded, remove that idea
+  consistently from implementation, specification, design documentation and
+  generated evidence; do not reintroduce it later under a different name;
+- before advancing the branch after a geometry change, cross-check the source
+  derivation, implementation, STL/profile evidence and documentation for the
+  same construction principle.
+
+For the current node receiver, keep the shared mating contract separate from
+the finite stage-2 reference implementation.
+
+Established:
+
+- the local transverse X/Z mating profile is derived from the pinned OpenGrid
+  Lite fixed-side profile;
+- its retained Z bands and derived radial widths are source/provenance facts;
+- the reduced receiver uses only the intended opposite retaining sides;
+- the 10 mm stage-2 receiver is a centred crop from the source straight-edge
+  region, with a source-derived minimum 1.923045 mm margin to the separate
+  corner construction at each end.
+
+The pinned OpenGrid source still uses a straight-edge `path_extrude2d()`
+**plus separate corner-profile geometry**. The node does not claim those source
+corners disappeared; it deliberately crops a middle segment before they begin.
+
+Do not promote the 10 mm crop length into the shared stage-1 X/Z interface
+contract. Do not reintroduce the rejected 8+1+1 smooth/end-blend or invent a
+scaled corner transition without making that a new explicit experiment
+question.
+
+## Upstream Full reference boundary
+
+The upstream Full reference reproduces the selected OpenGrid receiver + snap without adapting it.
 
 It may:
 - pose upstream geometry;
@@ -98,11 +144,41 @@ source.
 
 ## Project tooling
 
-This repository intentionally uses an OpenSCAD-only direct build. Do not switch
-to SCons or add PythonSCAD unless the experiment exposes a concrete need.
+This repository uses the shared SCons build engine for selective target/cache
+handling. Normal geometry remains OpenSCAD-owned. Composed technical drawings
+use the dedicated drawing runtime selected by `tool.scad-project` and a
+project-owned Python/drawsvg producer; that producer may invoke OpenSCAD for
+source geometry and Inkscape for PNG/PDF publication.
+
+Keep the canonical technical-drawing artifact as ordinary SVG. Do not move
+drawing templates or experiment-specific layout rules into the Docker runtime.
+Do not add PythonSCAD unless the experiment exposes a separate concrete need;
+the current shared runtime deliberately treats PythonSCAD and drawing as
+separate profiles.
+
+Migrate drawing sheets incrementally. First make one sheet visually and
+technically useful, inspect its generated PNG/PDF/SVG evidence, and only then
+apply the pattern to later sheets.
 
 Before changing workflow/publication behaviour, read the pinned
 `tools/tool.scad-project/AGENTS.md`.
+
+A project-local presentation or experiment need is not automatically a generic
+tooling requirement. Keep it local first unless multiple consumers or an
+explicit shared contract establish that the behaviour belongs in shared
+tooling. Before promoting a change, inspect current consumer use cases and
+compatibility rather than changing the tool for one repository.
+
+For normal source work, follow the generic Git-project PR flow:
+
+```text
+issue #N
+    -> feature/pr-N-<short-slug>
+    -> convert that same issue to draft PR #N
+```
+
+Do not invent a parallel `fix/...` source branch for ordinary ongoing design
+work when the standard feature/PR work-item flow applies.
 
 
 ## Commit and CI discipline

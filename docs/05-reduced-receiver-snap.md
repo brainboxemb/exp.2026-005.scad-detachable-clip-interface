@@ -1,6 +1,6 @@
 # Reduced detachable receiver + snap
 
-Status: **active in PR #4**
+Status: **active in PR #7**
 
 ## Purpose
 
@@ -13,18 +13,17 @@ The experiment now separates **design objects** from **carrier examples**.
 
 ## Authority map
 
-The component-local design documents are authoritative for geometry:
+The current phase uses a two-stage engineering model:
 
-| Object | Role | Design document |
+| Stage | Authority | Purpose |
 | --- | --- | --- |
-| OpenGrid Lite receiver | pinned upstream fixed-side reference | `dsg/openscad/components/opengrid-lite-receiver/design/design.md` |
-| OpenGrid Lite snap | pinned upstream removable-side reference | `dsg/openscad/components/opengrid-lite-snap/design/design.md` |
-| Node receiver | experiment-owned fixed-side design | `dsg/openscad/components/node-receiver/design/design.md` |
-| Node snap | experiment-owned removable-side design | `dsg/openscad/components/node-snap/design/design.md` |
+| Interface specification | `dsg/openscad/specification/specification.md` | shared mating contract between fixed and removable parts |
+| Reference implementation | node receiver + node snap component design docs | minimal concrete pair implementing that contract |
+| Source interpretation | OpenGrid Lite component/source-analysis docs | explain provenance and the reduction from the pinned source |
 
-This file records the **experiment relationship and acceptance boundary**. It
-must not duplicate every component dimension; those details belong in the
-component design documents.
+This file records the **experiment relationship and acceptance boundary**. The
+shared dimensions belong in the specification; component construction details
+belong in the stage-2 implementation documents.
 
 ## Carrier examples
 
@@ -79,23 +78,96 @@ reduced removable snap
 The reduced interface intentionally uses only +/-X retention. The Y ends remain
 open.
 
-## Current receiver design question
+## Geometry provenance snapshot
 
-The receiver is now a standalone 10 × 14 × 4 mm object.
+The normative current values are now collected in the
+[interface specification](../dsg/openscad/specification/specification.md).
+The snapshot below remains useful as the experiment/provenance record and must
+not mix source dimensions and experiment choices without saying so.
 
-Its lower source-derived mating profile occupies the central functional zone.
-The upper insertion guide is treated separately: the full 10 mm main guide must
-remain intact, with 2 mm additional end transition on each side.
+### Receiver
 
-Current visual acceptance criterion:
+| Item | OpenGrid Lite | Reduced node | Class |
+| --- | ---: | ---: | --- |
+| receiver height | 4.0 mm | 4.0 mm | upstream retained |
+| capture width | 25.0 mm | 10.0 mm | experiment target |
+| lower width | 26.4 mm | 8.6 mm | derived radial mirror |
+| top width | 25.8 mm | 9.2 mm | derived radial mirror |
+| Z profile bands | 0/1.6/2.6/3.6/4.0 mm | same | upstream retained |
+| local Y footprint | edge + separate corner construction | 10.0 mm candidate | experiment choice under review |
+| Y termination | separate source corner geometry | unresolved | open design question |
 
-- main top guide remains 10 mm long;
-- 2 mm end guides are additional, not carved out of that 10 mm;
-- the main guide must not terminate in a vertical end wall;
-- the end transition must visibly slope back into the ordinary receiver block;
-- left/right and front/back geometry must remain symmetric.
+### Snap
 
-The exact construction belongs in the reduced receiver design document.
+| Item | OpenGrid normal Lite snap | Reduced node snap | Class |
+| --- | ---: | ---: | --- |
+| body width | 24.8 mm | 10.2 mm inner width | derived radial mirror |
+| nub radial depth | 0.4 mm | 0.4 mm | upstream retained |
+| nub tangential width | 11.0 mm | 4.4 mm | derived ×0.4 |
+| nub base height | 0.2 mm | 0.2 mm | upstream retained |
+| upper/lower wedge | 0.6 / 0.6 mm | same | upstream retained |
+| rounding radius / Y scale | 13.025 / 1.36 | same radial construction | upstream retained |
+| click-slot width | 0.6 mm | 0.6 mm | upstream retained |
+| click-slot length | 12.4 mm | 4.96 mm | derived ×0.4 |
+| flex tongue | 0.7 mm | 0.7 mm | derived from source slot/body geometry |
+| outer support beyond slot | n/a | 0.7 mm | **experiment choice** |
+| node top thickness | n/a | 1.2 mm | **experiment choice** |
+| local snap length | no reduced local equivalent | 10.0 mm | **experiment choice** |
+
+The old `0.6 mm` “seated offset” is **not** an upstream dimension. The pinned
+reference assembles receiver and snap at the same CENTER anchor; the 0.6 mm is
+only the arithmetic difference between 4.0 mm receiver height and 3.4 mm Lite
+snap height.
+
+The node assembly therefore now uses the same-origin reference as its default:
+`NODE_SNAP_SEATED_Z = 0.0`. A non-zero node assembly offset would require
+separate qualification evidence instead of being inferred from the height
+difference.
+
+## Receiver longitudinal decision
+
+The transverse receiver profile remains:
+
+```text
+Z 0.0 .. 1.6     width 8.6 mm
+Z 1.6 .. 2.6     ramp 8.6 -> 10.0 mm
+Z 2.6 .. 3.6     width 10.0 mm
+Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
+```
+
+The stage-2 longitudinal construction is now resolved. Source-derived sections
+give:
+
+```text
+minimum straight half-span          6.923045 mm
+minimum straight full span         13.846089 mm
+stage-2 crop half-length            5.000000 mm
+margin before each source corner    1.923045 mm
+```
+
+A centred 10 mm receiver therefore never reaches the separate source corner
+construction over the retained Lite height. It uses the straight
+`path_extrude2d()` mechanism and terminates at Y = +/-5 mm as explicit crop
+planes.
+
+This does not claim OpenGrid itself has a straight 10 mm termination. OpenGrid
+still has separate corners; the node extracts a sufficiently small middle
+region that those corners remain outside the crop.
+
+The rejected 8+1+1 smooth/end-blend remains rejected. No new taper, blend or
+scaled corner is introduced.
+
+Evidence:
+
+```text
+drawing/00-opengrid-python.svg
+drawing/01-opengrid-openscad-reference.svg
+drawing/02-opengrid-overlay.svg
+drawing/03-opengrid-straight-crop-proof.svg
+```
+
+The 10 mm length remains a stage-2 reference-implementation choice, not an
+additional stage-1 interface requirement.
 
 ## Current snap design question
 
@@ -136,8 +208,8 @@ Carrier examples follow:
 13-example-plate-assembled
 ```
 
-Historical OpenGrid reference labels remain in the upstream findings, while
-this active design phase is named directly after the geometry being evaluated.
+The reference work and active design phase are named directly after the
+geometry being evaluated; internal testcase-style phase codes are not used.
 
 ## Acceptance boundary
 

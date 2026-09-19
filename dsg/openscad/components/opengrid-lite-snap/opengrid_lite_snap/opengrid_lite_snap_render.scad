@@ -5,8 +5,11 @@ include <BOSL2/std.scad>
 
 $fn = 120;
 
-use <../../design_support.scad>
-use <opengrid_lite_snap.scad>
+/* [Design view] */
+view = "final"; // [final,core,core-plus-top,top-nub,nub-box,nub-wedge-shaped,nub-final-one-side,bottom-nubs,body-before-slots,click-slot-cutters,click-slot-section-removed,click-slot-section-before-after,after-click-slots,wall-slot-cutters,reconstructed,reconstruction-compare,source-layers,solid-profile,flex-profile]
+
+use <../../../design_support.scad>
+use <../opengrid_lite_snap.scad>
 
 module opengrid_lite_snap_design(view = "final") {
     design_bosl2_context() {
@@ -24,6 +27,30 @@ module opengrid_lite_snap_design(view = "final") {
             }
             color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_top_nub();
+        } else if (view == "nub-box") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_box();
+        } else if (view == "nub-wedge-shaped") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_wedge_shaped();
+        } else if (view == "nub-final-one-side") {
+            color([0.56, 0.56, 0.56, 0.42]) {
+                opengrid_lite_snap_design_core();
+                opengrid_lite_snap_design_top();
+                opengrid_lite_snap_design_top_nub();
+            }
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_one_nub_final();
         } else if (view == "bottom-nubs") {
             color([0.56, 0.56, 0.56, 0.42]) {
                 opengrid_lite_snap_design_core();
@@ -39,6 +66,14 @@ module opengrid_lite_snap_design(view = "final") {
                 opengrid_lite_snap_design_body_before_slots();
             color([0.88, 0.08, 0.06, 0.82])
                 opengrid_lite_snap_design_click_slot_cutters();
+        } else if (view == "click-slot-section-removed") {
+            color([0.56, 0.56, 0.56, 0.42])
+                opengrid_lite_snap_design_click_slot_section_before();
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_click_slot_section_removed();
+        } else if (view == "click-slot-section-before-after") {
+            color([0.88, 0.08, 0.06, 0.82])
+                opengrid_lite_snap_design_click_slot_section_before_after();
         } else if (view == "after-click-slots")
             opengrid_lite_snap_design_after_click_slots();
         else if (view == "wall-slot-cutters") {
@@ -66,4 +101,4 @@ module opengrid_lite_snap_design(view = "final") {
     }
 }
 
-opengrid_lite_snap_design();
+opengrid_lite_snap_design(view = view);

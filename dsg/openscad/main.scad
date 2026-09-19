@@ -13,12 +13,21 @@ node_show_mm_pattern = true;
 /* [Profile] */
 profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 
+// BEGIN lib.scad.util: section-inspection
+/* [Section inspection] */
+section_axis = "None"; // [None,X,Y,Z]
+section_position_mm = 0; // [-100:0.5:100]
+section_depth_mm = 10; // [0.1:0.1:200]
+section_direction = "Positive"; // [Positive,Negative]
+// END lib.scad.util: section-inspection
+
 /* [Quality] */
 render_fn = 96;
 $fn = render_fn;
 
 include <lib/opengrid_reference.scad>
 include <lib/node_interface.scad>
+use <ext/lib.scad.util/openscad/inspection.scad>
 
 function _main_profile_view(view) =
     view == 3 || view == 4 || view == 8 || view == 9;
@@ -148,4 +157,10 @@ module _main_selected_view(view) {
         assert(false, str("Unsupported design_view: ", view));
 }
 
-_main_selected_view(design_view);
+util_section_inspect(
+    axis = section_axis,
+    position = section_position_mm,
+    depth = section_depth_mm,
+    direction = section_direction
+)
+    _main_selected_view(design_view);

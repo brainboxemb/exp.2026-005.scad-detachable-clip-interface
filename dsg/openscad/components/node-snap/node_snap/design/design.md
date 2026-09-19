@@ -1,5 +1,14 @@
 # Node snap — design
 
+## Role in the two-stage model
+
+This component is a **stage-2 reference implementation**. The shared mating
+geometry is specified separately in
+[`specification/specification.md`](../../../specification/specification.md).
+This document explains how this particular minimal part realizes that contract.
+Implementation details described here are not automatically interface requirements.
+
+
 <!-- scad-render-defaults
 engine: openscad
 source: node_snap_render.scad
@@ -369,3 +378,18 @@ view: final
 
 The CAD now makes the construction sequence explicit. Force, material choice,
 fatigue behaviour and final tolerance still require printed coupons.
+
+
+## Reference implementation drawing
+
+This vector drawing cuts the actual centre retention section of the snap and
+dimensions the main mating envelope. It is generated from the same snap
+geometry rather than from a separately redrawn sketch.
+
+<!-- scad-render
+source: node_snap_drawing.scad
+module: node_snap_profile_drawing
+format: svg
+image: 20-dimensioned-retention-profile.svg
+vpr: null
+-->
