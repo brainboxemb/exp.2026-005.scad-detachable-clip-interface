@@ -14,6 +14,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from math import isclose, sqrt
 from pathlib import Path
+import re
 import subprocess
 import xml.etree.ElementTree as ET
 
@@ -46,6 +47,7 @@ TILE_INNER_SIZE_DIFFERENCE_MM = 3.0
 DRAWING_SCALE = 5.0
 PAGE_MARGIN_MM = 0.5
 MODEL_STROKE_MM = 0.12
+GEOMETRY_TOLERANCE_MM = 0.001
 
 SVG_NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", SVG_NS)
@@ -278,6 +280,78 @@ def _geometry_paths(path: Path) -> list[str]:
         raise RuntimeError(f"no SVG geometry paths found in {path}")
     return values
 
+_SVG_LINE_POINT_RE = re.compile(
+    r"(?:M|L)\\s*"
+    r"([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*,\\s*"
+    r"([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))"
+)
+
+
+def _svg_line_vertices(path: Path) -> list[tuple[float, float]]:
+    vertices: list[tuple[float, float]] = []
+    for path_data in _geometry_paths(path):
+        vertices.extend(
+            (float(match.group(1)), float(match.group(2)))
+            for match in _SVG_LINE_POINT_RE.finditer(path_data)
+        )
+    if not vertices:
+        raise RuntimeError(f"no line vertices found in {path}")
+    return vertices
+
+
+def _unique_vertices(
+    vertices: list[tuple[float, float]] | tuple[tuple[float, float], ...],
+) -> list[tuple[float, float]]:
+    unique: list[tuple[float, float]] = []
+    for vertex in vertices:
+        if vertex not in unique:
+            unique.append(vertex)
+    return unique
+
+
+def _point_distance_mm(
+    left: tuple[float, float],
+    right: tuple[float, float],
+) -> float:
+    dx = left[0] - right[0]
+    dy = left[1] - right[1]
+    return sqrt(dx * dx + dy * dy)
+
+
+def _validate_reference_geometry(
+    geometry: PlanGeometry,
+    openscad_svg: Path,
+) -> float:
+    """Numerically compare the independent linear polygon constructions."""
+
+    expected = _unique_vertices([*geometry.outer, *geometry.inner])
+    reference = _unique_vertices(_svg_line_vertices(openscad_svg))
+
+    if len(reference) != len(expected):
+        raise RuntimeError(
+            "OpenSCAD/Python plan vertex-count mismatch: "
+            f"python={len(expected)}, openscad={len(reference)}"
+        )
+
+    forward = max(
+        min(_point_distance_mm(point, candidate) for candidate in reference)
+        for point in expected
+    )
+    reverse = max(
+        min(_point_distance_mm(point, candidate) for candidate in expected)
+        for point in reference
+    )
+    maximum_delta_mm = max(forward, reverse)
+
+    if maximum_delta_mm > GEOMETRY_TOLERANCE_MM:
+        raise RuntimeError(
+            "OpenSCAD/Python plan geometry mismatch: "
+            f"max vertex delta {maximum_delta_mm:.9f} mm exceeds "
+            f"{GEOMETRY_TOLERANCE_MM:.9f} mm"
+        )
+
+    return maximum_delta_mm
+
 
 def _compose_overlay(
     path: Path,
@@ -366,6 +440,10 @@ def main() -> None:
         ]
     )
     _normalize_openscad_svg(OPENSCAD_SVG)
+    maximum_delta_mm = _validate_reference_geometry(
+        geometry,
+        OPENSCAD_SVG,
+    )
 
     _compose_overlay(
         OVERLAY_SVG,
@@ -399,6 +477,11 @@ def main() -> None:
         f"side={geometry.side_projection_mm:.6f} mm, "
         f"cornerOffset={geometry.corner_offset_mm:.6f} mm, "
         f"cornerRun={geometry.corner_run_mm:.6f} mm"
+    )
+    print(
+        "geometry validation: "
+        f"max vertex delta={maximum_delta_mm:.9f} mm "
+        f"(limit={GEOMETRY_TOLERANCE_MM:.9f} mm)"
     )
     for output in outputs:
         print(f"drawing: {output.relative_to(ROOT)}")
