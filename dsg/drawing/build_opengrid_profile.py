@@ -351,8 +351,10 @@ def _compose(
 
     # View A: actual pinned receiver projected obliquely for orientation.
     _text(sheet, "VIEW A — ORIENTED RECEIVER", 3.6, 18, 20, weight="bold")
-    _text(sheet, "actual pinned geometry • scale 2.0:1", 2.3, 18, 25)
-    _embedded_svg(sheet, orientation, 18, 29, 84, 65)
+    _text(sheet, "actual pinned geometry • scale 2:1", 2.3, 18, 25)
+    # The source viewBox is 34 × 32 mm. A 64 mm-high viewport fixes the
+    # projection at an exact 2:1 scale; the extra width only centres the view.
+    _embedded_svg(sheet, orientation, 18, 29, 84, 64)
 
     # Main information view: exact transverse profile from the pinned receiver.
     _text(sheet, "SECTION A-A — TRANSVERSE FIXED PROFILE", 3.6, 88, 78, weight="bold")
@@ -396,8 +398,8 @@ def _compose(
         arrow,
         sy(-meta.height / 2),
         sy(meta.height / 2),
-        223,
-        sx(14.0),
+        91,
+        sx(-14.0),
         f"{meta.height:.1f}",
     )
 
@@ -416,8 +418,9 @@ def _compose(
 
     # Detail B: exact crop of the right-hand capture profile.
     _text(sheet, "DETAIL B — CAPTURE PROFILE", 3.4, 228, 20, weight="bold")
-    _text(sheet, "exact source crop • scale 11.3:1", 2.3, 228, 25)
-    _embedded_svg(sheet, detail, 231, 30, 35, 68)
+    _text(sheet, "exact source crop • scale 11:1", 2.3, 228, 25)
+    # The crop viewBox is 3 × 6 mm. Keep an exact 11:1 detail scale.
+    _embedded_svg(sheet, detail, 232, 30, 33, 66)
 
     # Source-derived local dimensions are grouped beside the exact crop so the
     # tiny bands remain readable instead of competing with the geometry.
