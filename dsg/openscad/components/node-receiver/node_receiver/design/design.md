@@ -18,27 +18,24 @@ vpr: [68, 0, 28]
 
 ## Design intent
 
-The receiver is the fixed half of the **stage-2 minimal reference
-implementation**. It implements the stage-1 interface specification rather
-than defining the contract itself.
+The receiver is the fixed half of the reduced node interface. It is evaluated
+as a standalone object before rail or plate integration.
 
-The fixed-side mating patch has two independent geometric descriptions:
+The pinned OpenGrid source establishes the construction principle:
 
 ```text
-transverse X/Z section
-        +
-longitudinal Y extent / end blend
-        =
-complete local tongue
+one 2D radial/Z edge profile
+        ↓
+BOSL2 path_extrude2d() along a straight edge
 ```
 
-The current PoP tongue is 10 mm long. The full source-derived X/Z profile is
-active over the central 8 mm. Over the final 1 mm at each Y end, only the
-radial cut depth blends smoothly back to the ordinary 10 mm-wide envelope. The
-top plane stays at Z=4 mm.
+OpenGrid Lite does not invent another profile. It keeps the upper 4.0 mm of the
+same Full receiver geometry. The node receiver therefore uses the same basic
+construction: first derive one X/Z profile from the pinned Lite profile, then
+extrude that profile unchanged along a straight local path.
 
-This 8 + 1 + 1 mm construction is part of the current interface specification;
-it is not merely carrier decoration.
+There is deliberately **no 8+1 mm Y transition, smoothstep fade, polyhedron
+end treatment or separate top-guide cutter** in the receiver baseline.
 
 ## Geometry provenance
 
@@ -53,10 +50,8 @@ it is not merely carrier decoration.
 | lower ramp Z band | 1.6 .. 2.6 mm | 1.6 .. 2.6 mm | upstream retained |
 | capture Z band | 2.6 .. 3.6 mm | 2.6 .. 3.6 mm | upstream retained |
 | top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | upstream retained |
-| longitudinal patch length | tile edge/corner path | 10.0 mm | current PoP contract |
-| full-depth active length | straight-edge region | 8.0 mm | current PoP contract |
-| end transition | source corner/termination behaviour | 1.0 mm per end | experiment translation |
-| Y profile variation | edge/corner dependent | smooth radial-depth blend | experiment translation |
+| straight-edge/path length | tile edge | 10.0 mm | **experiment choice** |
+| Y profile variation | none on straight edge | none | construction principle retained |
 
 The radial mirror is:
 
@@ -93,29 +88,33 @@ Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
 The lower 1.6..2.6 ramp and upper 3.6..4.0 chamfer are both part of **one
 profile**. The upper chamfer is not a separate Y-dependent guide operation.
 
-## Step 2 — define the longitudinal tongue
+## Step 2 — extrude that profile unchanged along 10 mm
 
-The centre 8 mm uses the full X/Z profile. The final 1 mm at each end blends
-the radial recess depth back to zero:
+OpenGrid uses BOSL2 `path_extrude2d()` for its straight tile edges. The node
+receiver uses the same construction principle with a 10 mm experiment path:
 
-```text
-Y=-5    -4                         +4    +5
-  0% -> 100% ===================== 100% -> 0%
-       1 mm        8 mm active        1 mm
+```openscad
+path = [
+    [0,  NODE_RECEIVER_BLOCK_LENGTH / 2],
+    [0, -NODE_RECEIVER_BLOCK_LENGTH / 2]
+];
+
+path_extrude2d(path)
+    polygon(points = _node_receiver_profile_points());
 ```
 
-The normalized depth factor is the same function published by the
-specification:
+The profile is constant at every Y position along this path.
 
-```text
-depth(t) = 1 - (3 t^2 - 2 t^3)
-```
+The next view shows the centre profile on the left and the full extrusion on the
+right:
 
-This gives zero slope at both ends of the transition. The number of sampled
-sections used by OpenSCAD is tessellation only.
+<!-- scad-render
+view: profile-vs-extrusion
+-->
 
-The plan view in the specification is the primary drawing for this behaviour;
-a centre X/Z profile alone is not sufficient evidence.
+There should be no fan of small STL facets, no Y-fade, no end wedge and no
+change in the X/Z mating profile near the 10 mm ends. Flat end caps merely stop
+the chosen coupon path.
 
 ## Step 3 — inspect the functional receiver
 
@@ -123,9 +122,12 @@ a centre X/Z profile alone is not sufficient evidence.
 view: plain
 -->
 
-The complete receiver must show the local tongue terminating cleanly inside its
-10 mm footprint. There must be no invented 14 mm support extension and no
-vertical seam where the 8 mm active region enters the 1 mm end blend.
+This is the complete mating geometry without the optional scale marks.
+
+The 10 mm length is a PoP choice. If later carrier integration needs a blend
+between this local profile and surrounding material, that is a **separate
+carrier-integration question** and must not be hidden inside the receiver
+definition.
 
 ## Step 4 — optional 1 mm reference grooves
 
@@ -144,15 +146,15 @@ The pattern does not define any mating dimension.
 view: final
 -->
 
-This standalone object is the minimal fixed-side **reference implementation**.
-The stage-1 interface definition lives in the shared specification.
+This standalone object — not a rail or plate — is the fixed-side interface
+definition.
 
 ## Integration boundary
 
 Consumers may place the receiver on a rail, plate, HUB75 coupler or another
-carrier, but integration must preserve both the X/Z mating section and the
-specified 10 mm longitudinal tongue including its 1 mm end blends. Geometry
-outside that local patch remains an integration choice.
+carrier, but integration must preserve this X/Z mating profile. Any carrier-side
+transition at the two ends of the 10 mm coupon is an explicit later design
+choice, not part of the OpenGrid-derived receiver baseline.
 
 
 ## Reference implementation drawing

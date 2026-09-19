@@ -27,17 +27,14 @@ examples/
 ```
 
 The engineering model is deliberately split in two stages. The **interface
-specification** defines a three-dimensional local mating patch: transverse
-X/Z profile plus longitudinal tongue extent and end transitions. The current
-node baseline is 10 mm long, with an 8 mm full-depth region and a 1 mm depth
-blend at each end, inside the 4 mm-high fixed-side envelope.
-A **minimal receiver + minimal snap** then serve as the reference implementation
-of that contract. The reference coupons are 10 mm long in Y; that finite length
-is an implementation choice, not a production-carrier requirement.
+specification** defines the source-derived local X/Z mating profile and its
+mirrored spacing. A **minimal receiver + minimal snap** then serve as the
+reference implementation of that contract.
 
-The receiver X/Z profile is constant over that complete 10 mm reference length.
-There is no receiver-owned Y fade. The snap retains/flexes only on two opposite
-sides.
+The receiver uses that one X/Z profile unchanged over a straight 10 mm
+reference path. The 10 mm coupon length is an implementation choice, not a
+production-carrier requirement, and there is no receiver-owned Y fade, end
+blend or transition. The snap retains/flexes only on two opposite sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.

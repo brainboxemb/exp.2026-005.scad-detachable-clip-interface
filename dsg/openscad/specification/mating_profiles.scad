@@ -106,12 +106,13 @@ module _opengrid_local_detail_dimensions() {
 }
 
 module _node_plan_slice_2d() {
-    // Exact restored compact node tongue, sliced in the upper guide band.
+    // Exact node receiver. Because the X/Z profile is constant along Y, any
+    // horizontal slice exposes the same straight 10 mm plan footprint.
     projection(cut = false)
         intersection() {
             node_receiver();
-            // The lower constant-width band exposes the full 0.7 mm radial
-            // recess and therefore makes the 1 mm longitudinal blends obvious.
+            // Use the lower constant-width band so the radial profile is easy
+            // to see without inventing any longitudinal end treatment.
             translate([-8, -8, 0.78])
                 cube([16, 16, 0.04]);
         }
@@ -125,9 +126,6 @@ module _node_section_2d() {
 
 module _node_plan_dimensions() {
     td_dimension_h(-5, 5, -7.0, -5.0);
-    td_dimension_h(-4, 4, -8.5, -5.0);
-    td_dimension_h(-5, -4, -10.0, -5.0);
-    td_dimension_h(4, 5, -10.0, -5.0);
 }
 
 module _node_section_dimensions() {
@@ -224,7 +222,7 @@ module node_profile_a4() {
                 }
 
             translate([36, 188])
-                text("PLAN AT Z=0.8 - COMPLETE 10 mm LOCAL TONGUE", size = 4.0);
+                text("PLAN AT Z=0.8 - STRAIGHT 10 mm EXTRUSION", size = 4.0);
 
             td_section_mark(78, 77, 170, "A");
 
@@ -236,12 +234,12 @@ module node_profile_a4() {
                 }
 
             translate([180, 169])
-                text("A-A - ACTIVE CENTER SECTION", size = 4.0);
+                text("A-A - CONSTANT X/Z SECTION", size = 4.0);
 
             translate([20, 42])
-                text("10 mm total: 8 mm full-depth profile + 1 mm smooth radial-depth blend at each end.", size = 2.7);
+                text("10 mm reference path: one source-derived X/Z profile extruded unchanged.", size = 2.7);
             translate([20, 36])
-                text("The blend returns to the ordinary 10 mm width while the top plane remains at Z = 4 mm.", size = 2.7);
+                text("No Y-dependent fade, end blend, wedge or transition belongs to the receiver baseline.", size = 2.7);
         }
 }
 

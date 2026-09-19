@@ -68,6 +68,46 @@ For each meaningful step:
 
 Do not jump from the upstream reference work directly to a HUB75 production coupler.
 
+
+## Geometry authority and no-invention rule
+
+Treat an agreed or source-derived geometry baseline as **design authority**, not
+as a sketch that may be aesthetically or mechanically "improved" while doing
+other work.
+
+In particular:
+
+- do not introduce a new blend, fade, taper, wedge, chamfer, rounding,
+  smoothstep, transition zone, support extension or other geometric behaviour
+  unless that behaviour is itself the explicit experiment question;
+- do not change normative geometry merely because a render, STL or drawing
+  looks unusual; first check the authoritative profile/source and fix the
+  representation if the geometry is already correct;
+- do not promote an implementation convenience or carrier-integration detail
+  into the shared interface contract without an explicit design decision;
+- when a geometry variant has been rejected or superseded, remove that idea
+  consistently from implementation, specification, design documentation and
+  generated evidence; do not reintroduce it later under a different name;
+- before advancing the branch after a geometry change, cross-check the source
+  derivation, implementation, STL/profile evidence and documentation for the
+  same construction principle.
+
+For the current node receiver baseline, the authoritative construction is:
+
+```text
+one OpenGrid-derived X/Z profile
+        ↓
+BOSL2 path_extrude2d()
+        ↓
+unchanged straight 10 mm path
+```
+
+The receiver therefore has **no Y-dependent profile variation**: no 8+1+1
+active/end split, no smooth radial-depth blend and no receiver-owned end fade.
+If a future carrier needs a transition into surrounding material, that is a
+separate carrier-integration experiment and must not be hidden inside the
+receiver/interface definition.
+
 ## Upstream Full reference boundary
 
 The upstream Full reference reproduces the selected OpenGrid receiver + snap without adapting it.

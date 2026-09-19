@@ -6,12 +6,12 @@ This document is the **stage-1 contract** between the fixed and removable
 parts. It defines the mating relationship before choosing carrier geometry or a
 production part.
 
-The current nominal baseline is a **10 × 10 × 4 mm local fixed-side mating
-patch**: 10 mm mirrored spacing, 10 mm longitudinal extent and 4 mm height.
-The contract is three-dimensional; neither the transverse section nor the plan
-shape alone is sufficient. Parameters are exposed through functions so later
-experiments can study other sizes, but only this baseline is currently part of
-the PoP.
+The current nominal baseline is a **10 mm wide × 4 mm high** fixed-side
+interface. The shared contract is the OpenGrid-derived X/Z mating profile and
+its mirrored spacing. Longitudinal coupon length is a reference-implementation
+choice, not an additional profile definition. Parameters are exposed through
+functions so later experiments can study other sizes, but only the 10 × 4 mm
+baseline is currently part of the PoP.
 
 `interface_specification.scad` and
 `../lib/detachable_interface_spec.scad` are the specification sources. The
@@ -25,14 +25,12 @@ module: interface_specification_design
 
 ## OpenGrid Lite fixed-side profile
 
-The interface is not a single X/Z profile. A useful definition needs both the
-transverse section and the way that feature runs and terminates along its path.
+The first A4 sheet uses the exact pinned OpenGrid Lite receiver geometry in two
+views. The plan view provides source orientation and corner context; the A-A
+section is the source-derived transverse X/Z profile used by the reduction.
 
-The first A4 sheet therefore uses the exact pinned OpenGrid Lite receiver
-geometry in two orthogonal views:
-
-- plan: the straight edge plus its corner/termination behaviour;
-- A-A: the transverse X/Z section.
+The OpenGrid corner behaviour is evidence about the upstream part. It is not
+silently translated into a new longitudinal transition for the node receiver.
 
 <!-- scad-render
 engine: openscad
@@ -48,19 +46,18 @@ upstream OpenGrid manufacturing drawing.
 
 ## Node fixed tongue profile
 
-The node translation is a compact local tongue. Its complete current baseline
-is:
+The node translation uses the same derived X/Z profile along a straight local
+path. The current reference coupon is:
 
 ```text
-overall longitudinal length     10.0 mm
-full-depth active length         8.0 mm
-end depth blend                  1.0 mm each end
-fixed-side envelope height       4.0 mm
-nominal mirrored spacing        10.0 mm
+straight path length             10.0 mm   reference implementation
+fixed-side envelope height        4.0 mm   shared profile
+nominal mirrored spacing         10.0 mm   shared profile placement
+Y-dependent profile variation     none
 ```
 
-The second A4 sheet again shows both required descriptions: the plan definition
-of the complete tongue and A-A through the active center.
+The second A4 sheet shows the straight 10 mm plan footprint and the same A-A
+section at its centre.
 
 <!-- scad-render
 engine: openscad
@@ -71,15 +68,10 @@ format: svg
 image: 01-node-fixed-tongue-profile-a4.svg
 -->
 
-The 1 mm end region returns only the radial cut depth to zero. The top plane
-stays at Z=4 mm. The current PoP uses a smooth depth blend:
-
-```text
-depth(t) = 1 - (3 t^2 - 2 t^3),  t = 0..1
-```
-
-The sampled section count is only a mesh/tessellation choice and is not part of
-the interface dimensioning.
+The X/Z profile is constant at every Y position along the 10 mm reference
+path. There is no receiver-owned end blend, fade or transition zone. Any future
+transition from this local receiver into carrier material is a separate
+integration design question.
 
 ## Overview
 
@@ -98,8 +90,7 @@ size: [1200, 700]
 
 The complete symmetric section below is retained only as context for the
 reference pair. It is **not** the primary interface definition; the primary
-contract is the three-dimensional local mating patch defined by the plan and
-A-A views above.
+contract is the local mating profile and mirrored spacing defined above.
 
 <!-- scad-render
 view: reference-pair-section
@@ -113,9 +104,6 @@ Nominal mating dimensions:
 | --- | ---: |
 | fixed-side capture spacing | 10.0 mm |
 | fixed-side envelope height | 4.0 mm |
-| longitudinal patch length | 10.0 mm |
-| full-depth active length | 8.0 mm |
-| end depth blend | 1.0 mm per end |
 | receiver lower width | 8.6 mm |
 | receiver top width | 9.2 mm |
 | removable-side inner width | 10.2 mm |
@@ -182,9 +170,9 @@ format: svg
 image: 12-reference-implementation.svg
 -->
 
-The minimal pair implements the specified 10 mm longitudinal mating patch.
-Carrier material outside that patch, mounting geometry and any larger
-production-part envelope remain reference-implementation/integration choices.
+The minimal pair uses a 10 mm straight reference length. That length,
+carrier material outside it, mounting geometry and any larger production-part
+envelope remain reference-implementation/integration choices.
 
 Detailed implementation documents:
 
