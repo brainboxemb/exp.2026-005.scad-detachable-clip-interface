@@ -232,7 +232,7 @@ experiment geometry.
 
 Geometry remains OpenSCAD-first, with the shared SCons backend handling
 selective rebuild/cache behavior. The first composed technical drawing uses the
-dedicated drawing runtime from `tool.scad-project v0.15.0`:
+dedicated drawing runtime from `tool.scad-project v0.15.1`:
 
 ```text
 OpenSCAD pinned/source geometry
