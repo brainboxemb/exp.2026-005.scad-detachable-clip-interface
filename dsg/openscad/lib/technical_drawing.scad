@@ -123,3 +123,54 @@ module td_angle(
                 spokes_overflow = 0.15
             );
 }
+
+
+TD_A4_WIDTH = 297;
+TD_A4_HEIGHT = 210;
+TD_A4_MARGIN = 10;
+
+module td_a4_landscape(
+    title,
+    drawing_no = "",
+    scale_text = "NTS"
+) {
+    difference() {
+        square([TD_A4_WIDTH, TD_A4_HEIGHT]);
+        translate([TD_A4_MARGIN, TD_A4_MARGIN])
+            square([
+                TD_A4_WIDTH - 2 * TD_A4_MARGIN,
+                TD_A4_HEIGHT - 2 * TD_A4_MARGIN
+            ]);
+    }
+
+    title_x = TD_A4_WIDTH - 112;
+    title_y = TD_A4_MARGIN;
+    title_w = 102;
+    title_h = 24;
+
+    td_line_h(title_x, title_x + title_w, title_y + title_h);
+    td_line_v(title_x, title_y, title_y + title_h);
+    td_line_v(title_x + title_w, title_y, title_y + title_h);
+    td_line_h(title_x, title_x + title_w, title_y);
+    td_line_v(title_x + 72, title_y, title_y + title_h);
+    td_line_h(title_x + 72, title_x + title_w, title_y + 12);
+
+    translate([title_x + 4, title_y + 14])
+        text(title, size = 3.2);
+    translate([title_x + 4, title_y + 5])
+        text(drawing_no, size = 2.5);
+    translate([title_x + 76, title_y + 16])
+        text("SCALE", size = 2.0);
+    translate([title_x + 76, title_y + 5])
+        text(scale_text, size = 3.0);
+
+    children();
+}
+
+module td_section_mark(x, y0, y1, label = "A") {
+    td_line_v(x, y0, y1, 0.12);
+    translate([x - 1.6, y1 + 2])
+        text(label, size = 2.5);
+    translate([x - 1.6, y0 - 5])
+        text(label, size = 2.5);
+}

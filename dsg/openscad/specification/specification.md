@@ -6,10 +6,12 @@ This document is the **stage-1 contract** between the fixed and removable
 parts. It defines the mating relationship before choosing carrier geometry or a
 production part.
 
-The current nominal baseline is a **10 mm wide × 4 mm high** fixed-side
-interface. The contract code exposes width/height through functions so later
-experiments can study other sizes, but only the 10 × 4 mm baseline is currently
-part of this PoP.
+The current nominal baseline is a **10 × 10 × 4 mm local fixed-side mating
+patch**: 10 mm mirrored spacing, 10 mm longitudinal extent and 4 mm height.
+The contract is three-dimensional; neither the transverse section nor the plan
+shape alone is sufficient. Parameters are exposed through functions so later
+experiments can study other sizes, but only this baseline is currently part of
+the PoP.
 
 `interface_specification.scad` and
 `../lib/detachable_interface_spec.scad` are the specification sources. The
@@ -21,15 +23,16 @@ source: specification/interface_specification.scad
 module: interface_specification_design
 -->
 
-## Local mating profile — OpenGrid Lite source interpretation
+## OpenGrid Lite fixed-side profile
 
-The first interface view is deliberately **one local side**, not the complete
-symmetric cell. It shows the fixed opening-wall profile and the matching normal
-snap nub as separate technical profiles.
+The interface is not a single X/Z profile. A useful definition needs both the
+transverse section and the way that feature runs and terminates along its path.
 
-The drawing is reconstructed from the pinned QuackWorks source and is labelled
-as this experiment's interpretation; it is not an upstream manufacturing
-drawing.
+The first A4 sheet therefore uses the exact pinned OpenGrid Lite receiver
+geometry in two orthogonal views:
+
+- plan: the straight edge plus its corner/termination behaviour;
+- A-A: the transverse X/Z section.
 
 <!-- scad-render
 engine: openscad
@@ -37,23 +40,27 @@ source: specification/mating_profiles.scad
 module: mating_profile_design
 view: opengrid
 format: svg
-image: 00-opengrid-local-mating-profile.svg
+image: 00-opengrid-fixed-profile-a4.svg
 -->
 
-Important source construction visible in the drawing:
+This is an experiment-owned drawing of the pinned QuackWorks model, not an
+upstream OpenGrid manufacturing drawing.
 
-- retained Lite interface height: 4.0 mm;
-- local fixed-side lower relief: 0.7 mm;
-- middle ramp: 0.7 mm radial over 1.0 mm vertical, about 55.0° from horizontal;
-- upper chamfer: 0.4 × 0.4 mm, 45°;
-- snap-body side clearance: 0.1 mm;
-- normal snap nub depth: 0.4 mm, leaving about 0.3 mm nominal local overlap.
+## Node fixed tongue profile
 
-## Local mating profile — node translation
+The node translation is a compact local tongue. Its complete current baseline
+is:
 
-The node profile uses the same local shape language with the **radial roles
-inverted**. The fixed node side is a small tongue/ridge; the removable snap
-provides the surrounding groove/latch and its nub points inward.
+```text
+overall longitudinal length     10.0 mm
+full-depth active length         8.0 mm
+end depth blend                  1.0 mm each end
+fixed-side envelope height       4.0 mm
+nominal mirrored spacing        10.0 mm
+```
+
+The second A4 sheet again shows both required descriptions: the plan definition
+of the complete tongue and A-A through the active center.
 
 <!-- scad-render
 engine: openscad
@@ -61,14 +68,18 @@ source: specification/mating_profiles.scad
 module: mating_profile_design
 view: node
 format: svg
-image: 01-node-local-mating-profile.svg
+image: 01-node-fixed-tongue-profile-a4.svg
 -->
 
-The nominal 10 mm node width is the spacing between two mirrored local sides.
-It is therefore a higher-level placement parameter, not the definition of one
-interface side.
+The 1 mm end region returns only the radial cut depth to zero. The top plane
+stays at Z=4 mm. The current PoP uses a smooth depth blend:
 
+```text
+depth(t) = 1 - (3 t^2 - 2 t^3),  t = 0..1
+```
 
+The sampled section count is only a mesh/tessellation choice and is not part of
+the interface dimensioning.
 
 ## Overview
 

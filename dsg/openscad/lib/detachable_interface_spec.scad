@@ -15,6 +15,10 @@
 DETACHABLE_INTERFACE_WIDTH = 10.0;
 DETACHABLE_INTERFACE_HEIGHT = 4.0;
 DETACHABLE_INTERFACE_REFERENCE_LENGTH = 10.0;
+DETACHABLE_INTERFACE_END_TRANSITION_LENGTH = 1.0;
+DETACHABLE_INTERFACE_ACTIVE_LENGTH =
+    DETACHABLE_INTERFACE_REFERENCE_LENGTH
+    - 2 * DETACHABLE_INTERFACE_END_TRANSITION_LENGTH;
 
 // Local one-side profile construction copied/derived from the pinned
 // openGridTileAp1() and openGridSnap() source. These values are what the first
@@ -134,6 +138,16 @@ function detachable_interface_snap_engagement_height(
     height = DETACHABLE_INTERFACE_HEIGHT
 ) = height - 0.6;
 
+
+function detachable_interface_depth_factor(t) =
+    max(0.001, 1 - (t * t * (3 - 2 * t)));
+
+function detachable_interface_end_transition_length() =
+    DETACHABLE_INTERFACE_END_TRANSITION_LENGTH;
+
+function detachable_interface_active_length() =
+    DETACHABLE_INTERFACE_ACTIVE_LENGTH;
+
 function detachable_interface_receiver_profile_points(
     width = DETACHABLE_INTERFACE_WIDTH,
     height = DETACHABLE_INTERFACE_HEIGHT
@@ -232,3 +246,7 @@ assert(abs(detachable_side_top_angle() - 45.0) < 0.0001);
 assert(abs(detachable_nub_wedge_angle_from_horizontal() - 56.3099325) < 0.001);
 assert(abs(detachable_nominal_side_clearance() - 0.1) < 0.0001);
 assert(abs(detachable_nominal_nub_overlap() - 0.3) < 0.0001);
+
+assert(abs(DETACHABLE_INTERFACE_REFERENCE_LENGTH - 10.0) < 0.0001);
+assert(abs(DETACHABLE_INTERFACE_END_TRANSITION_LENGTH - 1.0) < 0.0001);
+assert(abs(DETACHABLE_INTERFACE_ACTIVE_LENGTH - 8.0) < 0.0001);

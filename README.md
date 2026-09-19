@@ -26,10 +26,11 @@ examples/
   receiver-plate          carrier integration example
 ```
 
-The engineering model is now deliberately split in two stages. The **interface
-specification** starts from one local mating side: a fixed tongue/wall profile
-and the matching removable groove/nub profile. The current 10 mm × 4 mm values
-then place two mirrored local sides into the minimal reference pair.
+The engineering model is deliberately split in two stages. The **interface
+specification** defines a three-dimensional local mating patch: transverse
+X/Z profile plus longitudinal tongue extent and end transitions. The current
+node baseline is 10 mm long, with an 8 mm full-depth region and a 1 mm depth
+blend at each end, inside the 4 mm-high fixed-side envelope.
 A **minimal receiver + minimal snap** then serve as the reference implementation
 of that contract. The reference coupons are 10 mm long in Y; that finite length
 is an implementation choice, not a production-carrier requirement.
@@ -60,8 +61,8 @@ manufacturing drawing.
 Generated standalone SVG drawings are ordered accordingly:
 
 ```text
-00-opengrid-local-mating-profile.svg
-01-node-local-mating-profile.svg
+00-opengrid-fixed-profile-a4.svg
+01-node-fixed-tongue-profile-a4.svg
 10-reference-pair-section.svg
 11-width-reduction-context.svg
 12-reference-implementation.svg
