@@ -1,6 +1,6 @@
 """OpenGrid Lite plan/profile geometry in real millimetres.
 
-This module contains only source dimensions and deterministic 2D geometry.
+This module contains source dimensions and deterministic 2D geometry only.
 It deliberately has no drawsvg, SVG/XML, Inkscape or OpenSCAD process logic.
 """
 
@@ -8,6 +8,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from math import isclose, sqrt
+
+
+Point = tuple[float, float]
+Segment = tuple[Point, Point]
+Polygon = tuple[Point, ...]
+SegmentLayer = tuple[Segment, ...]
 
 
 # Pinned openGridTileAp1() source dimensions.
@@ -23,14 +29,16 @@ CORNER_SQUARE_THICKNESS_MM = 2.6
 INTERSECTION_DISTANCE_MM = 4.2
 TILE_INNER_SIZE_DIFFERENCE_MM = 3.0
 
+_GEOMETRY_EPSILON_MM = 1e-9
+
 
 @dataclass(frozen=True)
 class SectionGeometry:
     """One horizontal OpenGrid Lite section in XY model coordinates."""
 
     local_z_mm: float
-    outer: tuple[tuple[float, float], ...]
-    inner: tuple[tuple[float, float], ...]
+    outer: Polygon
+    inner: Polygon
     side_inset_mm: float
     corner_extent_mm: float
 
@@ -51,13 +59,13 @@ def corner_offset_mm() -> float:
 
 
 def lite_breakpoints_mm() -> tuple[float, ...]:
-    """Return unique Lite-local horizontal edge planes.
+    """Return the unique Lite-local horizontal edge planes.
 
     openGridLite() retains the upper 4.0 mm of the 6.8 mm source tile.
     Source profile edges map to Lite-local Z = 1.6, 2.6, 3.6 and 4.0 mm.
 
     Z=0.0 and Z=1.6 have identical XY geometry, so only Z=1.6 is needed in
-    the merged top-view line set.
+    the merged top-view edge set.
     """
 
     lite_source_start_mm = TILE_THICKNESS_MM - LITE_TILE_THICKNESS_MM
@@ -81,6 +89,7 @@ def lite_breakpoints_mm() -> tuple[float, ...]:
         capture_top_mm,
         top_mm,
     )
+
     expected = (1.6, 2.6, 3.6, 4.0)
     for value, check in zip(values, expected):
         assert isclose(value, check, abs_tol=1e-9)
@@ -149,13 +158,13 @@ def section_geometry(local_z_mm: float) -> SectionGeometry:
     corner_run_mm = corner_mm * sqrt(2.0) - inset_mm
     inner_short_mm = half_mm - corner_run_mm
 
-    outer = (
+    outer: Polygon = (
         (-half_mm, -half_mm),
         (half_mm, -half_mm),
         (half_mm, half_mm),
         (-half_mm, half_mm),
     )
-    inner = (
+    inner: Polygon = (
         (-inner_short_mm, -inner_flat_mm),
         (inner_short_mm, -inner_flat_mm),
         (inner_flat_mm, -inner_short_mm),
@@ -176,9 +185,12 @@ def section_geometry(local_z_mm: float) -> SectionGeometry:
 
 
 def unique_lite_sections() -> tuple[SectionGeometry, ...]:
-    """Return the four unique horizontal contours used by the top view."""
+    """Return the four unique horizontal sections used by the top view."""
 
-    sections = tuple(section_geometry(z_mm) for z_mm in lite_breakpoints_mm())
+    sections = tuple(
+        section_geometry(z_mm)
+        for z_mm in lite_breakpoints_mm()
+    )
 
     # Deliberately omitted duplicate bottom plane.
     bottom = section_geometry(0.0)
@@ -186,3 +198,188 @@ def unique_lite_sections() -> tuple[SectionGeometry, ...]:
     assert bottom.inner == sections[0].inner
 
     return sections
+
+
+def polygon_signed_area(polygon: Polygon) -> float:
+    """Signed polygon area; positive means counter-clockwise."""
+
+    return 0.5 * sum(
+        polygon[index][0] * polygon[(index + 1) % len(polygon)][1]
+        - polygon[(index + 1) % len(polygon)][0] * polygon[index][1]
+        for index in range(len(polygon))
+    )
+
+
+def visible_contour_layers(
+    inner_polygons_bottom_to_top: tuple[Polygon, ...],
+) -> tuple[SegmentLayer, ...]:
+    """Return top-visible edge segments for horizontal opening contours.
+
+    Each source section describes material outside its inner opening. A lower
+    edge is visible from +Z only where its XY position remains inside every
+    higher opening. Therefore each lower contour edge is clipped against all
+    higher inner polygons.
+
+    This is the geometric equivalent of stacking the horizontal section
+    drawings while removing lines hidden by material above them.
+    """
+
+    polygons = tuple(
+        _counter_clockwise(polygon)
+        for polygon in inner_polygons_bottom_to_top
+    )
+
+    layers: list[SegmentLayer] = []
+
+    for index, polygon in enumerate(polygons):
+        higher_openings = polygons[index + 1 :]
+        visible_segments: list[Segment] = []
+
+        for point_index, start in enumerate(polygon):
+            end = polygon[(point_index + 1) % len(polygon)]
+            segment: Segment | None = (start, end)
+
+            for opening in higher_openings:
+                if segment is None:
+                    break
+                segment = _clip_segment_inside_convex_polygon(
+                    segment,
+                    opening,
+                )
+
+            if (
+                segment is not None
+                and _segment_length_squared(segment)
+                > _GEOMETRY_EPSILON_MM**2
+            ):
+                visible_segments.append(segment)
+
+        layers.append(tuple(visible_segments))
+
+    return tuple(layers)
+
+
+def segment_endpoints(
+    layers: tuple[SegmentLayer, ...],
+) -> tuple[Point, ...]:
+    """Flatten visible segment endpoints for numerical comparison."""
+
+    return tuple(
+        point
+        for layer in layers
+        for segment in layer
+        for point in segment
+    )
+
+
+def maximum_point_set_delta_mm(
+    expected: tuple[Point, ...] | list[Point],
+    reference: tuple[Point, ...] | list[Point],
+) -> float:
+    """Symmetric maximum nearest-point distance between two point sets."""
+
+    expected_unique = _unique_points(expected)
+    reference_unique = _unique_points(reference)
+
+    if len(reference_unique) != len(expected_unique):
+        raise RuntimeError(
+            "geometry point-count mismatch: "
+            f"expected={len(expected_unique)}, "
+            f"reference={len(reference_unique)}"
+        )
+
+    forward = max(
+        min(_point_distance_mm(point, candidate) for candidate in reference_unique)
+        for point in expected_unique
+    )
+    reverse = max(
+        min(_point_distance_mm(point, candidate) for candidate in expected_unique)
+        for point in reference_unique
+    )
+
+    return max(forward, reverse)
+
+
+def _counter_clockwise(polygon: Polygon) -> Polygon:
+    if polygon_signed_area(polygon) >= 0:
+        return polygon
+    return tuple(reversed(polygon))
+
+
+def _clip_segment_inside_convex_polygon(
+    segment: Segment,
+    polygon: Polygon,
+) -> Segment | None:
+    """Clip a segment to the inside of one counter-clockwise convex polygon."""
+
+    start, end = segment
+    delta_x = end[0] - start[0]
+    delta_y = end[1] - start[1]
+
+    lower_t = 0.0
+    upper_t = 1.0
+
+    for index, edge_start in enumerate(polygon):
+        edge_end = polygon[(index + 1) % len(polygon)]
+        edge_x = edge_end[0] - edge_start[0]
+        edge_y = edge_end[1] - edge_start[1]
+
+        # Inside a CCW polygon is the left side of every oriented edge.
+        start_side = (
+            edge_x * (start[1] - edge_start[1])
+            - edge_y * (start[0] - edge_start[0])
+        )
+        delta_side = edge_x * delta_y - edge_y * delta_x
+
+        if abs(delta_side) <= _GEOMETRY_EPSILON_MM:
+            if start_side < -_GEOMETRY_EPSILON_MM:
+                return None
+            continue
+
+        crossing_t = -start_side / delta_side
+
+        if delta_side > 0:
+            lower_t = max(lower_t, crossing_t)
+        else:
+            upper_t = min(upper_t, crossing_t)
+
+        if lower_t > upper_t + _GEOMETRY_EPSILON_MM:
+            return None
+
+    return (
+        (
+            start[0] + lower_t * delta_x,
+            start[1] + lower_t * delta_y,
+        ),
+        (
+            start[0] + upper_t * delta_x,
+            start[1] + upper_t * delta_y,
+        ),
+    )
+
+
+def _segment_length_squared(segment: Segment) -> float:
+    start, end = segment
+    delta_x = end[0] - start[0]
+    delta_y = end[1] - start[1]
+    return delta_x * delta_x + delta_y * delta_y
+
+
+def _unique_points(points: tuple[Point, ...] | list[Point]) -> list[Point]:
+    unique: list[Point] = []
+
+    for point in points:
+        if not any(
+            _point_distance_mm(point, existing)
+            <= _GEOMETRY_EPSILON_MM
+            for existing in unique
+        ):
+            unique.append(point)
+
+    return unique
+
+
+def _point_distance_mm(left: Point, right: Point) -> float:
+    delta_x = left[0] - right[0]
+    delta_y = left[1] - right[1]
+    return sqrt(delta_x * delta_x + delta_y * delta_y)

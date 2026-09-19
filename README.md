@@ -76,10 +76,16 @@ source-derived Lite profile edges (1.6, 2.6, 3.6 and 4.0 mm). The 0.0 and
 1.6 mm sections are identical and therefore draw the same line only once.
 
 The second SVG cuts the actual pinned OpenGrid Lite model at those same
-source-derived heights and merges the resulting OpenSCAD sections. It is used
-only as a validation oracle. The overlay combines both results so a geometric
-mismatch is immediately visible. OpenSCAD output is never fed back into the
-Python geometry construction.
+source-derived heights and validates every raw OpenSCAD section independently.
+The final top-view merge is visibility-aware: a lower contour segment is drawn
+only where its XY location remains inside every higher opening, so material
+above it cannot hide that edge. This removes the artificial line crossings
+created by simply stacking complete closed section contours.
+
+The same visibility rule is applied separately to the Python reconstruction and
+the validated OpenSCAD section polygons. The overlay then compares the visible
+edge endpoints as well as the raw section vertices. OpenSCAD output is never
+fed back into the Python source-profile construction.
 
 No A4 sheet, A-A section, B/C/D detail circles, dimensions or title block belong
 to this checkpoint.
@@ -254,8 +260,17 @@ Normal geometry entrypoint discovery remains:
 dsg/openscad/render/*.scad  -> bld/png/*.png
 dsg/openscad/export/*.scad  -> bld/stl/*.stl
 
+dsg/drawing/opengrid_profile_geometry.py
+    -> source/profile geometry in real millimetres
+
+dsg/drawing/opengrid_profile_render.py
+    -> SVG/PNG presentation only
+
 dsg/drawing/build_opengrid_profile.py
-    -> bld/drawing/00-opengrid-fixed-profile-a4.{svg,png,pdf}
+    -> OpenSCAD oracle + validation/orchestration
+    -> bld/drawing/00-opengrid-python.svg
+    -> bld/drawing/01-opengrid-openscad-reference.svg
+    -> bld/drawing/02-opengrid-overlay.{svg,png}
 ```
 
 The drawing migration is currently validating one source-derived OpenGrid Lite
