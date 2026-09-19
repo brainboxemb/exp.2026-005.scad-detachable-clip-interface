@@ -245,8 +245,10 @@ dsg/drawing/build_opengrid_profile.py
 ```
 
 The older OpenSCAD sheet implementation remains temporarily available for
-comparison while this first composed sheet is visually qualified. It is not the
-model for future drawing code once the drawsvg sheet is accepted.
+comparison while this first composed sheet is visually qualified. Its local
+compatibility helper is self-contained and no longer depends on
+`openscad-new-dimensions`. It is not the model for future drawing code once
+the drawsvg sheet is accepted.
 
 Bootstrap a checkout with:
 

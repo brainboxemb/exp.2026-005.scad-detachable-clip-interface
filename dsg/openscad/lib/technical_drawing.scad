@@ -1,19 +1,16 @@
 // SPDX-License-Identifier: CC-BY-NC-SA-4.0
 //
-// Small technical-drawing presentation layer used by the PoP specification.
-// Dimension arrows/labels come from openscad-new-dimensions; the frame and
-// extension lines remain experiment-owned.
+// Legacy OpenSCAD-only presentation helper for sheets that have not yet moved
+// to the project-owned Python/drawsvg drawing pipeline.
+//
+// Keep this file self-contained. It must not introduce a runtime dependency on
+// a second OpenSCAD drawing/dimension library. New composed sheets belong in
+// dsg/drawing and use drawsvg for annotations/layout.
 
-include <openscad-new-dimensions/constants.scad>
-include <openscad-new-dimensions/dimensions.scad>
-
-DIMENSION_RENDER_MODE = DIMENSION_RENDER_MODE_2D;
-DIMENSION_COLOR = "black";
-DIMENSION_LINE_WIDTH = 0.03;
-DIMENSION_FONTSIZE = 0.05;
-DIMENSION_ARROW_WIDTH = 0.60;
-DIMENSION_ARROW_LENGTH = 10;
-DIMENSION_ARROW_HOLLOW = 1;
+TD_DIMENSION_WIDTH = 0.06;
+TD_DIMENSION_TEXT_SIZE = 0.42;
+TD_DIMENSION_ARROW_LENGTH = 0.55;
+TD_DIMENSION_ARROW_HALF_WIDTH = 0.18;
 
 TD_SHEET_WIDTH = 190;
 TD_SHEET_HEIGHT = 125;
@@ -89,21 +86,67 @@ module td_extension_h(x0, x1, y) {
         square([abs(x1 - x0), TD_EXTENSION_WIDTH]);
 }
 
+module _td_arrow_h(x, y, direction) {
+    polygon([
+        [x, y],
+        [x + direction * TD_DIMENSION_ARROW_LENGTH, y - TD_DIMENSION_ARROW_HALF_WIDTH],
+        [x + direction * TD_DIMENSION_ARROW_LENGTH, y + TD_DIMENSION_ARROW_HALF_WIDTH]
+    ]);
+}
+
+module _td_arrow_v(x, y, direction) {
+    polygon([
+        [x, y],
+        [x - TD_DIMENSION_ARROW_HALF_WIDTH, y + direction * TD_DIMENSION_ARROW_LENGTH],
+        [x + TD_DIMENSION_ARROW_HALF_WIDTH, y + direction * TD_DIMENSION_ARROW_LENGTH]
+    ]);
+}
+
 module td_dimension_h(x0, x1, y, extension_from_y) {
-    td_extension_v(x0, extension_from_y, y);
-    td_extension_v(x1, extension_from_y, y);
-    translate([x0, y])
-        Dimension(length = x1 - x0);
+    left = min(x0, x1);
+    right = max(x0, x1);
+    label = str(abs(x1 - x0));
+
+    td_extension_v(left, extension_from_y, y);
+    td_extension_v(right, extension_from_y, y);
+    td_line_h(left, right, y, TD_DIMENSION_WIDTH);
+
+    _td_arrow_h(left, y, 1);
+    _td_arrow_h(right, y, -1);
+
+    translate([(left + right) / 2, y + 0.18])
+        text(
+            label,
+            size = TD_DIMENSION_TEXT_SIZE,
+            halign = "center",
+            valign = "bottom"
+        );
 }
 
 module td_dimension_v(y0, y1, x, extension_from_x) {
-    td_extension_h(extension_from_x, x, y0);
-    td_extension_h(extension_from_x, x, y1);
-    translate([x, y0])
+    bottom = min(y0, y1);
+    top = max(y0, y1);
+    label = str(abs(y1 - y0));
+
+    td_extension_h(extension_from_x, x, bottom);
+    td_extension_h(extension_from_x, x, top);
+    td_line_v(x, bottom, top, TD_DIMENSION_WIDTH);
+
+    _td_arrow_v(x, bottom, 1);
+    _td_arrow_v(x, top, -1);
+
+    translate([x + 0.18, (bottom + top) / 2])
         rotate([0, 0, 90])
-            Dimension(length = y1 - y0);
+            text(
+                label,
+                size = TD_DIMENSION_TEXT_SIZE,
+                halign = "center",
+                valign = "bottom"
+            );
 }
 
+// Retained only for compatibility with any not-yet-migrated local sheet.
+// New angle annotations belong in the Python/drawsvg layer.
 module td_angle(
     origin,
     start_rotation,
@@ -113,15 +156,13 @@ module td_angle(
     label_offset = 0.35
 ) {
     translate(origin)
-        rotate([0, 0, start_rotation])
-            Angle(
-                angle = angle,
-                radius = radius,
-                label_angle = label_rotation - start_rotation,
-                label_offset = label_offset,
-                show_spokes = true,
-                spokes_overflow = 0.15
-            );
+        rotate([0, 0, label_rotation])
+            translate([radius + label_offset, 0])
+                text(
+                    str(angle, "°"),
+                    size = TD_DIMENSION_TEXT_SIZE,
+                    halign = "center"
+                );
 }
 
 

@@ -143,9 +143,11 @@ experiment has explicitly resolved the local end geometry.
 
 ## Reference implementation drawing
 
-The same receiver profile is also exported as a true 2D SVG drawing. The
-drawing uses the installed `openscad-new-dimensions` library for dimension
-lines and takes its geometry directly from the production receiver profile.
+The same receiver profile is also exported as a true 2D SVG drawing. This is
+still a legacy OpenSCAD-only sheet while the drawing migration is incremental;
+its small compatibility dimension helper is repository-local and has no
+external OpenSCAD drawing-library dependency. The geometry still comes directly
+from the production receiver profile.
 
 <!-- scad-render
 source: node_receiver_drawing.scad
