@@ -8,8 +8,8 @@ $fn = 120;
 /* [Design view] */
 view = "final"; // [final,core,core-plus-top,top-nub,nub-box,nub-wedge-shaped,nub-final-one-side,bottom-nubs,body-before-slots,click-slot-cutters,click-slot-section-removed,click-slot-section-before-after,after-click-slots,wall-slot-cutters,reconstructed,reconstruction-compare,source-layers,solid-profile,flex-profile]
 
-use <../../design_support.scad>
-use <opengrid_lite_snap.scad>
+use <../../../design_support.scad>
+use <../opengrid_lite_snap.scad>
 
 module opengrid_lite_snap_design(view = "final") {
     design_bosl2_context() {

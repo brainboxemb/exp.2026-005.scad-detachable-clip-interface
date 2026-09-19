@@ -8,8 +8,8 @@ $fn = 120;
 /* [Design view] */
 view = "final"; // [final,base-block,lower-removed,lower-profile,after-lower,top-profile-slice,top-guide-cutter,top-guide-before,top-guide-removed,top-guide-after,top-guide-before-after,plain,pattern-cutters]
 
-use <../../design_support.scad>
-use <node_receiver.scad>
+use <../../../design_support.scad>
+use <../node_receiver.scad>
 
 module node_receiver_design(view = "final") {
     design_bosl2_context() {

@@ -8,8 +8,8 @@ $fn = 120;
 /* [Design view] */
 view = "final"; // [final,core-envelope,positive-wall,side-walls,nub-box,nub-wedge-shaped,nub-final-one-side,nubs,top,main-click-slot-cutters,after-main-click-slots,top-slot-cutters,plain,pattern-cutters,profile]
 
-use <../../design_support.scad>
-use <node_snap.scad>
+use <../../../design_support.scad>
+use <../node_snap.scad>
 
 module node_snap_design(view = "final") {
     design_bosl2_context() {
