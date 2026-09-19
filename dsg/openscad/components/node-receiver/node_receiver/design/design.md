@@ -9,303 +9,127 @@ vpr: [68, 0, 28]
 
 ## Design intent
 
-The receiver is the fixed half of the node interface. It is designed as a
-standalone object first; rail and plate are only later integration examples.
+The receiver is the fixed half of the reduced node interface. It is evaluated
+as a standalone object before rail or plate integration.
 
-The construction starts from one simple block:
+The pinned OpenGrid source establishes the construction principle:
 
 ```text
-width                  10 mm
-length                 10 mm
-height                  4 mm
-functional zone        10 mm
-top guide envelope      10 mm
-full chamfer length       8 mm
-depth transition          1 mm at each Y end
-top narrowing       10.0 -> 9.2 mm over 0.4 mm Z
+one 2D radial/Z edge profile
+        ↓
+BOSL2 path_extrude2d() along a straight edge
 ```
 
-The guide stays inside the same 10 mm footprint as the receiver and snap. The
-full X/Z chamfer is active over the central 8 mm. During the final 1 mm at each
-Y end, only the radial chamfer depth tapers back to zero. The top plane remains
-flat in Y; the transition only returns the part to its ordinary 10 mm width.
+OpenGrid Lite does not invent another profile. It keeps the upper 4.0 mm of the
+same Full receiver geometry. The node receiver therefore uses the same basic
+construction: first derive one X/Z profile from the pinned Lite profile, then
+extrude that profile unchanged along a straight local path.
+
+There is deliberately **no 8+1 mm Y transition, smoothstep fade, polyhedron
+end treatment or separate top-guide cutter** in the receiver baseline.
 
 ## Geometry provenance
 
-The receiver dimensions are deliberately separated into three categories:
-
-- **Upstream** — directly present in the pinned QuackWorks/OpenGrid source.
-- **Derived** — arithmetic transformation of those upstream dimensions.
-- **Experiment choice** — local geometry introduced only for this 10 mm PoP.
-
 | Geometry | Pinned OpenGrid Lite | Node receiver | Provenance |
 | --- | ---: | ---: | --- |
-| receiver height | 4.0 mm | 4.0 mm | Upstream retained |
-| capture width | 25.0 mm | 10.0 mm | 10.0 mm is experiment target |
-| lower outer width | 26.4 mm | 8.6 mm | Derived: `35.0 - 26.4` |
-| central capture width | 25.0 mm | 10.0 mm | Derived around chosen 10.0 mm target |
-| top width | 25.8 mm | 9.2 mm | Derived: `35.0 - 25.8` |
-| lower constant Z band | 0.0 .. 1.6 mm | 0.0 .. 1.6 mm | Upstream retained |
-| lower ramp Z band | 1.6 .. 2.6 mm | 1.6 .. 2.6 mm | Upstream retained |
-| capture Z band | 2.6 .. 3.6 mm | 2.6 .. 3.6 mm | Upstream retained |
-| top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | Upstream retained |
-| local Y length | continuous tile edge | 10.0 mm | **Experiment choice** |
-| local full-profile Y span | continuous tile edge | 8.0 mm | **Experiment choice** |
-| local Y end transition | no equivalent local end | 1.0 mm smooth depth fade per end | **Experiment choice** |
+| receiver height | 4.0 mm | 4.0 mm | upstream retained |
+| capture width | 25.0 mm | 10.0 mm | experiment target |
+| lower outer width | 26.4 mm | 8.6 mm | derived: `35.0 - 26.4` |
+| central capture width | 25.0 mm | 10.0 mm | derived around chosen 10.0 mm target |
+| top width | 25.8 mm | 9.2 mm | derived: `35.0 - 25.8` |
+| lower constant Z band | 0.0 .. 1.6 mm | 0.0 .. 1.6 mm | upstream retained |
+| lower ramp Z band | 1.6 .. 2.6 mm | 1.6 .. 2.6 mm | upstream retained |
+| capture Z band | 2.6 .. 3.6 mm | 2.6 .. 3.6 mm | upstream retained |
+| top chamfer Z band | 3.6 .. 4.0 mm | 3.6 .. 4.0 mm | upstream retained |
+| straight-edge/path length | tile edge | 10.0 mm | **experiment choice** |
+| Y profile variation | none on straight edge | none | construction principle retained |
 
-The radial transform used for the X/Z widths is:
+The radial mirror is:
 
 ```text
 mirror sum = source capture width + target capture width
            = 25.0 + 10.0
            = 35.0 mm
 
-node width = 35.0 - upstream width
+node width = 35.0 - upstream opening width
 ```
 
-This means the **X/Z profile is source-derived**, while the way that profile
-starts and stops along Y is not. A local end treatment must therefore be judged
-as an explicit PoP design choice instead of being presented as OpenGrid
-geometry.
+Only the radial widths are transformed. The source Z bands and straight-edge
+extrusion principle remain unchanged.
 
-## Step 1 — start from the neutral block
+## Step 1 — inspect the complete derived X/Z profile
 
 <!-- scad-render
-view: base-block
--->
-
-The base is intentionally boring. All interface behaviour is created
-substractively from this block.
-
-The production geometry starts from the same dimensions:
-
-```openscad
-translate([
-    -NODE_RECEIVER_WIDTH / 2,
-    -NODE_RECEIVER_BLOCK_LENGTH / 2,
-    0
-])
-    cube([
-        NODE_RECEIVER_WIDTH,
-        NODE_RECEIVER_BLOCK_LENGTH,
-        NODE_RECEIVER_HEIGHT
-    ]);
-```
-
-Keeping this as a separate conceptual step makes it easy to see which later
-surfaces are functional and which are merely the carrier envelope.
-
-## Step 2 — cut the lower source-derived mating profile
-
-The first functional operation creates the lower receiver profile. The neutral
-block is shown on the left. On the right, red is only the material that
-actually intersects the block and will be removed:
-
-<!-- scad-render
-view: lower-removed
--->
-
-The X/Z profile is the radial mirror of the pinned OpenGrid Lite receiver:
-
-```text
-Z 0.0 .. 1.6     width 8.6 mm
-Z 1.6 .. 2.6     8.6 -> 10.0 mm
-Z 2.6 .. 3.6     width 10.0 mm
-```
-
-Along Y the lower profile is 8 mm active. Over the final 1 mm on each side only
-the radial cut depth fades to zero using a smoothstep curve. The X/Z source
-profile itself is not replaced by a straight slot.
-
-The red object is derived from the production cutters, clipped to the actual
-receiver block:
-
-```openscad
-intersection() {
-    node_receiver_design_base_block();
-    node_receiver_design_lower_cutters();
-}
-```
-
-The underlying cutter construction is intentionally symmetric:
-
-```openscad
-module node_receiver_design_lower_cutters() {
-    union() {
-        _node_positive_x_lower_cut_active();
-        _node_positive_y_lower_cut_transition();
-        mirror([0, 1, 0])
-            _node_positive_y_lower_cut_transition();
-
-        mirror([1, 0, 0]) {
-            _node_positive_x_lower_cut_active();
-            _node_positive_y_lower_cut_transition();
-            mirror([0, 1, 0])
-                _node_positive_y_lower_cut_transition();
-        }
-    }
-}
-```
-
-The 3D view above answers *where* material is removed, but it is not a good
-profile check. The next image is a straight X/Z section through the centre of
-the receiver. **Red on the left is the exact removed profile; grey on the right
-is the resulting receiver section:**
-
-<!-- scad-render
-view: lower-profile
+view: profile
 vpr: [90, 0, 0]
 -->
 
-In this section the lower profile must visibly contain the 1.6 .. 2.6 mm ramp.
-If the result looks like a simple rectangular slot, the implementation or the
-evidence is wrong and this step is not accepted.
+This is a 1 mm-thick centre slice of the **actual production receiver**, not a
+redrawn diagram.
 
-After the full 3D cut:
-
-<!-- scad-render
-view: after-lower
--->
-
-This step is the retention/capture body. It should not be reshaped merely to
-make the top look nicer.
-
-## Step 3 — define the X/Z insertion lead-in
-
-Insertion guidance is separate from lower retention. The node snap is open at
-both Y ends and flexes/retains only on +/-X, so the receiver only needs a
-two-sided X/Z guide.
-
-The red volume below is a **1 mm analysis slice of the real production cutter**:
-
-<!-- scad-render
-view: top-profile-slice
--->
-
-Its X/Z section is:
+The profile must visibly contain all four Lite-derived zones:
 
 ```text
-Z = 3.6 mm     outer width 10.0 mm
-Z = 4.0 mm     top width    9.2 mm
+Z 0.0 .. 1.6     width 8.6 mm
+Z 1.6 .. 2.6     ramp 8.6 -> 10.0 mm
+Z 2.6 .. 3.6     width 10.0 mm
+Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
 ```
 
-Each X side therefore has a 0.4 × 0.4 mm lead-in. The design helper obtains the
-slice by intersecting the real production cutter; it does not redraw the
-profile separately.
+The lower 1.6..2.6 ramp and upper 3.6..4.0 chamfer are both part of **one
+profile**. The upper chamfer is not a separate Y-dependent guide operation.
 
-## Step 4 — keep the full chamfer for 8 mm, then return to normal width
+## Step 2 — extrude that profile unchanged along 10 mm
 
-The central 8 mm uses the same triangular X/Z section. Over the final 1 mm at
-each Y end, only the radial cut depth fades to zero. That fade uses smoothstep
-rather than one linear wedge, so its slope is zero where it leaves the central
-zone and where it reaches the normal receiver width. The Z coordinates do not
-move, so the top surface does not form a V in side view:
-
-<!-- scad-render
-view: top-guide-cutter
--->
+OpenGrid uses BOSL2 `path_extrude2d()` for its straight tile edges. The node
+receiver uses the same construction principle with a 10 mm experiment path:
 
 ```openscad
-union() {
-    _node_positive_x_top_guide_active_cut();
-    _node_positive_y_top_guide_transition();
-    mirror([0, 1, 0])
-        _node_positive_y_top_guide_transition();
-}
+path = [
+    [0,  NODE_RECEIVER_BLOCK_LENGTH / 2],
+    [0, -NODE_RECEIVER_BLOCK_LENGTH / 2]
+];
+
+path_extrude2d(path)
+    polygon(points = _node_receiver_profile_points());
 ```
 
-The transition is not allowed to collapse the complete X/Z triangle to one top
-point or to end as one linear cut plane. Older constructions produced either a
-V-shaped top/end fin or a visible straight termination. Here only X-depth fades;
-the top Z remains level and the depth fade has zero slope at both ends.
+The profile is constant at every Y position along this path.
 
-### 4a — top-plan transition check
-
-This orthographic plan view is deliberately redundant: it exists to catch the
-failure mode where an otherwise plausible isometric render still contains one
-straight termination line.
+The next view shows the centre profile on the left and the full extrusion on the
+right:
 
 <!-- scad-render
-view: top-guide-after
-vpr: [0, 0, 0]
+view: profile-vs-extrusion
 -->
 
-The central narrowed region should blend into the full 10 mm end width without
-one dominant straight cut boundary.
+There should be no fan of small STL facets, no Y-fade, no end wedge and no
+change in the X/Z mating profile near the 10 mm ends. Flat end caps merely stop
+the chosen coupon path.
 
-### 4b — before the top-guide subtraction
-
-<!-- scad-render
-view: top-guide-before
--->
-
-### 4c — exact material removed by the top guide
-
-The grey receiver is shown on the left. On the right, red is **only the exact
-intersection of the real top-guide cutter with that receiver**:
-
-<!-- scad-render
-view: top-guide-removed
--->
-
-The objects are separated only for readability; overlaying a 0.4 mm removed
-volume on the same surface caused z-fighting/occlusion and made the old image
-misleading.
-
-### 4d — result after one subtraction
-
-<!-- scad-render
-view: top-guide-after
--->
-
-For direct comparison:
-
-<!-- scad-render
-view: top-guide-before-after
--->
-
-Acceptance conditions:
-
-- the full X/Z guide is active over the central 8 mm;
-- the final 1 mm at each Y end smoothly returns the chamfer depth to zero;
-- the top width in the active guide is 9.2 mm and the capture width below it remains 10.0 mm;
-- the Y side view stays level: no V-shaped top and no thin end fins;
-- the part returns to the ordinary 10 mm width at both Y ends without one hard straight termination line;
-- no separate +/-Y capture chamfer is introduced.
-
-## Step 5 — inspect the functional receiver without scale marks
+## Step 3 — inspect the functional receiver
 
 <!-- scad-render
 view: plain
 -->
 
-This is the clean geometry that must be judged for insertion and retention.
+This is the complete mating geometry without the optional scale marks.
 
-The receiver is deliberately evaluated in this form before carrier integration.
-If this standalone object is not coherent, a rail or plate must not hide the
-problem.
+The 10 mm length is a PoP choice. If later carrier integration needs a blend
+between this local profile and surrounding material, that is a **separate
+carrier-integration question** and must not be hidden inside the receiver
+definition.
 
-## Step 6 — add the optional 1 mm reference grooves
+## Step 4 — optional 1 mm reference grooves
 
 The millimetre pattern is physical but non-functional. Existing receiver
-geometry is grey; the groove cutters are red.
+geometry is grey; groove cutters are red:
 
 <!-- scad-render
 view: pattern-cutters
 -->
 
-The same helper is used by receiver and snap:
-
-```openscad
-_node_mm_reference_cuts_at_top(
-    NODE_RECEIVER_HEIGHT,
-    NODE_RECEIVER_WIDTH,
-    NODE_RECEIVER_BLOCK_LENGTH
-);
-```
-
-The principal lines run to the real part boundary. The 1 mm ticks continue over
-the available length and are clipped naturally by the part outline.
+The pattern does not define any mating dimension.
 
 ## Final design object
 
@@ -313,11 +137,12 @@ the available length and are clipped naturally by the part outline.
 view: final
 -->
 
-This object — not the later rail or plate — is the fixed-side interface
+This standalone object — not a rail or plate — is the fixed-side interface
 definition.
 
 ## Integration boundary
 
-Consumers may embed this receiver into a rail, plate, HUB75 coupler or another
-part, but integration must not silently change its mating profile. Carrier
-examples live separately under `dsg/openscad/examples/`.
+Consumers may place the receiver on a rail, plate, HUB75 coupler or another
+carrier, but integration must preserve this X/Z mating profile. Any carrier-side
+transition at the two ends of the 10 mm coupon is an explicit later design
+choice, not part of the OpenGrid-derived receiver baseline.

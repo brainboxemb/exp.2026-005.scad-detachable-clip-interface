@@ -92,8 +92,8 @@ The PoP must not mix source dimensions and experiment choices without saying so.
 | lower width | 26.4 mm | 8.6 mm | derived radial mirror |
 | top width | 25.8 mm | 9.2 mm | derived radial mirror |
 | Z profile bands | 0/1.6/2.6/3.6/4.0 mm | same | upstream retained |
-| local Y length | no local end | 10.0 mm | experiment choice |
-| Y end treatment | no local equivalent | 1 mm smooth depth fade | experiment choice |
+| straight-edge/path length | tile edge | 10.0 mm | experiment choice |
+| Y profile variation | none on straight edge | none | construction principle retained |
 
 ### Snap
 
@@ -124,23 +124,36 @@ difference.
 
 ## Current receiver design question
 
-The receiver is now a standalone 10 × 10 × 4 mm object.
+The receiver is a standalone 10 mm-long straight extrusion of one
+OpenGrid-derived X/Z profile.
 
-Its lower source-derived mating profile occupies the same 10 mm footprint.
-The upper insertion guide is treated separately: the full X/Z chamfer runs
-over the central 8 mm. During the final 1 mm at each Y end only the chamfer
-depth fades back to zero with a smoothstep curve; the top Z stays level.
+Its source-derived profile is:
 
-Current visual acceptance criterion:
+```text
+Z 0.0 .. 1.6     width 8.6 mm
+Z 1.6 .. 2.6     ramp 8.6 -> 10.0 mm
+Z 2.6 .. 3.6     width 10.0 mm
+Z 3.6 .. 4.0     ramp 10.0 -> 9.2 mm
+```
 
-- the full top chamfer runs over the central 8 mm;
-- the final 1 mm per end returns only the cut depth to zero;
-- the X/Z guide narrows from 10.0 mm to 9.2 mm over the top 0.4 mm;
-- the top stays level in Y and there are no thin end fins;
-- the receiver returns to the ordinary 10 mm width at both Y ends;
-- left/right and front/back geometry must remain symmetric.
+The construction now follows the upstream OpenGrid principle directly:
+`polygon(profile) -> BOSL2 path_extrude2d(straight path)`. The complete X/Z
+profile remains constant over the full 10 mm path.
 
-The exact construction belongs in the reduced receiver design document.
+There is no receiver-owned Y fade or 8+1 mm end treatment. If a future carrier
+needs a transition between the local receiver and surrounding material, that is
+an integration question and must be qualified separately.
+
+Current visual acceptance criteria:
+
+- all four X/Z zones are visible in an orthographic profile;
+- the profile is constant over the complete 10 mm length;
+- STL side faces are ordinary planar extrusion faces, not a fan of sampled hull
+  facets;
+- the top 3.6..4.0 mm chamfer is part of the same profile;
+- left/right geometry remains symmetric.
+
+The exact construction belongs in the node receiver design document.
 
 ## Current snap design question
 

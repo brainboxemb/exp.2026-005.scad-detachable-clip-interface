@@ -46,25 +46,22 @@ removable snap. Carrier choice is not yet a separate mechanism choice.
 
 ## Receiver geometry
 
-The receiver is local rather than continuous along the 50 mm carrier.
+The receiver is now constructed with the same principle as the pinned OpenGrid
+straight edge: one X/Z profile is extruded unchanged along a straight path.
 
-Its source-derived X/Z relation is:
+The node radial mirror gives:
 
 ```text
 local Z 0.0 .. 1.6    width 8.6 mm
 local Z 1.6 .. 2.6    ramp 8.6 -> 10.0 mm
 local Z 2.6 .. 3.6    width 10.0 mm
-local Z 3.6 .. 4.0    inward lead-in to 9.2 mm
+local Z 3.6 .. 4.0    ramp 10.0 -> 9.2 mm
 ```
 
-Along Y, the lower receiver profile is active over the central 8 mm and returns
-to the ordinary carrier over 1 mm at each end.
-
-The final 0.4 mm top guide uses the full X/Z chamfer over the central 8 mm. It
-narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0. During the final 1 mm at each
-Y end only the radial cut depth tapers to zero; the top Z plane stays level.
-This keeps the centring action on +/-X while returning the receiver to its
-ordinary 10 mm width at the open ends.
+BOSL2 `path_extrude2d()` applies that profile over the complete 10 mm coupon
+length. No Y-dependent receiver fade is present. Earlier 8+1 mm transition,
+polyhedron and smoothstep variants were experiment-owned constructions and are
+superseded by this source-aligned baseline.
 
 ## Removable snap correction
 
@@ -154,7 +151,7 @@ The current digital evidence establishes that:
 
 - the receiver is local rather than a 50 mm continuous attachment profile;
 - rail and plate variants use one shared mating interface;
-- receiver top geometry centres inward;
+- receiver X/Z geometry preserves the mirrored OpenGrid Lite ramps/chamfer as one constant straight-edge profile;
 - the removable nub now retains the source OpenGrid wedge/rounding principle
   rather than the superseded straight trapezoid;
 - the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
@@ -177,8 +174,8 @@ than relying on coarse before/after images:
   → exact Lite result → profile zones;
 - Lite snap nub: box → upper/lower wedges → rounding → four-side replication;
 - click slots: actual removed material plus a center-section before/after view;
-- node receiver: lower-profile subtraction → X/Z guide profile → 8 mm active
-  chamfer + 1 mm depth transitions → exact removed material → before/after result.
+- node receiver: complete source-derived X/Z profile → unchanged 10 mm
+  BOSL2 straight-path extrusion → final receiver.
 
 Do not move on to later qualification to hide an unresolved base receiver/snap
 geometry problem.
