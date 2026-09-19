@@ -281,9 +281,9 @@ def _geometry_paths(path: Path) -> list[str]:
     return values
 
 _SVG_LINE_POINT_RE = re.compile(
-    r"(?:M|L)\\s*"
-    r"([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))\\s*,\\s*"
-    r"([+-]?(?:\\d+(?:\\.\\d*)?|\\.\\d+))"
+    r"(?:M|L)\s*"
+    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*,\s*"
+    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))"
 )
 
 
