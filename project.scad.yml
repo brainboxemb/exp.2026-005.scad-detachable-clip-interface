@@ -32,7 +32,9 @@ drawing:
     - dsg/drawing/opengrid_lite_plan_slice_reference.scad
   outputs:
     - bld/drawing/00-opengrid-python.svg
+    - bld/drawing/00-opengrid-python.png
     - bld/drawing/01-opengrid-openscad-reference.svg
+    - bld/drawing/01-opengrid-openscad-reference.png
     - bld/drawing/02-opengrid-overlay.svg
     - bld/drawing/02-opengrid-overlay.png
 

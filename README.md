@@ -65,7 +65,9 @@ The drawing producer now emits:
 
 ```text
 bld/drawing/00-opengrid-python.svg
+bld/drawing/00-opengrid-python.png
 bld/drawing/01-opengrid-openscad-reference.svg
+bld/drawing/01-opengrid-openscad-reference.png
 bld/drawing/02-opengrid-overlay.svg
 bld/drawing/02-opengrid-overlay.png
 ```
@@ -75,7 +77,8 @@ real millimetres and merges the unique horizontal contours at the
 source-derived Lite profile edges (1.6, 2.6, 3.6 and 4.0 mm). The 0.0 and
 1.6 mm sections are identical and therefore draw the same line only once.
 
-The second SVG cuts the actual pinned OpenGrid Lite model at those same
+The Python and OpenSCAD SVGs each also get a direct black-and-white PNG review
+image. The second SVG cuts the actual pinned OpenGrid Lite model at those same
 source-derived heights and validates every raw OpenSCAD section independently.
 The final top-view merge is visibility-aware: a lower contour segment is drawn
 only where its XY location remains inside every higher opening, so material

@@ -38,7 +38,9 @@ SLICE_REFERENCE_SCAD = (
 )
 
 PYTHON_SVG = OUTPUT_ROOT / "00-opengrid-python.svg"
+PYTHON_PNG = OUTPUT_ROOT / "00-opengrid-python.png"
 OPENSCAD_SVG = OUTPUT_ROOT / "01-opengrid-openscad-reference.svg"
+OPENSCAD_PNG = OUTPUT_ROOT / "01-opengrid-openscad-reference.png"
 OVERLAY_SVG = OUTPUT_ROOT / "02-opengrid-overlay.svg"
 OVERLAY_PNG = OUTPUT_ROOT / "02-opengrid-overlay.png"
 
@@ -175,14 +177,16 @@ def main() -> None:
         openscad_outer,
         openscad_layers,
     )
-    export_png(
-        OVERLAY_SVG,
-        OVERLAY_PNG,
-    )
+
+    export_png(PYTHON_SVG, PYTHON_PNG)
+    export_png(OPENSCAD_SVG, OPENSCAD_PNG)
+    export_png(OVERLAY_SVG, OVERLAY_PNG)
 
     outputs = (
         PYTHON_SVG,
+        PYTHON_PNG,
         OPENSCAD_SVG,
+        OPENSCAD_PNG,
         OVERLAY_SVG,
         OVERLAY_PNG,
     )
