@@ -8,7 +8,7 @@ $fn = 120;
 
 use <../../lib/node_interface.scad>
 
-module node_receiver_build(mm_pattern = true) {
+module node_receiver_build(mm_pattern = false) {
     node_receiver(mm_pattern);
 }
 

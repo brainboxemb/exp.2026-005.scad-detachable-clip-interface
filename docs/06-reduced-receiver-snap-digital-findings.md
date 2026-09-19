@@ -1,21 +1,22 @@
 # Reduced receiver + snap — current digital rail/plate baseline
 
-Status: **receiver top-guide geometry qualified in PR #7; visual walkthrough review continues**
+Status: **straight-profile receiver geometry qualified in PR #7; visual walkthrough review continues**
 
 Qualified receiver-geometry source:
 
 ```text
-a646c69d4e1a57147fa1bd27dcf956922c9408b2
+c950b21ed24b8bd5ba9abd78ff95cff2b49c62af
 ```
 
 Receiver-geometry build run:
 
 ```text
-35391589559
+35425438453
 ```
 
-The later presentation-only cleanup does not change the production mating
-geometry.
+That run reports the plain receiver as a 36-triangle straight profile
+extrusion. The non-functional millimetre groove pattern is kept separate from
+the functional STL baseline.
 
 Published preview:
 
@@ -132,8 +133,8 @@ define the side mating/retention geometry.
 
 ## CI result
 
-Run `35386827873` completed successfully from exact source
-`e4b3878aa0c2bf786781a02716fea77293cdcb61`.
+Run `35425438453` completed successfully from exact source
+`c950b21ed24b8bd5ba9abd78ff95cff2b49c62af`.
 
 For all reduced-interface PNG renders and STL exports used by this baseline:
 
@@ -157,7 +158,9 @@ The current digital evidence establishes that:
 - the OpenGrid basic Lite reference is represented as 4.0 mm receiver / 3.4 mm
   snap without an invented seated offset;
 - solid and flex-slot sections are intentionally distinguished;
-- all generated reduced-interface outputs build as manifold geometry.
+- all generated reduced-interface outputs build as manifold geometry;
+- the plain receiver geometry is a 36-triangle straight extrusion before any
+  optional millimetre groove subtraction.
 
 ## Still open for digital design acceptance
 

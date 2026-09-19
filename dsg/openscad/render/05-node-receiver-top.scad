@@ -7,7 +7,7 @@ $vpt=[0,0,2];
 $vpr=[0,0,0];
 $vpd=28;
 
-// Orthographic control view: the corrected receiver must keep a rectangular
-// 10 x 10 mm plan without an hourglass top-guide transition.
+// Orthographic control view of the functional geometry. Keep non-functional
+// millimetre grooves out so the constant straight-edge profile is unambiguous.
 color([0.68,0.70,0.74])
-    node_receiver_build(true);
+    node_receiver_build(false);

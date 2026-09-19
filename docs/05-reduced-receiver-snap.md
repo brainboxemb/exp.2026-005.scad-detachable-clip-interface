@@ -17,10 +17,10 @@ The component-local design documents are authoritative for geometry:
 
 | Object | Role | Design document |
 | --- | --- | --- |
-| OpenGrid Lite receiver | pinned upstream fixed-side reference | `dsg/openscad/components/opengrid-lite-receiver/design/design.md` |
-| OpenGrid Lite snap | pinned upstream removable-side reference | `dsg/openscad/components/opengrid-lite-snap/design/design.md` |
-| Node receiver | experiment-owned fixed-side design | `dsg/openscad/components/node-receiver/design/design.md` |
-| Node snap | experiment-owned removable-side design | `dsg/openscad/components/node-snap/design/design.md` |
+| OpenGrid Lite receiver | pinned upstream fixed-side reference | `dsg/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/design.md` |
+| OpenGrid Lite snap | pinned upstream removable-side reference | `dsg/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/design.md` |
+| Node receiver | experiment-owned fixed-side design | `dsg/openscad/components/node-receiver/node_receiver/design/design.md` |
+| Node snap | experiment-owned removable-side design | `dsg/openscad/components/node-snap/node_snap/design/design.md` |
 
 This file records the **experiment relationship and acceptance boundary**. It
 must not duplicate every component dimension; those details belong in the
