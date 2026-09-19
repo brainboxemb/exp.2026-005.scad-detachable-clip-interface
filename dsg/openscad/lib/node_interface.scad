@@ -24,10 +24,11 @@
 
 // BOSL2 is used for rounded click-slot cuts.
 include <BOSL2/std.scad>
+include <detachable_interface_spec.scad>
 
-// Primary node-receiver envelope.
-NODE_RECEIVER_WIDTH = 10.0;
-NODE_RECEIVER_HEIGHT = 4.0;
+// Stage-2 reference implementation consumes the stage-1 interface contract.
+NODE_RECEIVER_WIDTH = detachable_interface_receiver_width();
+NODE_RECEIVER_HEIGHT = DETACHABLE_INTERFACE_HEIGHT;
 
 // Example carrier dimensions. Examples consume the node dimensions rather than
 // defining them.
@@ -38,58 +39,37 @@ EXAMPLE_RAIL_HEIGHT = NODE_RECEIVER_HEIGHT;
 EXAMPLE_PLATE_WIDTH = 20.0;
 EXAMPLE_PLATE_HEIGHT = 6.0;
 
-// Local receiver footprint along the carrier.
-// OpenGrid keeps one X/Z edge profile constant along each straight tile edge.
-// The node baseline does the same: the only experiment-owned Y dimension is
-// the length of this straight coupon path.
-NODE_RECEIVER_FUNCTIONAL_LENGTH = 10.0;
-NODE_RECEIVER_BLOCK_LENGTH = NODE_RECEIVER_FUNCTIONAL_LENGTH; // 10 mm
+// Local reference-implementation footprint. Interface X/Z mating dimensions
+// come from detachable_interface_spec.scad; this finite Y length belongs to the
+// minimal reference implementation.
+NODE_RECEIVER_FUNCTIONAL_LENGTH = DETACHABLE_INTERFACE_REFERENCE_LENGTH;
+NODE_RECEIVER_BLOCK_LENGTH = NODE_RECEIVER_FUNCTIONAL_LENGTH;
+NODE_SNAP_LENGTH = DETACHABLE_INTERFACE_REFERENCE_LENGTH;
 
-// Removable snap length matches the local receiver footprint.
-NODE_SNAP_LENGTH = 10.0;
+// Keep source aliases available for the detailed reduction walkthrough.
+OPENGRID_RECEIVER_CAPTURE_WIDTH = DETACHABLE_SOURCE_CAPTURE_WIDTH;
+OPENGRID_RECEIVER_LOWER_WIDTH = DETACHABLE_SOURCE_LOWER_WIDTH;
+OPENGRID_RECEIVER_TOP_WIDTH = DETACHABLE_SOURCE_TOP_WIDTH;
+OPENGRID_SNAP_BODY_WIDTH = DETACHABLE_SOURCE_SNAP_BODY_WIDTH;
+OPENGRID_SNAP_NUB_OUTER_WIDTH = DETACHABLE_SOURCE_SNAP_NUB_OUTER_WIDTH;
 
-// OpenGrid Lite source dimensions used by the radial mirror.
-OPENGRID_RECEIVER_CAPTURE_WIDTH = 25.0;
-OPENGRID_RECEIVER_LOWER_WIDTH = 26.4;
-OPENGRID_RECEIVER_TOP_WIDTH = 25.8;
-OPENGRID_SNAP_BODY_WIDTH = 24.8;
-OPENGRID_SNAP_NUB_OUTER_WIDTH = 25.6;
+NODE_RADIAL_MIRROR_SUM = detachable_interface_mirror_sum();
+NODE_RECEIVER_LOWER_WIDTH = detachable_interface_receiver_lower_width();
+NODE_RECEIVER_TOP_WIDTH = detachable_interface_receiver_top_width();
+NODE_SNAP_INNER_WIDTH = detachable_interface_snap_inner_width();
+NODE_SNAP_NUB_OPENING = detachable_interface_snap_nub_opening();
+NODE_SNAP_NUB_PROTRUSION = detachable_interface_snap_nub_protrusion();
 
-// Mirror constant: original narrow 25 mm opening becomes 10 mm fixed capture.
-NODE_RADIAL_MIRROR_SUM =
-    OPENGRID_RECEIVER_CAPTURE_WIDTH + NODE_RECEIVER_WIDTH;
-
-// Mirrored fixed-receiver profile widths.
-NODE_RECEIVER_LOWER_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_LOWER_WIDTH; // 8.6
-NODE_RECEIVER_TOP_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_RECEIVER_TOP_WIDTH;  // 9.2
-
-// Mirrored snap inner widths.
-NODE_SNAP_INNER_WIDTH =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_SNAP_BODY_WIDTH;     // 10.2
-NODE_SNAP_NUB_OPENING =
-    NODE_RADIAL_MIRROR_SUM - OPENGRID_SNAP_NUB_OUTER_WIDTH;      // 9.4
-NODE_SNAP_NUB_PROTRUSION =
-    (NODE_SNAP_INNER_WIDTH - NODE_SNAP_NUB_OPENING) / 2; // 0.4
-
-// Lite receiver X/Z profile after taking the upper 4.0 mm of the Full board.
-// Radially mirrored fixed receiver:
-//   z 0.0 .. 1.6   width 8.6
-//   z 1.6 .. 2.6   ramp 8.6 -> 10.0
-//   z 2.6 .. 3.6   width 10.0
-//   z 3.6 .. 4.0   ramp 10.0 -> 9.2
-NODE_RECEIVER_LOWER_Z = 1.6;
-NODE_RECEIVER_RAMP_TOP_Z = 2.6;
-NODE_RECEIVER_CAPTURE_TOP_Z = 3.6;
+NODE_RECEIVER_LOWER_Z = detachable_interface_lower_z();
+NODE_RECEIVER_RAMP_TOP_Z = detachable_interface_ramp_top_z();
+NODE_RECEIVER_CAPTURE_TOP_Z = detachable_interface_capture_top_z();
 
 // The pinned Lite reference assembles receiver and snap at the same CENTER
-// origin. The 0.6 mm difference between 4.0 mm receiver height and 3.4 mm
-// engagement height is arithmetic only; it is not a proven seated Z offset.
+// origin. The 0.6 mm difference is arithmetic only, not a seated Z offset.
 NODE_SNAP_SEATED_Z = 0.0;
-NODE_SNAP_ENGAGEMENT_HEIGHT = 3.4;
+NODE_SNAP_ENGAGEMENT_HEIGHT = detachable_interface_snap_engagement_height();
 NODE_SNAP_RECEIVER_HEIGHT_DIFFERENCE =
-    NODE_RECEIVER_HEIGHT - NODE_SNAP_ENGAGEMENT_HEIGHT; // 0.6 mm
+    NODE_RECEIVER_HEIGHT - NODE_SNAP_ENGAGEMENT_HEIGHT;
 
 // Radial flex-wall decomposition.
 //
@@ -227,18 +207,8 @@ function node_snap_total_height() = NODE_SNAP_TOTAL_HEIGHT;
 // Crucially, this profile is CONSTANT along Y. The 10 mm Y length is merely
 // the experiment coupon path length; there is no invented end fade.
 
-function _node_receiver_profile_points() = [
-    [-NODE_RECEIVER_LOWER_WIDTH / 2, 0],
-    [ NODE_RECEIVER_LOWER_WIDTH / 2, 0],
-    [ NODE_RECEIVER_LOWER_WIDTH / 2, NODE_RECEIVER_LOWER_Z],
-    [ NODE_RECEIVER_WIDTH / 2,       NODE_RECEIVER_RAMP_TOP_Z],
-    [ NODE_RECEIVER_WIDTH / 2,       NODE_RECEIVER_CAPTURE_TOP_Z],
-    [ NODE_RECEIVER_TOP_WIDTH / 2,   NODE_RECEIVER_HEIGHT],
-    [-NODE_RECEIVER_TOP_WIDTH / 2,   NODE_RECEIVER_HEIGHT],
-    [-NODE_RECEIVER_WIDTH / 2,       NODE_RECEIVER_CAPTURE_TOP_Z],
-    [-NODE_RECEIVER_WIDTH / 2,       NODE_RECEIVER_RAMP_TOP_Z],
-    [-NODE_RECEIVER_LOWER_WIDTH / 2, NODE_RECEIVER_LOWER_Z]
-];
+function _node_receiver_profile_points() =
+    detachable_interface_receiver_profile_points();
 
 module _node_receiver_profile_2d() {
     polygon(points = _node_receiver_profile_points());
@@ -345,6 +315,11 @@ module node_receiver(mm_pattern = false) {
                 NODE_RECEIVER_BLOCK_LENGTH
             );
     }
+}
+
+// Contract-facing name for the minimal fixed-side reference implementation.
+module detachable_interface_reference_receiver(mm_pattern = false) {
+    node_receiver(mm_pattern);
 }
 
 // --- Carrier A: 50 x 10 x 4 rail with one local receiver zone --------------
@@ -634,6 +609,11 @@ module node_snap(mm_pattern = false) {
                 NODE_SNAP_LENGTH
             );
     }
+}
+
+// Contract-facing name for the minimal removable-side reference implementation.
+module detachable_interface_reference_snap(mm_pattern = false) {
+    node_snap(mm_pattern);
 }
 
 // --- Assemblies ------------------------------------------------------------

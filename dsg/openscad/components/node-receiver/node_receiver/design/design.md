@@ -1,5 +1,14 @@
 # Node receiver — design
 
+## Role in the two-stage model
+
+This component is a **stage-2 reference implementation**. The shared mating
+geometry is specified separately in
+[`specification/specification.md`](../../../specification/specification.md).
+This document explains how this particular minimal part realizes that contract.
+Implementation details described here are not automatically interface requirements.
+
+
 <!-- scad-render-defaults
 engine: openscad
 source: node_receiver_render.scad
@@ -148,7 +157,7 @@ transition at the two ends of the 10 mm coupon is an explicit later design
 choice, not part of the OpenGrid-derived receiver baseline.
 
 
-## Dimensioned 2D retention profile
+## Reference implementation drawing
 
 The same receiver profile is also exported as a true 2D SVG drawing. The
 drawing uses the installed `openscad-new-dimensions` library for dimension

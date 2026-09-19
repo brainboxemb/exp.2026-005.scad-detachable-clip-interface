@@ -13,18 +13,17 @@ The experiment now separates **design objects** from **carrier examples**.
 
 ## Authority map
 
-The component-local design documents are authoritative for geometry:
+The current phase uses a two-stage engineering model:
 
-| Object | Role | Design document |
+| Stage | Authority | Purpose |
 | --- | --- | --- |
-| OpenGrid Lite receiver | pinned upstream fixed-side reference | `dsg/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/design.md` |
-| OpenGrid Lite snap | pinned upstream removable-side reference | `dsg/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/design.md` |
-| Node receiver | experiment-owned fixed-side design | `dsg/openscad/components/node-receiver/node_receiver/design/design.md` |
-| Node snap | experiment-owned removable-side design | `dsg/openscad/components/node-snap/node_snap/design/design.md` |
+| Interface specification | `dsg/openscad/specification/specification.md` | shared mating contract between fixed and removable parts |
+| Reference implementation | node receiver + node snap component design docs | minimal concrete pair implementing that contract |
+| Source interpretation | OpenGrid Lite component/source-analysis docs | explain provenance and the reduction from the pinned source |
 
-This file records the **experiment relationship and acceptance boundary**. It
-must not duplicate every component dimension; those details belong in the
-component design documents.
+This file records the **experiment relationship and acceptance boundary**. The
+shared dimensions belong in the specification; component construction details
+belong in the stage-2 implementation documents.
 
 ## Carrier examples
 
@@ -81,7 +80,10 @@ open.
 
 ## Geometry provenance snapshot
 
-The PoP must not mix source dimensions and experiment choices without saying so.
+The normative current values are now collected in the
+[interface specification](../dsg/openscad/specification/specification.md).
+The snapshot below remains useful as the experiment/provenance record and must
+not mix source dimensions and experiment choices without saying so.
 
 ### Receiver
 

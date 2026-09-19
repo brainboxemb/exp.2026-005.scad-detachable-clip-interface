@@ -26,14 +26,43 @@ examples/
   receiver-plate          carrier integration example
 ```
 
-The standalone reduced receiver is a 10 × 10 × 4 mm object. Its top insertion
-guide narrows from 10.0 mm at Z=3.6 to 9.2 mm at Z=4.0 over the central 8 mm.
-During the final 1 mm at each Y end, only the chamfer depth returns to zero so
-the part reaches its ordinary 10 mm width without sloping the top plane down. The snap retains/flexes only on two opposite sides.
+The engineering model is now deliberately split in two stages. The **interface
+specification** defines the nominal 10 mm wide × 4 mm high mating relationship.
+A **minimal receiver + minimal snap** then serve as the reference implementation
+of that contract. The reference coupons are 10 mm long in Y; that finite length
+is an implementation choice, not a production-carrier requirement.
+
+The receiver X/Z profile is constant over that complete 10 mm reference length.
+There is no receiver-owned Y fade. The snap retains/flexes only on two opposite
+sides.
 
 The local X/Z receiver profile and inward snap nubs are intentionally derived
 from the pinned QuackWorks OpenGrid Lite receiver + normal snap relationship.
 See the [reduced receiver + snap experiment record](docs/05-reduced-receiver-snap.md).
+
+## Two-stage specification and reference design
+
+The authoritative reading order is:
+
+1. [Detachable interface specification](dsg/openscad/specification/specification.md)
+   — what the two parts must mate with;
+2. [Minimal receiver design](dsg/openscad/components/node-receiver/node_receiver/design/design.md)
+   and [minimal snap design](dsg/openscad/components/node-snap/node_snap/design/design.md)
+   — one small reference implementation of that contract.
+
+The specification includes a combined contract drawing and a separate
+OpenGrid-to-node comparison sheet. The OpenGrid side is explicitly an
+experiment interpretation of the pinned source dimensions, **not** an upstream
+manufacturing drawing.
+
+Generated standalone SVG drawings are ordered accordingly:
+
+```text
+00-interface-contract.svg
+01-opengrid-to-interface-translation.svg
+02-node-receiver-detail.svg
+03-node-snap-detail.svg
+```
 
 ## Previous reference work
 
@@ -136,18 +165,26 @@ See [source provenance](docs/00-source-provenance.md).
 
 See [experiment plan](docs/01-experiment-plan.md).
 
-## Component design documentation
+## Specification and reference implementation
 
-The component-local design documents are the geometry authority for their
-respective objects:
+The interface contract is authoritative for shared mating geometry:
 
-- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/design/design.md)
-- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/design/design.md)
-- [Node receiver](dsg/openscad/components/node-receiver/design/design.md)
-- [Node snap](dsg/openscad/components/node-snap/design/design.md)
+- [Interface specification](dsg/openscad/specification/specification.md)
+
+The minimal stage-2 implementation is documented separately:
+
+- [Node receiver](dsg/openscad/components/node-receiver/node_receiver/design/design.md)
+- [Node snap](dsg/openscad/components/node-snap/node_snap/design/design.md)
+
+Pinned-source analysis remains useful provenance/evidence rather than the local
+interface contract:
+
+- [OpenGrid Lite receiver](dsg/openscad/components/opengrid-lite-receiver/opengrid_lite_receiver/design/design.md)
+- [OpenGrid Lite snap](dsg/openscad/components/opengrid-lite-snap/opengrid_lite_snap/design/design.md)
 
 Carrier usage lives separately under `dsg/openscad/examples/`. The rail and
-plate examples are consumers of the node design, not definitions of it.
+plate examples are consumers of the reference implementation, not definitions
+of the interface.
 
 ## Interactive OpenSCAD view
 
