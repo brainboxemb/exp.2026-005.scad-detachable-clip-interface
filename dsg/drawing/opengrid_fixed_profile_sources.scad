@@ -8,6 +8,7 @@
 
 include <../openscad/lib/detachable_interface_spec.scad>
 use <../openscad/lib/opengrid_reference.scad>
+use <../openscad/design_support.scad>
 
 drawing_source_view =
     is_undef(drawing_source_view) ? "section" : drawing_source_view;
@@ -54,11 +55,20 @@ echo(str(
     DETACHABLE_SOURCE_LITE_THICKNESS - capture_top_z
 ));
 
-if (drawing_source_view == "orientation")
-    orientation_view();
-else if (drawing_source_view == "section")
-    section_view();
-else if (drawing_source_view == "detail")
-    capture_detail_view();
-else
-    assert(false, str("unknown drawing_source_view: ", drawing_source_view));
+module selected_drawing_source_view() {
+    if (drawing_source_view == "orientation")
+        orientation_view();
+    else if (drawing_source_view == "section")
+        section_view();
+    else if (drawing_source_view == "detail")
+        capture_detail_view();
+    else
+        assert(false, str("unknown drawing_source_view: ", drawing_source_view));
+}
+
+// These source views call pinned geometry that uses BOSL2 attachment state.
+// This file is executed directly rather than through the normal generated
+// design entrypoint, so provide the same explicit BOSL2 special-variable
+// context used by design documentation.
+design_bosl2_context()
+    selected_drawing_source_view();
