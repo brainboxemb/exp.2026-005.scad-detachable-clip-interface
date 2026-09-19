@@ -18,19 +18,17 @@ openscad:
   image_size: [1600, 1000]
   design_image_size: [640, 480]
 
-# Composed technical drawings are project-owned. The Python producer keeps the
-# canonical SVG editable/inspectable and invokes Inkscape for PNG/PDF output.
+# First drawing-language test: one simple OpenGrid-style outline only.
+# Keep this intentionally small until the visual convention is accepted.
 drawing:
   command:
     - python3
     - dsg/drawing/build_opengrid_profile.py
   inputs:
     - dsg/drawing/build_opengrid_profile.py
-    - dsg/drawing/opengrid_fixed_profile_sources.scad
   outputs:
-    - bld/drawing/00-opengrid-fixed-profile-a4.svg
-    - bld/drawing/00-opengrid-fixed-profile-a4.png
-    - bld/drawing/00-opengrid-fixed-profile-a4.pdf
+    - bld/drawing/00-opengrid-outline-test.svg
+    - bld/drawing/00-opengrid-outline-test.png
 
 rendering:
   watermark:

@@ -244,12 +244,10 @@ dsg/drawing/build_opengrid_profile.py
     -> bld/drawing/00-opengrid-fixed-profile-a4.{svg,png,pdf}
 ```
 
-The older OpenSCAD sheet implementation remains temporarily available in
-source for comparison while this first composed sheet is visually qualified.
-Its local compatibility helper is self-contained and no longer depends on
-`openscad-new-dimensions`, but the old OpenGrid A4 entrypoint is no longer
-part of normal generated output. Future drawing code follows the drawsvg sheet
-rather than the legacy helper.
+The drawing migration now starts with one deliberately small visual test:
+`00-opengrid-outline-test`. It contains only the square outside boundary and a
+simple clipped-corner inner frame. No section lines, detail bubbles, dimensions
+or title block are added until this basic drawing language is accepted.
 
 Bootstrap a checkout with:
 

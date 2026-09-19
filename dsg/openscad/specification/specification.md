@@ -25,24 +25,19 @@ module: interface_specification_design
 
 ## OpenGrid Lite fixed-side profile
 
-The first A4 sheet uses the exact pinned OpenGrid Lite receiver geometry in
-three coordinated views: an oriented receiver for source context, the
-source-derived transverse X/Z section used by the reduction, and an enlarged
-capture-profile detail.
+The drawing migration is intentionally starting with one simple visual test,
+not a complete engineering sheet. The current generated drawing checks only the
+basic line language: a square outside boundary and a clipped-corner inner frame.
 
-The OpenGrid corner behaviour is evidence about the upstream part. It is not
-silently translated into a new longitudinal transition for the node receiver.
+There are deliberately no section lines, detail circles, dimensions, labels or
+title block yet.
 
-The sheet is now composed by the project-owned Python/drawsvg producer rather
-than by the legacy OpenSCAD drawing helper. In generated Build documentation:
+![OpenGrid outline test](../../../../drawing/00-opengrid-outline-test.png)
 
-![OpenGrid Lite fixed-side profile](../../../../drawing/00-opengrid-fixed-profile-a4.png)
+[Canonical SVG](../../../../drawing/00-opengrid-outline-test.svg)
 
-[Canonical SVG](../../../../drawing/00-opengrid-fixed-profile-a4.svg) ·
-[PDF](../../../../drawing/00-opengrid-fixed-profile-a4.pdf)
-
-This is an experiment-owned drawing of the pinned QuackWorks model, not an
-upstream OpenGrid manufacturing drawing.
+This visual test is experiment-owned and is not an upstream OpenGrid
+manufacturing drawing.
 
 ## Node fixed tongue profile
 
