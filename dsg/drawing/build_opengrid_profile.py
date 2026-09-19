@@ -13,6 +13,7 @@ from dataclasses import dataclass
 from pathlib import Path
 import subprocess
 import tempfile
+import xml.etree.ElementTree as ET
 
 import drawsvg as draw
 
@@ -247,17 +248,51 @@ def _embedded_svg(
     width: float,
     height: float,
 ) -> None:
-    sheet.append(
-        draw.Image(
-            x,
-            y,
-            width,
-            height,
-            path=str(path),
-            embed=True,
-            mime_type="image/svg+xml",
+    """Inline OpenSCAD SVG paths into the canonical sheet.
+
+    ElementTree is used only as an interchange parser here; all authored
+    drawing semantics remain drawsvg-owned. Inlining avoids renderer-specific
+    handling of nested SVG data URIs and keeps line weights predictable.
+    """
+
+    root = ET.parse(path).getroot()
+    viewbox = root.attrib.get("viewBox")
+    if viewbox is None:
+        raise RuntimeError(f"OpenSCAD SVG has no viewBox: {path}")
+
+    min_x, min_y, source_w, source_h = [
+        float(value) for value in viewbox.replace(",", " ").split()
+    ]
+    if source_w <= 0 or source_h <= 0:
+        raise RuntimeError(f"invalid OpenSCAD SVG viewBox: {viewbox}")
+
+    scale = min(width / source_w, height / source_h)
+    tx = x + (width - source_w * scale) / 2 - min_x * scale
+    ty = y + (height - source_h * scale) / 2 - min_y * scale
+
+    group = draw.Group(transform=f"translate({tx} {ty}) scale({scale})")
+    svg_ns = "{http://www.w3.org/2000/svg}"
+
+    paths = root.findall(f".//{svg_ns}path")
+    if not paths:
+        raise RuntimeError(f"OpenSCAD SVG contains no paths: {path}")
+
+    for source_path in paths:
+        d = source_path.attrib.get("d")
+        if not d:
+            continue
+        group.append(
+            draw.Path(
+                d=d,
+                fill=source_path.attrib.get("fill", "none"),
+                stroke=source_path.attrib.get("stroke", "black"),
+                # Counteract the group scale so source geometry uses the same
+                # physical line weight as the authored sheet.
+                stroke_width=LINE / scale,
+            )
         )
-    )
+
+    sheet.append(group)
 
 
 def _title_block(sheet: draw.Drawing) -> None:
@@ -352,6 +387,19 @@ def _compose(
         215,
         f"{meta.height:.1f}",
     )
+
+    # Tie the detail view explicitly to the right-hand source profile.
+    sheet.append(
+        draw.Circle(
+            209,
+            108,
+            9,
+            fill="none",
+            stroke="black",
+            stroke_width=THIN,
+        )
+    )
+    _text(sheet, "B", 2.8, 217, 99, weight="bold")
     _text(sheet, "SCALE: ENLARGED", 2.2, 88, 143)
 
     # Detail B: exact crop of the right-hand capture profile.

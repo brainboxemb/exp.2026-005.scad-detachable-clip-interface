@@ -244,11 +244,12 @@ dsg/drawing/build_opengrid_profile.py
     -> bld/drawing/00-opengrid-fixed-profile-a4.{svg,png,pdf}
 ```
 
-The older OpenSCAD sheet implementation remains temporarily available for
-comparison while this first composed sheet is visually qualified. Its local
-compatibility helper is self-contained and no longer depends on
-`openscad-new-dimensions`. It is not the model for future drawing code once
-the drawsvg sheet is accepted.
+The older OpenSCAD sheet implementation remains temporarily available in
+source for comparison while this first composed sheet is visually qualified.
+Its local compatibility helper is self-contained and no longer depends on
+`openscad-new-dimensions`, but the old OpenGrid A4 entrypoint is no longer
+part of normal generated output. Future drawing code follows the drawsvg sheet
+rather than the legacy helper.
 
 Bootstrap a checkout with:
 

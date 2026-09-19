@@ -25,21 +25,21 @@ module: interface_specification_design
 
 ## OpenGrid Lite fixed-side profile
 
-The first A4 sheet uses the exact pinned OpenGrid Lite receiver geometry in two
-views. The plan view provides source orientation and corner context; the A-A
-section is the source-derived transverse X/Z profile used by the reduction.
+The first A4 sheet uses the exact pinned OpenGrid Lite receiver geometry in
+three coordinated views: an oriented receiver for source context, the
+source-derived transverse X/Z section used by the reduction, and an enlarged
+capture-profile detail.
 
 The OpenGrid corner behaviour is evidence about the upstream part. It is not
 silently translated into a new longitudinal transition for the node receiver.
 
-<!-- scad-render
-engine: openscad
-source: specification/mating_profiles.scad
-module: mating_profile_design
-view: opengrid
-format: svg
-image: 00-opengrid-fixed-profile-a4.svg
--->
+The sheet is now composed by the project-owned Python/drawsvg producer rather
+than by the legacy OpenSCAD drawing helper. In generated Build documentation:
+
+![OpenGrid Lite fixed-side profile](../../../../drawing/00-opengrid-fixed-profile-a4.png)
+
+[Canonical SVG](../../../../drawing/00-opengrid-fixed-profile-a4.svg) ·
+[PDF](../../../../drawing/00-opengrid-fixed-profile-a4.pdf)
 
 This is an experiment-owned drawing of the pinned QuackWorks model, not an
 upstream OpenGrid manufacturing drawing.
