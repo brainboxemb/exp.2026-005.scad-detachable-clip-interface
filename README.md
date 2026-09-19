@@ -216,9 +216,9 @@ selector exposes the stable Full/Lite experiment views directly:
   receiver/snap views, a rail-vs-plate comparison and a generated top-view
   comparison for the centring lead-in / 1 mm reference grooves;
 - an optional interactive X/Y/Z cutaway around any selected main view, with
-  sliders for cut start position and cut depth plus positive/negative cut
-  direction. A large depth behaves like a conventional half-section; a small
-  depth exposes only a local region.
+  sliders for the first cut-plane position and retained section depth plus
+  positive/negative cut direction. The depth is the thickness kept from the
+  first cut plane; everything beyond that retained slab is removed.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same

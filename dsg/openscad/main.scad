@@ -16,7 +16,7 @@ profile_plane = 1; // [0:Center / flex slot, 1:Solid / beside flex slot]
 /* [Section inspection] */
 section_axis = "None"; // [None,X,Y,Z]
 section_position_mm = 0; // [-100:0.5:100]
-section_depth_mm = 100; // [0.5:0.5:200]
+section_depth_mm = 1; // [0.1:0.1:200]
 section_direction = "Positive"; // [Positive,Negative]
 
 /* [Quality] */
@@ -80,34 +80,48 @@ SECTION_CUTTER_SPAN_MM = 1000;
 module _main_section_cutter(
     axis = "None",
     position = 0,
-    depth = 100,
+    depth = 1,
     direction = "Positive"
 ) {
-    d = max(depth, 0.001);
+    // "depth" is the retained section thickness from the first cut plane.
+    // Everything beyond that retained slab is removed.
+    d = max(depth, 0.1);
     s = SECTION_CUTTER_SPAN_MM;
     positive = direction == "Positive";
 
     if (axis == "X")
         translate([
-            positive ? position : position - d,
+            positive ? position + d : -s / 2,
             -s / 2,
             -s / 2
         ])
-            cube([d, s, s]);
+            cube([
+                positive ? s / 2 - (position + d) : position - d + s / 2,
+                s,
+                s
+            ]);
     else if (axis == "Y")
         translate([
             -s / 2,
-            positive ? position : position - d,
+            positive ? position + d : -s / 2,
             -s / 2
         ])
-            cube([s, d, s]);
+            cube([
+                s,
+                positive ? s / 2 - (position + d) : position - d + s / 2,
+                s
+            ]);
     else if (axis == "Z")
         translate([
             -s / 2,
             -s / 2,
-            positive ? position : position - d
+            positive ? position + d : -s / 2
         ])
-            cube([s, s, d]);
+            cube([
+                s,
+                s,
+                positive ? s / 2 - (position + d) : position - d + s / 2
+            ]);
 }
 
 module _main_selected_view(view) {
