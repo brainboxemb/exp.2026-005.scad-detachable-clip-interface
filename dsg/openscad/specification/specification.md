@@ -98,7 +98,8 @@ size: [1200, 700]
 
 The complete symmetric section below is retained only as context for the
 reference pair. It is **not** the primary interface definition; the primary
-contract is one local mating side as drawn above.
+contract is the three-dimensional local mating patch defined by the plan and
+A-A views above.
 
 <!-- scad-render
 view: reference-pair-section
@@ -110,8 +111,11 @@ Nominal mating dimensions:
 
 | Contract item | Baseline |
 | --- | ---: |
-| fixed-side capture width | 10.0 mm |
+| fixed-side capture spacing | 10.0 mm |
 | fixed-side envelope height | 4.0 mm |
+| longitudinal patch length | 10.0 mm |
+| full-depth active length | 8.0 mm |
+| end depth blend | 1.0 mm per end |
 | receiver lower width | 8.6 mm |
 | receiver top width | 9.2 mm |
 | removable-side inner width | 10.2 mm |
@@ -178,8 +182,9 @@ format: svg
 image: 12-reference-implementation.svg
 -->
 
-The 10 mm Y length used by these coupons is a reference-implementation choice;
-it is not a required production carrier length.
+The minimal pair implements the specified 10 mm longitudinal mating patch.
+Carrier material outside that patch, mounting geometry and any larger
+production-part envelope remain reference-implementation/integration choices.
 
 Detailed implementation documents:
 
