@@ -8,7 +8,7 @@ design:
   include_externals: false
 
 build_engine:
-  engine: direct
+  engine: scons
 
 openscad:
   render_flags:
