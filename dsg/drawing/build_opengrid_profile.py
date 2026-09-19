@@ -225,18 +225,27 @@ def _normalize_openscad_svg(path: Path) -> None:
     root = tree.getroot()
 
     view_box = [float(value) for value in root.attrib["viewBox"].split()]
-    expected = [
-        -TILE_SIZE_MM / 2.0,
-        -TILE_SIZE_MM / 2.0,
-        TILE_SIZE_MM,
-        TILE_SIZE_MM,
-    ]
-    if len(view_box) != 4 or any(
-        not isclose(actual, wanted, abs_tol=1e-6)
-        for actual, wanted in zip(view_box, expected)
+    if len(view_box) != 4:
+        raise RuntimeError(f"invalid OpenSCAD SVG viewBox: {view_box}")
+
+    # OpenSCAD currently adds a 1 mm export-page margin around this 28x28 mm
+    # model, so the raw SVG page is -15..+15 rather than -14..+14.  The page
+    # extent is presentation metadata, not model geometry.  Require only that
+    # the exported page contains the complete source tile before replacing the
+    # page with our common drawing viewBox.
+    raw_min_x, raw_min_y, raw_width, raw_height = view_box
+    raw_max_x = raw_min_x + raw_width
+    raw_max_y = raw_min_y + raw_height
+    model_half = TILE_SIZE_MM / 2.0
+    if not (
+        raw_min_x <= -model_half
+        and raw_min_y <= -model_half
+        and raw_max_x >= model_half
+        and raw_max_y >= model_half
     ):
         raise RuntimeError(
-            f"unexpected OpenSCAD plan bounds: {view_box}; expected {expected}"
+            "OpenSCAD SVG page does not contain the expected "
+            f"{TILE_SIZE_MM:g}x{TILE_SIZE_MM:g} mm tile: {view_box}"
         )
 
     page_size_mm, page_half_mm = _page_geometry()
