@@ -219,7 +219,10 @@ selector exposes the stable Full/Lite experiment views directly:
   by the shared `lib.scad.util` `util_section_inspect()` helper, with sliders
   for the section-plane position and retained slice thickness plus
   positive/negative direction. Only the requested slab is retained: for
-  example, Z=0 with depth 0.1 mm and Positive keeps Z=0.0..0.1 mm.
+  example, Z=0 with depth 0.1 mm and Positive keeps Z=0.0..0.1 mm. The
+  Customizer block is library-managed and can be refreshed with
+  `dsg/openscad/ext/lib.scad.util/consumer/sync-section-inspection.sh
+  dsg/openscad/main.scad`.
 
 The individual build entrypoints remain authoritative for generated PNG/STL
 evidence; `main.scad` is the convenient interactive selector over the same
