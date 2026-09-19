@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
-"""Reconstruct and validate the OpenGrid Lite plan outline in model millimetres.
+"""Reconstruct OpenGrid Lite top-view edge contours in model millimetres.
 
-The Python geometry is intentionally independent from OpenSCAD output.  It
-reconstructs the plan footprint from the same source dimensions and construction
-relationships found in the pinned QuackWorks openGridTileAp1() implementation.
+The technical top view is built from the horizontal profile boundaries that
+exist in the pinned OpenGrid Lite model, not from one flattened 3D silhouette.
 
-OpenSCAD is invoked only afterwards as an independent reference/oracle.  The
-Python SVG and OpenSCAD SVG are then merged into a validation overlay.
+Python independently reconstructs each relevant XY section from the pinned
+source dimensions. OpenSCAD then cuts the actual pinned 3D model at the same
+source-derived heights. The two sets are published separately and overlaid as
+an independent geometry check.
+
+OpenSCAD output is never used as input to the Python geometry construction.
 """
 
 from __future__ import annotations
@@ -23,7 +26,9 @@ import drawsvg as draw
 
 ROOT = Path(__file__).resolve().parents[2]
 OUTPUT_ROOT = ROOT / "bld" / "drawing"
-REFERENCE_SCAD = ROOT / "dsg" / "drawing" / "opengrid_lite_plan_reference.scad"
+SLICE_REFERENCE_SCAD = (
+    ROOT / "dsg" / "drawing" / "opengrid_lite_plan_slice_reference.scad"
+)
 
 PYTHON_SVG = OUTPUT_ROOT / "00-opengrid-python.svg"
 OPENSCAD_SVG = OUTPUT_ROOT / "01-opengrid-openscad-reference.svg"
@@ -43,97 +48,145 @@ CORNER_SQUARE_THICKNESS_MM = 2.6
 INTERSECTION_DISTANCE_MM = 4.2
 TILE_INNER_SIZE_DIFFERENCE_MM = 3.0
 
-# Drawing presentation.  Model geometry above and below remains in real mm.
+# Drawing presentation. Model geometry stays in real mm.
 DRAWING_SCALE = 5.0
 PAGE_MARGIN_MM = 0.5
-MODEL_STROKE_MM = 0.12
+MODEL_STROKE_MM = 0.10
 GEOMETRY_TOLERANCE_MM = 0.001
 
 SVG_NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", SVG_NS)
 
+_SVG_LINE_POINT_RE = re.compile(
+    r"(?:M|L)\s*"
+    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*,\s*"
+    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))"
+)
+
 
 @dataclass(frozen=True)
-class PlanGeometry:
+class SectionGeometry:
+    local_z_mm: float
     outer: tuple[tuple[float, float], ...]
     inner: tuple[tuple[float, float], ...]
-    side_projection_mm: float
-    corner_offset_mm: float
-    corner_run_mm: float
+    side_inset_mm: float
+    corner_extent_mm: float
 
 
 def _run(args: list[str]) -> None:
     subprocess.run(args, cwd=ROOT, check=True)
 
 
-def _derive_plan_geometry() -> PlanGeometry:
-    """Translate the pinned 3D source construction into its Lite XY footprint."""
-
+def _inside_extrusion_mm() -> float:
     tile_inner_size_mm = TILE_SIZE_MM - TILE_INNER_SIZE_DIFFERENCE_MM
-    inside_extrusion_mm = (
+    return (
         (TILE_SIZE_MM - tile_inner_size_mm) / 2.0
         - OUTSIDE_EXTRUSION_MM
     )
 
-    corner_chamfer_mm = (
-        TOP_CAPTURE_INITIAL_INSET_MM
-        - INSIDE_GRID_MIDDLE_CHAMFER_MM
-    )
-    calculated_corner_chamfer_mm = sqrt(
-        INTERSECTION_DISTANCE_MM**2 / 2.0
-    )
-    corner_offset_mm = (
-        calculated_corner_chamfer_mm
+
+def _corner_offset_mm() -> float:
+    return (
+        sqrt(INTERSECTION_DISTANCE_MM**2 / 2.0)
         + CORNER_SQUARE_THICKNESS_MM
     )
 
-    # openGridLite() keeps the upper 4.0 mm of the 6.8 mm full tile.
-    lite_source_z_min_mm = TILE_THICKNESS_MM - LITE_TILE_THICKNESS_MM
-    lite_source_z_max_mm = TILE_THICKNESS_MM
 
-    # The straight source profile reaches this maximum inward width from
-    # z=5.4..6.4 mm.  That interval lies inside the retained Lite range
-    # z=2.8..6.8 mm, so it defines the XY projection footprint.
-    side_projection_mm = OUTSIDE_EXTRUSION_MM + inside_extrusion_mm
-    straight_max_z_min_mm = (
-        TILE_THICKNESS_MM
-        - TOP_CAPTURE_INITIAL_INSET_MM
-        + INSIDE_GRID_MIDDLE_CHAMFER_MM
+def _lite_breakpoints_mm() -> tuple[float, ...]:
+    """Return source-derived Lite-local horizontal edge planes.
+
+    The retained Lite body is the upper 4 mm of the 6.8 mm source tile.
+
+    Full-source Z edges relevant to Lite:
+      4.4 = 6.8 - 2.4
+      5.4 = 4.4 + 1.0
+      6.4 = 6.8 - 0.4
+      6.8 = top
+
+    Subtracting the retained-source start Z=2.8 gives Lite-local:
+      1.6, 2.6, 3.6, 4.0 mm.
+
+    The bottom Z=0.0 and Z=1.6 sections have identical plan geometry, so only
+    the latter is emitted as a unique contour.
+    """
+
+    lite_source_start_mm = TILE_THICKNESS_MM - LITE_TILE_THICKNESS_MM
+    lower_band_top_mm = (
+        TILE_THICKNESS_MM - TOP_CAPTURE_INITIAL_INSET_MM
+        - lite_source_start_mm
     )
-    straight_max_z_max_mm = (
-        TILE_THICKNESS_MM
-        - INSIDE_GRID_TOP_CHAMFER_MM
+    ramp_top_mm = lower_band_top_mm + INSIDE_GRID_MIDDLE_CHAMFER_MM
+    capture_top_mm = (
+        TILE_THICKNESS_MM - INSIDE_GRID_TOP_CHAMFER_MM
+        - lite_source_start_mm
     )
-    if not (
-        straight_max_z_min_mm <= lite_source_z_max_mm
-        and straight_max_z_max_mm >= lite_source_z_min_mm
-    ):
-        raise RuntimeError("Lite slice does not retain the maximum straight profile")
+    top_mm = LITE_TILE_THICKNESS_MM
 
-    # The separate source corner profile reaches cornerOffset from
-    # z=cornerChamfer..Tile_Thickness-cornerChamfer.  The retained Lite range
-    # overlaps this interval too, so the full corner offset participates in the
-    # XY plan projection.
-    corner_max_z_min_mm = corner_chamfer_mm
-    corner_max_z_max_mm = TILE_THICKNESS_MM - corner_chamfer_mm
-    if not (
-        corner_max_z_min_mm <= lite_source_z_max_mm
-        and corner_max_z_max_mm >= lite_source_z_min_mm
-    ):
-        raise RuntimeError("Lite slice does not retain the maximum corner profile")
+    values = (
+        lower_band_top_mm,
+        ramp_top_mm,
+        capture_top_mm,
+        top_mm,
+    )
+    expected = (1.6, 2.6, 3.6, 4.0)
+    for value, check in zip(values, expected):
+        assert isclose(value, check, abs_tol=1e-9)
+    return values
 
-    # openGridTileAp1() creates the corner as a 45-degree rotated rectangular
-    # extrusion.  Clipped by the 28x28 tile square, its plan footprint is a
-    # right triangle whose X+Y reach from each outer corner is:
-    corner_diagonal_reach_mm = corner_offset_mm * sqrt(2.0)
 
-    # The straight 1.5 mm side strip overlaps that triangle.  The remaining
-    # diagonal therefore meets each straight inner edge this far from the
-    # corresponding square corner.
-    corner_run_mm = corner_diagonal_reach_mm - side_projection_mm
+def _side_inset_mm(local_z_mm: float) -> float:
+    """Straight-edge material depth at one Lite-local Z plane."""
+
+    inside_extrusion_mm = _inside_extrusion_mm()
+    maximum_inset_mm = OUTSIDE_EXTRUSION_MM + inside_extrusion_mm
+
+    lower_z, ramp_top_z, capture_top_z, top_z = _lite_breakpoints_mm()
+
+    if not 0.0 <= local_z_mm <= top_z:
+        raise ValueError(f"Lite-local Z outside 0..{top_z:g}: {local_z_mm}")
+
+    if local_z_mm <= lower_z:
+        return OUTSIDE_EXTRUSION_MM
+
+    if local_z_mm <= ramp_top_z:
+        fraction = (local_z_mm - lower_z) / (ramp_top_z - lower_z)
+        return OUTSIDE_EXTRUSION_MM + fraction * inside_extrusion_mm
+
+    if local_z_mm <= capture_top_z:
+        return maximum_inset_mm
+
+    # Top 0.4 mm is a 45-degree chamfer: 1.5 -> 1.1 mm.
+    return maximum_inset_mm - (local_z_mm - capture_top_z)
+
+
+def _corner_extent_mm(local_z_mm: float) -> float:
+    """Source corner-profile reach before the 45-degree XY rotation."""
+
+    _, ramp_top_z, _, top_z = _lite_breakpoints_mm()
+    if not 0.0 <= local_z_mm <= top_z:
+        raise ValueError(f"Lite-local Z outside 0..{top_z:g}: {local_z_mm}")
+
+    corner_offset_mm = _corner_offset_mm()
+
+    # The retained corner is constant through local Z=2.6, then follows the
+    # source 45-degree 1.4 mm top chamfer to Z=4.0.
+    if local_z_mm <= ramp_top_z:
+        return corner_offset_mm
+
+    return corner_offset_mm - (local_z_mm - ramp_top_z)
+
+
+def _section_geometry(local_z_mm: float) -> SectionGeometry:
+    side_inset_mm = _side_inset_mm(local_z_mm)
+    corner_extent_mm = _corner_extent_mm(local_z_mm)
 
     half_mm = TILE_SIZE_MM / 2.0
-    inner_flat_mm = half_mm - side_projection_mm
+    inner_flat_mm = half_mm - side_inset_mm
+
+    # The separate source corner is rotated 45 degrees in XY. Its reach along
+    # either tile edge is corner_extent * sqrt(2). The straight side strip
+    # overlaps side_inset of that reach.
+    corner_run_mm = corner_extent_mm * sqrt(2.0) - side_inset_mm
     inner_short_mm = half_mm - corner_run_mm
 
     outer = (
@@ -153,18 +206,12 @@ def _derive_plan_geometry() -> PlanGeometry:
         (-inner_flat_mm, -inner_short_mm),
     )
 
-    # Source-derived sanity values, not drawing coordinates.
-    assert isclose(tile_inner_size_mm, 25.0)
-    assert isclose(inside_extrusion_mm, 0.7)
-    assert isclose(side_projection_mm, 1.5)
-    assert isclose(corner_offset_mm, 5.5698484809835)
-
-    return PlanGeometry(
+    return SectionGeometry(
+        local_z_mm=local_z_mm,
         outer=outer,
         inner=inner,
-        side_projection_mm=side_projection_mm,
-        corner_offset_mm=corner_offset_mm,
-        corner_run_mm=corner_run_mm,
+        side_inset_mm=side_inset_mm,
+        corner_extent_mm=corner_extent_mm,
     )
 
 
@@ -189,11 +236,41 @@ def _closed_lines(
 
 def _page_geometry() -> tuple[float, float]:
     page_size_mm = TILE_SIZE_MM + 2.0 * PAGE_MARGIN_MM
-    page_half_mm = page_size_mm / 2.0
-    return page_size_mm, page_half_mm
+    return page_size_mm, page_size_mm / 2.0
 
 
-def _compose_python_svg(path: Path, geometry: PlanGeometry) -> None:
+def _new_svg_root() -> ET.Element:
+    page_size_mm, page_half_mm = _page_geometry()
+    root = ET.Element(
+        f"{{{SVG_NS}}}svg",
+        {
+            "width": f"{page_size_mm * DRAWING_SCALE:g}mm",
+            "height": f"{page_size_mm * DRAWING_SCALE:g}mm",
+            "viewBox": (
+                f"{-page_half_mm:g} {-page_half_mm:g} "
+                f"{page_size_mm:g} {page_size_mm:g}"
+            ),
+            "version": "1.1",
+        },
+    )
+    ET.SubElement(
+        root,
+        f"{{{SVG_NS}}}rect",
+        {
+            "x": f"{-page_half_mm:g}",
+            "y": f"{-page_half_mm:g}",
+            "width": f"{page_size_mm:g}",
+            "height": f"{page_size_mm:g}",
+            "fill": "white",
+        },
+    )
+    return root
+
+
+def _compose_python_svg(
+    path: Path,
+    sections: tuple[SectionGeometry, ...],
+) -> None:
     page_size_mm, page_half_mm = _page_geometry()
     drawing = draw.Drawing(
         page_size_mm,
@@ -213,60 +290,17 @@ def _compose_python_svg(path: Path, geometry: PlanGeometry) -> None:
             fill="white",
         )
     )
-    drawing.append(_closed_lines(geometry.outer))
-    drawing.append(_closed_lines(geometry.inner))
+
+    # The outside boundary is identical at every retained Z plane.
+    drawing.append(_closed_lines(sections[0].outer))
+
+    # Merge the unique inner contours. These are the top-view "inside lines"
+    # created by the horizontal edges of the 3D profile.
+    for section in sections:
+        drawing.append(_closed_lines(section.inner))
 
     path.parent.mkdir(parents=True, exist_ok=True)
     drawing.save_svg(str(path))
-
-
-def _normalize_openscad_svg(path: Path) -> None:
-    """Keep OpenSCAD geometry unchanged; normalize only page and line styling."""
-
-    tree = ET.parse(path)
-    root = tree.getroot()
-
-    view_box = [float(value) for value in root.attrib["viewBox"].split()]
-    if len(view_box) != 4:
-        raise RuntimeError(f"invalid OpenSCAD SVG viewBox: {view_box}")
-
-    # OpenSCAD currently adds a 1 mm export-page margin around this 28x28 mm
-    # model, so the raw SVG page is -15..+15 rather than -14..+14.  The page
-    # extent is presentation metadata, not model geometry.  Require only that
-    # the exported page contains the complete source tile before replacing the
-    # page with our common drawing viewBox.
-    raw_min_x, raw_min_y, raw_width, raw_height = view_box
-    raw_max_x = raw_min_x + raw_width
-    raw_max_y = raw_min_y + raw_height
-    model_half = TILE_SIZE_MM / 2.0
-    if not (
-        raw_min_x <= -model_half
-        and raw_min_y <= -model_half
-        and raw_max_x >= model_half
-        and raw_max_y >= model_half
-    ):
-        raise RuntimeError(
-            "OpenSCAD SVG page does not contain the expected "
-            f"{TILE_SIZE_MM:g}x{TILE_SIZE_MM:g} mm tile: {view_box}"
-        )
-
-    page_size_mm, page_half_mm = _page_geometry()
-    root.set(
-        "viewBox",
-        f"{-page_half_mm:g} {-page_half_mm:g} "
-        f"{page_size_mm:g} {page_size_mm:g}",
-    )
-    root.set("width", f"{page_size_mm * DRAWING_SCALE:g}mm")
-    root.set("height", f"{page_size_mm * DRAWING_SCALE:g}mm")
-
-    for element in root.iter():
-        if element.tag == f"{{{SVG_NS}}}path":
-            element.set("fill", "none")
-            element.set("stroke", "black")
-            element.set("stroke-width", f"{MODEL_STROKE_MM:g}")
-            element.set("stroke-linejoin", "miter")
-
-    tree.write(path, encoding="utf-8", xml_declaration=True)
 
 
 def _geometry_paths(path: Path) -> list[str]:
@@ -279,12 +313,6 @@ def _geometry_paths(path: Path) -> list[str]:
     if not values:
         raise RuntimeError(f"no SVG geometry paths found in {path}")
     return values
-
-_SVG_LINE_POINT_RE = re.compile(
-    r"(?:M|L)\s*"
-    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))\s*,\s*"
-    r"([+-]?(?:\d+(?:\.\d*)?|\.\d+))"
-)
 
 
 def _svg_line_vertices(path: Path) -> list[tuple[float, float]]:
@@ -318,72 +346,112 @@ def _point_distance_mm(
     return sqrt(dx * dx + dy * dy)
 
 
-def _validate_reference_geometry(
-    geometry: PlanGeometry,
-    openscad_svg: Path,
+def _maximum_vertex_delta_mm(
+    expected: list[tuple[float, float]] | tuple[tuple[float, float], ...],
+    reference: list[tuple[float, float]] | tuple[tuple[float, float], ...],
 ) -> float:
-    """Numerically compare the independent linear polygon constructions."""
+    expected_unique = _unique_vertices(expected)
+    reference_unique = _unique_vertices(reference)
 
-    expected = _unique_vertices([*geometry.outer, *geometry.inner])
-    reference = _unique_vertices(_svg_line_vertices(openscad_svg))
-
-    if len(reference) != len(expected):
+    if len(reference_unique) != len(expected_unique):
         raise RuntimeError(
-            "OpenSCAD/Python plan vertex-count mismatch: "
-            f"python={len(expected)}, openscad={len(reference)}"
+            "OpenSCAD/Python section vertex-count mismatch: "
+            f"python={len(expected_unique)}, openscad={len(reference_unique)}"
         )
 
     forward = max(
-        min(_point_distance_mm(point, candidate) for candidate in reference)
-        for point in expected
+        min(_point_distance_mm(point, candidate) for candidate in reference_unique)
+        for point in expected_unique
     )
     reverse = max(
-        min(_point_distance_mm(point, candidate) for candidate in expected)
-        for point in reference
+        min(_point_distance_mm(point, candidate) for candidate in expected_unique)
+        for point in reference_unique
     )
-    maximum_delta_mm = max(forward, reverse)
+    return max(forward, reverse)
 
-    if maximum_delta_mm > GEOMETRY_TOLERANCE_MM:
-        raise RuntimeError(
-            "OpenSCAD/Python plan geometry mismatch: "
-            f"max vertex delta {maximum_delta_mm:.9f} mm exceeds "
-            f"{GEOMETRY_TOLERANCE_MM:.9f} mm"
+
+def _build_openscad_sections(
+    sections: tuple[SectionGeometry, ...],
+) -> tuple[list[tuple[float, list[str]]], float]:
+    """Cut the actual 3D receiver and return paths for each source-derived Z."""
+
+    rendered: list[tuple[float, list[str]]] = []
+    maximum_delta_mm = 0.0
+
+    for section in sections:
+        temp_svg = (
+            OUTPUT_ROOT
+            / f"_tmp-opengrid-section-{section.local_z_mm:.1f}.svg"
+        )
+        _run(
+            [
+                "openscad",
+                "-D",
+                f"slice_z_mm={section.local_z_mm}",
+                "-o",
+                str(temp_svg),
+                str(SLICE_REFERENCE_SCAD),
+            ]
         )
 
-    return maximum_delta_mm
+        try:
+            paths = _geometry_paths(temp_svg)
+            reference_vertices = _svg_line_vertices(temp_svg)
+            expected_vertices = [*section.outer, *section.inner]
+            delta_mm = _maximum_vertex_delta_mm(
+                expected_vertices,
+                reference_vertices,
+            )
+        finally:
+            temp_svg.unlink(missing_ok=True)
+
+        if delta_mm > GEOMETRY_TOLERANCE_MM:
+            raise RuntimeError(
+                f"section Z={section.local_z_mm:.3f} mm mismatch: "
+                f"{delta_mm:.9f} mm exceeds "
+                f"{GEOMETRY_TOLERANCE_MM:.9f} mm"
+            )
+
+        maximum_delta_mm = max(maximum_delta_mm, delta_mm)
+        rendered.append((section.local_z_mm, paths))
+
+    return rendered, maximum_delta_mm
+
+
+def _compose_openscad_svg(
+    path: Path,
+    rendered: list[tuple[float, list[str]]],
+) -> None:
+    root = _new_svg_root()
+
+    for local_z_mm, paths in rendered:
+        group = ET.SubElement(
+            root,
+            f"{{{SVG_NS}}}g",
+            {
+                "id": f"section-z-{local_z_mm:.1f}",
+                "fill": "none",
+                "stroke": "black",
+                "stroke-width": f"{MODEL_STROKE_MM:g}",
+                "stroke-linejoin": "miter",
+            },
+        )
+        for path_data in paths:
+            ET.SubElement(
+                group,
+                f"{{{SVG_NS}}}path",
+                {"d": path_data},
+            )
+
+    ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
 
 
 def _compose_overlay(
     path: Path,
-    python_svg: Path,
-    openscad_svg: Path,
+    sections: tuple[SectionGeometry, ...],
+    rendered: list[tuple[float, list[str]]],
 ) -> None:
-    """Merge the independently generated SVG geometry into one comparison."""
-
-    page_size_mm, page_half_mm = _page_geometry()
-    root = ET.Element(
-        f"{{{SVG_NS}}}svg",
-        {
-            "width": f"{page_size_mm * DRAWING_SCALE:g}mm",
-            "height": f"{page_size_mm * DRAWING_SCALE:g}mm",
-            "viewBox": (
-                f"{-page_half_mm:g} {-page_half_mm:g} "
-                f"{page_size_mm:g} {page_size_mm:g}"
-            ),
-            "version": "1.1",
-        },
-    )
-    ET.SubElement(
-        root,
-        f"{{{SVG_NS}}}rect",
-        {
-            "x": f"{-page_half_mm:g}",
-            "y": f"{-page_half_mm:g}",
-            "width": f"{page_size_mm:g}",
-            "height": f"{page_size_mm:g}",
-            "fill": "white",
-        },
-    )
+    root = _new_svg_root()
 
     reference_group = ET.SubElement(
         root,
@@ -392,17 +460,19 @@ def _compose_overlay(
             "id": "openscad-reference",
             "fill": "none",
             "stroke": "#d62728",
-            "stroke-width": "0.10",
-            "stroke-dasharray": "0.35 0.20",
+            "stroke-width": "0.08",
+            "stroke-dasharray": "0.30 0.18",
             "stroke-linejoin": "miter",
         },
     )
-    for path_data in _geometry_paths(openscad_svg):
-        ET.SubElement(
+    for local_z_mm, paths in rendered:
+        layer = ET.SubElement(
             reference_group,
-            f"{{{SVG_NS}}}path",
-            {"d": path_data},
+            f"{{{SVG_NS}}}g",
+            {"id": f"openscad-z-{local_z_mm:.1f}"},
         )
+        for path_data in paths:
+            ET.SubElement(layer, f"{{{SVG_NS}}}path", {"d": path_data})
 
     python_group = ET.SubElement(
         root,
@@ -411,45 +481,54 @@ def _compose_overlay(
             "id": "python-geometry",
             "fill": "none",
             "stroke": "#1f77b4",
-            "stroke-width": "0.12",
+            "stroke-width": "0.11",
             "stroke-linejoin": "miter",
         },
     )
-    for path_data in _geometry_paths(python_svg):
+
+    # Same merged line set as 00-opengrid-python.svg.
+    ET.SubElement(
+        python_group,
+        f"{{{SVG_NS}}}path",
+        {"d": _path_data(sections[0].outer)},
+    )
+    for section in sections:
         ET.SubElement(
             python_group,
             f"{{{SVG_NS}}}path",
-            {"d": path_data},
+            {"d": _path_data(section.inner)},
         )
 
     ET.ElementTree(root).write(path, encoding="utf-8", xml_declaration=True)
 
 
+def _path_data(points: tuple[tuple[float, float], ...]) -> str:
+    first_x, first_y = points[0]
+    chunks = [f"M{first_x:.12g},{first_y:.12g}"]
+    for x_mm, y_mm in points[1:]:
+        chunks.append(f"L{x_mm:.12g},{y_mm:.12g}")
+    chunks.append("Z")
+    return " ".join(chunks)
+
+
 def main() -> None:
     OUTPUT_ROOT.mkdir(parents=True, exist_ok=True)
 
-    geometry = _derive_plan_geometry()
-    _compose_python_svg(PYTHON_SVG, geometry)
-
-    _run(
-        [
-            "openscad",
-            "-o",
-            str(OPENSCAD_SVG),
-            str(REFERENCE_SCAD),
-        ]
-    )
-    _normalize_openscad_svg(OPENSCAD_SVG)
-    maximum_delta_mm = _validate_reference_geometry(
-        geometry,
-        OPENSCAD_SVG,
+    sections = tuple(
+        _section_geometry(local_z_mm)
+        for local_z_mm in _lite_breakpoints_mm()
     )
 
-    _compose_overlay(
-        OVERLAY_SVG,
-        python_svg=PYTHON_SVG,
-        openscad_svg=OPENSCAD_SVG,
-    )
+    # Verify the deliberately omitted duplicate lower plane.
+    bottom = _section_geometry(0.0)
+    assert bottom.outer == sections[0].outer
+    assert bottom.inner == sections[0].inner
+
+    _compose_python_svg(PYTHON_SVG, sections)
+
+    rendered, maximum_delta_mm = _build_openscad_sections(sections)
+    _compose_openscad_svg(OPENSCAD_SVG, rendered)
+    _compose_overlay(OVERLAY_SVG, sections, rendered)
 
     _run(
         [
@@ -473,14 +552,22 @@ def main() -> None:
             raise RuntimeError(f"missing drawing output: {output}")
 
     print(
-        "OpenGrid Lite plan: "
-        f"side={geometry.side_projection_mm:.6f} mm, "
-        f"cornerOffset={geometry.corner_offset_mm:.6f} mm, "
-        f"cornerRun={geometry.corner_run_mm:.6f} mm"
+        "OpenGrid Lite top-view contour planes: "
+        + ", ".join(f"{section.local_z_mm:g} mm" for section in sections)
     )
     print(
+        "bottom contour Z=0.0 mm is geometrically identical to "
+        "Z=1.6 mm and is drawn once"
+    )
+    for section in sections:
+        print(
+            f"Z={section.local_z_mm:g} mm: "
+            f"side inset={section.side_inset_mm:.6f} mm, "
+            f"corner extent={section.corner_extent_mm:.6f} mm"
+        )
+    print(
         "geometry validation: "
-        f"max vertex delta={maximum_delta_mm:.9f} mm "
+        f"max section vertex delta={maximum_delta_mm:.9f} mm "
         f"(limit={GEOMETRY_TOLERANCE_MM:.9f} mm)"
     )
     for output in outputs:

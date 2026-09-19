@@ -70,12 +70,16 @@ bld/drawing/02-opengrid-overlay.svg
 bld/drawing/02-opengrid-overlay.png
 ```
 
-The first SVG is the independent Python reconstruction.  It keeps the model in
-real millimetres and applies drawing scale only at SVG presentation time.  The
-second SVG is generated independently by OpenSCAD from the pinned reference and
-is used only as a validation oracle.  The overlay combines both results so a
-geometric mismatch is immediately visible.  OpenSCAD output is never fed back
-into the Python geometry construction.
+The first SVG is the independent Python reconstruction. It keeps the model in
+real millimetres and merges the unique horizontal contours at the
+source-derived Lite profile edges (1.6, 2.6, 3.6 and 4.0 mm). The 0.0 and
+1.6 mm sections are identical and therefore draw the same line only once.
+
+The second SVG cuts the actual pinned OpenGrid Lite model at those same
+source-derived heights and merges the resulting OpenSCAD sections. It is used
+only as a validation oracle. The overlay combines both results so a geometric
+mismatch is immediately visible. OpenSCAD output is never fed back into the
+Python geometry construction.
 
 No A4 sheet, A-A section, B/C/D detail circles, dimensions or title block belong
 to this checkpoint.

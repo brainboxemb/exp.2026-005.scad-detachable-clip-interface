@@ -27,7 +27,7 @@ drawing:
     - dsg/drawing/build_opengrid_profile.py
   inputs:
     - dsg/drawing/build_opengrid_profile.py
-    - dsg/drawing/opengrid_lite_plan_reference.scad
+    - dsg/drawing/opengrid_lite_plan_slice_reference.scad
   outputs:
     - bld/drawing/00-opengrid-python.svg
     - bld/drawing/01-opengrid-openscad-reference.svg
