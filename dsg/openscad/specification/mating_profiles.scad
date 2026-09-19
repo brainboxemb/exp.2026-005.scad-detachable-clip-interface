@@ -24,7 +24,9 @@ module _opengrid_plan_slice_2d() {
     projection(cut = false)
         intersection() {
             opengrid_lite_receiver();
-            translate([-20, -20, 1.78])
+            // Local Lite Z=0.8 maps to centered source Z=-1.2.
+            // This lower constant-width band makes the edge/corner path clear.
+            translate([-20, -20, -1.22])
                 cube([40, 40, 0.04]);
         }
 }
@@ -40,7 +42,9 @@ module _node_plan_slice_2d() {
     projection(cut = false)
         intersection() {
             node_receiver();
-            translate([-8, -8, 3.78])
+            // The lower constant-width band exposes the full 0.7 mm radial
+            // recess and therefore makes the 1 mm longitudinal blends obvious.
+            translate([-8, -8, 0.78])
                 cube([16, 16, 0.04]);
         }
 }
@@ -86,7 +90,7 @@ module opengrid_profile_a4() {
                         _opengrid_plan_slice_2d();
 
             translate([31, 188])
-                text("PLAN - STRAIGHT EDGE AND CORNER TRANSITION", size = 4.0);
+                text("PLAN AT LOCAL Z=0.8 - EDGE AND CORNER TRANSITION", size = 4.0);
 
             td_section_mark(76, 75, 169, "A");
 
@@ -125,7 +129,7 @@ module node_profile_a4() {
                 }
 
             translate([36, 188])
-                text("PLAN - COMPLETE 10 mm LOCAL TONGUE", size = 4.0);
+                text("PLAN AT Z=0.8 - COMPLETE 10 mm LOCAL TONGUE", size = 4.0);
 
             td_section_mark(78, 77, 170, "A");
 
